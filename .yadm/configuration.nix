@@ -56,7 +56,7 @@
     # fonts
     fira-code
     # X
-    firefox hipchat okular
+    firefox hipchat okular kitty nerdfonts
   ];
 
   services.acpid.enable = true;
