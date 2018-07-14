@@ -46,17 +46,19 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     # system
-    acpi openvpn sysstat pavucontrol powertop psmisc tree
+    acpi openvpn sysstat pavucontrol powertop psmisc tree lsof pciutils usbutils
+    # nixos
+    nox
     # shell + tools
-    fish wget httpie git p7zip tmux htop gnupg silver-searcher fzf fd unzip docker_compose yadm shellcheck
+    fish wget httpie git p7zip tmux htop gnupg silver-searcher fzf fd unzip docker_compose yadm shellcheck jq
     # dev + compilers
     openjdk8 maven scala sbt coursier ammonite gnumake cmake gcc
     # editors
     vim neovim jetbrains.idea-community
     # fonts
-    fira-code
+    fira-code nerdfonts
     # X
-    firefox hipchat okular kitty nerdfonts
+    firefox hipchat okular kitty
   ];
 
   services.acpid.enable = true;
