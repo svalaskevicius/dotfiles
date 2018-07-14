@@ -48,7 +48,7 @@
     # system
     acpi openvpn sysstat pavucontrol powertop psmisc tree
     # shell + tools
-    fish wget httpie git p7zip tmux htop gnupg silver-searcher fzf fd unzip docker_compose yadm
+    fish wget httpie git p7zip tmux htop gnupg silver-searcher fzf fd unzip docker_compose yadm shellcheck
     # dev + compilers
     openjdk8 maven scala sbt coursier ammonite gnumake cmake gcc
     # editors
