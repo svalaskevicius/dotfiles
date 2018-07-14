@@ -18,5 +18,5 @@ function install() {
   fi
 }
 
-test -d /etc/nixos && install configuration.nix /etc/nixos/configuration.nix
+test -d /etc/nixos && install nixos/configuration.nix /etc/nixos/configuration.nix
 

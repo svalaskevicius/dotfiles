@@ -106,9 +106,9 @@
   services.xserver.libinput.enable = true;
 
 
-  # Enable the KDE Desktop Environment.
-  services.xserver.displayManager.lightdm.enable = true;
-  services.xserver.desktopManager.plasma5.enable = true;
+  # Enable the Desktop Environment.
+  services.xserver.displayManager.gdm.enable = true;
+  services.xserver.desktopManager.gnome3.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.sarunas = {
