@@ -1,0 +1,71 @@
+[user]
+    name = Sarunas Valaskevicius
+    email = rakatan@gmail.com
+
+[push]
+	default = current
+
+[core]
+    quotepath = false
+    excludesfile = ~/.gitignore_global
+    autocrlf = input
+	preloadindex = true
+
+[interactive]
+    singlekey = true
+
+[url "git://github.com/"]
+    insteadOf = gh:
+
+[url "git@github.com:"]
+    insteadOf = wgh:
+
+[color]
+    branch = auto
+    diff   = auto
+    status = auto
+
+[apply]
+    whitespace = nowarn
+
+[alias]
+    s  = status -s
+    st = status
+    a  = add
+    c  = commit -v
+    ci = commit
+    ca = commit -av
+    u  = reset HEAD
+
+    b  = branch
+    br = branch
+    bn = checkout -b
+    co = checkout
+
+    d  = diff
+    dc = diff --cached
+    ds = diff --stat
+    m  = merge --no-ff
+
+    l = log --oneline --graph
+    lg = log --graph --color --full-history --date=short --pretty=format:\"%Cred%h%Cblue%d %Creset %s %C(green)(%an) %Creset%ad\"
+    t = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+    lgall = log --graph --full-history --all --color --date=short --pretty=format:\"%Cred%h%Cblue%d %Creset %s %C(green)(%an) %Creset%ad\"
+
+    review = "!f() { local SHA=${1:-HEAD}; local BRANCH=${2:-master}; if test "$SHA" = "$BRANCH" ; then SHA=HEAD; fi; git difftool -y -t kdiff3 $BRANCH...$SHA; }; f"
+
+[web]
+    browser = xdg-open
+
+[difftool]
+    prompt = false
+
+[mergetool]
+    prompt = false
+
+[diff]
+	tool = vimdiff
+[merge]
+	tool = vimdiff
+[gc]
+	auto = 256

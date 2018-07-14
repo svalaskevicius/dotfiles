@@ -1,0 +1,81 @@
+#=============================================================================
+# dark_powered.toml --- dark powered configuration example for SpaceVim
+# Copyright (c) 2016-2017 Wang Shidong & Contributors
+# Author: Wang Shidong < wsdjeg at 163.com >
+# URL: https://spacevim.org
+# License: GPLv3
+#=============================================================================
+
+# All SpaceVim option below [option] section
+[options]
+    # set spacevim theme. by default colorscheme layer is not loaded,
+    # if you want to use more colorscheme, please load the colorscheme
+    # layer
+    colorscheme = "gruvbox"
+    background = "dark"
+    # Disable guicolors in basic mode, many terminal do not support 24bit
+    # true colors
+    enable_guicolors = true
+    # Disable statusline separator, if you want to use other value, please
+    # install nerd fonts
+    statusline_separator = "arrow"
+    statusline_inactive_separator = "arrow"
+    buffer_index_type = 4
+    enable_tabline_filetype_icon = true
+    enable_statusline_display_mode = false
+    bootstrap_before = "custom_init#before"
+    bootstrap_after = "custom_init#after"
+    vimcompatible = true
+    disabled_plugins = ['floobits/floobits-neovim']
+    enable_vimfiler_welcome = false
+    enable_ale = true
+    enable_ycm = false
+    expand_tab = true
+    default_indent = 2
+    plugin_manager_max_processes = 5
+    # do not resize fonts weirdly in konsole
+    terminal_cursor_shape = 0
+
+# Enable autocomplete layer
+[[layers]]
+name = 'autocomplete'
+auto-completion-return-key-behavior = "complete"
+auto-completion-tab-key-behavior = "smart"
+
+[[layers]]
+name = 'shell'
+default_position = 'top'
+default_height = 30
+
+[[layers]]
+name = 'fzf'
+
+# [[custom_plugins]]
+# name = 'svalaskevicius/ensime-vim'
+# rev  = 'integrated'
+# merged = 0
+
+# [[custom_plugins]]
+# name = 'ctrlpvim/ctrlp.vim'
+
+[[custom_plugins]]
+name = 'kien/rainbow_parentheses.vim'
+
+[[custom_plugins]]
+name = 'wikitopian/hardmode'
+
+[[custom_plugins]]
+name = 'luochen1990/rainbow'
+
+[[custom_plugins]]
+name = 'autozimu/LanguageClient-neovim'
+rev = 'next'
+build = 'bash install.sh'
+
+[[custom_plugins]]
+name = 'jamessan/vim-gnupg'
+
+[[custom_plugins]]
+name = 'jceb/vim-orgmode'
+
+

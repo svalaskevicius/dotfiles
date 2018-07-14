@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+DOTDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+LN="ln --backup=numbered -nvTfs"
+
+function install() {
+  from="$DOTDIR/$1"
+  to="$2"
+
+  test -e "$from" || { echo "Could not find source files to install from $from" 1>&2 ; return 1; }
+
+  CMD="$LN '$from' '$to'"
+  if test \( -w "$to" -o ! -e "$to" \) -a -w "$(dirname "$to")" ; then
+    sh -c "$CMD"
+  else
+    echo "Installing $from to $to needs root permissions, will use sudo now."
+    sudo sh -c "$CMD"
+  fi
+}
+
+test -d /etc/nixos && install configuration.nix /etc/nixos/configuration.nix
+
