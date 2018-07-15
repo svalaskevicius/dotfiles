@@ -89,9 +89,8 @@
   # services.printing.enable = true;
 
   fonts.fontconfig.enable = true;
-  fonts.fontconfig.dpi = 282;
+  fonts.fontconfig.dpi = 192;
   fonts.fontconfig.antialias = true;
-  services.xserver.dpi = 282;
 
   # Enable sound.
   sound.enable = true;
