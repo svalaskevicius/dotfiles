@@ -46,7 +46,7 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     # system
-    acpi openvpn sysstat pavucontrol powertop psmisc tree lsof pciutils usbutils lm_sensors
+    acpi openvpn sysstat pavucontrol powertop psmisc tree lsof pciutils usbutils lm_sensors lshw
     # nixos
     nox
     # shell + tools
@@ -59,7 +59,7 @@
     # fonts
     fira-code nerdfonts
     # X
-    firefox hipchat okular kitty
+    firefox hipchat okular kitty xorg.xdpyinfo
   ];
 
   services.acpid.enable = true;
