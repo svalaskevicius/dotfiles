@@ -54,7 +54,8 @@
     # dev + compilers
     openjdk8 maven scala sbt coursier ammonite gnumake cmake gcc
     # editors
-    vim neovim jetbrains.idea-community
+    vim neovim
+    (jetbrains.idea-community.override { jdk = pkgs.jetbrains.jdk; })
     # fonts
     fira-code nerdfonts
     # X
