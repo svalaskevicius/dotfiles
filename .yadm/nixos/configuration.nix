@@ -59,7 +59,7 @@
     # fonts
     fira-code nerdfonts
     # X
-    firefox hipchat okular kitty xorg.xdpyinfo
+    firefox hipchat okular kitty xorg.xdpyinfo skypeforlinux
   ];
 
   virtualisation.docker.enable = true;
@@ -112,8 +112,8 @@
 
       desktopManager.xterm.enable = false;
       desktopManager.gnome3.enable = true;
-      windowManager.xmonad.enable = true;
-      windowManager.xmonad.enableContribAndExtras = true;
+      windowManager.xmonad.enable = false;
+      windowManager.xmonad.enableContribAndExtras = false;
 # desktopManager.default = "none";
 #    windowManager.default = "xmonad";
     };
