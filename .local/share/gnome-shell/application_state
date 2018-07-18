@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<application-state>
+  <context id="">
+    <application id="gnome-control-center.desktop" open-window-count="0" score="154" last-seen="1531748416"/>
+    <application id="org.gnome.Epiphany.desktop" open-window-count="0" score="0" last-seen="1531662879"/>
+    <application id="kitty.desktop" open-window-count="2" score="8151" last-seen="1531946025"/>
+    <application id="evolution.desktop" open-window-count="0" score="73" last-seen="1531621831"/>
+    <application id="firefox.desktop" open-window-count="1" score="16494" last-seen="1531945884"/>
+    <application id="org.gnome.Nautilus.desktop" open-window-count="0" score="0" last-seen="1531612833"/>
+    <application id="pavucontrol.desktop" open-window-count="0" score="43" last-seen="1531929827"/>
+    <application id="gnome-tweak-tool.desktop" open-window-count="0" score="46" last-seen="1531740644"/>
+    <application id="xterm.desktop" open-window-count="0" score="13" last-seen="1531688986"/>
+    <application id="gnome-keyboard-panel.desktop" open-window-count="0" score="0" last-seen="0"/>
+    <application id="org.gnome.gedit.desktop" open-window-count="0" score="5" last-seen="1531929832"/>
+    <application id="gnome-network-panel.desktop" open-window-count="0" score="0" last-seen="0"/>
+    <application id="gnome-shell-extension-prefs.desktop" open-window-count="0" score="10" last-seen="1531694632"/>
+    <application id="gnome-default-apps-panel.desktop" open-window-count="0" score="0" last-seen="0"/>
+    <application id="evince.desktop" open-window-count="0" score="2" last-seen="1531666692"/>
+    <application id="idea-community.desktop" open-window-count="3" score="18818" last-seen="1531946180"/>
+    <application id="org.gnome.Calendar.desktop" open-window-count="0" score="5" last-seen="1531731588"/>
+    <application id="org.gnome.Terminal.desktop" open-window-count="0" score="1" last-seen="1531827216"/>
+  </context>
+</application-state>
