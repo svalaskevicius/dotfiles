@@ -50,7 +50,7 @@
     # nixos
     nox
     # shell + tools
-    fish wget httpie git p7zip tmux htop gnupg silver-searcher fzf fd unzip docker_compose yadm shellcheck jq
+    fish wget httpie git p7zip tmux htop gnupg silver-searcher fzf fd unzip docker_compose yadm shellcheck jq lastpass-cli
     # dev + compilers
     openjdk8 maven scala sbt coursier ammonite gnumake cmake gcc
     # editors
