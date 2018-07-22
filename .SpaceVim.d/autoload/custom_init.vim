@@ -131,4 +131,8 @@ function! custom_init#after() abort
 	call SpaceVim#layers#core#statusline#toggle_section("time")
 	let g:ctrlp_formatline_func = 's:formatline(v:val)'
 
+  " slow shift finger
+  cnoreabbrev W w
+  cnoreabbrev Wq wq
+
 endfun
