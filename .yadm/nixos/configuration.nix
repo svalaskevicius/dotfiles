@@ -117,6 +117,12 @@
 # desktopManager.default = "none";
 #    windowManager.default = "xmonad";
     };
+
+    # Enable network printer
+    printing.enable = true;
+    avahi.enable = true;
+    avahi.nssmdns = true;
+
   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
