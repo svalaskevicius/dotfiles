@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+function set_git_email() {
+    local p="$1"
+    while test "$p" != "$HOME" -a "$p" != "/" -a "$p" != "." ; do
+        if test -e "$p/.gitemail" ; then
+            local email
+            email=$(cat "$p/.gitemail")
+            export GIT_AUTHOR_EMAIL="$email"
+            export GIT_COMMITTER_EMAIL="$email"
+            return 0
+        fi
+        p=$(dirname "$p")
+    done
+}
+
+set_git_email "$(pwd)"
+
+CURRENT="$(readlink -f "$0")"
+ORIG="$(which -a git | grep -v "$CURRENT" | head -n1)"
+if test -z "$ORIG" ; then
+  echo "No git found in the system (this is from wrapper at $CURRENT)" >&2
+  exit 1
+else
+  "$ORIG" "$@"
+  exit $?
+fi
+
