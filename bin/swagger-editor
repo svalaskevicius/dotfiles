@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+
+if test -z "$(docker ps -q -f name=swagger)" ; then
+  docker run --name swagger -d -p 8098:8080 swaggerapi/swagger-editor:latest
+fi
+xdg-open http://localhost:8098
+
+
