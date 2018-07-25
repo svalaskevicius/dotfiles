@@ -46,7 +46,7 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     # system
-    acpi openvpn sysstat pavucontrol powertop psmisc tree lsof pciutils usbutils lm_sensors lshw
+    acpi openvpn sysstat pavucontrol powertop psmisc tree lsof pciutils usbutils lm_sensors lshw bind
     # nixos
     nox
     # shell + tools
