@@ -122,6 +122,7 @@
     printing.enable = true;
     avahi.enable = true;
     avahi.nssmdns = true;
+    fstrim.enable = true;
 
   };
 
