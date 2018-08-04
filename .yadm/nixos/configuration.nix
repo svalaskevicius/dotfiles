@@ -46,11 +46,11 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     # system
-    acpi openvpn sysstat pavucontrol powertop psmisc tree lsof pciutils usbutils lm_sensors lshw bind
+    acpi openvpn sysstat pavucontrol powertop psmisc tree lsof pciutils usbutils lm_sensors lshw bind file binutils-unwrapped
     # nixos
     nox
     # shell + tools
-    fish wget httpie git p7zip tmux htop gnupg silver-searcher fzf fd unzip docker_compose yadm shellcheck jq lastpass-cli
+    fish wget httpie git p7zip tmux htop gnupg silver-searcher fzf fd unzip docker_compose yadm shellcheck jq
     # dev + compilers
     openjdk8 maven scala sbt coursier ammonite gnumake cmake gcc
     # editors
@@ -59,7 +59,7 @@
     # fonts
     fira-code nerdfonts
     # X
-    firefox hipchat okular kitty xorg.xdpyinfo skypeforlinux
+    firefox hipchat okular kitty xorg.xdpyinfo skypeforlinux keepassx2 keepass
   ];
 
   virtualisation.docker.enable = true;
