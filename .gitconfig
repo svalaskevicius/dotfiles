@@ -54,6 +54,8 @@
 
     review = "!f() { local SHA=${1:-HEAD}; local BRANCH=${2:-master}; if test "$SHA" = "$BRANCH" ; then SHA=HEAD; fi; git difftool -y -t kdiff3 $BRANCH...$SHA; }; f"
 
+    please = push --force-with-lease
+
 [web]
     browser = xdg-open
 
