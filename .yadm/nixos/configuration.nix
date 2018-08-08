@@ -62,7 +62,11 @@
     # fonts
     fira-code nerdfonts
     # X
-    firefox hipchat okular kitty xorg.xdpyinfo skypeforlinux keepassx2 keepass chromium zoom-us
+    firefox chromium
+    okular
+    kitty xorg.xdpyinfo
+    keepassx2 keepass
+    skypeforlinux hipchat zoom-us
   ];
 
   virtualisation.docker.enable = true;
