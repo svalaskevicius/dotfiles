@@ -2,7 +2,7 @@
 
 function set_git_email() {
     local p="$1"
-    while test "$p" != "$HOME" -a "$p" != "/" -a "$p" != "." ; do
+    while test "$p" != "$HOME" -a "$p" != "/" -a "$p" != "." -a "$p" != "" ; do
         if test -e "$p/.gitemail" ; then
             local email
             email=$(cat "$p/.gitemail")
@@ -20,7 +20,7 @@ if test -z "$ORIG" ; then
   echo "No git found in the system (this is from wrapper at $CURRENT)" >&2
   exit 1
 else
-  top=$("$ORIG" rev-parse --show-toplevel)
+  top=$("$ORIG" rev-parse --show-toplevel 2>/dev/null)
   set_git_email "$top"
 
   "$ORIG" "$@"
