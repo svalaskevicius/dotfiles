@@ -27,6 +27,9 @@
   fileSystems."/".options = [ "noatime" "nodiratime" "discard" ];
 
   networking.hostName = "tx-saru-nix"; # Define your hostname.
+  networking.hosts = {
+    "127.0.0.1" = [config.networking.hostName];
+  };
   networking.networkmanager.enable = true;
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
