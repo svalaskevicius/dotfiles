@@ -14,14 +14,15 @@ function set_git_email() {
     done
 }
 
-set_git_email "$(pwd)"
-
 CURRENT="$(readlink -f "$0")"
 ORIG="$(which -a git | grep -v "$CURRENT" | head -n1)"
 if test -z "$ORIG" ; then
   echo "No git found in the system (this is from wrapper at $CURRENT)" >&2
   exit 1
 else
+  top=$("$ORIG" rev-parse --show-toplevel)
+  set_git_email "$top"
+
   "$ORIG" "$@"
   exit $?
 fi
