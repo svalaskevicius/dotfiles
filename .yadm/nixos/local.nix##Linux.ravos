@@ -15,4 +15,7 @@
   ];
 
   networking.hostName = "ravos"; # Define your hostname.
+
+  services.xserver.displayManager.gdm.autoLogin.enable = true;
+  services.xserver.displayManager.gdm.autoLogin.user = "sarunas";
 }
