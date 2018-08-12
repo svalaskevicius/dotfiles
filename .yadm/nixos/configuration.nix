@@ -67,9 +67,6 @@
   # services.openssh.enable = true;
   #
 
-  programs.ssh.startAgent = true;
-  programs.ssh.agentTimeout = "8h";
-
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];

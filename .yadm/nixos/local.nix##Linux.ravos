@@ -18,4 +18,7 @@
 
   services.xserver.displayManager.gdm.autoLogin.enable = true;
   services.xserver.displayManager.gdm.autoLogin.user = "sarunas";
+
+  programs.ssh.startAgent = true;
+  programs.ssh.agentTimeout = "1h";
 }
