@@ -18,5 +18,11 @@ function install() {
   fi
 }
 
+
+set +x
+set -e
+
+yadm submodule update --init
+
 test -d /etc/nixos && install nixos/configuration.nix /etc/nixos/configuration.nix
 
