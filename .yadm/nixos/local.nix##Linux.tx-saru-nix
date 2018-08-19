@@ -1,0 +1,39 @@
+# Edit this configuration file to define what should be installed on
+# your system.  Help is available in the configuration.nix(5) man page
+# and in the NixOS manual (accessible by running ‘nixos-help’).
+
+{ config, pkgs, ... }:
+
+{
+
+  boot.initrd.luks.devices = [
+    {
+      name = "root";
+      device = "/dev/disk/by-uuid/b4da34ca-073f-4e3b-acc3-f90bf082f6af";
+      preLVM = true;
+      allowDiscards = true;
+    }
+  ];
+
+
+  networking.hostName = "tx-saru-nix"; # Define your hostname.
+
+  # Select internationalisation properties.
+  i18n = {
+    consoleFont = "latarcyrheb-sun32";
+    consoleKeyMap = "uk";
+    defaultLocale = "en_GB.UTF-8";
+  };
+
+  fonts.fontconfig.dpi = 192;
+
+  services = {
+    xserver = {
+      dpi = 192;
+    };
+  };
+
+  programs.ssh.startAgent = true;
+  programs.ssh.agentTimeout = "8h";
+
+}

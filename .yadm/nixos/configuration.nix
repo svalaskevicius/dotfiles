@@ -8,37 +8,21 @@
   imports =
     [ # Include the results of the hardware scan.
       /etc/nixos/hardware-configuration.nix
+      ./local.nix
     ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  boot.initrd.luks.devices = [
-    {
-      name = "root";
-      device = "/dev/disk/by-uuid/b4da34ca-073f-4e3b-acc3-f90bf082f6af";
-      preLVM = true;
-      allowDiscards = true;
-    }
-  ];
-
   # Supposedly better for the SSD.
   fileSystems."/".options = [ "noatime" "nodiratime" "discard" ];
 
-  networking.hostName = "tx-saru-nix"; # Define your hostname.
   networking.hosts = {
     "127.0.0.1" = [config.networking.hostName];
   };
   networking.networkmanager.enable = true;
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
-  # Select internationalisation properties.
-  i18n = {
-    consoleFont = "latarcyrheb-sun32";
-    consoleKeyMap = "uk";
-    defaultLocale = "en_GB.UTF-8";
-  };
 
   # Set your time zone.
   time.timeZone = "Europe/London";
@@ -83,9 +67,6 @@
   # services.openssh.enable = true;
   #
 
-  programs.ssh.startAgent = true;
-  programs.ssh.agentTimeout = "8h";
-
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
@@ -96,7 +77,6 @@
   # services.printing.enable = true;
 
   fonts.fontconfig.enable = true;
-  fonts.fontconfig.dpi = 192;
   fonts.fontconfig.antialias = true;
 
   # Enable sound.
@@ -107,7 +87,6 @@
     acpid.enable = true;
     xserver = {
       enable = true;
-      dpi = 192;
       layout = "gb";
       # xkbOptions = "eurosign:e";
 
