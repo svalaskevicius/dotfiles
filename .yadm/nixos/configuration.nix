@@ -4,7 +4,11 @@
 
 { config, pkgs, ... }:
 
-{
+let
+  unstable = import <nixos-unstable> {
+    config = config.nixpkgs.config;
+  };
+in {
   imports =
     [ # Include the results of the hardware scan.
       /etc/nixos/hardware-configuration.nix
@@ -50,7 +54,7 @@
     okular
     kitty xorg.xdpyinfo
     keepassx2 keepass
-    skypeforlinux hipchat zoom-us
+    hipchat zoom-us unstable.skypeforlinux
   ];
 
   virtualisation.docker.enable = true;
