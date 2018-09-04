@@ -18,3 +18,5 @@ vendor.tags
 _autoload.php
 /.projectile
 /.idea/
+/.bloop/
+/project/.bloop/
