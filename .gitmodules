@@ -4,3 +4,6 @@
 [submodule ".local/share/omf"]
 	path = .local/share/omf
 	url = https://github.com/oh-my-fish/oh-my-fish.git
+[submodule ".local/share/fonts/nerd-fonts"]
+	path = .local/share/fonts/nerd-fonts
+	url = https://github.com/ryanoasis/nerd-fonts.git
