@@ -1,5 +1,5 @@
--- Author: Vic Fryzel
--- http://github.com/vicfryzel/xmonad-config
+-- original author: Vic Fryzel http://github.com/vicfryzel/xmonad-config
+-- then others :)
 
 import System.IO
 import System.Exit
@@ -43,7 +43,8 @@ import XMonad.Util.Run (runProcessWithInput)
 -- myTerminal = "urxvt -e fish -c \"tmux -q has-session; and exec tmux attach-session -d; or exec tmux new-session -n$USER -s$USER@$HOSTNAME\""
 -- myTerminal = "/usr/bin/urxvt +ls -e fish -l"
 -- myTerminal = "/usr/bin/urxvt +ls -e fish -l"
-myTerminal = "st -e fish -l -c 'tmuxinator terminal'"
+-- myTerminal = "st -e fish -l -c 'tmuxinator terminal'"
+myTerminal = "kitty tmux"
 
 
 ------------------------------------------------------------------------
@@ -89,6 +90,7 @@ myManageHook = composeAll
     , className =? "Emacs24"                --> doShift "3:code \xf126"
     , className =? "Xchat"                  --> doShift "4:comms \xf075"
     , className =? "HipChat"                --> doShift "4:comms \xf075"
+    , className =? "zoom"                   --> doShift "4:comms \xf075"
     , className =? "Slack"                  --> doShift "4:comms \xf075"
     , className =? "Skype"                  --> doShift "4:comms \xf075"
     , className =? "TelegramDesktop"        --> doShift "4:comms \xf075"
@@ -115,19 +117,20 @@ myManageHook = composeAll
 -- which denotes layout choice.
 --
 myLayout = avoidStruts (
-    (spacing 3 $ Tall 1 (3/100) (1/2)) |||
-    (spacing 3 $ Mirror (Tall 1 (3/100) (1/2))) |||
+    (spacing 1 $ Tall 1 (3/100) (1/2)) |||
+    (spacing 1 $ Mirror (Tall 1 (3/100) (1/2))) |||
     -- tabbed shrinkText tabConfig |||
-    Full) -- |||
+    -- Full |||
     -- spiral (6/7)) |||
-    -- noBorders (fullscreenFull Full)
+    noBorders Full
+  )
 
 
 ------------------------------------------------------------------------
 -- Colors and borders
 --
-myNormalBorderColor  = "#121212"
-myFocusedBorderColor = "#E75700"
+myNormalBorderColor  = "#305080"
+myFocusedBorderColor = "#88cc85"
 
 -- Colors for text and backgrounds of each tab when in "Tabbed" layout.
 tabConfig = def {
@@ -144,7 +147,7 @@ xmobarTitleColor = "#EAAA31"
 -- Color of current workspace in xmobar.
 xmobarCurrentWorkspaceColor = "#FF6600"
 -- Width of the window border in pixels.
-myBorderWidth = 2
+myBorderWidth = 1
 
 
 ------------------------------------------------------------------------
@@ -174,25 +177,15 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   [ ((modMask .|. shiftMask, xK_Return),
      spawn $ XMonad.terminal conf)
 
-  , ((modMask .|. mod1Mask, xK_Return),
-     -- spawn "/usr/bin/urxvt +ls -depth 32 -bg rgba:0000/0000/0000/9999 -name termvim -e fish -l -c 'tmux attach'")
-     spawn "st -n termvim -e fish -l -c 'tmuxinator dev'")
-
-  , ((modMask .|. shiftMask, xK_m),
-    (externalCommandInPopUp "mpc" ["current"]))
-
-  , ((modMask .|. shiftMask, xK_s),
-    (externalCommandInPopUp "connected_screens" []))
-
   -- Lock the screen using slock.
   , ((modMask .|. controlMask, xK_l),
      spawn "slock")
 
   -- Launch dmenu via yeganesh.
-  -- Use this to launch programs without a key binding.
-  , ((modMask, xK_p), spawn "rofi -show run")
+  , ((modMask, xK_p), spawn "rofi -dpi 192 -combi-modi drun,run -show combi -modi combi")
   --, ((modMask, xK_p), spawn "exe=`~/.xmonad/bin/dmenu_path | yeganesh` && eval \"exec $exe\"")
 
+  , ((modMask .|. mod1Mask, xK_n), spawn "networkmanager_dmenu")
 
   -- Switch to single screen mode
   , ((modMask .|. mod1Mask, xK_1),
@@ -200,7 +193,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 
   -- Switch to dual screen mode
   , ((modMask .|. mod1Mask, xK_2),
-       spawn "xrandr --output DP1 --auto --above eDP1 && feh --bg-tile ~/.xmonad/wallpaper.jpg")
+       spawn "xrandr --output DP1 --auto --left-of eDP1 && feh --bg-tile ~/.xmonad/wallpaper.jpg")
 
   -- Take a screenshot in select mode.
   -- After pressing this key binding, click a window, or draw a rectangle with
@@ -214,15 +207,15 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
      spawn "~/.xmonad/bin/screenshot")
       -- Mute volume.
   , ((0, 0x1008ff12),
-     spawn "amixer -D pulse set Master 1+ toggle")
+     spawn "pamixer -t")
 
   -- Decrease volume.
   , ((0, 0x1008ff11),
-     spawn "amixer -D pulse set Master 10%-")
+     spawn "pamixer -d 5")
 
   -- Increase volume.
   , ((0, 0x1008ff13),
-     spawn "amixer -D pulse set Master unmute && amixer -D pulse set Master 10%+")
+     spawn "pamixer -u && pamixer -i 5")
 
   -- Audio previous.
   , ((0, 0x1008FF16),
@@ -428,7 +421,7 @@ myEventHook e = do
 startup :: X ()
 startup = do
   setWMName "LG3D"
-  spawn "xsetroot -solid black"
+  spawn "bash -c '. ~/.xmonad/xmonad-session-rc'"
   --addScreenCorner SCLowerRight (spawn "slock")
 
 
@@ -438,7 +431,7 @@ startup = do
 --
 main = do
   -- xmproc <- spawnPipe "i3status | /usr/bin/xmobar ~/.xmonad/xmobar.hs"
-  xmproc <- spawnPipe "/usr/bin/xmobar ~/.xmonad/xmobar.hs"
+  xmproc <- spawnPipe "/run/current-system/sw/bin/xmobar ~/.xmonad/xmobar.hs"
   xmonad $ docks defaults {
       logHook = dynamicLogWithPP $ xmobarPP {
             ppOutput = hPutStrLn xmproc

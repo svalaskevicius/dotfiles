@@ -1,8 +1,11 @@
 # xmonad config
 
-This is [Marco Lopes](https://github.com/mlopes/dotfiles/)'s xmonad and xmobar configuration.
-This configuration is rooted in the [xmonad](http://xmonad.org/) configuration used by Vic Fryzel as it was circa 2013, and was heavily customised since then. Years of customisations have left litle in common with the original configuration.
+Credit to the original authors of the config:
 
+> This is [Marco Lopes](https://github.com/mlopes/dotfiles/)'s xmonad and xmobar configuration.
+> This configuration is rooted in the [xmonad](http://xmonad.org/) configuration used by Vic Fryzel as it was circa 2013, and was heavily customised since then. Years of customisations have left litle in common with the original configuration.
+
+Time to change and adapt it again :)
 
 ## Introduction
 
@@ -20,7 +23,7 @@ this will give you a configuration that I've been using personally for
 work every day. Thought has been put into the colours, key bindings, layouts,
 and supplementary scripts to make life easier.
 
-<img src="https://github.com/mlopes/dotfiles/raw/xps/.xmonad/screenshot.png" width="500px">
+<img src="https://github.com/svalaskevicius/dotfiles/raw/xps/.xmonad/screenshot.png" width="500px">
 
 ## Dependencies
 
@@ -31,10 +34,10 @@ and supplementary scripts to make life easier.
 * [scrot](http://freecode.com/projects/scrot)
 * [slock](http://tools.suckless.org/slock/)
 * [mpd](https://www.musicpd.org/) (and mpc to control it via Keybindings)
-* [urxvt](http://software.schmorp.de/pkg/rxvt-unicode.html)
 * [fish shell](https://fishshell.com/)
+* kitty
+* pulseaudio + amixer // TODO: pamixer?
 * tmux
-* amixer
 * xrandr
 * kbdlight
 * xbacklight
@@ -62,17 +65,13 @@ Add the following to your `~/.xinitrc` file
     exec xmonad
 
 
-    If you're using the configurations from this repository, these steps have
-    already been done for you.
-
-
 ## Keyboard shortcuts
 
 The following keyboard shortcuts are set in this configuration. It uses the `Win Key` in a PC or the `Command Key` on a
 Mac.
 
-* `Win+Shift+Return`: Start an instance of the urxvt terminal running the fish shell, which will open on Workspace 1
-* `Win+Alt+Return`: Start an instance of the urxvt terminal running fish on tmux, which will open on Workspace 3
+* `Win+Shift+Return`: Start an instance of the terminal running the fish shell, which will open on Workspace 1
+* `Win+Alt+Return`: Start an instance of the terminal running fish on tmux, which will open on Workspace 3
 * `Win+Ctrl+l`: Lock screen
 * `Win+p`: Run the rofi launcher.  Once it comes up, type the name of a programme and press enter to launch it
 * `Win+Shift+p`: Take screenshot in select mode. Click or click and drag to select

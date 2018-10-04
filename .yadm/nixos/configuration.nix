@@ -18,6 +18,7 @@ in {
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.cleanTmpDir = true;
 
   # Supposedly better for the SSD.
   fileSystems."/".options = [ "noatime" "nodiratime" "discard" ];
@@ -32,36 +33,34 @@ in {
   time.timeZone = "Europe/London";
 
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.pulseaudio = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    # system
-    acpi openvpn sysstat pavucontrol powertop psmisc tree lsof pciutils usbutils lm_sensors lshw bind file binutils-unwrapped iotop
-    # nixos
-    nox
-    # shell + tools
-    fish wget httpie git p7zip tmux htop gnupg silver-searcher fzf fd unzip docker_compose yadm shellcheck jq
-    # dev + compilers
-    openjdk8 maven scala sbt coursier ammonite gnumake cmake gcc
-    # editors
-    vim neovim
-    (jetbrains.idea-community.override { jdk = pkgs.jetbrains.jdk; })
-    # fonts
-    fira-code nerdfonts
-    # X
-    firefox chromium
-    okular
-    kitty xorg.xdpyinfo
-    keepassx2 keepass
-    hipchat zoom-us unstable.skypeforlinux
-  ];
+  environment.systemPackages =
+    let sysPack = with pkgs; [ acpi openvpn sysstat pavucontrol powertop psmisc tree lsof pciutils usbutils lm_sensors lshw bind file binutils-unwrapped iotop nox ];
+        toolsPack = with pkgs; [ fish wget httpie git p7zip tmux htop gnupg silver-searcher fzf fd unzip docker_compose yadm shellcheck jq ];
+        devPack = with pkgs; [ openjdk8 maven scala sbt coursier ammonite gnumake cmake gcc ];
+        editorsPack = with pkgs; [ vim neovim (jetbrains.idea-community.override { jdk = pkgs.jetbrains.jdk; }) ];
+        xPath = with pkgs; [
+          fira-code nerdfonts
+          firefox chromium
+          okular
+          kitty xorg.xdpyinfo
+          keepassx2 keepass
+          hipchat zoom-us unstable.skypeforlinux
+          # xmonad env
+          rofi scrot slock kbdlight xorg.xbacklight xorg.xmodmap xcompmgr compton feh pamixer networkmanager_dmenu networkmanagerapplet
+        ];
+        haskellPack = with pkgs.haskellPackages; [ nvim-hs ghc happy hasktags hlint stylish-haskell xmobar ];
+    in sysPack ++ toolsPack ++ devPack ++ editorsPack ++ xPath ++ haskellPack;
 
   virtualisation.docker.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   programs.bash.enableCompletion = true;
+  programs.slock.enable = true;
   # programs.mtr.enable = true;
   # programs.gnupg.agent = { enable = true; enableSSHSupport = true; };
 
@@ -96,15 +95,16 @@ in {
 
       # Enable touchpad support.
       libinput.enable = true;
+      libinput.naturalScrolling = true;
 
       # Enable the Desktop Environment.
       displayManager.gdm.enable = true;
 
+      windowManager.xmonad.enable = true;
+      windowManager.xmonad.enableContribAndExtras = true;
       desktopManager.xterm.enable = false;
       desktopManager.gnome3.enable = true;
-      windowManager.xmonad.enable = false;
-      windowManager.xmonad.enableContribAndExtras = false;
-# desktopManager.default = "none";
+      desktopManager.default = "gnome3";
 #    windowManager.default = "xmonad";
     };
 
@@ -113,6 +113,11 @@ in {
     avahi.enable = true;
     avahi.nssmdns = true;
     fstrim.enable = true;
+
+    redshift.enable = true;
+    redshift.latitude = "51.5074";
+    redshift.longitude = "0.1278";
+
 
   };
 
