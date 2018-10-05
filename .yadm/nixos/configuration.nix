@@ -121,6 +121,14 @@ in {
 
   };
 
+  services.logind.lidSwitch = "suspend";
+  services.logind.extraConfig = ''
+    IdleAction=suspend
+    IdleActionSec=600
+    HandlePowerKey=suspend
+  '';
+
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.sarunas = {
     isNormalUser = true;
