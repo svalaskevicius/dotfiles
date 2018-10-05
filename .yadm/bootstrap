@@ -22,7 +22,7 @@ function install() {
 set +x
 set -e
 
-yadm submodule update --init
+yadm submodule update --init --recursive
 
 test -d /etc/nixos && install nixos/configuration.nix /etc/nixos/configuration.nix
 
