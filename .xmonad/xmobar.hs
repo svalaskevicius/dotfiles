@@ -59,5 +59,5 @@ Config {
     ],
     sepChar = "%",
     alignSep = "}{",
-    template = "%StdinReader% }{%locks% %default:Master% %battery% %date%"
+    template = " %StdinReader% }{%locks% %default:Master% %battery% %date% "
 }
