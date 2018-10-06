@@ -97,6 +97,7 @@ in {
       # Enable touchpad support.
       libinput.enable = true;
       libinput.naturalScrolling = true;
+      libinput.middleEmulation = false;
 
       # Enable the Desktop Environment.
       displayManager.gdm.enable = true;
