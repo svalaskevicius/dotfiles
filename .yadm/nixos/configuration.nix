@@ -51,6 +51,7 @@ in {
           hipchat zoom-us unstable.skypeforlinux
           # xmonad env
           rofi scrot slock kbdlight xorg.xmodmap xcompmgr compton feh pamixer networkmanager_dmenu networkmanagerapplet
+          xss-lock
         ];
         haskellPack = with pkgs.haskellPackages; [ nvim-hs ghc happy hasktags hlint stylish-haskell xmobar ];
     in sysPack ++ toolsPack ++ devPack ++ editorsPack ++ xPath ++ haskellPack;
