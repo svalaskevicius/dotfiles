@@ -50,7 +50,7 @@ in {
           keepassx2 keepass
           hipchat zoom-us unstable.skypeforlinux
           # xmonad env
-          rofi scrot slock kbdlight xorg.xbacklight xorg.xmodmap xcompmgr compton feh pamixer networkmanager_dmenu networkmanagerapplet
+          rofi scrot slock kbdlight xorg.xmodmap xcompmgr compton feh pamixer networkmanager_dmenu networkmanagerapplet
         ];
         haskellPack = with pkgs.haskellPackages; [ nvim-hs ghc happy hasktags hlint stylish-haskell xmobar ];
     in sysPack ++ toolsPack ++ devPack ++ editorsPack ++ xPath ++ haskellPack;
@@ -61,6 +61,7 @@ in {
   # started in user sessions.
   programs.bash.enableCompletion = true;
   programs.slock.enable = true;
+  programs.light.enable = true;
   # programs.mtr.enable = true;
   # programs.gnupg.agent = { enable = true; enableSSHSupport = true; };
 
