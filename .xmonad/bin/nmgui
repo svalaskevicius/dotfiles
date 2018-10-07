@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+
+nm-applet &
+stalonetray -i 128 -f 3 --window-type utility --skip-taskbar -d all
+killall nm-applet
