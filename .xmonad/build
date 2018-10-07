@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+cd ~/.xmonad
+
+set -e
+
+stack --stack-yaml stack.yml build --ghc-options="-threaded -dynamic"
+pkgdb="$(stack --nix --stack-yaml stack.yml path | grep 'local-pkg-db:' | awk '{print $2}')"
+stack --stack-yaml stack.yml ghc -- --make xmonad.hs -threaded -dynamic -i -ilib -package 'process-1.6.3.0' -fforce-recomp  -main-is main -v -o $1
+

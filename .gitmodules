@@ -7,3 +7,9 @@
 [submodule ".local/share/fonts/nerd-fonts"]
 	path = .local/share/fonts/nerd-fonts
 	url = https://github.com/ryanoasis/nerd-fonts.git
+[submodule ".xmonad/xmonad"]
+	path = .xmonad/xmonad
+	url = https://github.com/xmonad/xmonad.git
+[submodule ".xmonad/xmonad-contrib"]
+	path = .xmonad/xmonad-contrib
+	url = https://github.com/xmonad/xmonad-contrib.git

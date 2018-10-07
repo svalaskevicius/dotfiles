@@ -35,6 +35,12 @@ import XMonad.Layout.Spacing
 import qualified XMonad.Util.Dzen as Dzen
 
 import XMonad.Util.Run (runProcessWithInput)
+
+import System.Process (readProcess)
+import System.Posix.Env (getEnv, putEnv)
+import Control.Exception
+import Data.Foldable (traverse_)
+
 ------------------------------------------------------------------------
 -- Terminal
 -- The preferred terminal program, which is used in a binding below and by
@@ -423,7 +429,10 @@ myEventHook e = do
 startup :: X ()
 startup = do
   setWMName "LG3D"
-  spawn "bash -c '. ~/.xmonad/xmonad-session-rc'"
+  cfgDir <- getXMonadDir
+  -- TODO: check if exists
+  l <- runProcessWithInput (cfgDir ++ "/xmonad-init") [] ""
+  io $ traverse_ putEnv (lines l)
   --addScreenCorner SCLowerRight (spawn "slock")
 
 
