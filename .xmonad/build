@@ -4,7 +4,21 @@ cd ~/.xmonad
 
 set -e
 
-stack --stack-yaml stack.yml build --ghc-options="-threaded -dynamic"
-pkgdb="$(stack --nix --stack-yaml stack.yml path | grep 'local-pkg-db:' | awk '{print $2}')"
-stack --stack-yaml stack.yml ghc -- --make xmonad.hs -threaded -dynamic -i -ilib -package 'process-1.6.3.0' -fforce-recomp  -main-is main -v -o $1
+function buildProject() {
+  stack --stack-yaml stack.yml build --ghc-options="-threaded -dynamic"
+}
+
+function compileConfig() {
+  stack --stack-yaml stack.yml ghc -- --make xmonad.hs -threaded -dynamic -i -ilib -fforce-recomp  -main-is main -v -o $1
+}
+
+if test "$1" = "--rebuild" ; then
+  buildProject
+  shift
+fi
+compileConfig "$1" || (buildProject && compileConfig)
+
+
+# pkgdb="$(stack --nix --stack-yaml stack.yml path | grep 'local-pkg-db:' | awk '{print $2}')"
+# stack --stack-yaml stack.yml ghc -- --make xmonad.hs -threaded -dynamic -i -ilib -package 'process-1.6.3.0' -fforce-recomp  -main-is main -v -o $1
 

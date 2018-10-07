@@ -11,10 +11,11 @@ nix:
   - xorg.libXrender
   - xorg.libXScrnSaver
   - xorg.libXft
+  - pkgconfig
 flags:
   xmonad-contrib:
     testing: false
-    use_xft: false
+    use_xft: true
   xmonad:
     testing: false
 packages:

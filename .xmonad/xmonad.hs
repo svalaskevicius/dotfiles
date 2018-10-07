@@ -23,6 +23,7 @@ import System.Environment (getEnvironment)
 
 import XMonad.Prompt
 import XMonad.Prompt.Window
+import XMonad.Prompt.ConfirmPrompt
 
 import XMonad.Actions.GridSelect
 
@@ -344,11 +345,11 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 
   -- Quit xmonad.
   , ((modMask .|. shiftMask, xK_q),
-     io (exitWith ExitSuccess))
+     confirmPrompt promptDef "Quit XMonad?" $ io (exitWith ExitSuccess))
 
   -- Restart xmonad.
   , ((modMask, xK_q),
-     restart "xmonad" True)
+     confirmPrompt promptDef "Restart XMonad?" $ restart "xmonad" True)
   ]
 
   ++
@@ -455,6 +456,11 @@ main = do
       , handleEventHook = myEventHook
   }
 
+promptDef :: XPConfig
+promptDef = def {
+  font = "xft:Hack:pixelsize=50",
+  height = 64
+}
 
 ------------------------------------------------------------------------
 -- Combine it all together
