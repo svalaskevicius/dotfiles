@@ -124,6 +124,7 @@ in {
 
   };
 
+  services.upower.enable = true;
   services.logind.lidSwitch = "suspend";
   services.logind.extraConfig = ''
     IdleAction=suspend
@@ -136,7 +137,7 @@ in {
   users.users.sarunas = {
     isNormalUser = true;
     home = "/home/sarunas";
-    shell = pkgs.fish;
+    shell = pkgs.bash;
     description = "Sarunas Valaskevicius";
     extraGroups = ["wheel" "networkmanager" "docker"];
     uid = 1000;
