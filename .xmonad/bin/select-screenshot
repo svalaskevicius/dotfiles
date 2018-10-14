@@ -4,4 +4,5 @@
 # http://github.com/vicfryzel/xmonad-config
 
 
+mkdir -p "$HOME/.local/tmp/screenshots"
 sleep 0.2; scrot -s "$HOME/.local/tmp/screenshots/%Y-%m-%d-%H%M%S_\$wx\$h.png" -e "echo -n \$f | xsel -i -b -p && xdg-open \$f"
