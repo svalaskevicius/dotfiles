@@ -1,3 +1,22 @@
 
 export DCONF_PROFILE="$HOME/.config/dconf/profile"
 export QT_AUTO_SCREEN_SCALE_FACTOR=1
+export GDK_SCALE=2
+export GDK_DPI_SCALE=0.7
+
+xsetroot -cursor_name left_ptr
+setxkbmap gb
+# xmodmap  ~/.Xmodmap
+# xcompmgr -cfF -t-9 -l-11 -r9 -o.95 -D6 &
+xset s 300 240
+feh --bg-tile ~/.xmonad/wallpaper.jpg
+
+systemd-cat compton -b
+systemd-cat xss-lock -n ~/.xmonad/bin/dim_screen.sh -- slock &
+systemd-cat pulseaudio --start &
+systemd-cat notify-osd &
+systemd-cat ~/.xmonad/bin/battery_check &
+eval "$(systemd-cat gnome-keyring-daemon -d -r '--components=pkcs11,secrets,ssh')"
+export SSH_AUTH_SOCK
+
+
