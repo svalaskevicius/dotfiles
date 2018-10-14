@@ -41,6 +41,7 @@ import System.Process (readProcess)
 import System.Posix.Env (getEnv, putEnv)
 import Control.Exception
 import Data.Foldable (traverse_)
+import XMonad.Actions.ShowText
 
 ------------------------------------------------------------------------
 -- Terminal
@@ -198,11 +199,11 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 
   -- Switch to single screen mode
   , ((modMask .|. mod1Mask, xK_1),
-       spawn "xrandr --output DP1 --off")
+       spawn "xrandr --output HDMI1 --off")
 
   -- Switch to dual screen mode
   , ((modMask .|. mod1Mask, xK_2),
-       spawn "xrandr --output DP1 --auto --left-of eDP1 && feh --bg-tile ~/.xmonad/wallpaper.jpg")
+       spawn "xrandr --output HDMI1 --auto --left-of eDP1 && feh --bg-tile ~/.xmonad/wallpaper.jpg")
 
   -- Take a screenshot in select mode.
   -- After pressing this key binding, click a window, or draw a rectangle with
@@ -421,20 +422,18 @@ myMouseBindings (XConfig {XMonad.modMask = modMask}) = M.fromList $
 -- per-workspace layout choices.
 --
 -- By default, do nothing.
-myStartupHook = startup
+myStartupHook = do
+  setWMName "LG3D"
+  cfgDir <- getXMonadDir
+  -- TODO: check if exists
+  l <- runProcessWithInput "bash" ["-c", "source '" ++ cfgDir ++ "/xmonad-init' >/dev/null 2>&1 && env"] ""
+  io $ traverse_ putEnv (lines l)
+  -- alert "test"
+  --addScreenCorner SCLowerRight (spawn "slock")
 
 myEventHook e = do
      screenCornerEventHook e
 
-
-startup :: X ()
-startup = do
-  setWMName "LG3D"
-  cfgDir <- getXMonadDir
-  -- TODO: check if exists
-  l <- runProcessWithInput (cfgDir ++ "/xmonad-init") [] ""
-  io $ traverse_ putEnv (lines l)
-  --addScreenCorner SCLowerRight (spawn "slock")
 
 
 
@@ -452,14 +451,21 @@ main = do
           , ppVisible = xmobarColor xmobarCurrentWorkspaceColor "#221100"
           , ppSep = " |  "}
       , manageHook = manageDocks <+> myManageHook
-      , startupHook = myStartupHook
-      , handleEventHook = myEventHook
   }
 
 promptDef :: XPConfig
 promptDef = def {
   font = "xft:Hack:pixelsize=50",
   height = 64
+}
+
+alert = flashText textDef 30
+
+textDef :: ShowTextConfig
+textDef = def {
+  st_font = "xft:Hack:pixelsize=50",
+  st_bg = "#221100",
+  st_fg = "#FF2200"
 }
 
 ------------------------------------------------------------------------
@@ -490,5 +496,5 @@ defaults = def {
     startupHook        = myStartupHook,
 
     -- make fullscreen work in chromium
-    handleEventHook    = fullscreenEventHook
+    handleEventHook    = fullscreenEventHook <+> handleTimerEvent <+> myEventHook
 }
