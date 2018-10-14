@@ -42,9 +42,9 @@ in {
         toolsPack = with pkgs; [ fish wget httpie git p7zip tmux htop gnupg silver-searcher fzf fd unzip docker_compose yadm shellcheck jq ];
         devPack = with pkgs; [ openjdk8 maven scala sbt coursier ammonite gnumake cmake gcc ];
         editorsPack = with pkgs; [ vim neovim (jetbrains.idea-community.override { jdk = pkgs.jetbrains.jdk; }) ];
-        xPath = with pkgs; [
+        xPack = with pkgs; [
           fira-code nerdfonts
-          firefox chromium
+          firefox
           okular
           kitty xorg.xdpyinfo
           keepassx2 keepass
@@ -54,7 +54,7 @@ in {
           xss-lock notify-osd libnotify
         ];
         haskellPack = with pkgs.haskellPackages; [ nvim-hs ghc happy hasktags hlint stylish-haskell xmobar stack cabal-install ];
-    in sysPack ++ toolsPack ++ devPack ++ editorsPack ++ xPath ++ haskellPack;
+    in sysPack ++ toolsPack ++ devPack ++ editorsPack ++ xPack ++ haskellPack;
 
   virtualisation.docker.enable = true;
 
