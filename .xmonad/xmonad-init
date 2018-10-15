@@ -16,6 +16,6 @@ systemd-cat xss-lock -n ~/.xmonad/bin/dim_screen.sh -- slock &
 # fails: systemd-cat pulseaudio --start &
 systemd-cat notify-osd &
 systemd-cat ~/.xmonad/bin/battery_check &
-eval "$(systemd-cat gnome-keyring-daemon -d -r '--components=pkcs11,secrets,ssh')"
+eval "$(gnome-keyring-daemon -d -r '--components=pkcs11,secrets,ssh')"
 export SSH_AUTH_SOCK
 
