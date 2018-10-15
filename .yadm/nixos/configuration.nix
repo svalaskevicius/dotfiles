@@ -39,7 +39,7 @@ in {
   # $ nix search wget
   environment.systemPackages =
     let sysPack = with pkgs; [ acpi openvpn sysstat pavucontrol powertop psmisc tree lsof pciutils usbutils lm_sensors lshw bind file binutils-unwrapped iotop nox ];
-        toolsPack = with pkgs; [ fish wget httpie git p7zip tmux htop gnupg silver-searcher fzf fd unzip docker_compose yadm shellcheck jq ];
+        toolsPack = with pkgs; [ bash fish wget httpie git p7zip tmux htop gnupg silver-searcher fzf fd unzip docker_compose yadm shellcheck jq ];
         devPack = with pkgs; [ openjdk8 maven scala sbt coursier ammonite gnumake cmake gcc ];
         editorsPack = with pkgs; [ vim neovim (jetbrains.idea-community.override { jdk = pkgs.jetbrains.jdk; }) ];
         xPack = with pkgs; [
@@ -63,6 +63,7 @@ in {
   programs.bash.enableCompletion = true;
   programs.slock.enable = true;
   programs.light.enable = true;
+  programs.fish.enable = true;
   # programs.mtr.enable = true;
   # programs.gnupg.agent = { enable = true; enableSSHSupport = true; };
 
@@ -92,6 +93,7 @@ in {
     acpid.enable = true;
     xserver = {
       enable = true;
+      exportConfiguration = true;
       layout = "gb";
       # xkbOptions = "eurosign:e";
 
@@ -99,16 +101,18 @@ in {
       libinput.enable = true;
       libinput.naturalScrolling = true;
       libinput.middleEmulation = false;
+      libinput.buttonMapping = "1 0 3";
+
 
       # Enable the Desktop Environment.
-      displayManager.gdm.enable = true;
+      displayManager.lightdm.enable = true;
 
       windowManager.xmonad.enable = true;
       windowManager.xmonad.enableContribAndExtras = true;
       desktopManager.xterm.enable = false;
       desktopManager.gnome3.enable = true;
-      desktopManager.default = "gnome3";
-#    windowManager.default = "xmonad";
+      desktopManager.default = "none";
+      windowManager.default = "xmonad";
     };
 
     # Enable network printer
@@ -137,7 +141,7 @@ in {
   users.users.sarunas = {
     isNormalUser = true;
     home = "/home/sarunas";
-    shell = pkgs.bash;
+    shell = pkgs.fish;
     description = "Sarunas Valaskevicius";
     extraGroups = ["wheel" "networkmanager" "docker"];
     uid = 1000;
