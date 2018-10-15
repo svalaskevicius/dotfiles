@@ -195,7 +195,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   , ((modMask, xK_p), spawn "rofi -dpi 192 -combi-modi drun,run -show combi -modi combi")
   --, ((modMask, xK_p), spawn "exe=`~/.xmonad/bin/dmenu_path | yeganesh` && eval \"exec $exe\"")
 
-  , ((modMask .|. mod1Mask, xK_n), spawn "~/.xmonad/bin/nmgui")
+  -- , ((modMask .|. mod1Mask, xK_n), spawn "~/.xmonad/bin/nmgui")
 
   -- Switch to single screen mode
   , ((modMask .|. mod1Mask, xK_1),

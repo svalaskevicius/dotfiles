@@ -19,3 +19,5 @@ systemd-cat ~/.xmonad/bin/battery_check &
 eval "$(gnome-keyring-daemon -d -r '--components=pkcs11,secrets,ssh')"
 export SSH_AUTH_SOCK
 
+systemd-cat stalonetray -i 32 -f 3 --window-type dock --window-strut auto -bg '#403020' --skip-taskbar --geometry '7x1-700+3' -d all &
+nm-applet &
