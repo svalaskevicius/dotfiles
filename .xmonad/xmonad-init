@@ -1,27 +1,21 @@
-#!/usr/bin/env bash
 
 # xflux -l 51.5 -g -0.12 -k 4200
 # amixer cset "numid=14,iface=MIXER,name='Master Playback Volume'" on
 
 # systemd-cat ~/.xmonad/taffybar-config &
 
-if ! test "$XMONAD_INIT_DONE" = "y" ; then
-  export XMONAD_INIT_DONE="y"
+xsetroot -cursor_name left_ptr
+setxkbmap gb
+# xmodmap  ~/.Xmodmap
+# xcompmgr -cfF -t-9 -l-11 -r9 -o.95 -D6 &
+xset s 300 240
+feh --bg-tile ~/.xmonad/wallpaper.jpg
 
-  xsetroot -cursor_name left_ptr
-  setxkbmap gb
-  # xmodmap  ~/.Xmodmap
-  # xcompmgr -cfF -t-9 -l-11 -r9 -o.95 -D6 &
-  xset s 300 240
-  feh --bg-tile ~/.xmonad/wallpaper.jpg
+systemd-cat compton -b
+systemd-cat xss-lock -n ~/.xmonad/bin/dim_screen.sh -- slock &
+# fails: systemd-cat pulseaudio --start &
+systemd-cat notify-osd &
+systemd-cat ~/.xmonad/bin/battery_check &
+eval "$(systemd-cat gnome-keyring-daemon -d -r '--components=pkcs11,secrets,ssh')"
+export SSH_AUTH_SOCK
 
-  systemd-cat compton -b
-  systemd-cat xss-lock -n ~/.xmonad/bin/dim_screen.sh -- slock &
-  systemd-cat pulseaudio --start &
-  systemd-cat notify-osd &
-  systemd-cat ~/.xmonad/bin/battery_check &
-  eval "$(systemd-cat gnome-keyring-daemon -d -r '--components=pkcs11,secrets,ssh')"
-  export SSH_AUTH_SOCK
-
-  disown -a
-fi

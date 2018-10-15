@@ -425,11 +425,16 @@ myMouseBindings (XConfig {XMonad.modMask = modMask}) = M.fromList $
 myStartupHook = do
   setWMName "LG3D"
   cfgDir <- getXMonadDir
-  -- TODO: check if exists
-  l <- runProcessWithInput "bash" ["-c", "source '" ++ cfgDir ++ "/xmonad-init' >/dev/null 2>&1 && env"] ""
+  let initFile = cfgDir ++ "/xmonad-init"
+  l <- runProcessWithInput "/usr/bin/env" ["bash", "-c",
+        "if test ! \"$XMONAD_INIT_DONE\" = 'y' -a -f '" ++ initFile ++ "' ; then \
+        \  export XMONAD_INIT_DONE='y'; \
+        \  source '" ++ initFile ++ "' >/dev/null 2>&1 && env ; \
+        \ fi"] ""
   io $ traverse_ putEnv (lines l)
   -- alert "test"
   --addScreenCorner SCLowerRight (spawn "slock")
+  return ()
 
 myEventHook e = do
      screenCornerEventHook e
