@@ -31,11 +31,6 @@ mouse-sensitive=true
 [org/gnome/gedit/preferences/ui]
 show-tabs-mode='auto'
 
-[org/gnome/gedit/plugins/filebrowser]
-virtual-root='file:///home/sarunas/dev/txhadoop/workflows'
-tree-view=true
-root='file:///'
-
 [org/gnome/gedit/plugins]
 active-plugins=['filebrowser', 'spell', 'docinfo', 'modelines', 'time']
 
@@ -86,6 +81,6 @@ gtk-im-module='gtk-im-context-simple'
 show-battery-percentage=true
 
 [org/gnome/desktop/peripherals/touchpad]
-speed=0.55882352941176472
+speed=0.10294117647058831
 tap-to-click=true
 
