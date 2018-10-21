@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, pkgs_i686, ... }:
 
 {
 
@@ -16,9 +16,23 @@
 
   networking.hostName = "ravos"; # Define your hostname.
 
+  services.xserver.displayManager.gdm.enable = true;
   services.xserver.displayManager.gdm.autoLogin.enable = true;
   services.xserver.displayManager.gdm.autoLogin.user = "sarunas";
 
   programs.ssh.startAgent = true;
   programs.ssh.agentTimeout = "1h";
+
+  environment.systemPackages = with pkgs; [
+      (linuxPackages.nvidia_x11.override { libsOnly = true; kernel = null; })
+      (pkgs_i686.linuxPackages.nvidia_x11.override { libsOnly = true; kernel = null; })
+  ];
+  # disable card with bbswitch by default
+  hardware.nvidiaOptimus.disable = true;
+  # install nvidia drivers in addition to intel one
+  hardware.opengl.extraPackages = [ pkgs.linuxPackages.nvidia_x11.out ];
+  hardware.opengl.extraPackages32 = [ pkgs_i686.linuxPackages.nvidia_x11.out ];
+
+#  services.xserver.videoDrivers = [ "nvidia" ];
+#  hardware.opengl.driSupport32Bit = true;
 }

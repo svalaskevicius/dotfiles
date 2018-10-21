@@ -30,7 +30,25 @@
   services = {
     xserver = {
       dpi = 192;
+
+      # Enable the Desktop Environment.
+      displayManager.lightdm.enable = true;
+
+      windowManager.xmonad.enable = true;
+      windowManager.xmonad.enableContribAndExtras = true;
+      desktopManager.xterm.enable = false;
+      desktopManager.gnome3.enable = true;
+      desktopManager.default = "none";
+      windowManager.default = "xmonad";
     };
+    redshift.enable = true;
+    redshift.latitude = "51.5074";
+    redshift.longitude = "0.1278";
+
+    # Enable network printer
+    printing.enable = true;
+    avahi.enable = true;
+    avahi.nssmdns = true;
   };
 
   programs.ssh.startAgent = true;

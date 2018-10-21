@@ -52,6 +52,8 @@ in {
           # xmonad env
           rofi scrot slock kbdlight xorg.xmodmap xcompmgr compton feh pamixer networkmanager_dmenu networkmanagerapplet stalonetray
           xss-lock notify-osd libnotify
+          # glx
+          glxinfo
         ];
         haskellPack = with pkgs.haskellPackages; [ nvim-hs ghc happy hasktags hlint stylish-haskell xmobar stack cabal-install ];
     in sysPack ++ toolsPack ++ devPack ++ editorsPack ++ xPack ++ haskellPack;
@@ -104,27 +106,9 @@ in {
       libinput.buttonMapping = "1 0 3";
 
 
-      # Enable the Desktop Environment.
-      displayManager.lightdm.enable = true;
-
-      windowManager.xmonad.enable = true;
-      windowManager.xmonad.enableContribAndExtras = true;
-      desktopManager.xterm.enable = false;
-      desktopManager.gnome3.enable = true;
-      desktopManager.default = "none";
-      windowManager.default = "xmonad";
     };
 
-    # Enable network printer
-    printing.enable = true;
-    avahi.enable = true;
-    avahi.nssmdns = true;
     fstrim.enable = true;
-
-    redshift.enable = true;
-    redshift.latitude = "51.5074";
-    redshift.longitude = "0.1278";
-
 
   };
 
