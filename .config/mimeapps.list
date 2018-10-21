@@ -10,7 +10,9 @@ x-scheme-handler/chrome=firefox.desktop;
 x-scheme-handler/ftp=firefox.desktop;
 x-scheme-handler/http=firefox.desktop;
 x-scheme-handler/https=firefox.desktop;
-x-scheme-handler/mailto=userapp-Evolution-2MGCMZ.desktop;
+application/x-bittorrent=deluge.desktop;
+video/x-matroska=vlc.desktop;
+video/x-msvideo=vlc.desktop;
 
 [Default Applications]
 application/x-extension-htm=firefox.desktop
@@ -22,6 +24,6 @@ application/xhtml+xml=firefox.desktop
 text/html=firefox.desktop
 x-scheme-handler/chrome=firefox.desktop
 x-scheme-handler/ftp=firefox.desktop
-x-scheme-handler/mailto=userapp-Evolution-2MGCMZ.desktop
 x-scheme-handler/http=firefox.desktop
 x-scheme-handler/https=firefox.desktop;
+
