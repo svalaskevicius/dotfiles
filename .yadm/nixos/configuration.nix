@@ -41,7 +41,7 @@ in {
     let sysPack = with pkgs; [ acpi openvpn sysstat pavucontrol powertop psmisc tree lsof pciutils usbutils lm_sensors lshw bind file binutils-unwrapped iotop nox ];
         toolsPack = with pkgs; [ bash fish wget httpie git p7zip tmux htop gnupg silver-searcher fzf fd unzip docker_compose yadm shellcheck jq ];
         devPack = with pkgs; [ openjdk8 maven scala sbt coursier ammonite gnumake cmake gcc ];
-        editorsPack = with pkgs; [ vim neovim (jetbrains.idea-community.override { jdk = pkgs.jetbrains.jdk; }) ];
+        editorsPack = with pkgs; [ vim neovim (unstable.jetbrains.idea-community.override { jdk = unstable.jetbrains.jdk; }) ];
         xPack = with pkgs; [
           fira-code nerdfonts
           firefox
