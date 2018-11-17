@@ -139,9 +139,6 @@ myLayout = avoidStruts (
 ------------------------------------------------------------------------
 -- Colors and borders
 --
-myNormalBorderColor  = "#305080"
-myFocusedBorderColor = "#88cc85"
-
 -- Colors for text and backgrounds of each tab when in "Tabbed" layout.
 tabConfig = def {
     activeBorderColor = "#00FF00",
@@ -157,7 +154,10 @@ xmobarTitleColor = "#EAAA31"
 -- Color of current workspace in xmobar.
 xmobarCurrentWorkspaceColor = "#FF6600"
 -- Width of the window border in pixels.
-myBorderWidth = 1
+myBorderWidth = 3
+myNormalBorderColor  = "#303060"
+myFocusedBorderColor = "#88bb66"
+
 
 
 ------------------------------------------------------------------------
