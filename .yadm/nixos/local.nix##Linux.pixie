@@ -7,16 +7,19 @@
 {
 
   boot.initrd.luks.devices = [
-    {
-      name = "root";
-      device = "/dev/disk/by-uuid/b4da34ca-073f-4e3b-acc3-f90bf082f6af";
-      preLVM = true;
-      allowDiscards = true;
-    }
+	{
+		name = "root";
+		device = "/dev/disk/by-uuid/41c0c1f7-ac7f-4d5d-b8cd-496a7892517c";
+		preLVM = true;
+		allowDiscards = true;
+	}
   ];
 
+  boot.blacklistedKernelModules = [ "nouveau" ];
+   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  networking.hostName = "tx-saru-nix"; # Define your hostname.
+
+  networking.hostName = "pixie"; # Define your hostname.
 
   # Select internationalisation properties.
   i18n = {
@@ -54,10 +57,9 @@
   programs.ssh.startAgent = true;
   programs.ssh.agentTimeout = "8h";
 
-
   # This value determines the NixOS release with which your system is to be
   # compatible, in order to avoid breaking some software such as database
   # servers. You should change this only after NixOS release notes say you
   # should.
-  system.stateVersion = "18.03"; # Did you read the comment?
+  system.stateVersion = "18.09"; # Did you read the comment?
 }
