@@ -23,8 +23,8 @@ set +x
 set -e
 
 cd "$HOME"
-yadm submodule add --depth 1 -f https://github.com/ryanoasis/nerd-fonts.git .local/share/fonts/nerd-fonts
-yadm submodule update --init --recursive
+# yadm submodule add --depth 1 -f https://github.com/ryanoasis/nerd-fonts.git .local/share/fonts/nerd-fonts
+yadm submodule update --progress --recommend-shallow --init --recursive
 
 test -d /etc/nixos && install nixos/configuration.nix /etc/nixos/configuration.nix
 
