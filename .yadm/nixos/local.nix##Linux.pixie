@@ -15,8 +15,9 @@
 	}
   ];
 
-  boot.blacklistedKernelModules = [ "nouveau" ];
-   boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.blacklistedKernelModules = [ "nouveau" "rivafb" "nvidiafb" "rivatv" "nv" "uvcvideo" ];
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelParams = [ "acpi_osi=Linux" ];
 
 
   networking.hostName = "pixie"; # Define your hostname.
@@ -30,9 +31,24 @@
 
   fonts.fontconfig.dpi = 192;
 
+  powerManagement.powertop.enable=true;
   services = {
+    tlp.enable = true;
+
+    tlp.extraConfig = ''
+        CPU_SCALING_GOVERNOR_ON_AC=performance
+        CPU_SCALING_GOVERNOR_ON_BAT=powersave
+        ENERGY_PERF_POLICY_ON_AC=performance
+        ENERGY_PERF_POLICY_ON_BAT=powersave
+        CPU_HWP_ON_AC=balance_performance
+				CPU_HWP_ON_BAT=balance_power
+    '';
+
+
     xserver = {
       dpi = 192;
+      useGlamor = true;
+      videoDrivers = [ "modesetting" ];
 
       # Enable the Desktop Environment.
       displayManager.lightdm.enable = true;

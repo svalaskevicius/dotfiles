@@ -11,7 +11,7 @@ setxkbmap gb
 xset s 300 240
 feh --bg-tile ~/.xmonad/wallpaper.jpg
 
-systemd-cat compton -b
+systemd-cat compton -b --backend glx
 systemd-cat xss-lock -n ~/.xmonad/bin/dim_screen.sh -- slock &
 # fails: systemd-cat pulseaudio --start &
 systemd-cat notify-osd &
