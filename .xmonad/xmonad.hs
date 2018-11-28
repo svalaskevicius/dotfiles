@@ -92,6 +92,7 @@ myManageHook = composeAll
     , className =? "Firefox"                --> doShift "2:web \xf269"
     , className =? "Sublime_text"           --> doShift "3:code \xf126"
     , className =? "Gvim"                   --> doShift "3:code \xf126"
+    , className =? "Code"                   --> doShift "3:code \xf126"
     , className =? "jetbrains-pycharm"      --> doShift "3:code \xf126"
     , className =? "jetbrains-idea-ce"      --> doShift "3:code \xf126"
     , className =? "jetbrains-phpstorm"     --> doShift "3:code \xf126"
