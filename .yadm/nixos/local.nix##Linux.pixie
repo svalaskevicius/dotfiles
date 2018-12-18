@@ -87,9 +87,9 @@ in {
   programs.ssh.agentTimeout = "8h";
 
   # nvidia
-  environment.systemPackages = with unstable.pkgs; [
-      (linuxPackages.nvidia_x11.override { libsOnly = true; kernel = null; })
-      (pkgsi686Linux.linuxPackages.nvidia_x11.override { libsOnly = true; kernel = null; })
+  environment.systemPackages = [
+      (unstable.pkgs.linuxPackages.nvidia_x11.override { libsOnly = true; kernel = null; })
+      (unstable.pkgsi686Linux.linuxPackages.nvidia_x11.override { libsOnly = true; kernel = null; })
   ];
   # install nvidia drivers in addition to intel one
   hardware.opengl.extraPackages = [ unstable.pkgs.linuxPackages.nvidia_x11.out ];
