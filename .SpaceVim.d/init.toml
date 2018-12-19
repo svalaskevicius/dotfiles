@@ -35,6 +35,8 @@
     plugin_manager_max_processes = 5
     # do not resize fonts weirdly in konsole
     terminal_cursor_shape = 0
+    project_rooter_automatically = 0
+
 
 # Enable autocomplete layer
 [[layers]]
