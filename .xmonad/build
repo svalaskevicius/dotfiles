@@ -5,6 +5,8 @@ cd ~/.xmonad
 set -e
 
 function buildProject() {
+  stack --stack-yaml stack.yml clean
+  rm -f xmonad.hi xmonad.o
   stack --stack-yaml stack.yml build --ghc-options="-threaded -dynamic"
 }
 
