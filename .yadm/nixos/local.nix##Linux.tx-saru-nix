@@ -55,6 +55,7 @@ in {
         CPU_HWP_ON_AC=balance_performance
         CPU_HWP_ON_BAT=balance_power
         RUNTIME_PM_BLACKLIST="01:00.0"
+        USB_BLACKLIST="413c:2113"
     '';
 
 
