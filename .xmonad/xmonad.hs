@@ -42,6 +42,7 @@ import System.Posix.Env (getEnv, putEnv)
 import Control.Exception
 import Data.Foldable (traverse_)
 import XMonad.Actions.ShowText
+import Data.List (isInfixOf)
 
 ------------------------------------------------------------------------
 -- Terminal
@@ -343,7 +344,12 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
      sendMessage ToggleStruts)
 
   -- Show grid selector
-  , ((modMask, xK_g), goToSelected def)
+  , ((modMask, xK_g), goToSelected $ def {
+      gs_cellheight = 50,
+      gs_cellwidth = 450,
+      gs_cellpadding = 20,
+      gs_font = "xft:Hack:pixelsize=28"
+      })
 
   -- Quit xmonad.
   , ((modMask .|. shiftMask, xK_q),
@@ -357,9 +363,9 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   ++
 
   [
-    ((modMask .|. shiftMask, xK_g     ), windowPromptGoto  def
+    ((modMask .|. shiftMask, xK_g     ), windowPromptGoto  promptDef
                          { autoComplete = Just 500000 })
-  , ((modMask .|. shiftMask, xK_b     ), windowPromptBring def)
+  , ((modMask .|. shiftMask, xK_b     ), windowPromptBring promptDef)
   ]
 
   ++
@@ -461,8 +467,9 @@ main = do
 
 promptDef :: XPConfig
 promptDef = def {
-  font = "xft:Hack:pixelsize=50",
-  height = 64
+  font = "xft:Hack:pixelsize=38",
+  height = 50,
+  searchPredicate = isInfixOf -- TODO: fuzzy matching
 }
 
 alert = flashText textDef 30

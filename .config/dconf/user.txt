@@ -56,6 +56,8 @@ accuracy=9
 default-folder-viewer='icon-view'
 search-filter-time-type='last_modified'
 
+search-view='list-view'
+
 [org/gnome/file-roller/listing]
 sort-method='name'
 name-column-width=250
