@@ -1,0 +1,8 @@
+<application>
+  <component name="ScalaApplicationSettings">
+    <option name="INTRODUCE_VARIABLE_EXPLICIT_TYPE" value="false" />
+    <option name="COPY_SCALADOC" value="false" />
+    <option name="ADD_OVERRIDE_TO_IMPLEMENTED" value="false" />
+    <option name="SUGGEST_IMPLICIT_HINTS" value="false" />
+  </component>
+</application>
