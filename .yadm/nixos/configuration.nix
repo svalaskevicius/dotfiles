@@ -43,12 +43,12 @@ in {
         devPack = with pkgs; [ openjdk8 maven scala sbt coursier ammonite gnumake cmake gcc nodejs ];
         editorsPack = with pkgs; [ vscode ];
         xPack = with pkgs; [
-          fira-code nerdfonts
+          fira-code
           firefox
           okular
           unstable.kitty xorg.xdpyinfo
           keepassx2 keepass
-          hipchat zoom-us unstable.skypeforlinux
+          zoom-us unstable.skypeforlinux
           # xmonad env
           rofi scrot slock kbdlight xorg.xmodmap xcompmgr compton feh pamixer networkmanager_dmenu networkmanagerapplet stalonetray
           xss-lock notify-osd libnotify
