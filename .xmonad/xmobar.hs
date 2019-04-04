@@ -1,6 +1,6 @@
 Config {
-    font = "xft:Source Code Pro for Powerline-10,FontAwesome:size=10",
-    additionalFonts   = [ "xft:FontAwesome:pixelsize=20:antialias=true:hinting=true" ],
+    font = "xft:SauceCodePro Nerd Font:size=10:hinting=true",
+    additionalFonts   = ["xft:SauceCodePro Nerd Font:pixelsize=18:hinting=true" ],
     -- bgColor = "#000900",
     -- fgColor = "#009C00",
     bgColor = "#330022",

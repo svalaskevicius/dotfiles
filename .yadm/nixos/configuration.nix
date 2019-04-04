@@ -84,7 +84,7 @@ in {
   # services.printing.enable = true;
 
   fonts.fontconfig.enable = true;
-  fonts.fontconfig.antialias = true;
+  fonts.fontconfig.antialias = false;
 
   # Enable sound.
   sound.enable = true;

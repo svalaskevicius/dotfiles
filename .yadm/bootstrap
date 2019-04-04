@@ -28,7 +28,7 @@ yadm submodule update --progress --recommend-shallow --init --recursive -f
 
 NERD_FONTS_TARGET="$HOME/.local/share/fonts/nerd-fonts"
 
-if ! test -f "$NERD_FONTS_TARGET" ; then
+if ! test -d "$NERD_FONTS_TARGET" ; then
   rm -rf "$NERD_FONTS_TARGET".tmp
   mkdir -p "$NERD_FONTS_TARGET".tmp
   pushd "$NERD_FONTS_TARGET".tmp/..
@@ -39,6 +39,14 @@ if ! test -f "$NERD_FONTS_TARGET" ; then
   fc-cache -f
   popd
 fi
+
+pushd "$NERD_FONTS_TARGET"/..
+test -d FontAwesome || (
+  test -f font-awesome.zip || curl -L4 'https://github.com/FortAwesome/Font-Awesome/archive/5.8.1.zip' -o font-awesome.zip
+  unzip -j font-awesome.zip "Font-Awesome-5.8.1/otfs/*.otf" -d ./FontAwesome
+  fc-cache -f
+)
+popd
 
 test -d /etc/nixos && install nixos/configuration.nix /etc/nixos/configuration.nix
 
