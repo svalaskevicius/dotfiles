@@ -54,6 +54,13 @@ in {
           xss-lock notify-osd libnotify
           # glx
           glxinfo
+          # theme
+          vanilla-dmz
+          moka-icon-theme
+          iconpack-obsidian
+          numix-icon-theme
+          elementary-xfce-icon-theme
+          capitaine-cursors
         ];
         haskellPack = with pkgs.haskellPackages; [ nvim-hs ghc happy hasktags hlint stylish-haskell xmobar stack cabal-install ];
     in sysPack ++ toolsPack ++ xPack ++ haskellPack ++ devPack ++ editorsPack;
@@ -84,7 +91,7 @@ in {
   # services.printing.enable = true;
 
   fonts.fontconfig.enable = true;
-  fonts.fontconfig.antialias = false;
+  fonts.fontconfig.antialias = true;
 
   # Enable sound.
   sound.enable = true;
