@@ -75,7 +75,7 @@
     redshift.longitude = "0.1278";
 
     # Enable network printer
-    printing.enable = false;
+    printing.enable = true;
     avahi.enable = true;
     avahi.nssmdns = true;
   };
