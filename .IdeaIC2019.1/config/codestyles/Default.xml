@@ -1,0 +1,9 @@
+<code_scheme name="Default" version="173">
+  <ScalaCodeStyleSettings>
+    <option name="NOT_CONTINUATION_INDENT_FOR_PARAMS" value="true" />
+    <option name="INDENT_BRACED_FUNCTION_ARGS" value="false" />
+    <option name="MULTILINE_STRING_SUPORT" value="0" />
+    <option name="MULTI_LINE_QUOTES_ON_NEW_LINE" value="false" />
+    <option name="PROCESS_MARGIN_ON_COPY_PASTE" value="false" />
+  </ScalaCodeStyleSettings>
+</code_scheme>
