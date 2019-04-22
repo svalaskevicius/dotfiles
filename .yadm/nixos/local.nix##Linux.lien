@@ -17,10 +17,13 @@
 
   boot.blacklistedKernelModules = [ "nouveau" "rivafb" "nvidiafb" "rivatv" "nv" ];
   boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.kernelModules = [ "dell-smm-hwmon" ];
+  boot.kernelModules = []; # "dell-smm-hwmon" ];
   boot.kernelParams = [
-    "acpi_osi=Linux"
-    "acpi_rev_override=1"
+    "acpi_backlight=vendor"
+    "acpi=noirq" # fix freezes on boot, potentially introduce bugs in resuming from sleep
+    "acpi_backlight=vendor"
+#    "acpi_osi=Linux"
+#    "acpi_rev_override=1"
 #    "i915.disable_power_well=0"
 #    "i915.fastboot=1"
 #    "dell-smm-hwmon.ignore_dmi=1"
