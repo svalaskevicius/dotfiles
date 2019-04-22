@@ -27,7 +27,7 @@
 
       git
       openjdk8 maven scala sbt gnumake gcc nodejs
-      nerdfonts fira-code
+      fira-code
     ]) ++ (with pkgs.xorg;
     [ libX11
       libXcursor
