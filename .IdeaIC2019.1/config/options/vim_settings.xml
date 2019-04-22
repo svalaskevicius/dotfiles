@@ -5,83 +5,28 @@
       <mark key="N" line="83" column="8" filename="$USER_HOME$/dev/amqp-parent/amqp-controller/src/main/resources/simple-server-context.xml" protocol="file" />
     </globalmarks>
     <filemarks>
-      <file name="$USER_HOME$/dev/txodds/racing-post-banach-integration/src/main/scala/com/rptrading/integration/model/event_resolution/EventResolver.scala" timestamp="1554757854661">
-        <mark key="[" line="141" column="6" />
-        <mark key="]" line="141" column="7" />
-        <mark key="^" line="133" column="49" />
-        <mark key="." line="141" column="112" />
-      </file>
-      <file name="$USER_HOME$/dev/txodds/racing-post-banach-integration/src/test/scala/com/rptrading/integration/model/event_resolution/EventResolverSpec.scala" timestamp="1554757307220">
-        <mark key="'" line="168" column="0" />
-        <mark key="[" line="221" column="0" />
-        <mark key="]" line="221" column="0" />
-        <mark key="." line="221" column="0" />
-        <mark key="^" line="195" column="19" />
-      </file>
-      <file name="$USER_HOME$/dev/finance/server/src/main/scala/com/svalaskevicius/finance/HttpServer.scala" timestamp="1554758745126">
-        <mark key="[" line="54" column="77" />
-        <mark key="]" line="54" column="77" />
-        <mark key="." line="54" column="77" />
-      </file>
-      <file name="$USER_HOME$/dev/amqp-parent/amqp-controller/src/main/resources/simple-server-context.xml" timestamp="1554756877983" />
     </filemarks>
     <jumps>
-      <jump line="104" column="51" filename="$USER_HOME$/dev/txodds/racing-post-banach-integration/src/test/scala/com/rptrading/integration/model/event_resolution/EventResolverSpec.scala" />
-      <jump line="105" column="0" filename="$USER_HOME$/dev/txodds/racing-post-banach-integration/src/test/scala/com/rptrading/integration/model/event_resolution/EventResolverSpec.scala" />
-      <jump line="133" column="0" filename="$USER_HOME$/dev/txodds/racing-post-banach-integration/src/test/scala/com/rptrading/integration/model/event_resolution/EventResolverSpec.scala" />
-      <jump line="197" column="0" filename="$USER_HOME$/dev/txodds/racing-post-banach-integration/src/test/scala/com/rptrading/integration/model/event_resolution/EventResolverSpec.scala" />
-      <jump line="191" column="0" filename="$USER_HOME$/dev/txodds/racing-post-banach-integration/src/test/scala/com/rptrading/integration/model/event_resolution/EventResolverSpec.scala" />
-      <jump line="186" column="0" filename="$USER_HOME$/dev/txodds/racing-post-banach-integration/src/test/scala/com/rptrading/integration/model/event_resolution/EventResolverSpec.scala" />
-      <jump line="168" column="0" filename="$USER_HOME$/dev/txodds/racing-post-banach-integration/src/test/scala/com/rptrading/integration/model/event_resolution/EventResolverSpec.scala" />
     </jumps>
     <registers>
-      <register name="0" type="2">
-        <text encoding="base64">ICAgICAgICAgIC5ncm91cEJ5KG0gPT4gbS5fMS5ubykubWFwVmFsdWVzKF8ubWF4QnkoXy5fMykpLmZpbHRlcihfLl8yLl8zID49IGRpc3RhbmNlU2NvcmVUaHJlc2hvbGQpLnZhbHVlcwo=</text>
-      </register>
-      <register name="1" type="2">
-        <text encoding="base64">Cg==</text>
-      </register>
-      <register name="&quot;" type="4">
-        <text encoding="base64">IA==</text>
-      </register>
-      <register name="2" type="2">
-        <text encoding="base64">ICAgICAgICBSdW5uZXIoMjAyLCBOb25lLCAiSGFwcHkgRmFtaWxvIiwgU29tZShmYWxzZSksIE5vbmUpLAo=</text>
-      </register>
-      <register name="3" type="2">
-        <text encoding="base64">Cg==</text>
-      </register>
-      <register name="4" type="2">
-        <text encoding="base64">ICAgICAgICAgICgxMDgsIDIxMSksCiAgICAgICAgICAoMTExLCAyMDQpLAogICAgICAgICAgKDEwNSwgMjAzKSwKICAgICAgICAgICgxMDIsIDIwNiksCiAgICAgICAgICAoMTAxLCAyMTMpLAogICAgICAgICAgKDEwMywgMjA4KSwKICAgICAgICAgICgxMDcsIDIwNyksCiAgICAgICAgICAoMTEwLCAyMTApLAogICAgICAgICAgKDExMiwgMjA1KSwKICAgICAgICAgICgxMDYsIDIxMiksCiAgICAgICAgICAoMTA0LCAyMDEpLAogICAgICAgICAgKDEwOSwgMjA5KQo=</text>
-      </register>
-      <register name="5" type="2">
-        <text encoding="base64">ICAgICAgICBSdW5uZXIoMjAxLCBOb25lLCAiSnVtYm8gTHVjayIsIFNvbWUoZmFsc2UpLCBOb25lKSwKICAgICAgICBSdW5uZXIoMjAyLCBOb25lLCAiQ2FsaWZvcm5pYSBXIiwgU29tZShmYWxzZSksIE5vbmUpLAogICAgICAgIFJ1bm5lcigyMDMsIE5vbmUsICJTdHlsaW5nIENpdHkiLCBTb21lKGZhbHNlKSwgTm9uZSksCiAgICAgICAgUnVubmVyKDIwNCwgTm9uZSwgIkNhbGlmb3JuaWEgRiIsIFNvbWUoZmFsc2UpLCBOb25lKSwKICAgICAgICBSdW5uZXIoMjA1LCBOb25lLCAiRnVsbCBPZiBCZWF1dHkiLCBTb21lKGZhbHNlKSwgTm9uZSksCiAgICAgICAgUnVubmVyKDIwNiwgTm9uZSwgIkRyYWdvbiBHZW5lcmFsIiwgU29tZShmYWxzZSksIE5vbmUpLAogICAgICAgIFJ1bm5lcigyMDcsIE5vbmUsICJSZWZpbmVkIFRyZWFzdXJlIiwgU29tZShmYWxzZSksIE5vbmUpLAogICAgICAgIFJ1bm5lcigyMDgsIE5vbmUsICJTdXBlciBIb3BweSIsIFNvbWUoZmFsc2UpLCBOb25lKSwKICAgICAgICBSdW5uZXIoMjA5LCBOb25lLCAiRm9ydHVuZSBCb290aCIsIFNvbWUoZmFsc2UpLCBOb25lKSwKICAgICAgICBSdW5uZXIoMjEwLCBOb25lLCAiV2F0ZXIgRGl2aW5lciIsIFNvbWUoZmFsc2UpLCBOb25lKSwKICAgICAgICBSdW5uZXIoMjExLCBOb25lLCAiU3Rvcm0gU2lnbmFsIiwgU29tZShmYWxzZSksIE5vbmUpLAogICAgICAgIFJ1bm5lcigyMTIsIE5vbmUsICJCcmVlZGVycycgU3RhciIsIFNvbWUoZmFsc2UpLCBOb25lKSwK</text>
-      </register>
-      <register name="6" type="2">
-        <text encoding="base64">ICAgICAgICAgIENvbXBldGl0b3IoMTAyLCAiRFJBR09OIEdFTkVSQUwiLCBjYXJkTnVtYmVyID0gTm9uZSksCiAgICAgICAgICBDb21wZXRpdG9yKDEwMywgIlN1cGVyIEhvcHB5IiwgY2FyZE51bWJlciA9IE5vbmUpLAogICAgICAgICAgQ29tcGV0aXRvcigxMDQsICJKdW1ibyBMdWNrIiwgY2FyZE51bWJlciA9IE5vbmUpLAogICAgICAgICAgQ29tcGV0aXRvcigxMDUsICJTdHlsaW5nIENpdHkiLCBjYXJkTnVtYmVyID0gTm9uZSksCiAgICAgICAgICBDb21wZXRpdG9yKDEwNiwgIkJSRUVERVJTIFNUQVIiLCBjYXJkTnVtYmVyID0gTm9uZSksCiAgICAgICAgICBDb21wZXRpdG9yKDEwNywgIlJlZmluZWQgVHJlYXN1cmUiLCBjYXJkTnVtYmVyID0gTm9uZSksCiAgICAgICAgICBDb21wZXRpdG9yKDEwOCwgIlN0b3JtIFNpZ25hbCIsIGNhcmROdW1iZXIgPSBOb25lKSwKICAgICAgICAgIENvbXBldGl0b3IoMTA5LCAiRm9ydHVuZSBCb290aCIsIGNhcmROdW1iZXIgPSBOb25lKSwKICAgICAgICAgIENvbXBldGl0b3IoMTEwLCAiV0FURVIgRElWSU5FUiIsIGNhcmROdW1iZXIgPSBOb25lKSwKICAgICAgICAgIENvbXBldGl0b3IoMTExLCAiQ2FsaWZvcm5pYSBGIiwgY2FyZE51bWJlciA9IE5vbmUpLAogICAgICAgICAgQ29tcGV0aXRvcigxMTIsICJGdWxsIE9mIEJlYXV0eSIsIGNhcmROdW1iZXIgPSBOb25lKSwKICAgICAgICAgIENvbXBldGl0b3IoMTEzLCAiQ2FsaWZvcm5pYSBXIiwgY2FyZE51bWJlciA9IE5vbmUpLAo=</text>
-      </register>
-      <register name="7" type="2">
-        <text encoding="base64">Cg==</text>
-      </register>
-      <register name=":" type="4">
-        <text>w</text>
-      </register>
-      <register name="-" type="4">
-        <text encoding="base64">IA==</text>
-      </register>
     </registers>
     <search>
-      <last-search>cir</last-search>
+      <last-search>Pow</last-search>
       <last-offset />
-      <last-pattern>cir</last-pattern>
+      <last-pattern>Pow</last-pattern>
       <last-replace>mappings</last-replace>
       <last-substitute>entityNames</last-substitute>
       <last-dir>1</last-dir>
       <show-last>false</show-last>
     </search>
     <history>
-      <history-search />
+      <history-search>
+        <entry>Pow</entry>
+      </history-search>
       <history-cmd>
+        <entry>W</entry>
         <entry>w</entry>
+        <entry>wqa</entry>
       </history-cmd>
       <history-expr />
       <history-input />
