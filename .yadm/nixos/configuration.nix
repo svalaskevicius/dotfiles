@@ -133,7 +133,7 @@ in {
     home = "/home/sarunas";
     shell = pkgs.fish;
     description = "Sarunas Valaskevicius";
-    extraGroups = ["wheel" "networkmanager" "docker"];
+    extraGroups = ["wheel" "networkmanager" "docker" "video"];
     uid = 1000;
   };
 
