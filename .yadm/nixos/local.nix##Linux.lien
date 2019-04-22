@@ -20,8 +20,7 @@
   boot.kernelModules = []; # "dell-smm-hwmon" ];
   boot.kernelParams = [
     "acpi_backlight=vendor"
-    "acpi=noirq" # fix freezes on boot, potentially introduce bugs in resuming from sleep
-    "acpi_backlight=vendor"
+    "noapic"
 #    "acpi_osi=Linux"
 #    "acpi_rev_override=1"
 #    "i915.disable_power_well=0"
