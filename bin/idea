@@ -2,6 +2,6 @@
 
 myDir="$(dirname "$0")"
 export JAVA_HOME="$myDir/x11-fhs-env/idea-IC/jre64"
-run="$myDir"/x11-fhs-env/idea-IC/bin/idea.sh
+run="${1:-"$myDir"/x11-fhs-env/idea-IC/bin/idea.sh}"
 exec nix-shell --argstr run "$run" "$myDir"/x11-fhs-env/shell.nix
 

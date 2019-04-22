@@ -68,9 +68,9 @@
     <property name="file.colors.enable.tests" value="" />
     <property name="file.gist.reindex.count" value="1456" />
     <property name="fileTypeChangedCounter" value="49" />
-    <property name="ideavim.statistics.timestamp" value="1554756445470" />
+    <property name="ideavim.statistics.timestamp" value="1555944603681" />
     <property name="ignoreUltimateEdition" value="true" />
-    <property name="installed.kotlin.plugin.version" value="1.3.21-release-IJ2019.1-2" />
+    <property name="installed.kotlin.plugin.version" value="1.3.21-release-IJ2019.1-3" />
     <property name="io.acari.ddlc.DDLCTheme.active.status" value="WE USING DDLC BOIS" />
     <property name="io.acari.ddlc.background" value="https://raw.githubusercontent.com/cyclic-reference/ddlc-jetbrains-theme/master/src/main/resources/themes/just_monika.png,80,SCALE,CENTER" />
     <property name="io.acari.ddlc.chibi" value="$APPLICATION_CONFIG_DIR$/club_members/just_monika.png,80,PLAIN,BOTTOM_RIGHT" />
@@ -79,7 +79,7 @@
     <property name="mt.showStatisticsAgreement" value="true" />
     <property name="project.wizard.group" value="JAVA_MODULE" />
     <property name="project.wizard.template" value="Java" />
-    <property name="rainbow.selected.color.option.name" value="Angle Brackets" />
+    <property name="rainbow.selected.color.option.name" value="Round Brackets" />
     <property name="scala.last.updated" value="1554757055949" />
     <property name="search.everywhere.max.popup.width" value="1300" />
     <property name="selected.color.option.type" value="TEXT" />

@@ -13,6 +13,19 @@
         </option>
       </plugins>
     </entry>
+    <entry key="*./\\NO_SUCH_EXT/\\">
+      <plugins>
+        <option name="myPlugins">
+          <set>
+            <plugin>
+              <option name="myPluginId" value="jetbrains.mps.core" />
+              <option name="myPluginName" />
+              <option name="myBundled" value="false" />
+            </plugin>
+          </set>
+        </option>
+      </plugins>
+    </entry>
     <entry key="*.7z">
       <plugins>
         <option name="myPlugins">
@@ -748,6 +761,19 @@
           <set>
             <plugin>
               <option name="myPluginId" value="nl.rubensten.texifyidea" />
+              <option name="myPluginName" />
+              <option name="myBundled" value="false" />
+            </plugin>
+          </set>
+        </option>
+      </plugins>
+    </entry>
+    <entry key="*.bin">
+      <plugins>
+        <option name="myPlugins">
+          <set>
+            <plugin>
+              <option name="myPluginId" value="org.exbin.deltahex.intellij" />
               <option name="myPluginName" />
               <option name="myBundled" value="false" />
             </plugin>
@@ -1879,6 +1905,19 @@
         </option>
       </plugins>
     </entry>
+    <entry key="*.devkit">
+      <plugins>
+        <option name="myPlugins">
+          <set>
+            <plugin>
+              <option name="myPluginId" value="jetbrains.mps.core" />
+              <option name="myPluginName" />
+              <option name="myBundled" value="false" />
+            </plugin>
+          </set>
+        </option>
+      </plugins>
+    </entry>
     <entry key="*.diff">
       <plugins>
         <option name="myPlugins">
@@ -2756,6 +2795,19 @@
         </option>
       </plugins>
     </entry>
+    <entry key="*.graphqlconfig">
+      <plugins>
+        <option name="myPlugins">
+          <set>
+            <plugin>
+              <option name="myPluginId" value="com.intellij.lang.jsgraphql" />
+              <option name="myPluginName" />
+              <option name="myBundled" value="false" />
+            </plugin>
+          </set>
+        </option>
+      </plugins>
+    </entry>
     <entry key="*.graphqld">
       <plugins>
         <option name="myPlugins">
@@ -3203,6 +3255,19 @@
           <set>
             <plugin>
               <option name="myPluginId" value="com.centurylink.mdw.studio" />
+              <option name="myPluginName" />
+              <option name="myBundled" value="false" />
+            </plugin>
+          </set>
+        </option>
+      </plugins>
+    </entry>
+    <entry key="*.impossibleext">
+      <plugins>
+        <option name="myPlugins">
+          <set>
+            <plugin>
+              <option name="myPluginId" value="jetbrains.mps.core" />
               <option name="myPluginName" />
               <option name="myBundled" value="false" />
             </plugin>
@@ -4097,7 +4162,38 @@
               <option name="myBundled" value="false" />
             </plugin>
             <plugin>
+              <option name="myPluginId" value="com.cybrosis.catdea" />
+              <option name="myPluginName" />
+              <option name="myBundled" value="false" />
+            </plugin>
+            <plugin>
               <option name="myPluginId" value="com.intellij.ideolog" />
+              <option name="myPluginName" />
+              <option name="myBundled" value="false" />
+            </plugin>
+          </set>
+        </option>
+      </plugins>
+    </entry>
+    <entry key="*.logcat">
+      <plugins>
+        <option name="myPlugins">
+          <set>
+            <plugin>
+              <option name="myPluginId" value="com.cybrosis.catdea" />
+              <option name="myPluginName" />
+              <option name="myBundled" value="false" />
+            </plugin>
+          </set>
+        </option>
+      </plugins>
+    </entry>
+    <entry key="*.logdump">
+      <plugins>
+        <option name="myPlugins">
+          <set>
+            <plugin>
+              <option name="myPluginId" value="com.cybrosis.catdea" />
               <option name="myPluginName" />
               <option name="myBundled" value="false" />
             </plugin>
@@ -4593,6 +4689,45 @@
         </option>
       </plugins>
     </entry>
+    <entry key="*.mpb">
+      <plugins>
+        <option name="myPlugins">
+          <set>
+            <plugin>
+              <option name="myPluginId" value="jetbrains.mps.core" />
+              <option name="myPluginName" />
+              <option name="myBundled" value="false" />
+            </plugin>
+          </set>
+        </option>
+      </plugins>
+    </entry>
+    <entry key="*.mpl">
+      <plugins>
+        <option name="myPlugins">
+          <set>
+            <plugin>
+              <option name="myPluginId" value="jetbrains.mps.core" />
+              <option name="myPluginName" />
+              <option name="myBundled" value="false" />
+            </plugin>
+          </set>
+        </option>
+      </plugins>
+    </entry>
+    <entry key="*.mpr">
+      <plugins>
+        <option name="myPlugins">
+          <set>
+            <plugin>
+              <option name="myPluginId" value="jetbrains.mps.core" />
+              <option name="myPluginName" />
+              <option name="myBundled" value="false" />
+            </plugin>
+          </set>
+        </option>
+      </plugins>
+    </entry>
     <entry key="*.mproperties">
       <plugins>
         <option name="myPlugins">
@@ -4606,12 +4741,51 @@
         </option>
       </plugins>
     </entry>
+    <entry key="*.mps">
+      <plugins>
+        <option name="myPlugins">
+          <set>
+            <plugin>
+              <option name="myPluginId" value="jetbrains.mps.core" />
+              <option name="myPluginName" />
+              <option name="myBundled" value="false" />
+            </plugin>
+          </set>
+        </option>
+      </plugins>
+    </entry>
+    <entry key="*.mpsr">
+      <plugins>
+        <option name="myPlugins">
+          <set>
+            <plugin>
+              <option name="myPluginId" value="jetbrains.mps.core" />
+              <option name="myPluginName" />
+              <option name="myBundled" value="false" />
+            </plugin>
+          </set>
+        </option>
+      </plugins>
+    </entry>
     <entry key="*.mq4">
       <plugins>
         <option name="myPlugins">
           <set>
             <plugin>
               <option name="myPluginId" value="ru.investflow.mql" />
+              <option name="myPluginName" />
+              <option name="myBundled" value="false" />
+            </plugin>
+          </set>
+        </option>
+      </plugins>
+    </entry>
+    <entry key="*.msd">
+      <plugins>
+        <option name="myPlugins">
+          <set>
+            <plugin>
+              <option name="myPluginId" value="jetbrains.mps.core" />
               <option name="myPluginName" />
               <option name="myBundled" value="false" />
             </plugin>
@@ -4638,6 +4812,19 @@
           <set>
             <plugin>
               <option name="myPluginId" value="de.halirutan.mathematica" />
+              <option name="myPluginName" />
+              <option name="myBundled" value="false" />
+            </plugin>
+          </set>
+        </option>
+      </plugins>
+    </entry>
+    <entry key="*.mtt">
+      <plugins>
+        <option name="myPlugins">
+          <set>
+            <plugin>
+              <option name="myPluginId" value="org.ice1000.tt" />
               <option name="myPluginName" />
               <option name="myBundled" value="false" />
             </plugin>
@@ -8640,6 +8827,19 @@
             </plugin>
             <plugin>
               <option name="myPluginId" value="com.intellij.apacheConfig" />
+              <option name="myPluginName" />
+              <option name="myBundled" value="false" />
+            </plugin>
+          </set>
+        </option>
+      </plugins>
+    </entry>
+    <entry key=".model">
+      <plugins>
+        <option name="myPlugins">
+          <set>
+            <plugin>
+              <option name="myPluginId" value="jetbrains.mps.core" />
               <option name="myPluginName" />
               <option name="myBundled" value="false" />
             </plugin>
