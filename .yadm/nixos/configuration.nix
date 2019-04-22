@@ -110,8 +110,8 @@ in {
       libinput.naturalScrolling = true;
       libinput.middleEmulation = false;
       libinput.buttonMapping = "1 0 3";
-
-
+      libinput.accelSpeed = "0.6";
+      libinput.disableWhileTyping = true;
     };
 
     fstrim.enable = true;
