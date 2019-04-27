@@ -7,3 +7,8 @@ sudo nix-channel --update nixos
 sudo nix-channel --update nixos-unstable
 sudo nixos-rebuild switch --upgrade
 nix-env -u
+
+pushd ~/.xmonad
+./build.sh --rebuild aaa
+popd
+
