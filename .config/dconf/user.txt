@@ -86,3 +86,16 @@ show-battery-percentage=true
 speed=0.10294117647058831
 tap-to-click=true
 
+[org/gtk/settings/file-chooser]
+date-format='regular'
+location-mode='path-bar'
+show-hidden=false
+show-size-column=true
+sidebar-width=263
+sort-column='name'
+sort-directories-first=false
+sort-order='ascending'
+window_size=(800, 500)
+window_position=(10, 10)
+window-position=(0, 0)
+window-size=(1584, 1209)
