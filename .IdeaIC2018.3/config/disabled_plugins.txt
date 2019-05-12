@@ -1,5 +1,0 @@
-com.intellij.uiDesigner
-com.oliverlockwood.plugins.jenkinsfile
-com.widerwille.afterglow
-me.xdrop.night-owl
-org.jetbrains.android
