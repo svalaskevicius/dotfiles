@@ -36,14 +36,14 @@
     <location key="chooseDestDirectoryDialog.0.0.3840.2160@192dpi" x="1849" y="456" />
     <location key="#com.intellij.execution.impl.EditConfigurationsDialog.0.0.3840.2160@192dpi" x="1378" y="397" />
     <location key="#com.intellij.ide.util.TreeClassChooserDialog.0.0.3840.2160@192dpi" x="1593" y="880" />
-    <location key="CommitChangelistDialog2.0.0.7680.2160@192dpi" x="4838" y="318" />
+    <location key="CommitChangelistDialog2.0.0.7680.2160@192dpi" x="998" y="318" />
     <location key="find.popup.0.0.7680.2160@192dpi" x="1223" y="36" />
     <location key="#com.intellij.ide.util.MemberChooser.0.0.7680.2160@192dpi" x="5393" y="326" />
     <location key="FileChooserDialogImpl.0.0.7680.2160@192dpi" x="1272" y="814" />
     <location key="NewModule_or_Project.wizard.0.0.7680.2160@192dpi" x="1121" y="447" />
     <location key="VCS.ChangeListViewerDialog.0.0.7680.2160@192dpi" x="5271" y="421" />
-    <location key="ProcessPopupWindow.0.0.7680.2160@192dpi" x="4154" y="1946" />
-    <location key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser.0.0.7680.2160@192dpi" x="4929" y="359" />
+    <location key="ProcessPopupWindow.0.0.7680.2160@192dpi" x="950" y="1213" />
+    <location key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser.0.0.7680.2160@192dpi" x="1089" y="359" />
     <location key="org.jetbrains.plugins.scala.testingSupport.ScalaTestCreator$$anon$1$$anon$2.0.0.3840.2160@192dpi" x="1246" y="424" />
     <location key="DBNavigator.ProjectSettingsDialog.0.0.3840.2160@192dpi" x="594" y="507" />
     <location key="VCS.ChangeListViewerDialog.0.0.3840.2160@192dpi" x="1389" y="453" />
@@ -93,6 +93,9 @@
     <location key="#com.intellij.ide.util.TreeClassChooserDialog.0.0.7680.2160@192dpi" x="1554" y="647" />
     <location key="#com.intellij.ide.actions.ChooseComponentsToExportDialog.0.0.7680.2160@192dpi" x="1358" y="799" />
     <location key="new project wizard.0.0.3840.2160@192dpi" x="1176" y="54" />
+    <location key="WELCOME_SCREEN.0.0.7680.2160@192dpi" x="1245" y="1637" />
+    <location key="#Web_Browsers.0.0.7680.2160@192dpi" x="1117" y="449" />
+    <location key="new project wizard.0.0.7680.2160@192dpi" x="2022" y="562" />
     <size key="#Browse_JetBrains_Plugins_.0.0.3840.2160@192dpi" width="3864" height="2116" />
     <size key="FileChooserDialogImpl.0.0.3840.2160@192dpi" width="1014" height="1154" />
     <size key="ProcessPopupWindow.0.0.3840.2160@192dpi" width="800" height="406" />
@@ -127,10 +130,10 @@
     <size key="#com.intellij.execution.impl.EditConfigurationsDialog.0.0.3840.2160@192dpi" width="1499" height="1763" />
     <size key="#com.intellij.ide.util.TreeClassChooserDialog.0.0.3840.2160@192dpi" width="1025" height="829" />
     <size key="CommitChangelistDialog2.0.0.7680.2160@192dpi" width="1833" height="1430" />
-    <size key="find.popup.0.0.7680.2160@192dpi" width="1460" height="1458" />
-    <size key="#com.intellij.ide.util.MemberChooser.0.0.7680.2160@192dpi" width="735" height="1190" />
+    <size key="find.popup.0.0.7680.2160@192dpi" width="1400" height="1278" />
+    <size key="#com.intellij.ide.util.MemberChooser.0.0.7680.2160@192dpi" width="756" height="1190" />
     <size key="FileChooserDialogImpl.0.0.7680.2160@192dpi" width="1038" height="1042" />
-    <size key="NewModule_or_Project.wizard.0.0.7680.2160@192dpi" width="1622" height="1363" />
+    <size key="NewModule_or_Project.wizard.0.0.7680.2160@192dpi" width="2160" height="1575" />
     <size key="VCS.ChangeListViewerDialog.0.0.7680.2160@192dpi" width="967" height="1191" />
     <size key="ProcessPopupWindow.0.0.7680.2160@192dpi" width="800" height="215" />
     <size key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser.0.0.7680.2160@192dpi" width="1652" height="1379" />

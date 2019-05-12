@@ -1429,6 +1429,11 @@
               <option name="myPluginName" value="PHP" />
               <option name="myBundled" value="true" />
             </plugin>
+            <plugin>
+              <option name="myPluginId" value="com.github.redfoos.logstash-intellij-plugin" />
+              <option name="myPluginName" />
+              <option name="myBundled" value="false" />
+            </plugin>
           </set>
         </option>
       </plugins>
@@ -1729,6 +1734,11 @@
         <option name="myPlugins">
           <set>
             <plugin>
+              <option name="myPluginId" value="net.masterthought.dlanguage" />
+              <option name="myPluginName" />
+              <option name="myBundled" value="false" />
+            </plugin>
+            <plugin>
               <option name="myPluginId" value="org.avallach.daedalus.ide" />
               <option name="myPluginName" />
               <option name="myBundled" value="false" />
@@ -1888,6 +1898,11 @@
               <option name="myPluginName" />
               <option name="myBundled" value="false" />
             </plugin>
+            <plugin>
+              <option name="myPluginId" value="com.jedide.apex" />
+              <option name="myPluginName" />
+              <option name="myBundled" value="false" />
+            </plugin>
           </set>
         </option>
       </plugins>
@@ -1911,6 +1926,19 @@
           <set>
             <plugin>
               <option name="myPluginId" value="jetbrains.mps.core" />
+              <option name="myPluginName" />
+              <option name="myBundled" value="false" />
+            </plugin>
+          </set>
+        </option>
+      </plugins>
+    </entry>
+    <entry key="*.di">
+      <plugins>
+        <option name="myPlugins">
+          <set>
+            <plugin>
+              <option name="myPluginId" value="net.masterthought.dlanguage" />
               <option name="myPluginName" />
               <option name="myBundled" value="false" />
             </plugin>
@@ -4591,6 +4619,19 @@
           <set>
             <plugin>
               <option name="myPluginId" value="reasonml" />
+              <option name="myPluginName" />
+              <option name="myBundled" value="false" />
+            </plugin>
+          </set>
+        </option>
+      </plugins>
+    </entry>
+    <entry key="*.mlpr">
+      <plugins>
+        <option name="myPlugins">
+          <set>
+            <plugin>
+              <option name="myPluginId" value="org.ice1000.tt" />
               <option name="myPluginName" />
               <option name="myBundled" value="false" />
             </plugin>
@@ -7433,19 +7474,6 @@
           <set>
             <plugin>
               <option name="myPluginId" value="com.centurylink.mdw.studio" />
-              <option name="myPluginName" />
-              <option name="myBundled" value="false" />
-            </plugin>
-          </set>
-        </option>
-      </plugins>
-    </entry>
-    <entry key="*.tea">
-      <plugins>
-        <option name="myPlugins">
-          <set>
-            <plugin>
-              <option name="myPluginId" value="tea" />
               <option name="myPluginName" />
               <option name="myBundled" value="false" />
             </plugin>

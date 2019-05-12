@@ -45,7 +45,7 @@ show-thousands=false
 button-mode='basic'
 target-units='radian'
 word-size=64
-window-position=(690, 138)
+window-position=(6, 42)
 number-format='automatic'
 angle-units='degrees'
 base=10
@@ -86,3 +86,99 @@ show-battery-percentage=true
 speed=0.10294117647058831
 tap-to-click=true
 
+[org/gtk/settings/file-chooser]
+window-position=(1105, 614)
+window-size=(1624, 964)
+date-format='regular'
+location-mode='path-bar'
+show-hidden=false
+show-size-column=true
+sidebar-width=271
+sort-column='modified'
+sort-directories-first=false
+sort-order='descending'
+
+[org/gnome/evince/default]
+window-ratio=(6.4339470501276699, 2.4314340353252799)
+
+[org/gnome/evolution/mail]
+search-gravatar-for-photo=false
+
+junk-check-incoming=true
+
+browser-close-on-reply-policy='ask'
+
+forward-style-name='attached'
+
+reply-style-name='quoted'
+
+image-loading-policy='never'
+
+global-view-setting=false
+
+composer-visually-wrap-long-lines=false
+
+[org/gnome/evolution/bogofilter]
+command=''
+utf8-for-spam-filter=true
+
+[org/gnome/evolution/spamassassin]
+learn-command=''
+command=''
+local-only=true
+
+[org/gnome/evolution/calendar]
+prefer-new-item=''
+week-start-day-name='monday'
+work-day-monday=true
+work-day-tuesday=true
+work-day-wednesday=true
+work-day-thursday=true
+work-day-friday=true
+work-day-saturday=false
+work-day-sunday=false
+
+[org/gnome/evolution]
+version='3.28.5'
+
+[org/gnome/evolution/addressbook]
+completion-show-address=false
+completion-minimum-query-length=3
+
+[org/gnome/evolution/shell]
+attachment-view=0
+
+[org/gnome/evolution/mail/composer-window]
+maximized=false
+width=1106
+height=712
+
+[org/gnome/gedit/state/window]
+bottom-panel-size=140
+side-panel-active-page='GeditWindowDocumentsPanel'
+side-panel-size=200
+size=(3830, 2086)
+state=128
+
+[org/gnome/gedit/plugins/filebrowser]
+tree-view=true
+root='file:///'
+virtual-root='file:///tmp/mozilla_sarunas0'
+
+[org/gnome/gedit/preferences/editor]
+wrap-last-split-mode='word'
+use-default-font=false
+editor-font='Monospace 14'
+
+[org/gnome/nautilus/window-state]
+sidebar-width=271
+initial-size=(1902, 2057)
+maximized=false
+
+[org/gnome/Totem]
+subtitle-encoding='UTF-8'
+active-plugins=['variable-rate', 'skipto', 'media_player_keys', 'movie-properties', 'apple-trailers', 'screensaver', 'vimeo', 'screenshot', 'autoload-subtitles', 'recent', 'save-file']
+
+[org/gnome/eog/view]
+background-color='rgb(0,0,0)'
+use-background-color=true

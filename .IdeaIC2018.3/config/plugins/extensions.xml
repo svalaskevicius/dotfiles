@@ -26,6 +26,19 @@
         </option>
       </plugins>
     </entry>
+    <entry key="*.7z">
+      <plugins>
+        <option name="myPlugins">
+          <set>
+            <plugin>
+              <option name="myPluginId" value="com.github.b3er.idea.plugins.arc.browser" />
+              <option name="myPluginName" />
+              <option name="myBundled" value="false" />
+            </plugin>
+          </set>
+        </option>
+      </plugins>
+    </entry>
     <entry key="*.9.png">
       <plugins>
         <option name="myPlugins">
@@ -45,19 +58,6 @@
           <set>
             <plugin>
               <option name="myPluginId" value="com.demonwav.minecraft-dev" />
-              <option name="myPluginName" />
-              <option name="myBundled" value="false" />
-            </plugin>
-          </set>
-        </option>
-      </plugins>
-    </entry>
-    <entry key="*.Bayou">
-      <plugins>
-        <option name="myPlugins">
-          <set>
-            <plugin>
-              <option name="myPluginId" value="tanvd.bayou.plugin" />
               <option name="myPluginName" />
               <option name="myBundled" value="false" />
             </plugin>
@@ -180,6 +180,32 @@
           <set>
             <plugin>
               <option name="myPluginId" value="org.asciidoctor.intellij.asciidoc" />
+              <option name="myPluginName" />
+              <option name="myBundled" value="false" />
+            </plugin>
+          </set>
+        </option>
+      </plugins>
+    </entry>
+    <entry key="*.aes">
+      <plugins>
+        <option name="myPlugins">
+          <set>
+            <plugin>
+              <option name="myPluginId" value="org.limechain" />
+              <option name="myPluginName" />
+              <option name="myBundled" value="false" />
+            </plugin>
+          </set>
+        </option>
+      </plugins>
+    </entry>
+    <entry key="*.agda">
+      <plugins>
+        <option name="myPlugins">
+          <set>
+            <plugin>
+              <option name="myPluginId" value="org.ice1000.tt" />
               <option name="myPluginName" />
               <option name="myBundled" value="false" />
             </plugin>
@@ -395,6 +421,19 @@
           <set>
             <plugin>
               <option name="myPluginId" value="Arc" />
+              <option name="myPluginName" />
+              <option name="myBundled" value="false" />
+            </plugin>
+          </set>
+        </option>
+      </plugins>
+    </entry>
+    <entry key="*.arj">
+      <plugins>
+        <option name="myPlugins">
+          <set>
+            <plugin>
+              <option name="myPluginId" value="com.github.b3er.idea.plugins.arc.browser" />
               <option name="myPluginName" />
               <option name="myBundled" value="false" />
             </plugin>
@@ -742,6 +781,19 @@
         </option>
       </plugins>
     </entry>
+    <entry key="*.bin">
+      <plugins>
+        <option name="myPlugins">
+          <set>
+            <plugin>
+              <option name="myPluginId" value="org.exbin.deltahex.intellij" />
+              <option name="myPluginName" />
+              <option name="myBundled" value="false" />
+            </plugin>
+          </set>
+        </option>
+      </plugins>
+    </entry>
     <entry key="*.binding">
       <plugins>
         <option name="myPlugins">
@@ -831,6 +883,19 @@
             </plugin>
             <plugin>
               <option name="myPluginId" value="org.yaoqiang.bpmn.editor.plugin" />
+              <option name="myPluginName" />
+              <option name="myBundled" value="false" />
+            </plugin>
+          </set>
+        </option>
+      </plugins>
+    </entry>
+    <entry key="*.bz2">
+      <plugins>
+        <option name="myPlugins">
+          <set>
+            <plugin>
+              <option name="myPluginId" value="com.github.b3er.idea.plugins.arc.browser" />
               <option name="myPluginName" />
               <option name="myBundled" value="false" />
             </plugin>
@@ -1077,6 +1142,19 @@
           <set>
             <plugin>
               <option name="myPluginId" value="com.illuminatedcloud.intellij" />
+              <option name="myPluginName" />
+              <option name="myBundled" value="false" />
+            </plugin>
+          </set>
+        </option>
+      </plugins>
+    </entry>
+    <entry key="*.chm">
+      <plugins>
+        <option name="myPlugins">
+          <set>
+            <plugin>
+              <option name="myPluginId" value="com.github.b3er.idea.plugins.arc.browser" />
               <option name="myPluginName" />
               <option name="myBundled" value="false" />
             </plugin>
@@ -1404,6 +1482,11 @@
         <option name="myPlugins">
           <set>
             <plugin>
+              <option name="myPluginId" value="de.victorsaar.intellij.aem" />
+              <option name="myPluginName" />
+              <option name="myBundled" value="false" />
+            </plugin>
+            <plugin>
               <option name="myPluginId" value="org.jetbrains.erlang" />
               <option name="myPluginName" />
               <option name="myBundled" value="false" />
@@ -1457,6 +1540,19 @@
           <set>
             <plugin>
               <option name="myPluginId" value="org.coursera.courier.plugin" />
+              <option name="myPluginName" />
+              <option name="myBundled" value="false" />
+            </plugin>
+          </set>
+        </option>
+      </plugins>
+    </entry>
+    <entry key="*.cpio">
+      <plugins>
+        <option name="myPlugins">
+          <set>
+            <plugin>
+              <option name="myPluginId" value="com.github.b3er.idea.plugins.arc.browser" />
               <option name="myPluginName" />
               <option name="myBundled" value="false" />
             </plugin>
@@ -1788,6 +1884,19 @@
         </option>
       </plugins>
     </entry>
+    <entry key="*.deb">
+      <plugins>
+        <option name="myPlugins">
+          <set>
+            <plugin>
+              <option name="myPluginId" value="com.github.b3er.idea.plugins.arc.browser" />
+              <option name="myPluginName" />
+              <option name="myBundled" value="false" />
+            </plugin>
+          </set>
+        </option>
+      </plugins>
+    </entry>
     <entry key="*.deca">
       <plugins>
         <option name="myPlugins">
@@ -1890,6 +1999,19 @@
           <set>
             <plugin>
               <option name="myPluginId" value="com.dropbox.djinni.ideaplugin" />
+              <option name="myPluginName" />
+              <option name="myBundled" value="false" />
+            </plugin>
+          </set>
+        </option>
+      </plugins>
+    </entry>
+    <entry key="*.dmg">
+      <plugins>
+        <option name="myPlugins">
+          <set>
+            <plugin>
+              <option name="myPluginId" value="com.github.b3er.idea.plugins.arc.browser" />
               <option name="myPluginName" />
               <option name="myBundled" value="false" />
             </plugin>
@@ -2255,6 +2377,11 @@
         <option name="myPlugins">
           <set>
             <plugin>
+              <option name="myPluginId" value="com.github.b3er.idea.plugins.arc.browser" />
+              <option name="myPluginName" />
+              <option name="myBundled" value="false" />
+            </plugin>
+            <plugin>
               <option name="myPluginId" value="com.kaylerrenslow.plugin.armaplugin.id" />
               <option name="myPluginName" />
               <option name="myBundled" value="false" />
@@ -2334,6 +2461,19 @@
           <set>
             <plugin>
               <option name="myPluginId" value="Fantom Support" />
+              <option name="myPluginName" />
+              <option name="myBundled" value="false" />
+            </plugin>
+          </set>
+        </option>
+      </plugins>
+    </entry>
+    <entry key="*.fat">
+      <plugins>
+        <option name="myPlugins">
+          <set>
+            <plugin>
+              <option name="myPluginId" value="com.github.b3er.idea.plugins.arc.browser" />
               <option name="myPluginName" />
               <option name="myBundled" value="false" />
             </plugin>
@@ -2717,6 +2857,71 @@
         </option>
       </plugins>
     </entry>
+    <entry key="*.graphql">
+      <plugins>
+        <option name="myPlugins">
+          <set>
+            <plugin>
+              <option name="myPluginId" value="com.intellij.lang.jsgraphql" />
+              <option name="myPluginName" />
+              <option name="myBundled" value="false" />
+            </plugin>
+          </set>
+        </option>
+      </plugins>
+    </entry>
+    <entry key="*.graphqlconfig">
+      <plugins>
+        <option name="myPlugins">
+          <set>
+            <plugin>
+              <option name="myPluginId" value="com.intellij.lang.jsgraphql" />
+              <option name="myPluginName" />
+              <option name="myBundled" value="false" />
+            </plugin>
+          </set>
+        </option>
+      </plugins>
+    </entry>
+    <entry key="*.graphqld">
+      <plugins>
+        <option name="myPlugins">
+          <set>
+            <plugin>
+              <option name="myPluginId" value="com.intellij.lang.jsgraphql" />
+              <option name="myPluginName" />
+              <option name="myBundled" value="false" />
+            </plugin>
+          </set>
+        </option>
+      </plugins>
+    </entry>
+    <entry key="*.graphqle">
+      <plugins>
+        <option name="myPlugins">
+          <set>
+            <plugin>
+              <option name="myPluginId" value="com.intellij.lang.jsgraphql" />
+              <option name="myPluginName" />
+              <option name="myBundled" value="false" />
+            </plugin>
+          </set>
+        </option>
+      </plugins>
+    </entry>
+    <entry key="*.graphqls">
+      <plugins>
+        <option name="myPlugins">
+          <set>
+            <plugin>
+              <option name="myPluginId" value="com.intellij.lang.jsgraphql" />
+              <option name="myPluginName" />
+              <option name="myBundled" value="false" />
+            </plugin>
+          </set>
+        </option>
+      </plugins>
+    </entry>
     <entry key="*.group">
       <plugins>
         <option name="myPlugins">
@@ -2858,6 +3063,19 @@
           <set>
             <plugin>
               <option name="myPluginId" value="org.dylanfoundry.deft" />
+              <option name="myPluginName" />
+              <option name="myBundled" value="false" />
+            </plugin>
+          </set>
+        </option>
+      </plugins>
+    </entry>
+    <entry key="*.hfs">
+      <plugins>
+        <option name="myPlugins">
+          <set>
+            <plugin>
+              <option name="myPluginId" value="com.github.b3er.idea.plugins.arc.browser" />
               <option name="myPluginName" />
               <option name="myBundled" value="false" />
             </plugin>
@@ -3275,6 +3493,19 @@
           <set>
             <plugin>
               <option name="myPluginId" value="com.demandware.studio" />
+              <option name="myPluginName" />
+              <option name="myBundled" value="false" />
+            </plugin>
+          </set>
+        </option>
+      </plugins>
+    </entry>
+    <entry key="*.iso">
+      <plugins>
+        <option name="myPlugins">
+          <set>
+            <plugin>
+              <option name="myPluginId" value="com.github.b3er.idea.plugins.arc.browser" />
               <option name="myPluginName" />
               <option name="myBundled" value="false" />
             </plugin>
@@ -4019,7 +4250,38 @@
               <option name="myBundled" value="false" />
             </plugin>
             <plugin>
+              <option name="myPluginId" value="com.cybrosis.catdea" />
+              <option name="myPluginName" />
+              <option name="myBundled" value="false" />
+            </plugin>
+            <plugin>
               <option name="myPluginId" value="com.intellij.ideolog" />
+              <option name="myPluginName" />
+              <option name="myBundled" value="false" />
+            </plugin>
+          </set>
+        </option>
+      </plugins>
+    </entry>
+    <entry key="*.logcat">
+      <plugins>
+        <option name="myPlugins">
+          <set>
+            <plugin>
+              <option name="myPluginId" value="com.cybrosis.catdea" />
+              <option name="myPluginName" />
+              <option name="myBundled" value="false" />
+            </plugin>
+          </set>
+        </option>
+      </plugins>
+    </entry>
+    <entry key="*.logdump">
+      <plugins>
+        <option name="myPlugins">
+          <set>
+            <plugin>
+              <option name="myPluginId" value="com.cybrosis.catdea" />
               <option name="myPluginName" />
               <option name="myBundled" value="false" />
             </plugin>
@@ -4147,6 +4409,32 @@
             </plugin>
             <plugin>
               <option name="myPluginId" value="com.williamwen" />
+              <option name="myPluginName" />
+              <option name="myBundled" value="false" />
+            </plugin>
+          </set>
+        </option>
+      </plugins>
+    </entry>
+    <entry key="*.lzh">
+      <plugins>
+        <option name="myPlugins">
+          <set>
+            <plugin>
+              <option name="myPluginId" value="com.github.b3er.idea.plugins.arc.browser" />
+              <option name="myPluginName" />
+              <option name="myBundled" value="false" />
+            </plugin>
+          </set>
+        </option>
+      </plugins>
+    </entry>
+    <entry key="*.lzma">
+      <plugins>
+        <option name="myPlugins">
+          <set>
+            <plugin>
+              <option name="myPluginId" value="com.github.b3er.idea.plugins.arc.browser" />
               <option name="myPluginName" />
               <option name="myBundled" value="false" />
             </plugin>
@@ -4309,7 +4597,7 @@
         <option name="myPlugins">
           <set>
             <plugin>
-              <option name="myPluginId" value="org.ice1000.minitt" />
+              <option name="myPluginId" value="org.ice1000.tt" />
               <option name="myPluginName" />
               <option name="myBundled" value="false" />
             </plugin>
@@ -4603,12 +4891,38 @@
         </option>
       </plugins>
     </entry>
+    <entry key="*.msi">
+      <plugins>
+        <option name="myPlugins">
+          <set>
+            <plugin>
+              <option name="myPluginId" value="com.github.b3er.idea.plugins.arc.browser" />
+              <option name="myPluginName" />
+              <option name="myBundled" value="false" />
+            </plugin>
+          </set>
+        </option>
+      </plugins>
+    </entry>
     <entry key="*.mt">
       <plugins>
         <option name="myPlugins">
           <set>
             <plugin>
               <option name="myPluginId" value="de.halirutan.mathematica" />
+              <option name="myPluginName" />
+              <option name="myBundled" value="false" />
+            </plugin>
+          </set>
+        </option>
+      </plugins>
+    </entry>
+    <entry key="*.mtt">
+      <plugins>
+        <option name="myPlugins">
+          <set>
+            <plugin>
+              <option name="myPluginId" value="org.ice1000.tt" />
               <option name="myPluginName" />
               <option name="myBundled" value="false" />
             </plugin>
@@ -4663,6 +4977,19 @@
               <option name="myPluginId" value="com.intellij.flex" />
               <option name="myPluginName" value="Flash/Flex Support" />
               <option name="myBundled" value="true" />
+            </plugin>
+          </set>
+        </option>
+      </plugins>
+    </entry>
+    <entry key="*.name">
+      <plugins>
+        <option name="myPlugins">
+          <set>
+            <plugin>
+              <option name="myPluginId" value="de.victorsaar.intellij.aem" />
+              <option name="myPluginName" />
+              <option name="myBundled" value="false" />
             </plugin>
           </set>
         </option>
@@ -4813,6 +5140,19 @@
         </option>
       </plugins>
     </entry>
+    <entry key="*.ntfs">
+      <plugins>
+        <option name="myPlugins">
+          <set>
+            <plugin>
+              <option name="myPluginId" value="com.github.b3er.idea.plugins.arc.browser" />
+              <option name="myPluginName" />
+              <option name="myBundled" value="false" />
+            </plugin>
+          </set>
+        </option>
+      </plugins>
+    </entry>
     <entry key="*.nut">
       <plugins>
         <option name="myPlugins">
@@ -4912,6 +5252,19 @@
           <set>
             <plugin>
               <option name="myPluginId" value="OdpsStudio" />
+              <option name="myPluginName" />
+              <option name="myBundled" value="false" />
+            </plugin>
+          </set>
+        </option>
+      </plugins>
+    </entry>
+    <entry key="*.owo">
+      <plugins>
+        <option name="myPlugins">
+          <set>
+            <plugin>
+              <option name="myPluginId" value="org.ice1000.tt" />
               <option name="myPluginName" />
               <option name="myBundled" value="false" />
             </plugin>
@@ -5828,6 +6181,19 @@
         </option>
       </plugins>
     </entry>
+    <entry key="*.rar">
+      <plugins>
+        <option name="myPlugins">
+          <set>
+            <plugin>
+              <option name="myPluginId" value="com.github.b3er.idea.plugins.arc.browser" />
+              <option name="myPluginName" />
+              <option name="myBundled" value="false" />
+            </plugin>
+          </set>
+        </option>
+      </plugins>
+    </entry>
     <entry key="*.rb">
       <plugins>
         <option name="myPlugins">
@@ -6106,6 +6472,19 @@
           <set>
             <plugin>
               <option name="myPluginId" value="org.jetbrains.erlang" />
+              <option name="myPluginName" />
+              <option name="myBundled" value="false" />
+            </plugin>
+          </set>
+        </option>
+      </plugins>
+    </entry>
+    <entry key="*.rpm">
+      <plugins>
+        <option name="myPlugins">
+          <set>
+            <plugin>
+              <option name="myPluginId" value="com.github.b3er.idea.plugins.arc.browser" />
               <option name="myPluginName" />
               <option name="myBundled" value="false" />
             </plugin>
@@ -6411,6 +6790,19 @@
         </option>
       </plugins>
     </entry>
+    <entry key="*.sfs">
+      <plugins>
+        <option name="myPlugins">
+          <set>
+            <plugin>
+              <option name="myPluginId" value="com.github.b3er.idea.plugins.arc.browser" />
+              <option name="myPluginName" />
+              <option name="myBundled" value="false" />
+            </plugin>
+          </set>
+        </option>
+      </plugins>
+    </entry>
     <entry key="*.sharingRules">
       <plugins>
         <option name="myPlugins">
@@ -6502,6 +6894,11 @@
           <set>
             <plugin>
               <option name="myPluginId" value="org.jspresso.plugin.ijds" />
+              <option name="myPluginName" />
+              <option name="myBundled" value="false" />
+            </plugin>
+            <plugin>
+              <option name="myPluginId" value="uk.co.reecedunn.intellij.plugin.xquery" />
               <option name="myPluginName" />
               <option name="myBundled" value="false" />
             </plugin>
@@ -6740,6 +7137,19 @@
           <set>
             <plugin>
               <option name="myPluginId" value="com.squareup.sqldelight" />
+              <option name="myPluginName" />
+              <option name="myBundled" value="false" />
+            </plugin>
+          </set>
+        </option>
+      </plugins>
+    </entry>
+    <entry key="*.squashfs">
+      <plugins>
+        <option name="myPlugins">
+          <set>
+            <plugin>
+              <option name="myPluginId" value="com.github.b3er.idea.plugins.arc.browser" />
               <option name="myPluginName" />
               <option name="myBundled" value="false" />
             </plugin>
@@ -7102,6 +7512,19 @@
         </option>
       </plugins>
     </entry>
+    <entry key="*.tar">
+      <plugins>
+        <option name="myPlugins">
+          <set>
+            <plugin>
+              <option name="myPluginId" value="com.github.b3er.idea.plugins.arc.browser" />
+              <option name="myPluginName" />
+              <option name="myBundled" value="false" />
+            </plugin>
+          </set>
+        </option>
+      </plugins>
+    </entry>
     <entry key="*.tara">
       <plugins>
         <option name="myPlugins">
@@ -7256,6 +7679,19 @@
           <set>
             <plugin>
               <option name="myPluginId" value="org.intellij.plugins.hcl" />
+              <option name="myPluginName" />
+              <option name="myBundled" value="false" />
+            </plugin>
+          </set>
+        </option>
+      </plugins>
+    </entry>
+    <entry key="*.tgz">
+      <plugins>
+        <option name="myPlugins">
+          <set>
+            <plugin>
+              <option name="myPluginId" value="com.github.b3er.idea.plugins.arc.browser" />
               <option name="myPluginName" />
               <option name="myBundled" value="false" />
             </plugin>
@@ -7638,6 +8074,32 @@
         </option>
       </plugins>
     </entry>
+    <entry key="*.udf">
+      <plugins>
+        <option name="myPlugins">
+          <set>
+            <plugin>
+              <option name="myPluginId" value="com.github.b3er.idea.plugins.arc.browser" />
+              <option name="myPluginName" />
+              <option name="myBundled" value="false" />
+            </plugin>
+          </set>
+        </option>
+      </plugins>
+    </entry>
+    <entry key="*.uefi">
+      <plugins>
+        <option name="myPlugins">
+          <set>
+            <plugin>
+              <option name="myPluginId" value="com.github.b3er.idea.plugins.arc.browser" />
+              <option name="myPluginName" />
+              <option name="myBundled" value="false" />
+            </plugin>
+          </set>
+        </option>
+      </plugins>
+    </entry>
     <entry key="*.ui">
       <plugins>
         <option name="myPlugins">
@@ -7703,6 +8165,19 @@
         </option>
       </plugins>
     </entry>
+    <entry key="*.vdi">
+      <plugins>
+        <option name="myPlugins">
+          <set>
+            <plugin>
+              <option name="myPluginId" value="com.github.b3er.idea.plugins.arc.browser" />
+              <option name="myPluginName" />
+              <option name="myBundled" value="false" />
+            </plugin>
+          </set>
+        </option>
+      </plugins>
+    </entry>
     <entry key="*.vert">
       <plugins>
         <option name="myPlugins">
@@ -7722,6 +8197,19 @@
           <set>
             <plugin>
               <option name="myPluginId" value="studio.edaphic.sv" />
+              <option name="myPluginName" />
+              <option name="myBundled" value="false" />
+            </plugin>
+          </set>
+        </option>
+      </plugins>
+    </entry>
+    <entry key="*.vhd">
+      <plugins>
+        <option name="myPlugins">
+          <set>
+            <plugin>
+              <option name="myPluginId" value="com.github.b3er.idea.plugins.arc.browser" />
               <option name="myPluginName" />
               <option name="myBundled" value="false" />
             </plugin>
@@ -7750,6 +8238,32 @@
               <option name="myPluginId" value="com.intellij.velocity" />
               <option name="myPluginName" value="Velocity support" />
               <option name="myBundled" value="true" />
+            </plugin>
+          </set>
+        </option>
+      </plugins>
+    </entry>
+    <entry key="*.vmdk">
+      <plugins>
+        <option name="myPlugins">
+          <set>
+            <plugin>
+              <option name="myPluginId" value="com.github.b3er.idea.plugins.arc.browser" />
+              <option name="myPluginName" />
+              <option name="myBundled" value="false" />
+            </plugin>
+          </set>
+        </option>
+      </plugins>
+    </entry>
+    <entry key="*.voile">
+      <plugins>
+        <option name="myPlugins">
+          <set>
+            <plugin>
+              <option name="myPluginId" value="org.ice1000.tt" />
+              <option name="myPluginName" />
+              <option name="myBundled" value="false" />
             </plugin>
           </set>
         </option>
@@ -7852,6 +8366,19 @@
           <set>
             <plugin>
               <option name="myPluginId" value="FitNesse" />
+              <option name="myPluginName" />
+              <option name="myBundled" value="false" />
+            </plugin>
+          </set>
+        </option>
+      </plugins>
+    </entry>
+    <entry key="*.wim">
+      <plugins>
+        <option name="myPlugins">
+          <set>
+            <plugin>
+              <option name="myPluginId" value="com.github.b3er.idea.plugins.arc.browser" />
               <option name="myPluginName" />
               <option name="myBundled" value="false" />
             </plugin>
@@ -7966,6 +8493,19 @@
           <set>
             <plugin>
               <option name="myPluginId" value="edu.umontreal.hatchery" />
+              <option name="myPluginName" />
+              <option name="myBundled" value="false" />
+            </plugin>
+          </set>
+        </option>
+      </plugins>
+    </entry>
+    <entry key="*.xar">
+      <plugins>
+        <option name="myPlugins">
+          <set>
+            <plugin>
+              <option name="myPluginId" value="com.github.b3er.idea.plugins.arc.browser" />
               <option name="myPluginName" />
               <option name="myBundled" value="false" />
             </plugin>
@@ -8212,6 +8752,19 @@
         </option>
       </plugins>
     </entry>
+    <entry key="*.xz">
+      <plugins>
+        <option name="myPlugins">
+          <set>
+            <plugin>
+              <option name="myPluginId" value="com.github.b3er.idea.plugins.arc.browser" />
+              <option name="myPluginName" />
+              <option name="myBundled" value="false" />
+            </plugin>
+          </set>
+        </option>
+      </plugins>
+    </entry>
     <entry key="*.y">
       <plugins>
         <option name="myPlugins">
@@ -8267,6 +8820,19 @@
           <set>
             <plugin>
               <option name="myPluginId" value="com.github.jk1.ytplugin" />
+              <option name="myPluginName" />
+              <option name="myBundled" value="false" />
+            </plugin>
+          </set>
+        </option>
+      </plugins>
+    </entry>
+    <entry key="*.z">
+      <plugins>
+        <option name="myPlugins">
+          <set>
+            <plugin>
+              <option name="myPluginId" value="com.github.b3er.idea.plugins.arc.browser" />
               <option name="myPluginName" />
               <option name="myBundled" value="false" />
             </plugin>

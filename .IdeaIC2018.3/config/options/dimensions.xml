@@ -42,7 +42,7 @@
     <location key="FileChooserDialogImpl.0.0.7680.2160@192dpi" x="1272" y="814" />
     <location key="NewModule_or_Project.wizard.0.0.7680.2160@192dpi" x="1121" y="447" />
     <location key="VCS.ChangeListViewerDialog.0.0.7680.2160@192dpi" x="5271" y="421" />
-    <location key="ProcessPopupWindow.0.0.7680.2160@192dpi" x="4154" y="1946" />
+    <location key="ProcessPopupWindow.0.0.7680.2160@192dpi" x="314" y="1946" />
     <location key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser.0.0.7680.2160@192dpi" x="4929" y="359" />
     <location key="org.jetbrains.plugins.scala.testingSupport.ScalaTestCreator$$anon$1$$anon$2.0.0.3840.2160@192dpi" x="1246" y="424" />
     <location key="DBNavigator.ProjectSettingsDialog.0.0.3840.2160@192dpi" x="594" y="507" />
@@ -54,7 +54,7 @@
     <location key="com.intellij.testIntegration.createTest.CreateTestDialog.0.0.7680.2160@192dpi" x="1365" y="536" />
     <location key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes.0.0.7680.2160@192dpi" x="1281" y="788" />
     <location key="#com.intellij.fileTypes.FileTypeChooser.0.0.7680.2160@192dpi" x="1257" y="857" />
-    <location key="#com.intellij.refactoring.rename.AutomaticRenamingDialog.0.0.7680.2160@192dpi" x="1190" y="35" />
+    <location key="#com.intellij.refactoring.rename.AutomaticRenamingDialog.0.0.7680.2160@192dpi" x="314" y="36" />
     <location key="extract.method.dialog.0.0.3840.2160@192dpi" x="1408" y="690" />
     <location key="scopes.0.0.7680.2160@192dpi" x="1886" y="833" />
     <location key="DBNavigator.ProjectSettingsDialog.0.0.7680.2160@192dpi" x="1458" y="752" />
@@ -84,7 +84,7 @@
     <location key="DetectedRootsChooserDialog.0.0.7680.2160@192dpi" x="1417" y="579" />
     <location key="Performance.Activity.Monitor.0.0.3840.2160@192dpi" x="1046" y="846" />
     <location key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1.0.0.3840.2160@192dpi" x="1197" y="789" />
-    <location key="SettingsEditor.0.0.7680.2160@192dpi" x="879" y="423" />
+    <location key="SettingsEditor.0.0.7680.2160@192dpi" x="1623" y="816" />
     <location key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog.0.0.7680.2160@192dpi" x="1582" y="976" />
     <location key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog.0.0.7680.2160@192dpi" x="872" y="947" />
     <location key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.packages.0.0.7680.2160@192dpi" x="1192" y="891" />
@@ -92,6 +92,10 @@
     <location key="#Project_Structure.0.0.7680.2160@192dpi" x="896" y="283" />
     <location key="#com.intellij.ide.util.TreeClassChooserDialog.0.0.7680.2160@192dpi" x="1554" y="647" />
     <location key="#com.intellij.ide.actions.ChooseComponentsToExportDialog.0.0.7680.2160@192dpi" x="1358" y="799" />
+    <location key="VCS.ChangelistChooser.0.0.7680.2160@192dpi" x="1674" y="943" />
+    <location key="#Notifications.0.0.7680.2160@192dpi" x="1435" y="572" />
+    <location key="#com.intellij.execution.impl.EditConfigurationsDialog.0.0.7680.2160@192dpi" x="1369" y="469" />
+    <location key="Vcs.Push.Dialog.0.0.7680.2160@192dpi" x="1289" y="395" />
     <size key="#Browse_JetBrains_Plugins_.0.0.3840.2160@192dpi" width="3864" height="2116" />
     <size key="FileChooserDialogImpl.0.0.3840.2160@192dpi" width="1014" height="1154" />
     <size key="ProcessPopupWindow.0.0.3840.2160@192dpi" width="800" height="406" />
@@ -99,7 +103,7 @@
     <size key="find.popup.0.0.3840.2160@216dpi" width="1745" height="1706" />
     <size key="ProcessPopupWindow.0.0.3840.2160@216dpi" width="900" height="250" />
     <size key="SettingsEditor.0.0.3840.2160@192dpi" width="3067" height="1520" />
-    <size key="find.popup.0.0.3840.2160@192dpi" width="2815" height="2076" />
+    <size key="find.popup.0.0.3840.2160@192dpi" width="2797" height="2058" />
     <size key="NewModule_or_Project.wizard.0.0.3840.2160@192dpi" width="1622" height="1992" />
     <size key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser.0.0.3840.2160@192dpi" width="1728" height="1246" />
     <size key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog.0.0.3840.2160@192dpi" width="2636" height="334" />
@@ -126,8 +130,8 @@
     <size key="#com.intellij.execution.impl.EditConfigurationsDialog.0.0.3840.2160@192dpi" width="1499" height="1763" />
     <size key="#com.intellij.ide.util.TreeClassChooserDialog.0.0.3840.2160@192dpi" width="1025" height="829" />
     <size key="CommitChangelistDialog2.0.0.7680.2160@192dpi" width="1833" height="1430" />
-    <size key="find.popup.0.0.7680.2160@192dpi" width="1460" height="1458" />
-    <size key="#com.intellij.ide.util.MemberChooser.0.0.7680.2160@192dpi" width="735" height="1190" />
+    <size key="find.popup.0.0.7680.2160@192dpi" width="1370" height="1368" />
+    <size key="#com.intellij.ide.util.MemberChooser.0.0.7680.2160@192dpi" width="756" height="1190" />
     <size key="FileChooserDialogImpl.0.0.7680.2160@192dpi" width="1038" height="1042" />
     <size key="NewModule_or_Project.wizard.0.0.7680.2160@192dpi" width="1622" height="1363" />
     <size key="VCS.ChangeListViewerDialog.0.0.7680.2160@192dpi" width="967" height="1191" />
@@ -154,5 +158,10 @@
     <size key="findTextDialog.0.0.7680.2160@192dpi" width="949" height="1226" />
     <size key="run.anything.popup.0.0.7680.2160@192dpi" width="1344" height="2554" />
     <size key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.packages.0.0.7680.2160@192dpi" width="1466" height="422" />
+    <size key="#com.intellij.execution.impl.EditConfigurationsDialog.0.0.7680.2160@192dpi" width="1527" height="1258" />
+    <size key="GridCell.Tab.0.left.0.0.7680.2160@192dpi" width="3754" height="587" />
+    <size key="GridCell.Tab.0.center.0.0.7680.2160@192dpi" width="3754" height="587" />
+    <size key="GridCell.Tab.0.right.0.0.7680.2160@192dpi" width="3754" height="587" />
+    <size key="GridCell.Tab.0.bottom.0.0.7680.2160@192dpi" width="3754" height="587" />
   </component>
 </application>
