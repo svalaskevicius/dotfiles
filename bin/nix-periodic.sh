@@ -9,6 +9,6 @@ sudo nixos-rebuild switch --upgrade
 nix-env -u
 
 pushd ~/.xmonad
-./build.sh --rebuild aaa
+./build --rebuild aaa
 popd
 

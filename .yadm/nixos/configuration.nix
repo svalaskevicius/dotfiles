@@ -48,7 +48,7 @@ in {
           okular
           unstable.kitty xorg.xdpyinfo
           keepassx2 keepass
-          zoom-us unstable.skypeforlinux
+          zoom-us
           # xmonad env
           rofi scrot slock kbdlight xorg.xmodmap xcompmgr compton feh pamixer networkmanager_dmenu networkmanagerapplet stalonetray
           xss-lock notify-osd libnotify
