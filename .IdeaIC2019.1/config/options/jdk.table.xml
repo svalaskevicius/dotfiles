@@ -3,8 +3,8 @@
     <jdk version="2">
       <name value="1.8" />
       <type value="JavaSDK" />
-      <version value="java version &quot;1.8.0_202&quot;" />
-      <homePath value="/nix/store/ax23xkk50gkzr3nzdp8nxzyngsn4gdr3-openjdk-8u202bga" />
+      <version value="java version &quot;1.8.0_212&quot;" />
+      <homePath value="/nix/store/bh8l1rrg5h2h02488y2d53jar8y123jj-openjdk-8u212-ga" />
       <roots>
         <annotationsPath>
           <root type="composite">
@@ -13,21 +13,21 @@
         </annotationsPath>
         <classPath>
           <root type="composite">
-            <root url="jar:///nix/store/ax23xkk50gkzr3nzdp8nxzyngsn4gdr3-openjdk-8u202bga/jre/lib/charsets.jar!/" type="simple" />
-            <root url="jar:///nix/store/ax23xkk50gkzr3nzdp8nxzyngsn4gdr3-openjdk-8u202bga/jre/lib/ext/cldrdata.jar!/" type="simple" />
-            <root url="jar:///nix/store/ax23xkk50gkzr3nzdp8nxzyngsn4gdr3-openjdk-8u202bga/jre/lib/ext/dnsns.jar!/" type="simple" />
-            <root url="jar:///nix/store/ax23xkk50gkzr3nzdp8nxzyngsn4gdr3-openjdk-8u202bga/jre/lib/ext/jaccess.jar!/" type="simple" />
-            <root url="jar:///nix/store/ax23xkk50gkzr3nzdp8nxzyngsn4gdr3-openjdk-8u202bga/jre/lib/ext/localedata.jar!/" type="simple" />
-            <root url="jar:///nix/store/ax23xkk50gkzr3nzdp8nxzyngsn4gdr3-openjdk-8u202bga/jre/lib/ext/nashorn.jar!/" type="simple" />
-            <root url="jar:///nix/store/ax23xkk50gkzr3nzdp8nxzyngsn4gdr3-openjdk-8u202bga/jre/lib/ext/sunec.jar!/" type="simple" />
-            <root url="jar:///nix/store/ax23xkk50gkzr3nzdp8nxzyngsn4gdr3-openjdk-8u202bga/jre/lib/ext/sunjce_provider.jar!/" type="simple" />
-            <root url="jar:///nix/store/ax23xkk50gkzr3nzdp8nxzyngsn4gdr3-openjdk-8u202bga/jre/lib/ext/sunpkcs11.jar!/" type="simple" />
-            <root url="jar:///nix/store/ax23xkk50gkzr3nzdp8nxzyngsn4gdr3-openjdk-8u202bga/jre/lib/ext/zipfs.jar!/" type="simple" />
-            <root url="jar:///nix/store/ax23xkk50gkzr3nzdp8nxzyngsn4gdr3-openjdk-8u202bga/jre/lib/jce.jar!/" type="simple" />
-            <root url="jar:///nix/store/ax23xkk50gkzr3nzdp8nxzyngsn4gdr3-openjdk-8u202bga/jre/lib/jsse.jar!/" type="simple" />
-            <root url="jar:///nix/store/ax23xkk50gkzr3nzdp8nxzyngsn4gdr3-openjdk-8u202bga/jre/lib/management-agent.jar!/" type="simple" />
-            <root url="jar:///nix/store/ax23xkk50gkzr3nzdp8nxzyngsn4gdr3-openjdk-8u202bga/jre/lib/resources.jar!/" type="simple" />
-            <root url="jar:///nix/store/ax23xkk50gkzr3nzdp8nxzyngsn4gdr3-openjdk-8u202bga/jre/lib/rt.jar!/" type="simple" />
+            <root url="jar:///nix/store/bh8l1rrg5h2h02488y2d53jar8y123jj-openjdk-8u212-ga/jre/lib/charsets.jar!/" type="simple" />
+            <root url="jar:///nix/store/bh8l1rrg5h2h02488y2d53jar8y123jj-openjdk-8u212-ga/jre/lib/ext/cldrdata.jar!/" type="simple" />
+            <root url="jar:///nix/store/bh8l1rrg5h2h02488y2d53jar8y123jj-openjdk-8u212-ga/jre/lib/ext/dnsns.jar!/" type="simple" />
+            <root url="jar:///nix/store/bh8l1rrg5h2h02488y2d53jar8y123jj-openjdk-8u212-ga/jre/lib/ext/jaccess.jar!/" type="simple" />
+            <root url="jar:///nix/store/bh8l1rrg5h2h02488y2d53jar8y123jj-openjdk-8u212-ga/jre/lib/ext/localedata.jar!/" type="simple" />
+            <root url="jar:///nix/store/bh8l1rrg5h2h02488y2d53jar8y123jj-openjdk-8u212-ga/jre/lib/ext/nashorn.jar!/" type="simple" />
+            <root url="jar:///nix/store/bh8l1rrg5h2h02488y2d53jar8y123jj-openjdk-8u212-ga/jre/lib/ext/sunec.jar!/" type="simple" />
+            <root url="jar:///nix/store/bh8l1rrg5h2h02488y2d53jar8y123jj-openjdk-8u212-ga/jre/lib/ext/sunjce_provider.jar!/" type="simple" />
+            <root url="jar:///nix/store/bh8l1rrg5h2h02488y2d53jar8y123jj-openjdk-8u212-ga/jre/lib/ext/sunpkcs11.jar!/" type="simple" />
+            <root url="jar:///nix/store/bh8l1rrg5h2h02488y2d53jar8y123jj-openjdk-8u212-ga/jre/lib/ext/zipfs.jar!/" type="simple" />
+            <root url="jar:///nix/store/bh8l1rrg5h2h02488y2d53jar8y123jj-openjdk-8u212-ga/jre/lib/jce.jar!/" type="simple" />
+            <root url="jar:///nix/store/bh8l1rrg5h2h02488y2d53jar8y123jj-openjdk-8u212-ga/jre/lib/jsse.jar!/" type="simple" />
+            <root url="jar:///nix/store/bh8l1rrg5h2h02488y2d53jar8y123jj-openjdk-8u212-ga/jre/lib/management-agent.jar!/" type="simple" />
+            <root url="jar:///nix/store/bh8l1rrg5h2h02488y2d53jar8y123jj-openjdk-8u212-ga/jre/lib/resources.jar!/" type="simple" />
+            <root url="jar:///nix/store/bh8l1rrg5h2h02488y2d53jar8y123jj-openjdk-8u212-ga/jre/lib/rt.jar!/" type="simple" />
           </root>
         </classPath>
         <javadocPath>

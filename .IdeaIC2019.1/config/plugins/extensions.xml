@@ -1729,6 +1729,11 @@
         <option name="myPlugins">
           <set>
             <plugin>
+              <option name="myPluginId" value="net.masterthought.dlanguage" />
+              <option name="myPluginName" />
+              <option name="myBundled" value="false" />
+            </plugin>
+            <plugin>
               <option name="myPluginId" value="org.avallach.daedalus.ide" />
               <option name="myPluginName" />
               <option name="myBundled" value="false" />
@@ -1911,6 +1916,19 @@
           <set>
             <plugin>
               <option name="myPluginId" value="jetbrains.mps.core" />
+              <option name="myPluginName" />
+              <option name="myBundled" value="false" />
+            </plugin>
+          </set>
+        </option>
+      </plugins>
+    </entry>
+    <entry key="*.di">
+      <plugins>
+        <option name="myPlugins">
+          <set>
+            <plugin>
+              <option name="myPluginId" value="net.masterthought.dlanguage" />
               <option name="myPluginName" />
               <option name="myBundled" value="false" />
             </plugin>
@@ -7433,19 +7451,6 @@
           <set>
             <plugin>
               <option name="myPluginId" value="com.centurylink.mdw.studio" />
-              <option name="myPluginName" />
-              <option name="myBundled" value="false" />
-            </plugin>
-          </set>
-        </option>
-      </plugins>
-    </entry>
-    <entry key="*.tea">
-      <plugins>
-        <option name="myPlugins">
-          <set>
-            <plugin>
-              <option name="myPluginId" value="tea" />
               <option name="myPluginName" />
               <option name="myBundled" value="false" />
             </plugin>

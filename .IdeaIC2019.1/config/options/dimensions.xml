@@ -93,6 +93,7 @@
     <location key="#com.intellij.ide.util.TreeClassChooserDialog.0.0.7680.2160@192dpi" x="1554" y="647" />
     <location key="#com.intellij.ide.actions.ChooseComponentsToExportDialog.0.0.7680.2160@192dpi" x="1358" y="799" />
     <location key="new project wizard.0.0.3840.2160@192dpi" x="1176" y="54" />
+    <location key="#Web_Browsers.0.0.3840.2160@192dpi" x="1120" y="452" />
     <size key="#Browse_JetBrains_Plugins_.0.0.3840.2160@192dpi" width="3864" height="2116" />
     <size key="FileChooserDialogImpl.0.0.3840.2160@192dpi" width="1014" height="1154" />
     <size key="ProcessPopupWindow.0.0.3840.2160@192dpi" width="800" height="406" />
@@ -100,7 +101,7 @@
     <size key="find.popup.0.0.3840.2160@216dpi" width="1745" height="1706" />
     <size key="ProcessPopupWindow.0.0.3840.2160@216dpi" width="900" height="250" />
     <size key="SettingsEditor.0.0.3840.2160@192dpi" width="3067" height="1520" />
-    <size key="find.popup.0.0.3840.2160@192dpi" width="2815" height="2076" />
+    <size key="find.popup.0.0.3840.2160@192dpi" width="2797" height="2058" />
     <size key="NewModule_or_Project.wizard.0.0.3840.2160@192dpi" width="1622" height="1992" />
     <size key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser.0.0.3840.2160@192dpi" width="1728" height="1246" />
     <size key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog.0.0.3840.2160@192dpi" width="2636" height="334" />
@@ -136,7 +137,7 @@
     <size key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser.0.0.7680.2160@192dpi" width="1652" height="1379" />
     <size key="org.jetbrains.plugins.scala.testingSupport.ScalaTestCreator$$anon$1$$anon$2.0.0.3840.2160@192dpi" width="1362" height="1146" />
     <size key="DBNavigator.ProjectSettingsDialog.0.0.3840.2160@192dpi" width="2790" height="901" />
-    <size key="VCS.ChangeListViewerDialog.0.0.3840.2160@192dpi" width="1052" height="1191" />
+    <size key="VCS.ChangeListViewerDialog.0.0.3840.2160@192dpi" width="1200" height="1234" />
     <size key="StructurePopup.0.0.3840.2160@192dpi" width="1315" height="434" />
     <size key="extract.method.dialog.0.0.7680.2160@192dpi" width="1024" height="848" />
     <size key="org.jetbrains.plugins.scala.testingSupport.ScalaTestCreator$$anon$1$$anon$2.0.0.7680.2160@192dpi" width="1428" height="1026" />
