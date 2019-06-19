@@ -11,6 +11,7 @@ nix:
   - xorg.libXrender
   - xorg.libXScrnSaver
   - xorg.libXft
+  - libffi
   - pkgconfig
 flags:
   xmonad-contrib:
