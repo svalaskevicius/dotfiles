@@ -16,7 +16,7 @@ set -x LSCOLORS ExFxCxDxBxegedabagacad
 
 
 
-alias !=xdg-open
+alias !!=xdg-open
 
 alias g=git
 
