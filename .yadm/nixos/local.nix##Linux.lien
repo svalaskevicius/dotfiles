@@ -4,6 +4,9 @@
 
 { config, pkgs, ... }:
 
+let
+  qca6174_firmware = pkgs.callPackage ./qca6174_firmware.nix { };
+in
 {
 
   boot.initrd.luks.devices = [
@@ -27,6 +30,11 @@
 #    "i915.fastboot=1"
 #    "dell-smm-hwmon.ignore_dmi=1"
   ];
+
+
+ hardware.firmware = with pkgs; [
+    # firmwareLinuxNonfree
+    qca6174_firmware ];
 
 
   networking.hostName = "lien"; # Define your hostname.
