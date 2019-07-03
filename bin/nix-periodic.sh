@@ -6,7 +6,9 @@ sudo nix-collect-garbage -d --delete-older-than 14d
 sudo fstrim -v -a
 sudo nix-channel --update nixos
 sudo nix-channel --update nixos-unstable
-sudo nixos-rebuild switch --upgrade
+nix build --no-link -f '<nixpkgs/nixos>' config.system.build.toplevel
+sudo nixos-rebuild switch
+
 nix-env -u
 
 pushd ~/.xmonad
