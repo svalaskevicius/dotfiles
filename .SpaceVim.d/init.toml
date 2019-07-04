@@ -36,6 +36,7 @@
     # do not resize fonts weirdly in konsole
     terminal_cursor_shape = 0
     project_rooter_automatically = 0
+    autocomplete_method = "coc"
 
 
 # Enable autocomplete layer
@@ -69,10 +70,10 @@ name = 'wikitopian/hardmode'
 [[custom_plugins]]
 name = 'luochen1990/rainbow'
 
-[[custom_plugins]]
-name = 'autozimu/LanguageClient-neovim'
-rev = 'next'
-build = 'bash install.sh'
+# [[custom_plugins]]
+# name = 'autozimu/LanguageClient-neovim'
+# rev = 'next'
+# build = 'bash install.sh'
 
 [[custom_plugins]]
 name = 'jamessan/vim-gnupg'
@@ -80,4 +81,10 @@ name = 'jamessan/vim-gnupg'
 [[custom_plugins]]
 name = 'jceb/vim-orgmode'
 
+
+# The lsp layer has to be enabled too. SpaceVim converts the configuration in the lsp layer and then passes it to coc.
+# You can put your language servers here.
+[[layers]]
+name = 'lsp'
+filetypes = [ 'scala' ]
 
