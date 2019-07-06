@@ -26,8 +26,11 @@ cd "$HOME"
 # yadm submodule add --depth 1 -f https://github.com/ryanoasis/nerd-fonts.git .local/share/fonts/nerd-fonts
 yadm submodule update --progress --recommend-shallow --init --recursive -f
 
-NERD_FONTS_TARGET="$HOME/.local/share/fonts/nerd-fonts"
+FONTS_TARGET="$HOME/.local/share/fonts"
 
+
+FC_CACHE=n
+NERD_FONTS_TARGET="$FONTS_TARGET/nerd-fonts"
 if ! test -d "$NERD_FONTS_TARGET" ; then
   rm -rf "$NERD_FONTS_TARGET".tmp
   mkdir -p "$NERD_FONTS_TARGET".tmp
@@ -36,17 +39,28 @@ if ! test -d "$NERD_FONTS_TARGET" ; then
   unzip -q nerd-fonts.zip -d "$NERD_FONTS_TARGET".tmp/
   mv "$NERD_FONTS_TARGET".tmp/nerd-fonts-master/patched-fonts "$NERD_FONTS_TARGET"
   rm -rf "$NERD_FONTS_TARGET".tmp
-  fc-cache -f
+  FC_CACHE=y
   popd
 fi
 
-pushd "$NERD_FONTS_TARGET"/..
+pushd "$FONTS_TARGET"
 test -d FontAwesome || (
   test -f font-awesome.zip || curl -L4 'https://github.com/FortAwesome/Font-Awesome/archive/5.8.1.zip' -o font-awesome.zip
   unzip -j font-awesome.zip "Font-Awesome-5.8.1/otfs/*.otf" -d ./FontAwesome
-  fc-cache -f
+  FC_CACHE=y
 )
 popd
 
+pushd "$FONTS_TARGET"
+test -d Hasklig || (
+  test -f hasklig.zip || curl -L4 'https://github.com/i-tu/Hasklig/releases/download/1.1/Hasklig-1.1.zip' -o hasklig.zip
+  unzip -j hasklig.zip -d ./Hasklig
+  FC_CACHE=y
+)
+popd
+
+if test "$FC_CACHE" = "y" ; then
+  fc-cache -f -v
+fi
 test -d /etc/nixos && install nixos/configuration.nix /etc/nixos/configuration.nix
 
