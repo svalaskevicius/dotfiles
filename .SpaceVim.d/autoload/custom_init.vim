@@ -134,6 +134,9 @@ function! custom_init#before() abort
   nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
   "
   " END FROM SCALA METALS
+  "
+
+
 
 
 
@@ -147,5 +150,7 @@ function! custom_init#after() abort
   " slow shift finger
   cnoreabbrev W w
   cnoreabbrev Wq wq
+
+  colorscheme zellner
 
 endfun
