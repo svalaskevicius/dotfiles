@@ -151,6 +151,8 @@ function! custom_init#after() abort
   cnoreabbrev W w
   cnoreabbrev Wq wq
 
+  set mouse=
+
   colorscheme zellner
 
 endfun
