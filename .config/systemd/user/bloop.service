@@ -1,0 +1,11 @@
+[Unit]
+Description=Bloop server
+AssertFileIsExecutable="%h/.nix-profile/bin/blp-server"
+
+[Service]
+ExecStart="%h/.nix-profile/bin/blp-server"
+Restart=always
+NoNewPrivileges=true
+
+[Install]
+WantedBy=default.target
