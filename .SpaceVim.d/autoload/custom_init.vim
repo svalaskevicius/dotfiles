@@ -137,6 +137,10 @@ function! custom_init#before() abort
   "
 
 
+  if has("nvim")
+    au TermOpen * tnoremap <Esc> <c-\><c-n>
+    au FileType fzf tunmap <Esc>
+  endif
 
 
 
@@ -151,7 +155,7 @@ function! custom_init#after() abort
   cnoreabbrev W w
   cnoreabbrev Wq wq
 
-  set mouse=
+  " set mouse=
 
   colorscheme PaperColor
   set background=light
