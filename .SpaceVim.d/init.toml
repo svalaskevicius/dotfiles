@@ -81,6 +81,9 @@ name = 'jamessan/vim-gnupg'
 [[custom_plugins]]
 name = 'jceb/vim-orgmode'
 
+[[custom_plugins]]
+name = 'rafi/awesome-vim-colorschemes'
+
 
 # The lsp layer has to be enabled too. SpaceVim converts the configuration in the lsp layer and then passes it to coc.
 # You can put your language servers here.

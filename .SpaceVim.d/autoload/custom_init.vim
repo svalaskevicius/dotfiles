@@ -153,6 +153,7 @@ function! custom_init#after() abort
 
   set mouse=
 
-  colorscheme zellner
+  colorscheme PaperColor
+  set background=light
 
 endfun
