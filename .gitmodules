@@ -16,3 +16,6 @@
 [submodule "src/nixpkgs"]
 	path = src/nixpkgs
 	url = git@github.com:svalaskevicius/nixpkgs.git
+[submodule ".config/kitty/kitty-themes"]
+	path = .config/kitty/kitty-themes
+	url = https://github.com/dexpota/kitty-themes.git
