@@ -142,7 +142,8 @@ function! custom_init#before() abort
     au FileType fzf tunmap <Esc>
   endif
 
-
+  " copy mouse selection automatically
+  :noremap <LeftRelease> "+y<LeftRelease>
 
 endfun
 
@@ -157,7 +158,8 @@ function! custom_init#after() abort
 
   " set mouse=
 
-  colorscheme PaperColor
-  set background=light
+  " colorscheme PaperColor
+  " set background=dark
+  " colorscheme alduin
 
 endfun

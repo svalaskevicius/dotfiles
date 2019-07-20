@@ -24,6 +24,6 @@ alias g=git
 
 
 set -g theme_nerd_fonts yes
-set -g theme_color_scheme base16-light
+set -g theme_color_scheme dark
 
 set -x FZF_DEFAULT_COMMAND 'fd --type f'
