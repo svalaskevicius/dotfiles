@@ -8,6 +8,11 @@ function install() {
   to="$2"
 
   test -e "$from" || { echo "Could not find source files to install from $from" 1>&2 ; return 1; }
+  test -e "$to" && {
+    rf=$(readlink -f "$from")
+    rt=$(readlink -f "$to")
+    test "$rf" = "$rt" && return 0
+  }
 
   CMD="$LN '$from' '$to'"
   if test \( -w "$to" -o ! -e "$to" \) -a -w "$(dirname "$to")" ; then
@@ -44,23 +49,27 @@ if ! test -d "$NERD_FONTS_TARGET" ; then
 fi
 
 pushd "$FONTS_TARGET"
-test -d FontAwesome || (
+test -d FontAwesome || {
   test -f font-awesome.zip || curl -L4 'https://github.com/FortAwesome/Font-Awesome/archive/5.8.1.zip' -o font-awesome.zip
   unzip -j font-awesome.zip "Font-Awesome-5.8.1/otfs/*.otf" -d ./FontAwesome
   FC_CACHE=y
-)
+}
 popd
 
 pushd "$FONTS_TARGET"
-test -d Hasklig || (
+test -d Hasklig || {
   test -f hasklig.zip || curl -L4 'https://github.com/i-tu/Hasklig/releases/download/1.1/Hasklig-1.1.zip' -o hasklig.zip
   unzip -j hasklig.zip -d ./Hasklig
   FC_CACHE=y
-)
+}
 popd
 
 if test "$FC_CACHE" = "y" ; then
   fc-cache -f -v
 fi
 test -d /etc/nixos && install nixos/configuration.nix /etc/nixos/configuration.nix
+
+systemctl --user daemon-reload
+systemctl --user enable bloop
+systemctl --user start bloop
 

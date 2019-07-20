@@ -1,6 +1,6 @@
 [Unit]
 Description=Bloop server
-AssertFileIsExecutable="%h/.nix-profile/bin/blp-server"
+AssertFileIsExecutable="$HOME/.nix-profile/bin/blp-server"
 
 [Service]
 ExecStart="%h/.nix-profile/bin/blp-server"
