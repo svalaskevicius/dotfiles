@@ -3,10 +3,10 @@ Config {
     additionalFonts   = ["xft:SauceCodePro Nerd Font:pixelsize=18:hinting=true" ],
     -- bgColor = "#000900",
     -- fgColor = "#009C00",
-    bgColor = "#330022",
-    fgColor = "#FE8C1F",
-    alpha = 150,
-    border = TopB,
+    bgColor = "#000000",
+    fgColor = "#777777",
+    alpha = 160,
+    border = NoBorder,
     borderWidth = 1,
     borderColor = "#FF6600",
     pickBroadest = True,
@@ -26,15 +26,15 @@ Config {
         -- Run Swap ["-t","<fn=1>\xf019</fn> <usedratio>%","-H","1024","-L","512","-h","#FF6600","-l","#FFD77C","-n","#FE8C1F"] 10,
         -- Run Network "wlp2s0" ["-t","Net: <rx>, <tx>","-H","200","-L","10","-h","#FF6600","-l","#FFD77C","-n","#FE8C1F"] 10,
         -- Run Wireless "wlp2s0-w" [ "-t", "<fn=1>\xf1eb</fn> <fc=#FE8C1F><essid></fc> [<qualitybar>]","-L","0","-H","32","--normal","#FE8C1F","--high","#FF6600","--low","#FFD77C"] 10,
-        Run Date "<fn=1>\xf073</fn> <fc=#FE8C1F>%a %b %d %H:%M</fc>" "date" 200,
+        Run Date "<fn=1>\xf073</fn> <fc=#aaaaaa>%a %b %d %H:%M</fc>" "date" 200,
         -- Run BatteryP ["BAT0"] ["-t", "<icon=/home/sarunas/.xmonad/icons/battery.xbm/> <fc=#ffca28><acstatus> <watts>(<left>%/<timeleft>)</fc>", "-L", "10", "-H", "80", "-p", "3", "--", "-L", "-15", "-H", "-5", "-l", "red", "-m", "#ffca28", "-h", "orange", "-f", "/sys/class/power_supply/AC0/online"] 600,
 		Run BatteryP
 			["BAT0"]
-            [ "-t", "<fc=#FE8C1F><acstatus></fc>"
+            [ "-t", "<fc=#999999><acstatus></fc>"
             , "-L", "10"
             , "-H", "85"
-            , "-h", "#FFD77C"
-            , "-n", "#FE8C1F"
+            , "-h", "#cccccc"
+            , "-n", "#aaaaaa"
             , "-l", "#FF0000"
             , "--" -- battery specific options
             , "-p", "green"
@@ -50,10 +50,10 @@ Config {
             ] 200
         , Run Volume "default" "Master"
             [ "-t", "<status>", "--"
-                                  , "--on", "<fc=#FE8C1F><fn=1>\xf028</fn> <volume>%</fc>"
-                                  , "--onc", "#FFD77C"
-                                  , "--off", "<fc=#FE8C1F><fn=1>\xf026</fn> MUTE</fc>"
-                                  , "--offc", "#FF6600"
+                                  , "--on", "<fc=#999999><fn=1>\xf028</fn> <volume>%</fc>"
+                                  , "--onc", "#cccccc"
+                                  , "--off", "<fc=#aaaaaa><fn=1>\xf026</fn> MUTE</fc>"
+                                  , "--offc", "#aaaaaa"
                                    ] 20
        , Run StdinReader
     ],

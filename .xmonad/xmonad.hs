@@ -151,10 +151,11 @@ tabConfig = def {
     inactiveColor = "#000000"
 }
 -- Color of current window title in xmobar.
-xmobarTitleColor = "#EAAA31"
+xmobarTitleColor = "#ffeecc"
 
 -- Color of current workspace in xmobar.
-xmobarCurrentWorkspaceColor = "#FF6600"
+xmobarCurrentWorkspaceColor = "#ffeecc"
+
 -- Width of the window border in pixels.
 myBorderWidth = 3
 myNormalBorderColor  = "#303060"
@@ -459,8 +460,8 @@ main = do
       logHook = dynamicLogWithPP $ xmobarPP {
             ppOutput = hPutStrLn xmproc
           , ppTitle = xmobarColor xmobarTitleColor "" . shorten 75
-          , ppCurrent = xmobarColor xmobarCurrentWorkspaceColor "#662200"
-          , ppVisible = xmobarColor xmobarCurrentWorkspaceColor "#221100"
+          , ppCurrent = xmobarColor xmobarCurrentWorkspaceColor "#777777"
+          , ppVisible = xmobarColor xmobarCurrentWorkspaceColor "#777777"
           , ppSep = " |  "}
       , manageHook = manageDocks <+> myManageHook
   }
@@ -504,7 +505,7 @@ defaults = def {
     mouseBindings      = myMouseBindings,
 
     -- hooks, layouts
-    layoutHook         = smartBorders $ myLayout,
+    layoutHook         = smartBorders myLayout,
     manageHook         = myManageHook,
     startupHook        = myStartupHook,
 

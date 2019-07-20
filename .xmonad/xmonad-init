@@ -9,7 +9,7 @@ setxkbmap gb
 # xmodmap  ~/.Xmodmap
 # xcompmgr -cfF -t-9 -l-11 -r9 -o.95 -D6 &
 xset s 300 240
-feh --bg-tile ~/.xmonad/wallpaper.jpg
+feh --bg-tile ~/.xmonad/wallpaper.png
 
 #systemd-cat compton -b --backend glx
 systemd-cat xss-lock -n ~/.xmonad/bin/dim_screen.sh -- slock &
