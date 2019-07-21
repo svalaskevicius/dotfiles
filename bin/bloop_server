@@ -1,0 +1,7 @@
+#!/run/current-system/sw/bin/bash
+
+set +x
+
+export JAVA_OPTS="-Xss:32m -Xmx2g"
+
+exec "$HOME/.nix-profile/bin/blp-server"
