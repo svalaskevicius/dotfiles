@@ -24,6 +24,8 @@ in
   boot.kernelParams = [
     "acpi_backlight=vendor"
     "noapic"
+    "atkbd.reset"
+#i8042.nomux=1 i8042.reset
 #    "acpi_osi=Linux"
 #    "acpi_rev_override=1"
 #    "i915.disable_power_well=0"
