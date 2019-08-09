@@ -24,6 +24,7 @@
       cairo
       gdk_pixbuf
       atk
+      zlib
 
       git
       openjdk8 maven scala sbt gnumake gcc nodejs
