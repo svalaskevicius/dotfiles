@@ -137,5 +137,12 @@ in {
     uid = 1000;
   };
 
+  systemd.extraConfig = "DefaultLimitNOFILE=1048576";
+  security.pam.loginLimits = [{
+      domain = "*";
+      type = "hard";
+      item = "nofile";
+      value = "1048576";
+  }];
 
 }
