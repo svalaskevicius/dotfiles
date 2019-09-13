@@ -1,5 +1,5 @@
 if status --is-login
-	for p in ~/bin ~/.config/fish/bin
+	for p in ~/bin ~/.config/fish/bin ~/go/bin
 		if test -d $p
 			set PATH $p $PATH
 		end
