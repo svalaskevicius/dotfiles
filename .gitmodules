@@ -1,6 +1,3 @@
-[submodule ".SpaceVim"]
-	path = .SpaceVim
-	url = https://github.com/SpaceVim/SpaceVim.git
 [submodule ".local/share/omf"]
 	path = .local/share/omf
 	url = https://github.com/oh-my-fish/oh-my-fish.git
