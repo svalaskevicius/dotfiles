@@ -140,12 +140,6 @@ endfunc
 
 nnoremap <C-T> :call WhitespaceToggle()<cr>
 
-" easier split navigations
-nnoremap <C-Down> <C-W><C-J>
-nnoremap <C-Up> <C-W><C-K>
-nnoremap <C-Right> <C-W><C-L>
-nnoremap <C-Left> <C-W><C-H>
-
 " copy mouse selection automatically
 noremap <LeftRelease> "+y<LeftRelease>
 
@@ -159,4 +153,12 @@ cnoreabbrev Wq wq
 cnoreabbrev WQ wq
 noreabbrev Wqa wq
 noreabbrev WQa wq
+
+let g:tmux_navigator_no_mappings = 1
+let g:tmux_navigator_disable_when_zoomed = 1
+nnoremap <silent> <M-Left> :TmuxNavigateLeft<cr>
+nnoremap <silent> <M-Down> :TmuxNavigateDown<cr>
+nnoremap <silent> <M-Up> :TmuxNavigateUp<cr>
+nnoremap <silent> <M-Right> :TmuxNavigateRight<cr>
+nnoremap <silent> <M-\\> :TmuxNavigatePrevious<cr>
 

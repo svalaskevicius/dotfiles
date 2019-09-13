@@ -1,4 +1,4 @@
-" set shell=bash
+set shell=bash
 set nocompatible               " be iMproved
 
 " enable 256 colors
@@ -71,6 +71,8 @@ set signcolumn=yes
 " Some server have issues with backup files, see #649
 set nobackup
 set nowritebackup
+
+set mouse=a
 
 " Better display for messages
 set cmdheight=2

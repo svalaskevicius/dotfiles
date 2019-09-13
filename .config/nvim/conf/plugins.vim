@@ -40,8 +40,10 @@ Plug 'airblade/vim-gitgutter'
 " Argument wrapping and unwrapping
 Plug 'FooSoft/vim-argwrap'
 
-" Tmux focus events support
+" Tmux focus events support - fugitive needs it
 Plug 'tmux-plugins/vim-tmux-focus-events'
+
+Plug 'christoomey/vim-tmux-navigator'
 
 " Scala plugins
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
