@@ -162,3 +162,9 @@ nnoremap <silent> <M-Up> :TmuxNavigateUp<cr>
 nnoremap <silent> <M-Right> :TmuxNavigateRight<cr>
 nnoremap <silent> <M-\\> :TmuxNavigatePrevious<cr>
 
+
+nnoremap <C-M-Left> <C-O>
+nnoremap <C-M-Right> <C-I>
+inoremap <C-M-Left> <ESC><C-O>a
+inoremap <C-M-Right> <ESC><C-I>a
+
