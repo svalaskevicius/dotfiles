@@ -91,6 +91,10 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 nmap <silent> [c <Plug>(coc-diagnostic-prev)
 nmap <silent> ]c <Plug>(coc-diagnostic-next)
 
+" Use `[b` and `]b` for navigate buffers
+nmap <silent> [b <ESC>:bprevious<CR>
+nmap <silent> ]b <ESC>:bnext<CR>
+
 " Remap keys for gotos
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
@@ -116,6 +120,7 @@ endfunction
 
 " Highlight symbol under cursor on CursorHold
 autocmd CursorHold * silent call CocActionAsync('highlight')
+
 
 " Remap for rename current word
 nmap <leader>rn <Plug>(coc-rename)
@@ -188,4 +193,9 @@ nmap <leader>8 <Plug>AirlineSelectTab8
 nmap <leader>9 <Plug>AirlineSelectTab9
 nmap <leader>- <Plug>AirlineSelectPrevTab
 nmap <leader>+ <Plug>AirlineSelectNextTab
+
+nnoremap <M-F> <ESC>:LAck!<SPACE>
+
+nnoremap <silent> <leader>bd :bd <CR>
+nnoremap <silent> <leader>bod :%bd<CR>:e#<CR>:bd#<CR>
 

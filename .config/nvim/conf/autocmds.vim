@@ -35,7 +35,8 @@ augroup defaultgroup
     au TermOpen * setlocal nonumber norelativenumber
     au TermOpen * tnoremap <buffer> <Esc> <c-\><c-n>
     au FileType fzf tunmap <buffer> <Esc>
-    au FileType fzf nnoremap <buffer> <Esc> :q<CR>
+    "au FileType fzf tnoremap <buffer> <Esc> <Esc>:q!<cr>
+    "au FileType fzf noremap <buffer> <Esc> <Esc>:q!<cr>
   endif
 
 augroup END

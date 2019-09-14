@@ -84,3 +84,12 @@ let g:rainbow_active = 1
 
 let g:NERDTreeQuitOnOpen = 1
 
+let g:ackprg = 'ag --vimgrep --smart-case'
+
+let g:NERDDefaultAlign = 'left'
+let g:NERDCommentEmptyLines = 1
+let g:NERDTrimTrailingWhitespace = 1
+let g:NERDToggleCheckAllLines = 1
+let g:NERDSpaceDelims = 1
+
+

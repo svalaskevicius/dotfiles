@@ -1,4 +1,5 @@
 {
+  "coc.preferences.hoverTarget": "preview",
   "languageserver": {
     "metals": {
       "command": "metals-vim",

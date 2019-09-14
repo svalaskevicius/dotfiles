@@ -35,4 +35,6 @@ endif
 " Color scheme
 set background=dark
 color minimalist
+highlight CocHighlightText ctermfg=Red guifg=#c0e050
+" guibg=#302000
 

@@ -76,5 +76,7 @@ Plug 'luochen1990/rainbow'
 Plug 'mlopes/vim-farin'
 Plug 'rafi/awesome-vim-colorschemes'
 
+Plug 'mileszs/ack.vim'
+
 " Initialize plugin system
 call plug#end()
