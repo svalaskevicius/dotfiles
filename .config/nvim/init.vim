@@ -24,10 +24,6 @@ endfor
 " set syntax highlighting options.
 syntax on
 
-" Color scheme
-set background=dark
-color desert
-
 hi! Normal ctermbg=NONE guibg=NONE
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 set termguicolors
@@ -35,4 +31,8 @@ set termguicolors
 if exists("g:loaded_webdevicons")
   call webdevicons#refresh()
 endif
+
+" Color scheme
+set background=dark
+color minimalist
 

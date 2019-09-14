@@ -4,6 +4,15 @@
 " Use "," as the <Leader> key
 let mapleader=","
 
+nnoremap <S-Up> <C-B>
+nnoremap <S-Down> <C-F>
+nnoremap <C-Up> <C-U>
+nnoremap <C-Down> <C-D>
+inoremap <S-Up> <ESC><C-B>a
+inoremap <S-Down> <ESC><C-F>a
+inoremap <C-Up> <ESC><C-U>a
+inoremap <C-Down> <ESC><C-D>a
+
 " Toggle NERDTree file browser
 nnoremap <Leader>n :NERDTreeToggle <CR>
 
@@ -11,12 +20,12 @@ nnoremap <Leader>n :NERDTreeToggle <CR>
 nnoremap <Leader>f :NERDTreeFind <CR>
 
 " Tagbar shows list of all methods and variables in class
-nnoremap <Leader>t :TagbarOpenAutoClose <CR>
+" nnoremap <Leader>t :TagbarOpenAutoClose <CR>
 
 " Fuzzy search open buffers
 nnoremap <C-B> :CtrlPBuffer <CR>
 " Fuzzy search tags
-nnoremap <C-T> :CtrlPTag <CR>
+" nnoremap <C-T> :CtrlPTag <CR>
 " Fuzzy search all project filenames
 nnoremap <C-F> :FZF <CR>
 

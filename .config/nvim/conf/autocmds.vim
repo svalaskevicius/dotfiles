@@ -33,8 +33,9 @@ augroup defaultgroup
 
   if has("nvim")
     au TermOpen * setlocal nonumber norelativenumber
-    au TermOpen * tnoremap <Esc> <c-\><c-n>
-    au FileType fzf tunmap <Esc>
+    au TermOpen * tnoremap <buffer> <Esc> <c-\><c-n>
+    au FileType fzf tunmap <buffer> <Esc>
+    au FileType fzf nnoremap <buffer> <Esc> :q<CR>
   endif
 
 augroup END
