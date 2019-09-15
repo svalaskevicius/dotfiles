@@ -36,5 +36,10 @@ endif
 set background=dark
 color minimalist
 highlight CocHighlightText ctermfg=Red guifg=#c0e050
-" guibg=#302000
+" highlight CocFloating guifg=#444444 guibg=#171717
+hi Pmenu guibg=#202020
+hi PmenuSel guibg=#333333
+" hi Pmenu ctermfg=NONE ctermbg=236 cterm=NONE guifg=NONE guibg=#202020 gui=NONE
+" hi PmenuSel ctermfg=NONE ctermbg=24 cterm=NONE guifg=NONE guibg=#333333 gui=NONE
+
 

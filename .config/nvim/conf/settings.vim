@@ -1,4 +1,4 @@
-set shell=bash
+set shell=/usr/bin/env\ bash
 set nocompatible               " be iMproved
 
 " enable 256 colors
@@ -93,3 +93,7 @@ let g:NERDToggleCheckAllLines = 1
 let g:NERDSpaceDelims = 1
 
 
+" Lowering this improves performance in files with long lines
+set synmaxcol=500
+
+let g:markdown_fenced_languages = ['html', 'vim', 'ruby', 'python', 'bash=sh', 'rust', 'haskell', 'c', 'cpp', 'scala', 'java']

@@ -1,5 +1,5 @@
 {
-  "coc.preferences.hoverTarget": "preview",
+  "coc.preferences.hoverTarget": "float",
   "languageserver": {
     "metals": {
       "command": "metals-vim",
