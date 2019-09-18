@@ -145,4 +145,18 @@ in {
       value = "1048576";
   }];
 
+  environment.etc."systemd/sleep.conf".text = ''
+[Sleep]
+AllowSuspend=yes
+AllowHibernation=no
+AllowSuspendThenHibernate=no
+AllowHybridSleep=no
+SuspendMode=suspend
+SuspendState=mem standby freeze
+#HibernateMode=platform shutdown
+#HibernateState=disk
+#HybridSleepMode=suspend platform shutdown
+#HybridSleepState=disk
+HibernateDelaySec=2430min
+'';
 }
