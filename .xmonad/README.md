@@ -2,6 +2,7 @@
 
 Credit to the original authors of the config:
 
+> @svalaskevicius - the current user :)
 > This is [Marco Lopes](https://github.com/mlopes/dotfiles/)'s xmonad and xmobar configuration.
 > This configuration is rooted in the [xmonad](http://xmonad.org/) configuration used by Vic Fryzel as it was circa 2013, and was heavily customised since then. Years of customisations have left litle in common with the original configuration.
 
@@ -48,7 +49,8 @@ and supplementary scripts to make life easier.
 * setxbmap - Used to set X's keyboard layout. Default is set to `gb`
 * xmodmap - Used to remap Caps Lock to Ctrl and to set AltGr+a, e, i, n, and c to dead \`, dead ', dead ^, dead ~, and ç, respectively
 * xcompmgr - Used to enable composide mode, shadows and transparencies on xmonad windows
-* feh - Used to set the wallpaper. Will use the file in `~/.xmonad/wallpaper.jpg`
+* feh - Used to set the wallpaper. Will use the file in
+  `~/.xmonad/wallpaper.png`
 
 
 ## Starting xmonad when logging in from a specific tty (example uses tty1)
