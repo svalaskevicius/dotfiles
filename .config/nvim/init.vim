@@ -9,7 +9,6 @@ let config_path = init_dir_path . 'conf/'
 exec 'source' init_dir_path.'plug.vim'
 let config_list = [
       \ 'settings.vim',
-      \ 'variables.vim',
       \ 'plugins.vim',
       \ 'keybindings.vim',
       \ 'autocmds.vim'

@@ -140,6 +140,8 @@ nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
 nmap <leader>qf <Plug>(coc-fix-current)
 
+nnoremap <leader>cr :call CocRequestAsync('metals', 'workspace/executeCommand', { 'command': 'build-import' })<cr>
+nnoremap <leader>cd :call CocRequestAsync('metals', 'workspace/executeCommand', { 'command': 'doctor-run' })<cr>
 
 
 " Function for whitespace toggle
