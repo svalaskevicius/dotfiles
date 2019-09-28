@@ -170,8 +170,6 @@ cnoreabbrev WQ wq
 noreabbrev Wqa wq
 noreabbrev WQa wq
 
-let g:tmux_navigator_no_mappings = 1
-let g:tmux_navigator_disable_when_zoomed = 1
 nnoremap <silent> <M-Left> :TmuxNavigateLeft<cr>
 nnoremap <silent> <M-Down> :TmuxNavigateDown<cr>
 nnoremap <silent> <M-Up> :TmuxNavigateUp<cr>

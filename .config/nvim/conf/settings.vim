@@ -82,15 +82,8 @@ let g:airline#extensions#ale#enabled = 1
 
 let g:rainbow_active = 1
 
-let g:NERDTreeQuitOnOpen = 1
-
 let g:ackprg = 'ag --vimgrep --smart-case'
 
-let g:NERDDefaultAlign = 'left'
-let g:NERDCommentEmptyLines = 1
-let g:NERDTrimTrailingWhitespace = 1
-let g:NERDToggleCheckAllLines = 1
-let g:NERDSpaceDelims = 1
 
 
 " Lowering this improves performance in files with long lines
@@ -109,10 +102,28 @@ let g:airline#extensions#tabline#tab_nr_type = 1
 let g:airline#extensions#tabline#buffer_idx_mode = 1
 
 " NerdTree
-let NERDTreeCascadeOpenSingleChildDir=0
-let NERDTreeCascadeSingleChildDir=0
+let g:NERDTreeCascadeOpenSingleChildDir=0
+let g:NERDTreeCascadeSingleChildDir=0
+let g:NERDTreeQuitOnOpen = 1
+
+" NerdCommenter
+let g:NERDDefaultAlign = 'left'
+let g:NERDCommentEmptyLines = 1
+let g:NERDTrimTrailingWhitespace = 1
+let g:NERDToggleCheckAllLines = 1
+let g:NERDSpaceDelims = 1
 
 
 
+" CtrlP
+let g:ctrlp_follow_symlinks = 0
+let g:ctrlp_max_files = 20000
+let g:ctrlp_max_depth = 80
+let g:ctrlp_clear_cache_on_exit = 0
+let g:ctrlp_working_path_mode = ''
+let g:ctrlp_map = ''
 
+
+let g:tmux_navigator_no_mappings = 1
+let g:tmux_navigator_disable_when_zoomed = 0
 
