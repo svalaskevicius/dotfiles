@@ -7,11 +7,11 @@ set -e
 function buildProject() {
   stack --stack-yaml stack.yml clean
   rm -f xmonad.hi xmonad.o
-  stack --stack-yaml stack.yml build --ghc-options="-threaded -dynamic"
+  stack --stack-yaml stack.yml build --ghc-options="-threaded -dynamic -j8"
 }
 
 function compileConfig() {
-  stack --stack-yaml stack.yml ghc -- --make xmonad.hs -threaded -dynamic -i -ilib -fforce-recomp  -main-is main -v -o $1
+  stack --stack-yaml stack.yml ghc -- -j8 --make xmonad.hs -threaded -dynamic -i -ilib -fforce-recomp  -main-is main -v -o $1
 }
 
 if test "$1" = "--rebuild" ; then

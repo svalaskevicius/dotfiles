@@ -18,7 +18,10 @@ in
     }
   ];
 
-  boot.blacklistedKernelModules = [ "nouveau" "rivafb" "nvidiafb" "rivatv" "nv" ];
+  boot.blacklistedKernelModules = [ 
+    "nouveau" "rivafb" "nvidiafb" "rivatv" "nv" # graphics
+    "alx"                                       # ethernet controller - uses 10W power (!!) and I use wireless anyways
+  ];
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.kernelModules = []; # "dell-smm-hwmon" ];
   boot.kernelParams = [
