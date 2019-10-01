@@ -31,6 +31,7 @@ in
     "i8042.nomux=1"
     "i8042.kbdreset=1"
     "i8042.reset=1"
+    "workqueue.power_efficient=1"
 #    "acpi_osi=Linux"
 #    "acpi_rev_override=1"
 #    "i915.disable_power_well=0"
@@ -69,6 +70,8 @@ in
         CPU_HWP_ON_BAT=balance_power
         RUNTIME_PM_BLACKLIST="01:00.0"
         USB_BLACKLIST="413c:2113"
+        DEVICES_TO_DISABLE_ON_STARTUP="bluetooth"
+        WOL_DISABLE=Y
     '';
 
 
