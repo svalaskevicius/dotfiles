@@ -1,9 +1,4 @@
 
-# xflux -l 51.5 -g -0.12 -k 4200
-# amixer cset "numid=14,iface=MIXER,name='Master Playback Volume'" on
-
-# systemd-cat ~/.xmonad/taffybar-config &
-
 xsetroot -cursor_name left_ptr
 setxkbmap gb
 # xmodmap  ~/.Xmodmap
@@ -13,14 +8,8 @@ feh --bg-tile ~/.xmonad/wallpaper.png
 
 #systemd-cat compton -b --backend glx
 systemd-cat xss-lock -n ~/.xmonad/bin/dim_screen.sh -- slock &
-# fails: systemd-cat pulseaudio --start &
 systemd-cat notify-osd &
-systemd-cat ~/.xmonad/bin/battery_check &
-#eval "$(gnome-keyring-daemon -d -r '--components=pkcs11,secrets,ssh')"
-#export SSH_AUTH_SOCK
 
 export GDK_SCALE=2
 export GDK_DPI_SCALE=0.5
 
-# systemd-cat stalonetray -i 32 -f 3 --window-type dock --window-strut auto -t --tint-color '#403020' --tint-level 200 --window-layer top --skip-taskbar --geometry '7x1-700+3' -d all &
-# nm-applet &
