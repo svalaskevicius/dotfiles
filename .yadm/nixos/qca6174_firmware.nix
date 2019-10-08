@@ -3,7 +3,7 @@
 stdenv.mkDerivation rec {
   name = "qca6174_firmware-${version}";
   version = "6";
-  src = ./firmware-6.bin_WLAN.RM.4.4.1.c3-00035;
+  src = ./firmware-6.bin_WLAN.RM.4.4.1.c3-00058;
   sourceRoot = ".";
   dontBuild = true;
   unpackPhase = ''
