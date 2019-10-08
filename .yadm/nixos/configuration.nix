@@ -27,6 +27,11 @@ in {
     "127.0.0.1" = [config.networking.hostName];
   };
   networking.networkmanager.enable = true;
+  networking.networkmanager.extraConfig = ''
+    [connection]
+    wifi.wake-on-wlan=ignore
+    ethernet.wake-on-lan=ignore
+  '';
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Set your time zone.
