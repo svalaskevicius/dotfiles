@@ -91,13 +91,17 @@ in
       windowManager.default = "xmonad";
     };
     redshift.enable = true;
-    redshift.latitude = "51.5074";
-    redshift.longitude = "0.1278";
 
     # Enable network printer
     printing.enable = true;
     avahi.enable = true;
     avahi.nssmdns = true;
+  };
+
+  location = {
+    latitude = 51.5074;
+    longitude = 0.1278;
+    provider = "manual";
   };
 
   programs.ssh.startAgent = true;
