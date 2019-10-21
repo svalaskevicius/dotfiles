@@ -5,9 +5,10 @@ cd ~/.xmonad
 set -e
 
 function buildProject() {
-  stack --stack-yaml stack.yml clean
+  # stack --stack-yaml stack.yml clean
   rm -f xmonad.hi xmonad.o
-  stack --stack-yaml stack.yml build --ghc-options="-threaded -dynamic -j8"
+  stack --stack-yaml stack.yml -j8 install xmobar --flag xmobar:all_extensions --ghc-options="-threaded -dynamic -j8 --with-rtsopts=-V0"
+  stack --stack-yaml stack.yml -j8 build --ghc-options="-threaded -dynamic -j8"
 }
 
 function compileConfig() {

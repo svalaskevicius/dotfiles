@@ -1,18 +1,8 @@
-resolver: lts-13.15
+resolver: lts-14.9
 nix:
   enable: true
+  shell-file: stack-nix-shell.nix
   packages:
-  - gcc
-  - x11
-  - xorg.libX11
-  - xorg.libXext
-  - xorg.libXinerama
-  - xorg.libXrandr
-  - xorg.libXrender
-  - xorg.libXScrnSaver
-  - xorg.libXft
-  - libffi
-  - pkgconfig
 flags:
   xmonad-contrib:
     testing: false
@@ -25,3 +15,6 @@ packages:
 extra-deps:
 - unix-2.7.2.2
 - process-1.6.4.0
+- iwlib-0.1.0
+  # - libmpd-0.9.0.10@sha256:5a2ff5795085425db11e76332833f2596c5512c861c41272489ed29b725e5538,4011
+
