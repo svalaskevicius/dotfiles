@@ -6,6 +6,7 @@ set -e
 
 function buildProject() {
   # stack --stack-yaml stack.yml clean
+  touch xmonad.hs # force rebuild configs in compileConfig
   rm -f xmonad.hi xmonad.o
   stack --stack-yaml stack.yml -j8 install xmobar --flag xmobar:with_threaded --flag xmobar:with_utf8 --flag xmobar:with_xft --flag xmobar:with_alsa --flag xmobar:with_xpm --ghc-options="-threaded -dynamic --with-rtsopts=-V0"
   stack --stack-yaml stack.yml -j8 build --ghc-options="-threaded -dynamic -j8"
@@ -23,6 +24,7 @@ if test "$1" = "--rebuild" ; then
   buildProject
   shift
 fi
+
 compileConfig "$1" || (buildProject && compileConfig)
 
 
