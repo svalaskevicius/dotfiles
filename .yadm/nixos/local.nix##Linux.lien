@@ -5,17 +5,17 @@
 { config, pkgs, ... }:
 
 let
-  qca6174_firmware = pkgs.callPackage ./qca6174_firmware.nix { };
+qca6174_firmware = pkgs.callPackage ./qca6174_firmware.nix { };
 in
 {
 
   boot.initrd.luks.devices = [
-    {
-      name = "root";
-      device = "/dev/disk/by-uuid/559df880-7d37-43fc-82f8-09d1c21e06d6";
-      preLVM = true;
-      allowDiscards = true;
-    }
+  {
+    name = "root";
+    device = "/dev/disk/by-uuid/559df880-7d37-43fc-82f8-09d1c21e06d6";
+    preLVM = true;
+    allowDiscards = true;
+  }
   ];
 
   boot.blacklistedKernelModules = [ 
@@ -23,15 +23,20 @@ in
     "alx"                                       # ethernet controller - uses 10W power (!!) and I use wireless anyways
   ];
   boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.kernelModules = []; # "dell-smm-hwmon" ];
+  boot.extraModulePackages = with config.boot.kernelPackages; [ acpi_call ];
+  boot.kernelModules = [ "acpi_call" ]; # "dell-smm-hwmon" ];
   boot.kernelParams = [
-    "acpi_backlight=vendor"
-    "noapic"
-    "atkbd.reset"
-    "i8042.nomux=1"
-    "i8042.kbdreset=1"
-    "i8042.reset=1"
-    "workqueue.power_efficient=1"
+      "acpi_osi=!"
+      "acpi_osi=Windows 2013"
+      "acpi_rev_override=1"
+      "acpi_backlight=vendor"
+      "noapic"
+      "atkbd.reset=1"
+      "i8042.nomux=1"
+      "i8042.kbdreset=1"
+      "i8042.reset=1"
+      "workqueue.power_efficient=1"
+      "snd-hda-intel.enable=1,0"
 #    "acpi_osi=Linux"
 #    "acpi_rev_override=1"
 #    "i915.disable_power_well=0"
@@ -40,19 +45,21 @@ in
   ];
 
 
- hardware.firmware = with pkgs; [
-    # firmwareLinuxNonfree
+  hardware.firmware = with pkgs; [
+# firmwareLinuxNonfree
     qca6174_firmware ];
+
+# hardware.nvidiaOptimus.disable = true;
 
 
   networking.hostName = "lien"; # Define your hostname.
 
-  # Select internationalisation properties.
-  i18n = {
-    consoleFont = "latarcyrheb-sun32";
-    consoleKeyMap = "uk";
-    defaultLocale = "en_GB.UTF-8";
-  };
+# Select internationalisation properties.
+    i18n = {
+      consoleFont = "latarcyrheb-sun32";
+      consoleKeyMap = "uk";
+      defaultLocale = "en_GB.UTF-8";
+    };
 
   fonts.fontconfig.dpi = 192;
 
@@ -62,17 +69,18 @@ in
     tlp.enable = true;
 
     tlp.extraConfig = ''
-        CPU_SCALING_GOVERNOR_ON_AC=powersave
-        CPU_SCALING_GOVERNOR_ON_BAT=powersave
-        ENERGY_PERF_POLICY_ON_AC=default
-        ENERGY_PERF_POLICY_ON_BAT=power
-        CPU_HWP_ON_AC=balance_performance
-        CPU_HWP_ON_BAT=power
-        RUNTIME_PM_BLACKLIST="01:00.0"
-        USB_BLACKLIST="413c:2113"
-        DEVICES_TO_DISABLE_ON_STARTUP="bluetooth"
-        WOL_DISABLE=Y
-    '';
+      DISK_DEVICES="nvme0n1 nvme1n1"
+      CPU_SCALING_GOVERNOR_ON_AC=powersave
+      CPU_SCALING_GOVERNOR_ON_BAT=powersave
+      ENERGY_PERF_POLICY_ON_AC=default
+      ENERGY_PERF_POLICY_ON_BAT=power
+      CPU_HWP_ON_AC=balance_performance
+      CPU_HWP_ON_BAT=power
+      RUNTIME_PM_BLACKLIST="01:00.0"
+      USB_BLACKLIST="413c:2113"
+      DEVICES_TO_DISABLE_ON_STARTUP="bluetooth"
+      WOL_DISABLE=Y
+      '';
 
 
     xserver = {
@@ -80,7 +88,7 @@ in
       useGlamor = true;
       videoDrivers = [ "modesetting" ];
 
-      # Enable the Desktop Environment.
+# Enable the Desktop Environment.
       displayManager.lightdm.enable = true;
 
       windowManager.xmonad.enable = true;
@@ -92,7 +100,7 @@ in
     };
     redshift.enable = true;
 
-    # Enable network printer
+# Enable network printer
     printing.enable = true;
     avahi.enable = true;
     avahi.nssmdns = true;
@@ -107,9 +115,27 @@ in
   programs.ssh.startAgent = true;
   programs.ssh.agentTimeout = "8h";
 
-  # This value determines the NixOS release with which your system is to be
-  # compatible, in order to avoid breaking some software such as database
-  # servers. You should change this only after NixOS release notes say you
-  # should.
+# This value determines the NixOS release with which your system is to be
+# compatible, in order to avoid breaking some software such as database
+# servers. You should change this only after NixOS release notes say you
+# should.
   system.stateVersion = "19.03"; # Did you read the comment?
+
+  environment.systemPackages = with pkgs; [ undervolt ];
+
+  systemd.services.nopowerleak = {
+    description = "Disable devices I don't use on Linux";
+    wantedBy = [ "graphical-session-pre.target" "multiuser.target" "display-manager.service" ];
+
+    script = ''
+      set -e
+      echo 1 > /sys/bus/pci/devices/0000:01:00.0/remove
+      echo '\_SB.PCI0.PEG0.PEGP._OFF' > /proc/acpi/call    
+      echo 1 > /sys/bus/pci/devices/0000:01:00.1/remove
+      echo '\_SB.PCI0.PEG1.PEGP._OFF' > tee /proc/acpi/call    
+      echo "Nvidia disabled"
+      ${pkgs.undervolt}/bin/undervolt --core -150 --cache -150 --uncore -100 --gpu -50 --analogio -30
+      echo "CPU undervolted"
+      '';
+  };
 }
