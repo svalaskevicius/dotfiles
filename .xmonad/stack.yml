@@ -1,8 +1,25 @@
 resolver: lts-14.9
 nix:
   enable: true
-  shell-file: stack-nix-shell.nix
-  packages:
+  packages: [
+     nix
+     gcc
+     x11
+     xorg.libX11
+     xorg.libXext
+     xorg.libXinerama
+     xorg.libXrandr
+     xorg.libXrender
+     xorg.libXScrnSaver
+     xorg.libXft
+     libffi
+     pkgconfig
+     gmp
+     wirelesstools
+     alsaLib
+     zlib
+     xorg.libXpm
+     ]  
 flags:
   xmonad-contrib:
     testing: false
