@@ -3,7 +3,7 @@ Description=Bloop server
 AssertFileIsExecutable=%h/.nix-profile/bin/bloop
 
 [Service]
-ExecStart=%h/.nix-profile/bin/bloop server -J-Xss8m -J-Xmx8g -J-XX:MaxInlineLevel=20
+ExecStart=%h/.nix-profile/bin/bloop server -J-Xss8m -J-Xmx4g -J-XX:MaxInlineLevel=20
 Restart=always
 NoNewPrivileges=true
 Environment="PATH=/run/current-system/sw/bin/"
