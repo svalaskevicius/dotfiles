@@ -33,7 +33,7 @@ in
       "noapic"
       "atkbd.reset=1"
       "i8042.nomux=1"
-      "i8042.kbdreset=1"
+#      "i8042.kbdreset=1"
       "i8042.reset=1"
       "workqueue.power_efficient=1"
       "snd-hda-intel.enable=1,0"
@@ -132,7 +132,7 @@ in
       echo 1 > /sys/bus/pci/devices/0000:01:00.0/remove
       echo '\_SB.PCI0.PEG0.PEGP._OFF' > /proc/acpi/call    
       echo 1 > /sys/bus/pci/devices/0000:01:00.1/remove
-      echo '\_SB.PCI0.PEG1.PEGP._OFF' > tee /proc/acpi/call    
+      echo '\_SB.PCI0.PEG1.PEGP._OFF' > /proc/acpi/call    
       echo "Nvidia disabled"
       ${pkgs.undervolt}/bin/undervolt --core -150 --cache -150 --uncore -100 --gpu -50 --analogio -30
       echo "CPU undervolted"
