@@ -149,4 +149,29 @@ in
       echo "CPU undervolted"
       '';
   };
+  systemd.services.nopowerleak-resumed = {
+    description = "Disable devices I don't use on Linux - after system resume";
+    wantedBy = [ "suspend.target" ];
+    after = [ "suspend.target" ];
+
+    script = ''
+      set -e
+      sleep 90
+      if test -d /sys/bus/pci/devices/0000:01:00.0 ; then
+        echo auto > /sys/bus/pci/devices/0000:01:00.0/power/control 
+        echo 1 > /sys/bus/pci/devices/0000:01:00.0/remove
+      fi
+      if test -d /sys/bus/pci/devices/0000:01:00.1 ; then
+        echo auto > /sys/bus/pci/devices/0000:01:00.1/power/control 
+        echo 1 > /sys/bus/pci/devices/0000:01:00.1/remove
+      fi
+      echo '\_SB.PCI0.PEG0.PEGP._OFF' > /proc/acpi/call    
+      sleep 10
+      echo '\_SB.PCI0.PEG0.PEGP._OFF' > /proc/acpi/call    
+      sleep 1
+      echo "Nvidia disabled"
+      ${pkgs.undervolt}/bin/undervolt --core -150 --cache -150 --uncore -100 --gpu -50 --analogio -30
+      echo "CPU undervolted"
+      '';
+  };
 }
