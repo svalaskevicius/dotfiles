@@ -129,11 +129,10 @@ in
 
     script = ''
       set -e
-      echo 1 > /sys/bus/pci/devices/0000:01:00.0/remove
-      echo '\_SB.PCI0.PEG0.PEGP._OFF' > /proc/acpi/call    
-      echo 1 > /sys/bus/pci/devices/0000:01:00.1/remove
-      echo '\_SB.PCI0.PEG1.PEGP._OFF' > /proc/acpi/call    
-      echo "Nvidia disabled"
+      #echo 1 > /sys/bus/pci/devices/0000:01:00.0/remove
+      # echo 1 > /sys/bus/pci/devices/0000:01:00.1/remove
+      # keyboard freezes when power is plugged!!!  echo '\_SB.PCI0.PEG0.PEGP._OFF' > /proc/acpi/call    
+      #echo "Nvidia disabled"
       ${pkgs.undervolt}/bin/undervolt --core -150 --cache -150 --uncore -100 --gpu -50 --analogio -30
       echo "CPU undervolted"
       '';
