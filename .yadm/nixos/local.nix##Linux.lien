@@ -30,7 +30,7 @@ in
       "acpi_osi=Windows 2013"
       "acpi_rev_override=1"
       "acpi_backlight=vendor"
-      "noapic"
+      # "noapic"
       "atkbd.reset=1"
       "i8042.nomux=1"
 #      "i8042.kbdreset=1"
@@ -88,6 +88,16 @@ in
       useGlamor = true;
       videoDrivers = [ "modesetting" ];
 
+      serverFlagsSection = ''
+        Option "AutoAddGPU" "false"
+      '';
+
+      deviceSection = ''
+        BusID "PCI:00:02.0"
+        Option "ProbeAllGpus" "false"
+      '';
+
+
 # Enable the Desktop Environment.
       displayManager.lightdm.enable = true;
 
@@ -129,10 +139,12 @@ in
 
     script = ''
       set -e
-      #echo 1 > /sys/bus/pci/devices/0000:01:00.0/remove
-      # echo 1 > /sys/bus/pci/devices/0000:01:00.1/remove
-      # keyboard freezes when power is plugged!!!  echo '\_SB.PCI0.PEG0.PEGP._OFF' > /proc/acpi/call    
-      #echo "Nvidia disabled"
+      echo auto > /sys/bus/pci/devices/0000:01:00.0/power/control 
+      echo auto > /sys/bus/pci/devices/0000:01:00.1/power/control 
+      echo 1 > /sys/bus/pci/devices/0000:01:00.0/remove
+      echo 1 > /sys/bus/pci/devices/0000:01:00.1/remove
+      echo '\_SB.PCI0.PEG0.PEGP._OFF' > /proc/acpi/call    
+      echo "Nvidia disabled"
       ${pkgs.undervolt}/bin/undervolt --core -150 --cache -150 --uncore -100 --gpu -50 --analogio -30
       echo "CPU undervolted"
       '';
