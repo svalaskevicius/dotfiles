@@ -79,6 +79,8 @@ set cmdheight=2
 " End of Configuration suggested for coc.nvim
 
 let g:airline#extensions#ale#enabled = 1
+let g:airline#extensions#coc#enabled = 1
+
 
 let g:rainbow_active = 1
 
