@@ -101,6 +101,7 @@ myManageHook = composeAll
     , className =? "Xchat"                  --> doShift "4:comms \xf075"
     , className =? "HipChat"                --> doShift "4:comms \xf075"
     , className =? "zoom"                   --> doShift "4:comms \xf075"
+    , className =? "zoom-us"                --> doShift "4:comms \xf075"
     , className =? "Slack"                  --> doShift "4:comms \xf075"
     , className =? "Skype"                  --> doShift "4:comms \xf075"
     , className =? "TelegramDesktop"        --> doShift "4:comms \xf075"
