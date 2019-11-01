@@ -60,7 +60,7 @@ myTerminal = "kitty tmux"
 -- Workspaces
 -- The default number of workspaces (virtual screens) and their names.
 --
-myWorkspaces = ["1:term \xf120","2:web \xf269","3:code \xf126","4:comms \xf075","5:apps \xf080"] ++ map show [6..9]
+myWorkspaces = ["1:term \xf120","2:web \xf269","3:code \xf126","4:comms \xf075","5:comms \xf075","6:apps \xf080"] ++ map show [7..9]
 
 
 ------------------------------------------------------------------------
@@ -100,14 +100,14 @@ myManageHook = composeAll
     , className =? "Emacs24"                --> doShift "3:code \xf126"
     , className =? "Xchat"                  --> doShift "4:comms \xf075"
     , className =? "HipChat"                --> doShift "4:comms \xf075"
-    , className =? "zoom"                   --> doShift "4:comms \xf075"
-    , className =? "zoom-us"                --> doShift "4:comms \xf075"
     , className =? "Slack"                  --> doShift "4:comms \xf075"
-    , className =? "Skype"                  --> doShift "4:comms \xf075"
     , className =? "TelegramDesktop"        --> doShift "4:comms \xf075"
     , className =? "Whatsie"                --> doShift "4:comms \xf075"
-    , className =? "VirtualBox"             --> doShift "5:apps \xf080"
-    , className =? "Gimp"                   --> doShift "5:apps \xf080"
+    , className =? "Skype"                  --> doShift "5:comms \xf075"
+    , className =? "zoom"                   --> doShift "5:comms \xf075"
+    , className =? "zoom-us"                --> doShift "5:comms \xf075"
+    , className =? "VirtualBox"             --> doShift "6:apps \xf080"
+    , className =? "Gimp"                   --> doShift "6:apps \xf080"
     , resource  =? "desktop_window"         --> doIgnore
     , className =? "Galculator"             --> doFloat
     , className =? "Steam"                  --> doFloat
