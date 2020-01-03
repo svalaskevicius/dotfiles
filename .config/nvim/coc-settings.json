@@ -1,10 +1,12 @@
 {
   "coc.preferences.hoverTarget": "float",
   "languageserver": {
-    "metals": {
-      "command": "metals-vim",
+    "coc-metals": {
       "rootPatterns": ["build.sbt"],
       "filetypes": ["scala", "sbt"]
     }
-  }
+  },
+  // https://scalameta.org/metals/docs/editors/vim.html#using-latest-metals-snapshot
+  "metals.serverVersion": "0.7.6+656-2b37a36c-SNAPSHOT",
+  "metals.serverProperties": ["-Dmetals.http=true"]
 }

@@ -47,6 +47,8 @@ Plug 'christoomey/vim-tmux-navigator'
 
 " Scala plugins
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+Plug 'ckipp01/coc-metals', {'do': 'yarn install --frozen-lockfile'}
+
 Plug 'derekwyatt/vim-scala'
 
 Plug 'neovimhaskell/haskell-vim'
