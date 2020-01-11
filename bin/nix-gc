@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+set -x -e
+
+sudo nix-collect-garbage -d --delete-older-than 14d
+sudo fstrim -v -a
+
