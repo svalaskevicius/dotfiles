@@ -37,6 +37,7 @@ Plug 'vim-airline/vim-airline-themes'
 " Git gutter
 Plug 'airblade/vim-gitgutter'
 
+"
 " Argument wrapping and unwrapping
 Plug 'FooSoft/vim-argwrap'
 
@@ -48,6 +49,11 @@ Plug 'christoomey/vim-tmux-navigator'
 " Scala plugins
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 Plug 'ckipp01/coc-metals', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-html', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-css', {'do': 'yarn install --frozen-lockfile'}
+" Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-yaml', {'do': 'yarn install --frozen-lockfile'}
 
 Plug 'derekwyatt/vim-scala'
 
@@ -79,6 +85,10 @@ Plug 'mlopes/vim-farin'
 Plug 'rafi/awesome-vim-colorschemes'
 
 Plug 'mileszs/ack.vim'
+Plug 'jremmen/vim-ripgrep'
+Plug 'stefandtw/quickfix-reflector.vim'
+
+Plug 'svalaskevicius/vim-leader-guide'
 
 " Initialize plugin system
 call plug#end()

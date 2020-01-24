@@ -33,7 +33,7 @@ endif
 
 " Color scheme
 set background=dark
-color minimalist
+color hybrid " minimalist
 highlight CocHighlightText ctermfg=Red guifg=#c0e050
 " highlight CocFloating guifg=#444444 guibg=#171717
 hi Pmenu guibg=#202020

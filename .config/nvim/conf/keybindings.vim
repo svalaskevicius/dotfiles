@@ -2,7 +2,8 @@
 " ===== Keyboard Mappings ======= "
 
 " Use "," as the <Leader> key
-let mapleader=","
+let g:mapleader="\<Space>"
+let g:maplocalleader=","
 
 nnoremap <S-Up> <C-B>
 nnoremap <S-Down> <C-F>
@@ -125,6 +126,7 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 " Remap for rename current word
 nmap <leader>rn <Plug>(coc-rename)
 
+nnoremap <silent> <space>c  :<C-u>CocCommand<cr>
 " Show all diagnostics
 nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
 " Find symbol of current document
@@ -138,13 +140,9 @@ nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
-nmap <leader>qf <Plug>(coc-fix-current)
-
-nnoremap <leader>cr :call CocRequestAsync('metals', 'workspace/executeCommand', { 'command': 'build-import' })<cr>
-nnoremap <leader>cd :call CocRequestAsync('metals', 'workspace/executeCommand', { 'command': 'doctor-run' })<cr>
+nnoremap <silent> <space>f <Plug>(coc-fix-current)
 
 
-" Function for whitespace toggle
 function! WhitespaceToggle()
   set listchars=eol:¬,tab:--,trail:~,extends:>,precedes:<
   if(&list ==1)
@@ -194,7 +192,7 @@ nmap <leader>9 <Plug>AirlineSelectTab9
 nmap <leader>- <Plug>AirlineSelectPrevTab
 nmap <leader>+ <Plug>AirlineSelectNextTab
 
-nnoremap <M-F> <ESC>:LAck!<SPACE>
+nnoremap <M-F> <ESC>:Rg<SPACE>
 
 function! CloseOtherBuffers()
   let curr = bufnr("%")
@@ -206,4 +204,11 @@ endfun
 
 nnoremap <silent> <leader>bd :bd <CR>
 nnoremap <silent> <leader>bod :call CloseOtherBuffers()<CR>
+
+
+let g:leaderGuide_display_plus_menus = 1
+let g:leaderGuide_run_map_on_popup = 1
+nnoremap <silent> <leader> :<c-u>LeaderGuide '<Space>'<CR>
+vnoremap <silent> <leader> :<c-u>LeaderGuideVisual '<Space>'<CR>
+nnoremap <silent> g :<c-u>LeaderGuide 'g'<CR>
 

@@ -1,12 +1,8 @@
 {
   "coc.preferences.hoverTarget": "float",
-  "languageserver": {
-    "coc-metals": {
-      "rootPatterns": ["build.sbt"],
-      "filetypes": ["scala", "sbt"]
-    }
-  },
+  "coc.preferences.formatOnType": true,
+  "coc.preferences.rootPatterns": ["build.sbt", ".git", "package-lock.json"],
   // https://scalameta.org/metals/docs/editors/vim.html#using-latest-metals-snapshot
-  "metals.serverVersion": "0.7.6+656-2b37a36c-SNAPSHOT",
+  "metals.serverVersion": "0.7.6",
   "metals.serverProperties": ["-Dmetals.http=true"]
 }
