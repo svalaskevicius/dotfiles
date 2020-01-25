@@ -232,7 +232,9 @@ let g:which_key_map.9 = 'which_key_ignore'
 call which_key#register('<Space>', "g:which_key_map")
 noremap <silent> <leader> :WhichKey '<Space>'<CR>
 vnoremap <silent> <leader> :<c-u>WhichKeyVisual '<Space>'<CR>
-nnoremap <localleader> :<c-u>WhichKey  ','<CR>
-vnoremap <localleader> :<c-u>WhichKeyVisual  ','<CR>
-nnoremap g :<c-u>WhichKey  'g'<CR>
+nnoremap <silent> <localleader> :<c-u>WhichKey  ','<CR>
+vnoremap <silent> <localleader> :<c-u>WhichKeyVisual  ','<CR>
+nnoremap <silent> g :<c-u>WhichKey  'g'<CR>
+nnoremap <silent> [ :<c-u>WhichKey  '['<CR>
+nnoremap <silent> ] :<c-u>WhichKey  ']'<CR>
 

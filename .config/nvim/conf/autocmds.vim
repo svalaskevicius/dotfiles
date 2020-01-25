@@ -33,15 +33,11 @@ augroup defaultgroup
 
   if has("nvim")
     au TermOpen * setlocal nonumber norelativenumber
-    au TermOpen * tnoremap <buffer> <Esc> <c-\><c-n>
+    au TermOpen * tnoremap <buffer> <Esc> <c-\><c-n> 
     au FileType fzf tunmap <buffer> <Esc>
     "au FileType fzf tnoremap <buffer> <Esc> <Esc>:q!<cr>
     "au FileType fzf noremap <buffer> <Esc> <Esc>:q!<cr>
   endif
 
-
+  autocmd FileType which_key set laststatus=0 noshowmode noruler | autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 augroup END
-
-autocmd! FileType which_key
-autocmd  FileType which_key set laststatus=0 noshowmode noruler
-  \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
