@@ -216,6 +216,9 @@ vmap <silent> <C-_> <Plug>NERDCommenterToggle
 " vnoremap <silent> <leader> :<c-u>LeaderGuideVisual '<Space>'<CR>
 " nnoremap <silent> g :<c-u>LeaderGuide 'g'<CR>
 
+
+nnoremap <silent> gg 1G
+
 let g:which_key_map =  {}
 let g:which_key_map.1 = 'which_key_ignore'
 let g:which_key_map.2 = 'which_key_ignore'

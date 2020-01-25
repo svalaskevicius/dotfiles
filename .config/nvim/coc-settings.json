@@ -3,6 +3,6 @@
   "coc.preferences.formatOnType": true,
   "coc.preferences.rootPatterns": ["build.sbt", ".git", "package-lock.json"],
   // https://scalameta.org/metals/docs/editors/vim.html#using-latest-metals-snapshot
-  "metals.serverVersion": "0.7.6",
+  "metals.serverVersion": "0.8.0",
   "metals.serverProperties": ["-Dmetals.http=true"]
 }
