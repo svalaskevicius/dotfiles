@@ -37,10 +37,6 @@ Plug 'vim-airline/vim-airline-themes'
 " Git gutter
 Plug 'airblade/vim-gitgutter'
 
-"
-" Argument wrapping and unwrapping
-Plug 'FooSoft/vim-argwrap'
-
 " Tmux focus events support - fugitive needs it
 Plug 'tmux-plugins/vim-tmux-focus-events'
 
@@ -89,6 +85,7 @@ Plug 'jremmen/vim-ripgrep'
 Plug 'stefandtw/quickfix-reflector.vim'
 
 Plug 'svalaskevicius/vim-leader-guide'
+Plug 'liuchengxu/vim-which-key'
 
 " Initialize plugin system
 call plug#end()

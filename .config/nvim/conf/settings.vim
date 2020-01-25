@@ -73,10 +73,9 @@ set nobackup
 set nowritebackup
 
 set mouse=a
-
-" Better display for messages
-set cmdheight=2
 " End of Configuration suggested for coc.nvim
+
+set cmdheight=1
 
 let g:airline#extensions#ale#enabled = 1
 let g:airline#extensions#coc#enabled = 1
@@ -128,4 +127,14 @@ let g:ctrlp_map = ''
 
 let g:tmux_navigator_no_mappings = 1
 let g:tmux_navigator_disable_when_zoomed = 0
+
+set timeoutlen=300
+let g:which_key_flatten = 1
+let g:which_key_position = 'botleft'
+let g:which_key_align_by_seperator = 1
+let g:which_key_use_floating_win = 1
+let g:which_key_display_names = { ' ': 'SPC', '<SPACE>': 'SPC', '<C-H>': 'BS', '<C-I>': 'TAB', '<TAB>': 'TAB', }
+let g:which_key_floating_opts =  { 'row': '+2', 'col': '-3', 'width': '+3' }
+
+
 

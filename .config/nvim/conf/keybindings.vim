@@ -15,10 +15,10 @@ inoremap <C-Up> <ESC><C-U>a
 inoremap <C-Down> <ESC><C-D>a
 
 " Toggle NERDTree file browser
-nnoremap <Leader>n :NERDTreeToggle <CR>
+nnoremap <Leader>tn :NERDTreeToggle <CR>
 
 " Open current file in NERDTree
-nnoremap <Leader>f :NERDTreeFind <CR>
+nnoremap <Leader>tf :NERDTreeFind <CR>
 
 " Tagbar shows list of all methods and variables in class
 " nnoremap <Leader>t :TagbarOpenAutoClose <CR>
@@ -48,8 +48,6 @@ nnoremap <Leader>= :cnext<CR>
 " Remap C-w C-w to C-w C-o, like in tmux
 nnoremap <C-w><C-o> <C-w><C-w>
 nnoremap <C-w>o <C-w><C-w>
-
-nnoremap <silent> <leader>aw :ArgWrap<CR>
 
 nnoremap <silent> <CR> :noh<CR><CR>
 
@@ -103,7 +101,7 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
 " Remap for do codeAction of current line
-nmap <leader>ac <Plug>(coc-codeaction)
+nmap <leader>x <Plug>(coc-codeaction)
 
 " Remap for do action format
 nnoremap <leader> F :call CocAction('format')<CR>
@@ -124,7 +122,7 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 
 
 " Remap for rename current word
-nmap <leader>rn <Plug>(coc-rename)
+nmap <leader>r <Plug>(coc-rename)
 
 nnoremap <silent> <space>c  :<C-u>CocCommand<cr>
 " Show all diagnostics
@@ -203,12 +201,35 @@ function! CloseOtherBuffers()
 endfun
 
 nnoremap <silent> <leader>bd :bd <CR>
-nnoremap <silent> <leader>bod :call CloseOtherBuffers()<CR>
+nnoremap <silent> <leader>bD :bd! <CR>
+nnoremap <silent> <leader>bo :call CloseOtherBuffers()<CR>
 
 
-let g:leaderGuide_display_plus_menus = 1
-let g:leaderGuide_run_map_on_popup = 1
-nnoremap <silent> <leader> :<c-u>LeaderGuide '<Space>'<CR>
-vnoremap <silent> <leader> :<c-u>LeaderGuideVisual '<Space>'<CR>
-nnoremap <silent> g :<c-u>LeaderGuide 'g'<CR>
+let g:NERDCreateDefaultMappings = 0
+nmap <silent> <C-_> <Plug>NERDCommenterToggle
+imap <silent> <C-_> <Plug>NERDCommenterToggle
+vmap <silent> <C-_> <Plug>NERDCommenterToggle
+
+" let g:leaderGuide_display_plus_menus = 1
+" let g:leaderGuide_run_map_on_popup = 1
+" nnoremap <silent> <leader> :<c-u>LeaderGuide '<Space>'<CR>
+" vnoremap <silent> <leader> :<c-u>LeaderGuideVisual '<Space>'<CR>
+" nnoremap <silent> g :<c-u>LeaderGuide 'g'<CR>
+
+let g:which_key_map =  {}
+let g:which_key_map.1 = 'which_key_ignore'
+let g:which_key_map.2 = 'which_key_ignore'
+let g:which_key_map.3 = 'which_key_ignore'
+let g:which_key_map.4 = 'which_key_ignore'
+let g:which_key_map.5 = 'which_key_ignore'
+let g:which_key_map.6 = 'which_key_ignore'
+let g:which_key_map.7 = 'which_key_ignore'
+let g:which_key_map.8 = 'which_key_ignore'
+let g:which_key_map.9 = 'which_key_ignore'
+call which_key#register('<Space>', "g:which_key_map")
+noremap <silent> <leader> :WhichKey '<Space>'<CR>
+vnoremap <silent> <leader> :<c-u>WhichKeyVisual '<Space>'<CR>
+nnoremap <localleader> :<c-u>WhichKey  ','<CR>
+vnoremap <localleader> :<c-u>WhichKeyVisual  ','<CR>
+nnoremap g :<c-u>WhichKey  'g'<CR>
 
