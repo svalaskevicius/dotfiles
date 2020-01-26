@@ -60,7 +60,7 @@ let g:deoplete#enable_at_startup = 1
 
  " Configuration for coc.nvim
 " Smaller updatetime for CursorHold & CursorHoldI
-set updatetime=300
+set updatetime=200
 
 " don't give |ins-completion-menu| messages.
 set shortmess+=c

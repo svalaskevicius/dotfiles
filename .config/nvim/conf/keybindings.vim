@@ -117,9 +117,6 @@ function! s:show_documentation()
   endif
 endfunction
 
-" Highlight symbol under cursor on CursorHold
-autocmd CursorHold * silent call CocActionAsync('highlight')
-
 
 " Remap for rename current word
 nmap <leader>r <Plug>(coc-rename)
@@ -187,10 +184,10 @@ nmap <leader>6 <Plug>AirlineSelectTab6
 nmap <leader>7 <Plug>AirlineSelectTab7
 nmap <leader>8 <Plug>AirlineSelectTab8
 nmap <leader>9 <Plug>AirlineSelectTab9
-nmap <leader>- <Plug>AirlineSelectPrevTab
-nmap <leader>+ <Plug>AirlineSelectNextTab
+nmap <C-Left> <Plug>AirlineSelectPrevTab
+nmap <C-Right> <Plug>AirlineSelectNextTab
 
-nnoremap <M-F> <ESC>:Rg<SPACE>
+nnoremap <M-f> <ESC>:Rg<SPACE>''<left>
 
 function! CloseOtherBuffers()
   let curr = bufnr("%")
@@ -216,6 +213,7 @@ vmap <silent> <C-_> <Plug>NERDCommenterToggle
 " vnoremap <silent> <leader> :<c-u>LeaderGuideVisual '<Space>'<CR>
 " nnoremap <silent> g :<c-u>LeaderGuide 'g'<CR>
 
+nnoremap <leader>. :lcd %:p:h<cr>
 
 nnoremap <silent> gg 1G
 

@@ -15,9 +15,13 @@ function! TrimWhitespace()
 endfun
 
 augroup defaultgroup
+  autocmd!
+  " Highlight symbol under cursor on CursorHold
+  autocmd CursorHold * silent call CocActionAsync('highlight')
+
   autocmd WinEnter * call s:CloseIfOnlyNerdTreeLeft()
 
-  autocmd FileType c,cpp,java,php,scala,haskell autocmd BufWritePre * :call TrimWhitespace() " Trim whitespace on every save
+  autocmd FileType c,cpp,java,php,scala,haskell,ts,css autocmd BufWritePre * :call TrimWhitespace() " Trim whitespace on every save
 
   au BufRead,BufNewFile *.sbt set filetype=scala
   " Settings for rst / markdown

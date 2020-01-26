@@ -86,6 +86,7 @@ Plug 'stefandtw/quickfix-reflector.vim'
 
 Plug 'svalaskevicius/vim-leader-guide'
 Plug 'liuchengxu/vim-which-key'
+" Plug 'kana/vim-arpeggio'
 
 " Initialize plugin system
 call plug#end()
