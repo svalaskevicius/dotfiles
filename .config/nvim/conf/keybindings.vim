@@ -15,7 +15,7 @@ inoremap <C-Up> <ESC><C-U>a
 inoremap <C-Down> <ESC><C-D>a
 
 " Toggle NERDTree file browser
-nnoremap <Leader>tn :NERDTreeToggle <CR>
+nnoremap <Leader>tt :NERDTreeToggle <CR>
 
 " Open current file in NERDTree
 nnoremap <Leader>tf :NERDTreeFind <CR>
@@ -23,12 +23,19 @@ nnoremap <Leader>tf :NERDTreeFind <CR>
 " Tagbar shows list of all methods and variables in class
 " nnoremap <Leader>t :TagbarOpenAutoClose <CR>
 
+function! OpenInMain(command_str)
+  if (expand('%') =~# 'NERD_tree' && winnr('$') > 1)
+    exe "normal! \<c-w>\<c-w>"
+  endif
+  exe 'normal! ' . a:command_str . "\<cr>"
+endfunction
+
 " Fuzzy search open buffers
-nnoremap <C-B> :CtrlPBuffer <CR>
+nnoremap <silent> <C-b> :call OpenInMain(':CtrlPBuffer')<cr>
 " Fuzzy search tags
 " nnoremap <C-T> :CtrlPTag <CR>
 " Fuzzy search all project filenames
-nnoremap <C-F> :FZF <CR>
+nnoremap <silent> <C-f> :call OpenInMain(':FZF')<cr>
 
 " Reload the .vimrc config
 nnoremap <Leader>vr :so ~/.config/nvim/init.vim<CR>
@@ -135,7 +142,7 @@ nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
-nnoremap <silent> <space>f <Plug>(coc-fix-current)
+nmap <silent> <space>f <Plug>(coc-fix-current)
 
 
 function! WhitespaceToggle()
@@ -197,8 +204,8 @@ function! CloseOtherBuffers()
   if curr < last | silent! execute (curr+1).",".last."bd" | endif
 endfun
 
-nnoremap <silent> <leader>bd :bd <CR>
-nnoremap <silent> <leader>bD :bd! <CR>
+nnoremap <silent> <leader>bd :bp\|bd #<CR>
+nnoremap <silent> <leader>bD :bp\|bd! #<CR>
 nnoremap <silent> <leader>bo :call CloseOtherBuffers()<CR>
 
 
@@ -216,6 +223,8 @@ vmap <silent> <C-_> <Plug>NERDCommenterToggle
 nnoremap <leader>. :lcd %:p:h<cr>
 
 nnoremap <silent> gg 1G
+nnoremap <silent> g; g;
+nnoremap <silent> g, g,
 
 let g:which_key_map =  {}
 let g:which_key_map.1 = 'which_key_ignore'

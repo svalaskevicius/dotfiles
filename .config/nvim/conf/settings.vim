@@ -103,9 +103,9 @@ let g:airline#extensions#tabline#tab_nr_type = 1
 let g:airline#extensions#tabline#buffer_idx_mode = 1
 
 " NerdTree
-let g:NERDTreeCascadeOpenSingleChildDir=0
-let g:NERDTreeCascadeSingleChildDir=0
-let g:NERDTreeQuitOnOpen = 1
+let g:NERDTreeCascadeOpenSingleChildDir=1
+let g:NERDTreeCascadeSingleChildDir=1
+let g:NERDTreeQuitOnOpen = 0
 
 " NerdCommenter
 let g:NERDDefaultAlign = 'left'
