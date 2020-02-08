@@ -212,7 +212,7 @@ nnoremap <silent> <leader>bo :call CloseOtherBuffers()<CR>
 let g:NERDCreateDefaultMappings = 0
 nmap <silent> <C-_> <Plug>NERDCommenterToggle
 imap <silent> <C-_> <Plug>NERDCommenterToggle
-vmap <silent> <C-_> <Plug>NERDCommenterToggle
+vmap <silent> <C-_> <Plug>NERDCommenterToggle gv
 
 " let g:leaderGuide_display_plus_menus = 1
 " let g:leaderGuide_run_map_on_popup = 1

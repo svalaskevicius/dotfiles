@@ -75,7 +75,7 @@ set nowritebackup
 set mouse=a
 " End of Configuration suggested for coc.nvim
 
-set cmdheight=1
+" set cmdheight=2
 
 let g:airline#extensions#ale#enabled = 1
 let g:airline#extensions#coc#enabled = 1

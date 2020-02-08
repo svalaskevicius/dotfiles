@@ -19,19 +19,45 @@
 
 #
 ### configuration ###
-display=1
-console=1
+display=2
+console=2
 tmpdir=$XDG_RUNTIME_DIR/nvidia
 # see alternative packages with "nix-instantiate --eval -E 'with import <nixpkgs> {}; linuxPackages.nvidiaPackages'"
 package="linuxPackages.nvidia_x11"
 busid=$($(nix-build --no-out-link '<nixpkgs>' -A pciutils)/bin/lspci | awk '/3D controller/{gsub(/\./,":",$1); print $1}')
 kernel="$(uname -r)"
 
+cleanEnv() {
+  unset DBUS_SESSION_BUS_ADDRESS
+  unset DISPLAY
+  unset XAUTHORITY
+  unset XDG_SEAT
+  unset XDG_RUNTIME_DIR
+  unset XDG_SEAT_PATH
+  unset XDG_CONFIG_DIRS
+  unset XDG_DATA_DIRS
+  unset XDG_DESKTOP_PORTAL_PATH
+  unset XDG_GREETER_DATA_DIR
+  unset XDG_RUNTIME_DIR
+  unset XDG_SEAT
+  unset XDG_SEAT_PATH
+  unset XDG_SESSION_CLASS
+  unset XDG_SESSION_DESKTOP
+  unset XDG_SESSION_ID
+  unset XDG_SESSION_PATH
+  unset XDG_SESSION_TYPE
+  unset XDG_VTNR
+  unset XMONAD_INIT_DONE
+  unset XMONAD_XMESSAGE
+}
+
+cleanEnv
+
 mkdir -p $tmpdir/modules
 cat > $tmpdir/xorg.conf << EOF
 Section "Files"
   ModulePath "$(nix-build --no-out-link '<nixpkgs>' -A xorg.xf86inputlibinput)/lib/xorg/modules/input"
-  ModulePath "$(nix-build --no-out-link '<nixos-unstable>' -A $package.bin)/lib/xorg/modules"
+  ModulePath "$(nix-build --no-out-link '<nixos>' -A $package.bin)/lib/xorg/modules"
   ModulePath "$tmpdir/modules"
 EndSection
 
@@ -47,16 +73,10 @@ Section "InputClass"
   MatchDevicePath "/dev/input/event*"
   Driver "libinput"
 EndSection
-Section "InputClass"
-  Identifier "libinput touchpad catchall"
-  MatchIsTouchpad "on"
-  MatchDevicePath "/dev/input/event*"
-  Driver "libinput"
-  Option "Tapping" "on"
-  Option "DisableWhileTyping" "off"
-  Option "MiddleEmulation" "on"
-EndSection
 
+Section "Monitor"
+  Identifier "Monitor[0]"
+EndSection
 Section "Module"
   Load "modesetting"
 EndSection
@@ -65,6 +85,28 @@ Section "Device"
   Driver "nvidia"
   BusID "$busid"
   Option "AllowEmptyInitialConfiguration"
+EndSection
+Section "InputClass"
+  Identifier "libinputConfiguration"
+  MatchIsTouchpad "on"
+  
+  Driver "libinput"
+  Option "AccelProfile" "adaptive"
+  Option "AccelSpeed" "0.6"
+  Option "ButtonMapping" "1 0 3"
+  
+  
+  Option "LeftHanded" "off"
+  Option "MiddleEmulation" "off"
+  Option "NaturalScrolling" "on"
+  
+  Option "ScrollMethod" "twofinger"
+  Option "HorizontalScrolling" "on"
+  Option "SendEventsMode" "enabled"
+  Option "Tapping" "on"
+  Option "TappingDragLock" "on"
+  Option "DisableWhileTyping" "on"
+  
 EndSection
 EOF
 ### end of configuration ###
@@ -87,16 +129,14 @@ if [ "$(sudo fgconsole)" == "$console" ]; then
   echo -e "$red You need to run $0 from another console"
   exit 1
 fi
-if [ -z "$XAUTHORITY" ]; then
-  export XAUTHORITY=$HOME/.Xauthority
-fi
+export XAUTHORITY=$HOME/.Xauthority-nvidia
 
 cat > $tmpdir/session << EOF
 #!/bin/sh
 $(nix-build --no-out-link '<nixpkgs>' -A xorg.xrandr)/bin/xrandr --setprovideroutputsource modesetting NVIDIA-0
 $(nix-build --no-out-link '<nixpkgs>' -A xorg.xrandr)/bin/xrandr --auto
 export LD_LIBRARY_PATH="$(nix-build --no-out-link -E '
-  with import <nixos-unstable> {};
+  with import <nixos> {};
 
   buildEnv {
     name = "nvidia-libs";
@@ -110,7 +150,7 @@ export LD_LIBRARY_PATH="$(nix-build --no-out-link -E '
   }
 ')/lib`
   `:$(nix-build --no-out-link -E '
-    with import <nixos-unstable> {};
+    with import <nixos> {};
 
     buildEnv {
       name = "nvidia-libs-32";
@@ -122,16 +162,16 @@ export LD_LIBRARY_PATH="$(nix-build --no-out-link -E '
         })
       ];
   }')/lib"
-#export PATH="\$(nix-build --no-out-link -E '
-#  with import <nixos-unstable> {};
-#
-#  buildEnv {
-#    name = "nvidia-bin";
-#    paths = [ '$package'.settings '$package'.bin ];
-#  }
-#')/bin:\$PATH"
+export PATH="$(nix-build --no-out-link -E '
+ with import <nixos> {};
+
+ buildEnv {
+   name = "nvidia-bin";
+   paths = [ '$package'.settings '$package'.bin ];
+ }
+')/bin:\$PATH"
 export VK_ICD_FILENAMES="$(nix-build --no-out-link -E '
-  with import <nixos-unstable> {};
+  with import <nixos> {};
 
   '$package'.override {
     libsOnly = true;
@@ -139,7 +179,7 @@ export VK_ICD_FILENAMES="$(nix-build --no-out-link -E '
   }
 ')/share/vulkan/icd.d/nvidia.json";
 export OCL_ICD_VENDORS="$(nix-build --no-out-link -E '
-  with import <nixos-unstable> {};
+  with import <nixos> {};
 
   '$package'.override {
     libsOnly = true;
@@ -179,7 +219,7 @@ get_major_version()
 if [ -e /etc/nixos ]; then
   # complicated to always check non-nixos rules on nixos
   nvidia="$(nix-build --no-out-link -E '
-    with import <nixos-unstable/nixos> {};
+    with import <nixos/nixos> {};
 
     let
       custom = config.boot.kernelPackages;
@@ -193,7 +233,7 @@ else
   sudo ln -s /lib/modules/$kernel/build /lib/modules/$kernel/source
   get_major_version /lib/modules/$kernel/source/include/generated/compile.h
   nvidia="$(nix-build --no-out-link -E '
-    with import <nixos-unstable> {};
+    with import <nixos> {};
 
     (('$package'.override { stdenv = overrideCC stdenv gcc'$kernel_cc_major'; }).overrideAttrs (oldAttrs: rec {
       kernelVersion = "'$kernel'";
@@ -205,8 +245,9 @@ fi
 
 sudo tee '/sys/bus/pci/devices/0000:01:00.0/power/control' <<<on
 
-echo 'waiting for 30 seconds for nvidia to wake up'
-sleep 30
+# echo 'waiting for 10 seconds for nvidia to wake up'
+# echo $tmpdir
+# sleep 10
 
 sudo modprobe ipmi_devintf
 for m in nvidia nvidia-modeset nvidia-drm nvidia-uvm
@@ -223,8 +264,9 @@ xinit=$(nix-build --no-out-link '<nixpkgs>' -A xorg.xinit)/bin
 
 startx="$xinit/startx"
 
+
 # xinit is unsecure
-sudo PATH=$xinit:$PATH $startx $tmpdir/wrapper -- $tmpdir/X :$display -config $tmpdir/xorg.conf -logfile $tmpdir/X.log vt$console
+sudo PATH=$xinit:$PATH $startx $tmpdir/wrapper -- $tmpdir/X :$display -config $tmpdir/xorg.conf -auth "$XAUTHORITY" -dpi 192 -logfile $tmpdir/X.log vt$console
 sudo chown $USER $XAUTHORITY
 
 for m in nvidia_uvm nvidia_drm nvidia_modeset nvidia

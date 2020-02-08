@@ -93,12 +93,12 @@ in {
 
   # nvidia
   environment.systemPackages = [
-      (unstable.pkgs.linuxPackages.nvidia_x11.override { libsOnly = true; kernel = null; })
-      (unstable.pkgsi686Linux.linuxPackages.nvidia_x11.override { libsOnly = true; kernel = null; })
+      (pkgs.linuxPackages.nvidia_x11.override { libsOnly = true; kernel = null; })
+      (pkgs.pkgsi686Linux.linuxPackages.nvidia_x11.override { libsOnly = true; kernel = null; })
   ];
   # install nvidia drivers in addition to intel one
-  hardware.opengl.extraPackages = [ unstable.pkgs.linuxPackages.nvidia_x11.out ];
-  hardware.opengl.extraPackages32 = [ unstable.pkgsi686Linux.linuxPackages.nvidia_x11.out ];
+  hardware.opengl.extraPackages = [ pkgs.linuxPackages.nvidia_x11.out ];
+  hardware.opengl.extraPackages32 = [ pkgs.pkgsi686Linux.linuxPackages.nvidia_x11.out ];
 
   # This value determines the NixOS release with which your system is to be
   # compatible, in order to avoid breaking some software such as database
