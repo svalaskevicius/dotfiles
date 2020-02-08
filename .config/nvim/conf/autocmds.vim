@@ -16,6 +16,9 @@ endfun
 
 augroup defaultgroup
   autocmd!
+
+  " autocmd VimEnter * NERDTree
+
   " Highlight symbol under cursor on CursorHold
   autocmd CursorHold * silent call CocActionAsync('highlight')
 
