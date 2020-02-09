@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+# Slightly jiggle the mouse pointer about; we do a small step and reverse step
+# to try to stop this being annoying to anyone using the PC.
+function jiggle_mouse()
+{
+    export DISPLAY=:0.0
+    xdotool mousemove_relative --sync --  1  1
+    xdotool mousemove_relative --sync -- -1 -1
+}
+
+while sleep 300 ; do
+  jiggle_mouse
+done
