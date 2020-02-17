@@ -131,8 +131,6 @@ in
 # should.
   system.stateVersion = "19.03"; # Did you read the comment?
 
-  environment.systemPackages = with pkgs; [ undervolt ];
-
   systemd.services.nopowerleak = {
     description = "Disable devices I don't use on Linux";
     wantedBy = [ "graphical-session-pre.target" "multiuser.target" "display-manager.service" ];
@@ -141,10 +139,12 @@ in
       set -e
       echo auto > /sys/bus/pci/devices/0000:01:00.0/power/control 
       echo auto > /sys/bus/pci/devices/0000:01:00.1/power/control 
+
       echo 1 > /sys/bus/pci/devices/0000:01:00.0/remove
       echo 1 > /sys/bus/pci/devices/0000:01:00.1/remove
-      echo '\_SB.PCI0.PEG0.PEGP._OFF' > /proc/acpi/call    
+      echo '\_SB.PCI0.PEG0.PEGP._OFF' > /proc/acpi/call
       echo "Nvidia disabled"
+
       ${pkgs.undervolt}/bin/undervolt --core -150 --cache -150 --uncore -100 --gpu -50 --analogio -30
       echo "CPU undervolted"
       '';
@@ -157,21 +157,33 @@ in
     script = ''
       set -e
       sleep 90
-      if test -d /sys/bus/pci/devices/0000:01:00.0 ; then
-        echo auto > /sys/bus/pci/devices/0000:01:00.0/power/control 
-        echo 1 > /sys/bus/pci/devices/0000:01:00.0/remove
-      fi
-      if test -d /sys/bus/pci/devices/0000:01:00.1 ; then
-        echo auto > /sys/bus/pci/devices/0000:01:00.1/power/control 
-        echo 1 > /sys/bus/pci/devices/0000:01:00.1/remove
-      fi
-      echo '\_SB.PCI0.PEG0.PEGP._OFF' > /proc/acpi/call    
-      sleep 10
-      echo '\_SB.PCI0.PEG0.PEGP._OFF' > /proc/acpi/call    
-      sleep 1
-      echo "Nvidia disabled"
+
+     if test -d /sys/bus/pci/devices/0000:01:00.0 ; then
+       echo auto > /sys/bus/pci/devices/0000:01:00.0/power/control
+       echo 1 > /sys/bus/pci/devices/0000:01:00.0/remove
+     fi
+     if test -d /sys/bus/pci/devices/0000:01:00.1 ; then
+       echo auto > /sys/bus/pci/devices/0000:01:00.1/power/control
+       echo 1 > /sys/bus/pci/devices/0000:01:00.1/remove
+     fi
+     echo '\_SB.PCI0.PEG0.PEGP._OFF' > /proc/acpi/call
+     sleep 10
+     echo '\_SB.PCI0.PEG0.PEGP._OFF' > /proc/acpi/call
+     sleep 1
+     echo "Nvidia disabled"
+
       ${pkgs.undervolt}/bin/undervolt --core -150 --cache -150 --uncore -100 --gpu -50 --analogio -30
       echo "CPU undervolted"
       '';
   };
+
+  # nvidia + undervolt
+  environment.systemPackages = [
+      pkgs.undervolt
+      (pkgs.linuxPackages.nvidia_x11.override { libsOnly = true; kernel = null; })
+      (pkgs.pkgsi686Linux.linuxPackages.nvidia_x11.override { libsOnly = true; kernel = null; })
+  ];
+  # install nvidia drivers in addition to intel one
+  hardware.opengl.extraPackages = [ pkgs.linuxPackages.nvidia_x11.out ];
+  hardware.opengl.extraPackages32 = [ pkgs.pkgsi686Linux.linuxPackages.nvidia_x11.out ];
 }

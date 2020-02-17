@@ -9,6 +9,6 @@ function jiggle_mouse()
     xdotool mousemove_relative --sync -- -1 -1
 }
 
-while sleep 300 ; do
+while sleep 30 ; do
   jiggle_mouse
 done
