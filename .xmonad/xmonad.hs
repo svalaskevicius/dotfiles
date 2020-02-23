@@ -457,15 +457,17 @@ myEventHook e = do
 main = do
   -- xmproc <- spawnPipe "i3status | /usr/bin/xmobar ~/.xmonad/xmobar.hs"
   -- xmproc <- spawnPipe "/run/current-system/sw/bin/xmobar ~/.xmonad/xmobar.hs"
-  xmproc <- spawnPipe "~/.local/bin/xmobar ~/.xmonad/xmobar.hs"
+  -- xmproc <- spawnPipe "~/.local/bin/xmobar ~/.xmonad/xmobar.hs"
+  xmproc <- spawnPipe "~/.config/polybar/launch.sh"
   xmonad $ docks $ ewmh defaults {
-      logHook = dynamicLogWithPP $ xmobarPP {
-            ppOutput = hPutStrLn xmproc
-          , ppTitle = xmobarColor xmobarTitleColor "" . shorten 75
-          , ppCurrent = xmobarColor xmobarCurrentWorkspaceColor "#777777"
-          , ppVisible = xmobarColor xmobarCurrentWorkspaceColor "#777777"
-          , ppSep = " |  "}
-      , manageHook = manageDocks <+> myManageHook
+      -- logHook = dynamicLogWithPP $ xmobarPP {
+      --       ppOutput = hPutStrLn xmproc
+      --     , ppTitle = xmobarColor xmobarTitleColor "" . shorten 75
+      --     , ppCurrent = xmobarColor xmobarCurrentWorkspaceColor "#777777"
+      --     , ppVisible = xmobarColor xmobarCurrentWorkspaceColor "#777777"
+      --     , ppSep = " |  "}
+      -- ,
+      manageHook = manageDocks <+> myManageHook
   }
 
 promptDef :: XPConfig

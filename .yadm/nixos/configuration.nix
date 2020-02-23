@@ -56,8 +56,20 @@ in {
           zoom-us
           # xmonad env
           rofi scrot slock kbdlight xorg.xmodmap xcompmgr compton feh pamixer networkmanager_dmenu networkmanagerapplet stalonetray
-          xss-lock notify-osd libnotify
+          xss-lock notify-osd libnotify ((unstable.polybar.override { pulseSupport = true; })
+          .overrideAttrs(old: rec {
+            version = "3.4.2+";
+            src = fetchFromGitHub {
+              owner = old.pname;
+              repo = old.pname;
+              rev = "f02fb6702013033ae0d09c3cd37895c5155ca421";
+              sha256 = "0yrg45lf9xk22jkj8h0c4w6r88g98lhc783rqz0jb31c9rrqy627";
+              fetchSubmodules = true;
+            };
+          })
+          )
           # glx
+
           glxinfo
           # theme
           vanilla-dmz
