@@ -2,7 +2,7 @@
 xsetroot -cursor_name left_ptr
 setxkbmap gb
 # xmodmap  ~/.Xmodmap
-# xcompmgr -cfF -t-9 -l-11 -r9 -o.95 -D6 &
+xcompmgr & # -cfF -t-9 -l-11 -r9 -o.95 -D6 &
 xset s 300 240
 feh --bg-tile ~/.xmonad/wallpaper.png
 
