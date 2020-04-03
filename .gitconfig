@@ -56,6 +56,8 @@
 
     please = push --force-with-lease
 
+    su = !BR=$(git symbolic-ref --short HEAD) && git branch --set-upstream-to=origin/"$BR" "$BR"
+
 [web]
     browser = xdg-open
 
@@ -71,3 +73,4 @@
 	tool = vimdiff
 [gc]
 	auto = 256
+
