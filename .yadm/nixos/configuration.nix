@@ -48,6 +48,7 @@ in {
         devPack = with pkgs; [ openjdk8 maven scala sbt coursier ammonite gnumake cmake gcc nodejs ];
         editorsPack = with pkgs; [ vscode ];
         xPack = with pkgs; [
+          hicolor-icon-theme gnome3.adwaita-icon-theme
           fira-code
           firefox
           okular
