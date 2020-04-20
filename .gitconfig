@@ -14,7 +14,7 @@
 
 [interactive]
     singlekey = true
-	  diffFilter = (echo && git-fancy-diff)
+    diffFilter = git-fancy-diff
 
 [url "git://github.com/"]
     insteadOf = gh:
