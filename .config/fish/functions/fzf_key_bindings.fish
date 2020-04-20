@@ -1,0 +1,1 @@
+/home/sarunas/.local/bin/fzf/shell/key-bindings.fish
