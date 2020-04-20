@@ -138,3 +138,6 @@ let g:which_key_floating_opts =  { 'row': '+2', 'col': '-3', 'width': '+3' }
 
 
 
+set undofile
+set undodir=~/.vimundo/
+

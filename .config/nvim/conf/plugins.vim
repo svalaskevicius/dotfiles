@@ -48,7 +48,7 @@ Plug 'ckipp01/coc-metals', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-html', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-css', {'do': 'yarn install --frozen-lockfile'}
-" Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-yaml', {'do': 'yarn install --frozen-lockfile'}
 
 Plug 'derekwyatt/vim-scala'
@@ -61,6 +61,8 @@ Plug 'mpickering/hlint-refactor-vim'
 " Plug 'w0rp/ale'
 
 Plug 'gruvbox-community/gruvbox'
+Plug 'sonph/onehalf', {'rtp': 'vim/'}
+Plug 'jacoborus/tender.vim'
 
 Plug 'ryanoasis/vim-devicons'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
@@ -87,6 +89,8 @@ Plug 'stefandtw/quickfix-reflector.vim'
 Plug 'svalaskevicius/vim-leader-guide'
 Plug 'liuchengxu/vim-which-key'
 " Plug 'kana/vim-arpeggio'
+
+Plug 'vim-scripts/CycleColor'
 
 " Initialize plugin system
 call plug#end()

@@ -25,17 +25,28 @@ syntax on
 
 hi! Normal ctermbg=NONE guibg=NONE
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-set termguicolors
+" set termguicolors
+if exists('+termguicolors')
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+  set termguicolors
+endif
 
 if exists("g:loaded_webdevicons")
   call webdevicons#refresh()
 endif
 
 " Color scheme
+set cursorline
+set t_Co=256
 set background=dark
-color deus " hybrid  minimalist
+" color deus " hybrid  minimalist
+colorscheme onedark " tender
+let g:airline_theme = 'tendersar'
+
 let g:deus_termcolors=256
 highlight CocHighlightText ctermfg=Red guifg=#c0e050
+
 " highlight CocFloating guifg=#444444 guibg=#171717
 " hi Pmenu guibg=#202020
 " hi PmenuSel guibg=#333333
