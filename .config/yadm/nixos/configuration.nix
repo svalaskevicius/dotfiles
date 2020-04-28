@@ -80,7 +80,7 @@ in {
           elementary-xfce-icon-theme
           capitaine-cursors
         ];
-        haskellPack = with pkgs.haskellPackages; [ nvim-hs ghc happy hasktags hlint stylish-haskell xmobar stack cabal-install ];
+        haskellPack = with pkgs.haskellPackages; [ nvim-hs ghc happy hasktags hlint xmobar stack cabal-install ];
     in sysPack ++ toolsPack ++ xPack ++ haskellPack ++ devPack ++ editorsPack;
 
   virtualisation.docker.enable = true;
@@ -163,6 +163,7 @@ in {
       value = "1048576";
   }];
 
+  environment.homeBinInPath = true;
   environment.etc."systemd/sleep.conf".text = ''
 [Sleep]
 AllowSuspend=yes

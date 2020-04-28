@@ -9,14 +9,13 @@ qca6174_firmware = pkgs.callPackage ./qca6174_firmware.nix { };
 in
 {
 
-  boot.initrd.luks.devices = [
-  {
-    name = "root";
-    device = "/dev/disk/by-uuid/559df880-7d37-43fc-82f8-09d1c21e06d6";
-    preLVM = true;
-    allowDiscards = true;
-  }
-  ];
+  boot.initrd.luks.devices = {
+    root = {
+      device = "/dev/disk/by-uuid/559df880-7d37-43fc-82f8-09d1c21e06d6";
+      preLVM = true;
+      allowDiscards = true;
+    };
+  };
 
   boot.blacklistedKernelModules = [ 
     "nouveau" "rivafb" "nvidiafb" "rivatv" "nv" # graphics
@@ -54,12 +53,15 @@ in
 
   networking.hostName = "lien"; # Define your hostname.
 
-# Select internationalisation properties.
-    i18n = {
-      consoleFont = "latarcyrheb-sun32";
-      consoleKeyMap = "uk";
-      defaultLocale = "en_GB.UTF-8";
-    };
+  # Select internationalisation properties.
+  i18n = {
+    defaultLocale = "en_GB.UTF-8";
+  };
+
+  console = {
+    font = "latarcyrheb-sun32";
+    keyMap = "uk";
+  };
 
   fonts.fontconfig.dpi = 192;
 
@@ -105,12 +107,11 @@ in
       windowManager.xmonad.enableContribAndExtras = false;
       desktopManager.xterm.enable = false;
       desktopManager.gnome3.enable = false;
-      desktopManager.default = "none";
-      windowManager.default = "xmonad";
+      displayManager.defaultSession = "none+xmonad";
     };
     redshift.enable = true;
 
-# Enable network printer
+    # Enable network printer
     printing.enable = true;
     avahi.enable = true;
     avahi.nssmdns = true;

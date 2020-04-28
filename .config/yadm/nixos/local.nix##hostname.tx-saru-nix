@@ -10,14 +10,13 @@ let
   };
 in {
 
-  boot.initrd.luks.devices = [
-    {
-      name = "root";
+  boot.initrd.luks.devices = {
+    root = {
       device = "/dev/disk/by-uuid/b4da34ca-073f-4e3b-acc3-f90bf082f6af";
       preLVM = true;
       allowDiscards = true;
-    }
-  ];
+    };
+  };
 
   boot.blacklistedKernelModules = [ "nouveau" "rivafb" "nvidiafb" "rivatv" "nv" ];
   boot.kernelPackages = pkgs.linuxPackages_latest;
@@ -35,9 +34,12 @@ in {
 
   # Select internationalisation properties.
   i18n = {
-    consoleFont = "latarcyrheb-sun32";
-    consoleKeyMap = "uk";
     defaultLocale = "en_GB.UTF-8";
+  };
+
+  console = {
+    font = "latarcyrheb-sun32";
+    keyMap = "uk";
   };
 
   fonts.fontconfig.dpi = 192;
@@ -71,8 +73,7 @@ in {
       windowManager.xmonad.enableContribAndExtras = true;
       desktopManager.xterm.enable = false;
       desktopManager.gnome3.enable = true;
-      desktopManager.default = "none";
-      windowManager.default = "xmonad";
+      displayManager.defaultSession = "none+xmonad";
     };
     redshift.enable = true;
 
