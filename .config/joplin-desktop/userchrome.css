@@ -1,0 +1,7 @@
+/* For styling the entire Joplin app (except the rendered Markdown, which is defined in `userstyle.css`) */
+
+#react-root > div > div, #note-editor, input, .list-item-container {
+  background-color: #f2f0ef !important;
+}
+
+
