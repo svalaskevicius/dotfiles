@@ -261,8 +261,40 @@ nnoremap <silent> <leader>bo :call CloseOtherBuffers()<CR>
 
 let g:NERDCreateDefaultMappings = 0
 nmap <silent> <C-_> <Plug>NERDCommenterToggle
-imap <silent> <C-_> <Plug>NERDCommenterToggle
 vmap <silent> <C-_> <Plug>NERDCommenterToggle gv
+imap <silent> <C-_> <Esc><C-_>a
+
+" let g:leaderGuide_display_plus_menus = 1
+" let g:leaderGuide_run_map_on_popup = 1
+" nnoremap <silent> <leader> :<c-u>LeaderGuide '<Space>'<CR>
+" vnoremap <silent> <leader> :<c-u>LeaderGuideVisual '<Space>'<CR>
+" nnoremap <silent> g :<c-u>LeaderGuide 'g'<CR>
+
+nnoremap <leader>. :lcd %:p:h<cr>
+
+nnoremap <silent> gg 1G
+nnoremap <silent> g; g;
+nnoremap <silent> g, g,
+
+let g:which_key_map =  {}
+let g:which_key_map.1 = 'which_key_ignore'
+let g:which_key_map.2 = 'which_key_ignore'
+let g:which_key_map.3 = 'which_key_ignore'
+let g:which_key_map.4 = 'which_key_ignore'
+let g:which_key_map.5 = 'which_key_ignore'
+let g:which_key_map.6 = 'which_key_ignore'
+let g:which_key_map.7 = 'which_key_ignore'
+let g:which_key_map.8 = 'which_key_ignore'
+let g:which_key_map.9 = 'which_key_ignore'
+call which_key#register('<Space>', "g:which_key_map")
+noremap <silent> <leader> :WhichKey '<Space>'<CR>
+vnoremap <silent> <leader> :<c-u>WhichKeyVisual '<Space>'<CR>
+nnoremap <silent> <localleader> :<c-u>WhichKey  ','<CR>
+vnoremap <silent> <localleader> :<c-u>WhichKeyVisual  ','<CR>
+nnoremap <silent> g :<c-u>WhichKey  'g'<CR>
+nnoremap <silent> [ :<c-u>WhichKey  '['<CR>
+nnoremap <silent> ] :<c-u>WhichKey  ']'<CR>
+
 
 " let g:leaderGuide_display_plus_menus = 1
 " let g:leaderGuide_run_map_on_popup = 1

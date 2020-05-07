@@ -19,10 +19,10 @@ Plug 'godlygeek/tabular'
 Plug 'kien/ctrlp.vim'
 
 " Nerdtree file browser
-Plug 'scrooloose/nerdtree'
+Plug 'preservim/nerdtree'
 
 " Easily comment - <Leader>cc
-Plug 'scrooloose/nerdcommenter'
+Plug 'preservim/nerdcommenter'
 
 " Git support
 Plug 'tpope/vim-fugitive'

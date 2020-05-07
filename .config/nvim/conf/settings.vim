@@ -39,15 +39,16 @@ if has('statusline')
     set laststatus=2
 
     " Broken down into easily includeable segments
-    set statusline=%<%f\ " Filename
+    set statusline=%<%t\  " Filename
     set statusline+=%w%h%m%r " Options
     set statusline+=%{fugitive#statusline()} " Git Hotness
     set statusline+=%#warningmsg#
     "set statusline+=%{SyntasticStatuslineFlag()}
     set statusline+=%*
     set statusline+=\ [%{&ff}/%Y] " filetype
-    set statusline+=\ [%{getcwd()}] " current dir
+    "   set statusline+=\ [%{getcwd()}] " current dir
     set statusline+=%=%-14.(%l,%c%V%)\ %p%% " Right aligned file nav info
+    set statusline^=%{coc#status()}
 endif
 
 " Ignore files
@@ -102,6 +103,14 @@ let g:airline#extensions#tabline#exclude_preview = 1
 let g:airline#extensions#tabline#tab_nr_type = 1
 let g:airline#extensions#tabline#buffer_idx_mode = 1
 
+" let g:airline_section_c='%t'
+" default:
+" let g:airline_section_c=%<%<%{airline#extensions#fugitiveline#bufname()}%m %#__accent_red#%{airline#util#wrap(airline#parts#readonly(),0)}%#__restore__#%#__accent_bold#%{airline#util#wrap(airline#extensions#coc#get_status(),0)}%#__restore__#
+" let g:airline_section_c='%<%<%t%m %#__accent_red#%{airline#util#wrap(airline#parts#readonly(),0)}%#__restore__#%#__accent_bold#%{airline#util#wrap(airline#extensions#coc#get_status(),0)}%#__restore__#'
+let g:airline_section_c='%#__accent_red#%{airline#util#wrap(airline#parts#readonly(),0)}%#__restore__#%#__accent_bold#%{airline#util#wrap(airline#extensions#coc#get_status(),0)}%#__restore__#'
+
+let g:airline#extensions#branch#displayed_head_limit=15
+
 " NerdTree
 let g:NERDTreeCascadeOpenSingleChildDir=1
 let g:NERDTreeCascadeSingleChildDir=1
@@ -140,4 +149,11 @@ let g:which_key_floating_opts =  { 'row': '+2', 'col': '-3', 'width': '+3' }
 
 set undofile
 set undodir=~/.vimundo/
+
+
+let g:rainbow_conf = {
+	\	'separately': {
+	\		'nerdtree': 0,
+	\	}
+	\}
 
