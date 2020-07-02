@@ -25,6 +25,7 @@
       gdk_pixbuf
       atk
       zlib
+      perl
 
       git
       openjdk8 maven scala sbt gnumake gcc nodejs

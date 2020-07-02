@@ -21,3 +21,4 @@ _autoload.php
 .bloop/
 .metals/
 project/.bloop/
+project/metals.sbt

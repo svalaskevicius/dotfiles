@@ -14,6 +14,7 @@ application/x-bittorrent=deluge.desktop;
 video/x-matroska=vlc.desktop;
 video/x-msvideo=vlc.desktop;
 binary/octet-stream=org.gnome.gedit.desktop;
+application/octet-stream=us.zoom.Zoom.desktop;
 
 [Default Applications]
 application/x-extension-htm=firefox.desktop
