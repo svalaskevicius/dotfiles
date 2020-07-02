@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+
+[ "root" != "$USER" ] && exec sudo $0 "$HOME" "$@"
+
+cfg="$1/.config/vpn.conf"
+shift
+
+function fail() {
+  echo "$*" >&2
+  exit 1
+}
+
+test -f "$cfg" || fail "missing config: $cfg"
+
+c="$(cat "$cfg")"
+dir="$(echo "$c" | grep -e "^DIR:" | cut -d : -f 2 | tail -n1)"
+file="$(echo "$c" | grep -e "^FILE:" | cut -d : -f 2 | tail -n1)"
+
+test -d "$dir" || fail "missing configured dir: $dir"
+test -f "$dir/$file" || fail "missing configured file: $dir/$file"
+
+function status() {
+  test -f /tmp/vpn.pid || return 1
+  pid="$(cat /tmp/vpn.pid)"
+  test -n "$pid" || return 1
+  ps -p "$pid" >/dev/null 2>&1 || return 1
+  echo "$pid"
+}
+
+function silent_status() {
+  status > /dev/null || return 1
+}
+
+case "${1:-up}" in
+  up) 
+
+    silent_status && fail "already running"
+
+    cd "$dir"
+    openvpn "$file" >/tmp/vpn.out 2>/tmp/vpn.err &
+    echo "$!" > /tmp/vpn.pid
+    ;;
+  off | down)
+    pid=$(status)
+    [ "$?" == "0" ] || fail "not running yet"
+    kill "$pid"
+    ;;
+  status)
+    silent_status && echo "up" || { echo "down" ; exit 1 ; }
+    ;;
+  *) echo "unsupported command"
+esac
+
