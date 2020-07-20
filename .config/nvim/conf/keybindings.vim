@@ -160,6 +160,10 @@ command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 " Add status line support, for integration with other plugin, checkout `:h coc-status`
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
+" Trigger for code actions
+" Make sure `"codeLens.enable": true` is set in your coc config
+nnoremap <localleader>cl :<C-u>call CocActionAsync('codeLensAction')<CR>
+
 " Show all diagnostics
 nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
 " Manage extensions

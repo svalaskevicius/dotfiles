@@ -37,7 +37,7 @@ case "${1:-up}" in
     silent_status && fail "already running"
 
     cd "$dir"
-    openvpn "$file" >/tmp/vpn.out 2>/tmp/vpn.err &
+    openvpn "$file" >>/tmp/vpn.out 2>>/tmp/vpn.err &
     echo "$!" > /tmp/vpn.pid
     ;;
   off | down)
