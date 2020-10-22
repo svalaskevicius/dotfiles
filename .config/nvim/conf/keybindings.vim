@@ -214,8 +214,8 @@ nnoremap <C-T> :call WhitespaceToggle()<cr>
 noremap <LeftRelease> "+y<LeftRelease>
 
 vnoremap <C-C> "+y
-nnoremap <C-V> "+p
-inoremap <C-V> <ESC>"+pa
+" nnoremap <C-V> "+p
+" inoremap <C-V> <ESC>"+pa
 
 " slow shift finger
 cnoreabbrev W w

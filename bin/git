@@ -23,7 +23,6 @@ else
   top=$("$ORIG" rev-parse --show-toplevel 2>/dev/null)
   set_git_email "$top"
 
-  "$ORIG" "$@"
-  exit $?
+  exec "$ORIG" "$@"
 fi
 

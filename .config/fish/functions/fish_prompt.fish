@@ -81,6 +81,10 @@ function __bobthefish_git_branch -S -d 'Get the current git branch (or commitish
         and echo $branch_glyph
         and return
 
+        [ "$theme_display_git_master_branch" != 'yes' -a "$ref" = 'refs/heads/main' ]
+        and echo $branch_glyph
+        and return
+
         # truncate the middle of the branch name, but only if it's 25+ characters
         set -l truncname $ref
         [ "$theme_use_abbreviated_branch_name" = 'yes' ]

@@ -4,8 +4,15 @@
   "coc.preferences.formatOnType": true,
   "coc.preferences.rootPatterns": ["build.sbt", ".git", "package-lock.json"],
   // https://scalameta.org/metals/docs/editors/vim.html#using-latest-metals-snapshot
-  "metals.serverVersion": "0.9.2",
+  "metals.serverVersion": "0.9.4",
   "metals.serverProperties": ["-Dmetals.http=true", "-Xmx4g"],
   "metals.statusBarEnabled": true,
-  "metals.superMethodLensesEnabled": false
+  "metals.enable": true,
+  // "metals.javaHome": "/nix/store/k12jw6fl9zl3hnd886b5w35hf6h8ql76-openjdk-11.0.8+10/",
+  "metals.superMethodLensesEnabled": false,
+  "rust-client.disableRustup": false,
+  "rust-client.rlsPath": "rls",
+  "rust.clippy_preference": "on",
+  "rust-client.logToFile": false,
+  "rust.racer_completion": true
 }

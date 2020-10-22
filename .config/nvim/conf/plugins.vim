@@ -50,6 +50,8 @@ Plug 'neoclide/coc-html', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-css', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-yaml', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-rls', {'do': 'yarn install --frozen-lockfile'}
+" Plug 'neoclide/coc-java', {'do': 'yarn install --frozen-lockfile'}
 
 Plug 'derekwyatt/vim-scala'
 
@@ -81,6 +83,9 @@ Plug 'luochen1990/rainbow'
 
 Plug 'mlopes/vim-farin'
 Plug 'rafi/awesome-vim-colorschemes'
+" Plug 'srcery-colors/srcery-vim'
+Plug 'tomasiser/vim-code-dark'
+Plug 'habamax/vim-gruvbit'
 
 Plug 'mileszs/ack.vim'
 Plug 'jremmen/vim-ripgrep'
@@ -91,6 +96,8 @@ Plug 'liuchengxu/vim-which-key'
 " Plug 'kana/vim-arpeggio'
 
 Plug 'vim-scripts/CycleColor'
+
+Plug 'will133/vim-dirdiff'
 
 " Initialize plugin system
 call plug#end()

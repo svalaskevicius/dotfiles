@@ -41,11 +41,27 @@ set cursorline
 set t_Co=256
 set background=dark
 " color deus " hybrid  minimalist
-colorscheme onedark " tender
-let g:airline_theme = 'tendersar'
+func! s:gruvbit_setup() abort
+    hi Comment gui=italic cterm=italic
+    hi Statement gui=bold cterm=bold
+endfunc
 
-let g:deus_termcolors=256
-highlight CocHighlightText ctermfg=Red guifg=#c0e050
+augroup colorscheme_change | au!
+    au ColorScheme gruvbit call s:gruvbit_setup()
+augroup END
+
+set termguicolors
+colorscheme gruvbit " onedark " tender
+" let g:airline_theme = 'tendersar'
+
+" let g:deus_termcolors=256
+" let &t_ZH="\e[3m"
+" let &t_ZR="\e[23m"
+set t_ZH=[3m
+set t_ZR=[23m
+highlight CocHighlightText ctermfg=green ctermbg=black guifg=#c0f070 guibg=#253520
+highlight cocErrorSign guifg=#ff2010 guibg=#101010
+highlight Pmenu guibg=#101010
 
 " highlight CocFloating guifg=#444444 guibg=#171717
 " hi Pmenu guibg=#202020

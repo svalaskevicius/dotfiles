@@ -33,7 +33,6 @@ function silent_status() {
 
 case "${1:-up}" in
   up) 
-
     silent_status && fail "already running"
 
     echo ">>> GOING UP " >>/tmp/vpn.out
@@ -46,6 +45,16 @@ case "${1:-up}" in
     pid=$(status)
     [ "$?" == "0" ] || fail "not running yet"
     kill "$pid"
+    ;;
+  kick)
+    echo ">>> GOING DOWN " >>/tmp/vpn.out
+    pid=$(status)
+    [ "$?" == "0" ] && kill "$pid" && sleep 1
+
+    echo ">>> GOING UP " >>/tmp/vpn.out
+    cd "$dir"
+    openvpn "$file" >>/tmp/vpn.out 2>>/tmp/vpn.err &
+    echo "$!" > /tmp/vpn.pid
     ;;
   status)
     silent_status && echo "up" || { echo "down" ; exit 1 ; }

@@ -46,7 +46,7 @@ in {
   environment.systemPackages =
     let sysPack = with pkgs; [ acpi openvpn sysstat pavucontrol powertop psmisc tree lsof pciutils usbutils lm_sensors lshw bind file binutils-unwrapped iotop nox vim neovim ];
         toolsPack = with pkgs; [ bash fish wget httpie git p7zip tmux htop gnupg silver-searcher fzf fd unzip docker_compose yadm shellcheck jq exa ];
-        devPack = with pkgs; [ openjdk8 maven scala sbt coursier ammonite gnumake cmake gcc nodejs ];
+        devPack = with pkgs; [ openjdk8 maven scala sbt coursier ammonite gnumake cmake gcc nodejs direnv];
         editorsPack = with pkgs; [ vscode ];
         xPack = with pkgs; [
           hicolor-icon-theme gnome3.adwaita-icon-theme
@@ -81,7 +81,7 @@ in {
           elementary-xfce-icon-theme
           capitaine-cursors
         ];
-        haskellPack = with pkgs.haskellPackages; [ nvim-hs ghc happy hasktags hlint xmobar stack cabal-install ];
+        haskellPack = with pkgs.haskellPackages; [ ghc happy hasktags hlint xmobar stack cabal-install ];
     in sysPack ++ toolsPack ++ xPack ++ haskellPack ++ devPack ++ editorsPack;
 
   virtualisation.docker.enable = true;
@@ -117,6 +117,7 @@ in {
   hardware.pulseaudio.enable = true;
 
   services = {
+    lorri.enable = true;
     acpid.enable = true;
     xserver = {
       enable = true;
