@@ -28,7 +28,8 @@ set -x EXA_COLORS "fi=0:so=0;38;5;16;48;5;203:ln=0;38;5;203:ex=1;38;5;203:no=0:m
 
 set -x LSCOLORS ExFxCxDxBxegedabagacad
 
-
+set -x LESS_TERMCAP_so (set_color  -b 004050 ; set_color -o 60f0ff)
+set -x LESS_TERMCAP_se (set_color normal)
 
 alias ls=exa
 alias !!=xdg-open
