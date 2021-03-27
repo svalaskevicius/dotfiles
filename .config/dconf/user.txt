@@ -53,7 +53,7 @@ source-units='degree'
 accuracy=9
 
 [org/gnome/nautilus/preferences]
-default-folder-viewer='icon-view'
+default-folder-viewer='list-view'
 search-filter-time-type='last_modified'
 
 search-view='list-view'

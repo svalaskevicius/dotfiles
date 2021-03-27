@@ -143,11 +143,12 @@ augroup mygroup
 augroup end
 
 " Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
-xmap <localleader>a  <Plug>(coc-codeaction-selected)
-nmap <localleader>a  <Plug>(coc-codeaction-selected)
-
+xmap <localleader>as  <Plug>(coc-codeaction-selected)
+nmap <localleader>as  <Plug>(coc-codeaction-selected)<cr>
 " Remap for do codeAction of current line
 nmap <localleader>ac  <Plug>(coc-codeaction)
+nmap <localleader>al  <Plug>(coc-codelens-action)
+
 " Fix autofix problem of current line
 nmap <localleader>qf  <Plug>(coc-fix-current)
 
@@ -162,7 +163,7 @@ set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " Trigger for code actions
 " Make sure `"codeLens.enable": true` is set in your coc config
-nnoremap <localleader>cl :<C-u>call CocActionAsync('codeLensAction')<CR>
+" nnoremap <localleader>cl :<C-u>call CocActionAsync('codeLensAction')<CR>
 
 " Show all diagnostics
 nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
@@ -211,7 +212,7 @@ endfunc
 nnoremap <C-T> :call WhitespaceToggle()<cr>
 
 " copy mouse selection automatically
-noremap <LeftRelease> "+y<LeftRelease>
+" noremap <LeftRelease> "+y<LeftRelease>
 
 vnoremap <C-C> "+y
 " nnoremap <C-V> "+p
@@ -276,6 +277,8 @@ imap <silent> <C-_> <Esc><C-_>a
 
 nnoremap <leader>. :lcd %:p:h<cr>
 
+nnoremap <silent> gq gq
+nnoremap <silent> gw gw
 nnoremap <silent> gg 1G
 nnoremap <silent> g; g;
 nnoremap <silent> g, g,

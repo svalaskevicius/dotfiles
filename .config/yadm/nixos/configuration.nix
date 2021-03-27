@@ -44,7 +44,9 @@ in {
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages =
-    let sysPack = with pkgs; [ acpi openvpn sysstat pavucontrol powertop psmisc tree lsof pciutils usbutils lm_sensors lshw bind file binutils-unwrapped iotop nox vim neovim ];
+    let sysPack = with pkgs; [
+          acpi openvpn sysstat pavucontrol powertop psmisc tree lsof pciutils usbutils lm_sensors lshw bind file binutils-unwrapped iotop nox vim neovim wireguard wireguard-tools
+        ];
         toolsPack = with pkgs; [ bash fish wget httpie git p7zip tmux htop gnupg silver-searcher fzf fd unzip docker_compose yadm shellcheck jq exa ];
         devPack = with pkgs; [ openjdk8 maven scala sbt coursier ammonite gnumake cmake gcc nodejs direnv];
         editorsPack = with pkgs; [ vscode ];
@@ -59,16 +61,16 @@ in {
           # xmonad env
           rofi scrot slock kbdlight xorg.xmodmap xcompmgr compton feh pamixer networkmanager_dmenu networkmanagerapplet stalonetray
           xss-lock notify-osd libnotify ((unstable.polybar.override { pulseSupport = true; })
-          .overrideAttrs(old: rec {
-            version = "3.4.2+fc42";
-            src = fetchFromGitHub {
-              owner = old.pname;
-              repo = old.pname;
-              rev = "fc42da812a3553ae9c82e53d92960d96b8d8d22c";
-              sha256 = "0jj80llq8l5fksdngr503ysfj82dnv1pnfqr9y0xawkxpkhsrlff";
-              fetchSubmodules = true;
-            };
-          })
+          # .overrideAttrs(old: rec {
+          #   version = "3.4.2+fc42";
+          #   src = fetchFromGitHub {
+          #     owner = old.pname;
+          #     repo = old.pname;
+          #     rev = "fc42da812a3553ae9c82e53d92960d96b8d8d22c";
+          #     sha256 = "0jj80llq8l5fksdngr503ysfj82dnv1pnfqr9y0xawkxpkhsrlff";
+          #     fetchSubmodules = true;
+          #   };
+          # })
           )
           # glx
 

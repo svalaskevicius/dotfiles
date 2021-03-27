@@ -6,6 +6,11 @@ if test -z "$ORIG" ; then
   echo "No nix-env found in the system (this is from wrapper at $CURRENT)" >&2
   exit 1
 else
-  exec "$ORIG" -I "mypkgs=$HOME/src/nixpkgs/" -f '<mypkgs>' "$@"
+  if test "$1" = "-orig" ; then
+    shift
+    exec "$ORIG" "$@"
+  else
+    exec "$ORIG" -I "mypkgs=$HOME/src/nixpkgs/" -f '<mypkgs>' "$@"
+  fi
 fi
 

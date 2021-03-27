@@ -47,4 +47,9 @@ augroup defaultgroup
   endif
 
   autocmd FileType which_key set laststatus=0 noshowmode noruler | autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+
+
+  autocmd VimLeavePre * :call coc#rpc#kill()
+  autocmd VimLeave * if get(g:, 'coc_process_pid', 0) | call system('kill -9 -'.g:coc_process_pid) | endif
 augroup END
+

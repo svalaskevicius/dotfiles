@@ -21,6 +21,7 @@
       freetype
       pango
       gtk2
+      gtk3
       cairo
       gdk_pixbuf
       atk
