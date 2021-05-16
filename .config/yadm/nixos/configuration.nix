@@ -54,6 +54,7 @@ in {
           hicolor-icon-theme gnome3.adwaita-icon-theme
           fira-code
           firefox
+          libreoffice
           okular
           unstable.kitty xorg.xdpyinfo
           keepassx2 keepass

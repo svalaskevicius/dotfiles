@@ -1,4 +1,4 @@
-set shell=/usr/bin/env\ bash
+set shell=bash
 set nocompatible               " be iMproved
 
 " enable 256 colors

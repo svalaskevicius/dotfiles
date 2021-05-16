@@ -28,3 +28,4 @@ x-scheme-handler/chrome=firefox.desktop
 x-scheme-handler/ftp=firefox.desktop
 x-scheme-handler/http=firefox.desktop
 x-scheme-handler/https=firefox.desktop;
+x-scheme-handler/eclipse+command=_nix_store_arnr4plaxn45f8dbrbsnlsxv669fg483-dbeaver-ce-21.0.0_dbeaver_.desktop
