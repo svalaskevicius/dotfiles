@@ -54,6 +54,8 @@ endif
 " Ignore files
 set wildignore+=*/.git/*,*.cache,*.swp,*.swo,**/cache/**,*.min.js
 
+set diffopt=algorithm:histogram,iwhiteall,internal,filler
+
 " Only get tags from CWD
 set tags=tags;
 
