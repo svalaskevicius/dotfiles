@@ -41,14 +41,15 @@ if has('statusline')
     " Broken down into easily includeable segments
     set statusline=%<%t\  " Filename
     set statusline+=%w%h%m%r " Options
-    set statusline+=%{fugitive#statusline()} " Git Hotness
+    " set statusline+=%{fugitive#statusline()} " Git Hotness
+    set statusline+=%{nvim_treesitter#statusline(90)} " Git Hotness
     set statusline+=%#warningmsg#
     "set statusline+=%{SyntasticStatuslineFlag()}
     set statusline+=%*
     set statusline+=\ [%{&ff}/%Y] " filetype
     "   set statusline+=\ [%{getcwd()}] " current dir
     set statusline+=%=%-14.(%l,%c%V%)\ %p%% " Right aligned file nav info
-    set statusline^=%{coc#status()}
+    " set statusline^=%{coc#status()}
 endif
 
 " Ignore files
@@ -88,6 +89,8 @@ let g:rainbow_active = 1
 
 let g:ackprg = 'ag --vimgrep --smart-case'
 
+" needed for nvim-metals (scala)
+set shortmess-=F
 
 
 " Lowering this improves performance in files with long lines
@@ -158,4 +161,7 @@ let g:rainbow_conf = {
 	\		'nerdtree': 0,
 	\	}
 	\}
+
+let g:nortia_bat_light_theme = 0
+let g:nortia_bat_dark_theme = 0
 

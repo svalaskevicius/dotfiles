@@ -25,43 +25,41 @@ Plug 'preservim/nerdtree'
 Plug 'preservim/nerdcommenter'
 
 " Git support
-Plug 'tpope/vim-fugitive'
+" Plug 'tpope/vim-fugitive'
 
 " Apply a command on every file in the quickfix list :Qdo %s/Foobar/Barfoo
 Plug 'henrik/vim-qargs'
 
 " Airline status bar
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+" Plug 'vim-airline/vim-airline'
+" Plug 'vim-airline/vim-airline-themes'
 
 " Git gutter
-Plug 'airblade/vim-gitgutter'
+" Plug 'airblade/vim-gitgutter'
 
 " Tmux focus events support - fugitive needs it
 Plug 'tmux-plugins/vim-tmux-focus-events'
 
 Plug 'christoomey/vim-tmux-navigator'
 
-" Scala plugins
-Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
-Plug 'ckipp01/coc-metals', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-html', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-css', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-yaml', {'do': 'yarn install --frozen-lockfile'}
-" Plug 'neoclide/coc-rls', {'do': 'yarn install --frozen-lockfile'}
-Plug 'fannheyward/coc-rust-analyzer', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-java', {'do': 'yarn install --frozen-lockfile'}
+" LSP
+" Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+" Plug 'ckipp01/coc-metals', {'do': 'yarn install --frozen-lockfile'}
+" Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
+" Plug 'neoclide/coc-html', {'do': 'yarn install --frozen-lockfile'}
+" Plug 'neoclide/coc-css', {'do': 'yarn install --frozen-lockfile'}
+" Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
+" Plug 'neoclide/coc-yaml', {'do': 'yarn install --frozen-lockfile'}
+" " Plug 'neoclide/coc-rls', {'do': 'yarn install --frozen-lockfile'}
+" Plug 'fannheyward/coc-rust-analyzer', {'do': 'yarn install --frozen-lockfile'}
+" Plug 'neoclide/coc-java', {'do': 'yarn install --frozen-lockfile'}
+Plug 'scalameta/nvim-metals'
 
 Plug 'derekwyatt/vim-scala'
 
 Plug 'neovimhaskell/haskell-vim'
 " Plug 'alx741/vim-hindent'
 Plug 'mpickering/hlint-refactor-vim'
-
-" Syntaxe check and linting - Being used for PHP, Scala and Haskell
-" Plug 'w0rp/ale'
 
 Plug 'gruvbox-community/gruvbox'
 Plug 'sonph/onehalf', {'rtp': 'vim/'}
@@ -99,6 +97,10 @@ Plug 'liuchengxu/vim-which-key'
 Plug 'vim-scripts/CycleColor'
 
 Plug 'will133/vim-dirdiff'
+
+Plug 'rktjmp/lush.nvim'
+Plug 'alaric/nortia.nvim'
+
 
 " Initialize plugin system
 call plug#end()

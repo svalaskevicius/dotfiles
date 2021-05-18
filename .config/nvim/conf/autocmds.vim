@@ -20,7 +20,7 @@ augroup defaultgroup
   " autocmd VimEnter * NERDTree
 
   " Highlight symbol under cursor on CursorHold
-  autocmd CursorHold * silent call CocActionAsync('highlight')
+  " autocmd CursorHold * silent call CocActionAsync('highlight')
 
   autocmd WinEnter * call s:CloseIfOnlyNerdTreeLeft()
 
