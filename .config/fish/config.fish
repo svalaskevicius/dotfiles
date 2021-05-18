@@ -1,5 +1,5 @@
 if status --is-login
-	for p in ~/bin ~/.config/fish/bin ~/go/bin ~/.local/bin
+	for p in ~/bin ~/.config/fish/bin ~/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/bin/ ~/go/bin ~/.local/bin
 		if test -d $p
 			set -x PATH $p $PATH
 		end
