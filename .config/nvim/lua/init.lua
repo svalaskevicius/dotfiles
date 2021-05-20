@@ -243,7 +243,7 @@ require'nvim-treesitter.configs'.setup {
 -- Theme
 -- https://github.com/marko-cerovac/material.nvim/blob/pure-lua/lua/material/colors.lua
 vim.g.material_style = 'darker' -- 'deep ocean'
-vim.g.material_custom_colors = { bg = "#1A1A1A" , bg_alt = "#0A0A0A", contrast = "#0A0A0A" } 
+vim.g.material_custom_colors = { bg = "#1A1A1A" , bg_alt = "#0A0A0A", contrast = "#0A0A0A", yellow = '#EFBB5B', } 
 vim.g.material_italic_comments = true
 vim.g.material_italic_keywords = true
 vim.g.material_italic_functions = true
