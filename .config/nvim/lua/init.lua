@@ -49,7 +49,8 @@ require('packer').startup(function(use)
     }
   }
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
-  use 'svalaskevicius/material.nvim' -- '/home/sarunas/priv/dev/material.nvim/' --'marko-cerovac/material.nvim'
+  -- use 'svalaskevicius/material.nvim' -- '/home/sarunas/priv/dev/material.nvim/' --'marko-cerovac/material.nvim'
+  use 'marko-cerovac/material.nvim'
   use {
     'hoob3rt/lualine.nvim',
     requires = {'kyazdani42/nvim-web-devicons', opt = true}
@@ -240,7 +241,9 @@ require'nvim-treesitter.configs'.setup {
 
 
 -- Theme
-vim.g.material_style = 'darker contrast' -- 'deep ocean'
+-- https://github.com/marko-cerovac/material.nvim/blob/pure-lua/lua/material/colors.lua
+vim.g.material_style = 'darker' -- 'deep ocean'
+vim.g.material_custom_colors = { bg = "#1A1A1A" , bg_alt = "#0A0A0A", contrast = "#0A0A0A" } 
 vim.g.material_italic_comments = true
 vim.g.material_italic_keywords = true
 vim.g.material_italic_functions = true
