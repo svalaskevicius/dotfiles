@@ -14,11 +14,11 @@ inoremap <S-Down> <ESC><C-F>a
 inoremap <C-Up> <ESC><C-U>a
 inoremap <C-Down> <ESC><C-D>a
 
-" Toggle NERDTree file browser
-nnoremap <Leader>tt :NERDTreeToggle <CR>
-
-" Open current file in NERDTree
-nnoremap <Leader>tf :NERDTreeFind <CR>
+" " Toggle NERDTree file browser
+" nnoremap <Leader>tt :NERDTreeToggle <CR>
+"
+" " Open current file in NERDTree
+" nnoremap <Leader>tf :NERDTreeFind <CR>
 
 " Tagbar shows list of all methods and variables in class
 " nnoremap <Leader>t :TagbarOpenAutoClose <CR>
@@ -311,22 +311,22 @@ nnoremap <silent> gg 1G
 nnoremap <silent> g; g;
 nnoremap <silent> g, g,
 
-let g:which_key_map =  {}
-let g:which_key_map.1 = 'which_key_ignore'
-let g:which_key_map.2 = 'which_key_ignore'
-let g:which_key_map.3 = 'which_key_ignore'
-let g:which_key_map.4 = 'which_key_ignore'
-let g:which_key_map.5 = 'which_key_ignore'
-let g:which_key_map.6 = 'which_key_ignore'
-let g:which_key_map.7 = 'which_key_ignore'
-let g:which_key_map.8 = 'which_key_ignore'
-let g:which_key_map.9 = 'which_key_ignore'
-call which_key#register('<Space>', "g:which_key_map")
-noremap <silent> <leader> :WhichKey '<Space>'<CR>
-vnoremap <silent> <leader> :<c-u>WhichKeyVisual '<Space>'<CR>
-nnoremap <silent> <localleader> :<c-u>WhichKey  ','<CR>
-vnoremap <silent> <localleader> :<c-u>WhichKeyVisual  ','<CR>
-nnoremap <silent> g :<c-u>WhichKey  'g'<CR>
-nnoremap <silent> [ :<c-u>WhichKey  '['<CR>
-nnoremap <silent> ] :<c-u>WhichKey  ']'<CR>
-
+" let g:which_key_map =  {}
+" let g:which_key_map.1 = 'which_key_ignore'
+" let g:which_key_map.2 = 'which_key_ignore'
+" let g:which_key_map.3 = 'which_key_ignore'
+" let g:which_key_map.4 = 'which_key_ignore'
+" let g:which_key_map.5 = 'which_key_ignore'
+" let g:which_key_map.6 = 'which_key_ignore'
+" let g:which_key_map.7 = 'which_key_ignore'
+" let g:which_key_map.8 = 'which_key_ignore'
+" let g:which_key_map.9 = 'which_key_ignore'
+" call which_key#register('<Space>', "g:which_key_map")
+" noremap <silent> <leader> :WhichKey '<Space>'<CR>
+" vnoremap <silent> <leader> :<c-u>WhichKeyVisual '<Space>'<CR>
+" nnoremap <silent> <localleader> :<c-u>WhichKey  ','<CR>
+" vnoremap <silent> <localleader> :<c-u>WhichKeyVisual  ','<CR>
+" nnoremap <silent> g :<c-u>WhichKey  'g'<CR>
+" nnoremap <silent> [ :<c-u>WhichKey  '['<CR>
+" nnoremap <silent> ] :<c-u>WhichKey  ']'<CR>
+"

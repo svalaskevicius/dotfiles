@@ -19,7 +19,7 @@ Plug 'godlygeek/tabular'
 Plug 'kien/ctrlp.vim'
 
 " Nerdtree file browser
-Plug 'preservim/nerdtree'
+" Plug 'preservim/nerdtree'
 
 " Easily comment - <Leader>cc
 Plug 'preservim/nerdcommenter'
@@ -66,7 +66,7 @@ Plug 'sonph/onehalf', {'rtp': 'vim/'}
 Plug 'jacoborus/tender.vim'
 
 Plug 'ryanoasis/vim-devicons'
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+" Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 
 Plug 'neomake/neomake'
 
@@ -91,7 +91,7 @@ Plug 'jremmen/vim-ripgrep'
 Plug 'stefandtw/quickfix-reflector.vim'
 
 Plug 'svalaskevicius/vim-leader-guide'
-Plug 'liuchengxu/vim-which-key'
+" Plug 'liuchengxu/vim-which-key'
 " Plug 'kana/vim-arpeggio'
 
 Plug 'vim-scripts/CycleColor'

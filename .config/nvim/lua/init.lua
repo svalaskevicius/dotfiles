@@ -57,10 +57,35 @@ require('packer').startup(function(use)
   }
   use {'akinsho/nvim-bufferline.lua', requires = 'kyazdani42/nvim-web-devicons'}
   -- TODO: nvim-tree
+  use {
+    'kyazdani42/nvim-tree.lua',
+    requires = {'kyazdani42/nvim-web-devicons', opt = true}
+  }
   -- use {
-  --   'kyazdani42/nvim-tree.lua',
-  --   requires = {'kyazdani42/nvim-web-devicons', opt = true}
+  --   -- Optional but recommended
+  --   -- 'nvim-treesitter/nvim-treesitter',
+  --   'lewis6991/spellsitter.nvim',
+  --   config = function()
+  --     require('spellsitter').setup({
+  --       hl = 'SpellBad',
+  --       captures = {'comment'},  -- set to {} to spellcheck everything
+  --     })
+  --   end
   -- }
+  use {
+    'nvim-lua/lsp-status.nvim'
+  }
+  use {
+    "folke/which-key.nvim",
+    config = function()
+      require("which-key").setup {
+        -- https://github.com/folke/which-key.nvim
+        -- your configuration comes here
+        -- or leave it empty to use the default settings
+        -- refer to the configuration section below
+      }
+    end
+  }
 end)
 
 ----------------------------------
@@ -75,6 +100,37 @@ g['metals_server_version'] = '0.10.2+98-364a4481-SNAPSHOT'
 -- global
 opt('o', 'completeopt', 'menuone,noinsert,noselect')
 vim.o.shortmess = string.gsub(vim.o.shortmess, 'F', '') .. 'c'
+
+-- nvim tree
+
+g['nvim_tree_side'] = 'left' -- left by default
+g['nvim_tree_width'] = 40 -- 30 by default
+g['nvim_tree_ignore'] = { '.git', 'node_modules', '.cache', 'target' } -- empty by default
+g['nvim_tree_gitignore'] = 1 -- 0 by default
+g['nvim_tree_auto_open'] = 0 -- 0 by default, opens the tree when typing `vim $DIR` or `vim`
+g['nvim_tree_auto_close'] = 1 -- 0 by default, closes the tree when it's the last window
+g['nvim_tree_auto_ignore_ft'] = {} -- [ 'startify', 'dashboard' ] -- empty by default, don't auto open tree on specific filetypes.
+g['nvim_tree_quit_on_open'] = 0 -- 0 by default, closes the tree when you open a file
+g['nvim_tree_follow'] = 0 -- 0 by default, this option allows the cursor to be updated when entering a buffer
+g['nvim_tree_indent_markers'] = 1 -- 0 by default, this option shows indent markers when folders are open
+g['nvim_tree_hide_dotfiles'] = 1 -- 0 by default, this option hides files and folders starting with a dot `.`
+g['nvim_tree_git_hl'] = 1 -- 0 by default, will enable file highlight for git attributes (can be used without the icons).
+g['nvim_tree_highlight_opened_files'] = 1 -- 0 by default, will enable folder and file icon highlight for opened files/directories.
+g['nvim_tree_root_folder_modifier'] = ':~' -- This is the default. See :help filename-modifiers for more options
+g['nvim_tree_tab_open'] = 0 -- 0 by default, will open the tree when entering a new tab and the tree was previously open
+g['nvim_tree_width_allow_resize']  = 1 -- 0 by default, will not resize the tree when opening a file
+g['nvim_tree_disable_netrw'] = 1 -- 1 by default, disables netrw
+g['nvim_tree_hijack_netrw'] = 1 -- 1 by default, prevents netrw from automatically opening when opening directories (but lets you keep its other utilities)
+g['nvim_tree_add_trailing'] = 1 -- 0 by default, append a trailing slash to folder names
+g['nvim_tree_group_empty'] = 1 --  0 by default, compact folders that only contain a single folder into one node in the file tree
+g['nvim_tree_lsp_diagnostics'] = 1 -- 0 by default, will show lsp diagnostics in the signcolumn. See :help nvim_tree_lsp_diagnostics
+g['nvim_tree_disable_window_picker'] = 0 -- 0 by default, will disable the window picker.
+g['nvim_tree_special_files'] = { 'README.md', 'Makefile', 'MAKEFILE' } --  List of filenames that gets highlighted with NvimTreeSpecialFile
+g['nvim_tree_show_icons'] = { git = 1, folders = 1, files = 1 }
+
+map('n', '<leader>tt', '<cmd>NvimTreeToggle<CR>')
+map('n', '<leader>tr', '<cmd>NvimTreeRefresh<CR>')
+map('n', '<leader>tf', '<cmd>NvimTreeFindFile<CR>')
 
 -- LSP
 map('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>')
@@ -141,6 +197,21 @@ vim.cmd [[hi! link LspReferenceWrite CursorColumn]]
 ----------------------------------
 -- LSP Setup ---------------------
 ----------------------------------
+
+local lsp_status = require('lsp-status')
+lsp_status.register_progress()
+
+-- local metals = require('metals')
+--
+-- metals.setup({
+--   on_attach = lsp_status.on_attach,
+--   capabilities = lsp_status.capabilities,
+--   settings = {
+--     showImplicitArguments = true,
+--     excludedPackages = {'akka.actor.typed.javadsl', 'com.github.swagger.akka.javadsl'}
+--   },
+-- })
+
 metals_config = require'metals'.bare_config
 
 -- Example of settings
@@ -154,21 +225,27 @@ metals_config.handlers['textDocument/publishDiagnostics'] =
     vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {virtual_text = {prefix = ''}})
 
 -- Example if you are including snippets
-local capabilities = vim.lsp.protocol.make_client_capabilities()
+-- local capabilities = vim.lsp.protocol.make_client_capabilities()
+local capabilities = lsp_status.capabilities
 capabilities.textDocument.completion.completionItem.snippetSupport = true
-
 metals_config.capabilities = capabilities
 
+metals_config.on_attach = lsp_status.on_attach
 
-require'lspconfig'.rust_analyzer.setup({})
+
+require'lspconfig'.rust_analyzer.setup({
+  on_attach = lsp_status.on_attach,
+  capabilities = lsp_status.capabilities,
+})
 
 require('lspkind').init()
 
 require('gitsigns').setup()
 
 require'lualine'.setup {
-  extensions = {'quickfix', 'nerdtree', 'fzf'};
-  theme = 'material-nvim';
+  extensions = {'quickfix', 'nvim-tree', 'fzf'},
+  theme = 'material-nvim',
+  sections = {lualine_c = {lsp_status.status, lsp_status.progress }},
 } 
 
 
@@ -261,3 +338,17 @@ require('material').set()
 
 
 
+require'which-key'.register({
+  ["<leader>"] = {
+    ["1"] = "which_key_ignore",
+    ["2"] = "which_key_ignore",
+    ["3"] = "which_key_ignore",
+    ["4"] = "which_key_ignore",
+    ["5"] = "which_key_ignore",
+    ["6"] = "which_key_ignore",
+    ["7"] = "which_key_ignore",
+    ["8"] = "which_key_ignore",
+    ["9"] = "which_key_ignore",
+    ["0"] = "which_key_ignore",
+  }
+})
