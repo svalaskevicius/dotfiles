@@ -126,3 +126,4 @@ set t_ZR=[23m
 " " https://github.com/alaric/nortia.nvim
 " :lua require('nortia.theme').set_contrast_threshold(3.5)
 "
+"

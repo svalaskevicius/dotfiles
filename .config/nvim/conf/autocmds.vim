@@ -1,12 +1,12 @@
-function! s:CloseIfOnlyNerdTreeLeft()
-  if exists("t:NERDTreeBufName")
-    if bufwinnr(t:NERDTreeBufName) != -1
-      if winnr("$") == 1
-        q
-      endif
-    endif
-  endif
-endfunction
+" function! s:CloseIfOnlyNerdTreeLeft()
+"   if exists("t:NERDTreeBufName")
+"     if bufwinnr(t:NERDTreeBufName) != -1
+"       if winnr("$") == 1
+"         q
+"       endif
+"     endif
+"   endif
+" endfunction
 
 function! TrimWhitespace()
   let l:save_cursor = getpos('.')
@@ -22,7 +22,7 @@ augroup defaultgroup
   " Highlight symbol under cursor on CursorHold
   " autocmd CursorHold * silent call CocActionAsync('highlight')
 
-  autocmd WinEnter * call s:CloseIfOnlyNerdTreeLeft()
+  " autocmd WinEnter * call s:CloseIfOnlyNerdTreeLeft()
 
   autocmd FileType c,cpp,java,php,scala,haskell,ts,css autocmd BufWritePre * :call TrimWhitespace() " Trim whitespace on every save
 
@@ -46,7 +46,7 @@ augroup defaultgroup
     "au FileType fzf noremap <buffer> <Esc> <Esc>:q!<cr>
   endif
 
-  autocmd FileType which_key set laststatus=0 noshowmode noruler | autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+  " autocmd FileType which_key set laststatus=0 noshowmode noruler | autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 
 
   " autocmd VimLeavePre * :call coc#rpc#kill()

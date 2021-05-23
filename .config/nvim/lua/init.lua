@@ -56,7 +56,6 @@ require('packer').startup(function(use)
     requires = {'kyazdani42/nvim-web-devicons', opt = true}
   }
   use {'akinsho/nvim-bufferline.lua', requires = 'kyazdani42/nvim-web-devicons'}
-  -- TODO: nvim-tree
   use {
     'kyazdani42/nvim-tree.lua',
     requires = {'kyazdani42/nvim-web-devicons', opt = true}
@@ -72,20 +71,8 @@ require('packer').startup(function(use)
   --     })
   --   end
   -- }
-  use {
-    'nvim-lua/lsp-status.nvim'
-  }
-  use {
-    "folke/which-key.nvim",
-    config = function()
-      require("which-key").setup {
-        -- https://github.com/folke/which-key.nvim
-        -- your configuration comes here
-        -- or leave it empty to use the default settings
-        -- refer to the configuration section below
-      }
-    end
-  }
+  use 'nvim-lua/lsp-status.nvim' 
+  use 'folke/which-key.nvim' 
 end)
 
 ----------------------------------
@@ -131,6 +118,9 @@ g['nvim_tree_show_icons'] = { git = 1, folders = 1, files = 1 }
 map('n', '<leader>tt', '<cmd>NvimTreeToggle<CR>')
 map('n', '<leader>tr', '<cmd>NvimTreeRefresh<CR>')
 map('n', '<leader>tf', '<cmd>NvimTreeFindFile<CR>')
+
+
+require('nvim-tree')
 
 -- LSP
 map('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>')
@@ -320,7 +310,7 @@ require'nvim-treesitter.configs'.setup {
 -- Theme
 -- https://github.com/marko-cerovac/material.nvim/blob/pure-lua/lua/material/colors.lua
 vim.g.material_style = 'darker' -- 'deep ocean'
-vim.g.material_custom_colors = { bg = "#1A1A1A" , bg_alt = "#0A0A0A", contrast = "#0A0A0A", yellow = '#EFBB5B', } 
+vim.g.material_custom_colors = { bg = "#1A1A1A" , bg_alt = "#141414", contrast = "#141414", yellow = '#EFBB5B', float = '#141414', sidebar = '#151515' } 
 vim.g.material_italic_comments = true
 vim.g.material_italic_keywords = true
 vim.g.material_italic_functions = true
@@ -335,7 +325,19 @@ vim.api.nvim_set_keymap('n', '<F11>', [[<Cmd>lua require('material.functions').t
 -- Load the colorscheme
 require('material').set()
 
+-- cmd [[hi NormalFloat guibg=#141414]]
+-- cmd [[hi WhichKeyFloat guibg=#141414]]
+-- cmd [[hi NvimTreeNormal guibg=#141414]]
+-- cmd [[autocmd Colorscheme * highlight NvimTreeNormal guibg=#21252B guifg=#9da5b3]]
+-- cmd [[autocmd ColorScheme * highlight NvimTreeBg guibg=#2B4252]]
+-- cmd [[autocmd FileType NvimTree hi NvimTreeNormal guibg=#141414]]
 
+require("which-key").setup {
+  -- https://github.com/folke/which-key.nvim
+  -- your configuration comes here
+  -- or leave it empty to use the default settings
+  -- refer to the configuration section below
+}
 
 
 require'which-key'.register({
