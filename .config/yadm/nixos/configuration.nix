@@ -48,8 +48,8 @@ in {
           acpi openvpn sysstat pavucontrol powertop psmisc tree lsof pciutils usbutils lm_sensors lshw bind file binutils-unwrapped iotop nox vim neovim wireguard wireguard-tools
         ];
         toolsPack = with pkgs; [ bash fish wget httpie git p7zip tmux htop gnupg silver-searcher fzf fd unzip docker_compose yadm shellcheck jq exa ];
-        devPack = with pkgs; [ openjdk8 maven scala sbt coursier ammonite gnumake cmake gcc nodejs direnv];
-        editorsPack = with pkgs; [ vscode ];
+        devPack = with pkgs; [ openjdk11 maven scala sbt coursier gnumake cmake gcc nodejs direnv];
+        # editorsPack = with pkgs; [ vscode ];
         xPack = with pkgs; [
           hicolor-icon-theme gnome3.adwaita-icon-theme
           fira-code
@@ -85,7 +85,7 @@ in {
           capitaine-cursors
         ];
         haskellPack = with pkgs.haskellPackages; [ ghc happy hasktags hlint xmobar stack cabal-install ];
-    in sysPack ++ toolsPack ++ xPack ++ haskellPack ++ devPack ++ editorsPack;
+    in sysPack ++ toolsPack ++ xPack ++ haskellPack ++ devPack; # ++ editorsPack;
 
   virtualisation.docker.enable = true;
 
@@ -130,11 +130,11 @@ in {
 
       # Enable touchpad support.
       libinput.enable = true;
-      libinput.naturalScrolling = true;
-      libinput.middleEmulation = false;
-      libinput.buttonMapping = "1 0 3";
-      libinput.accelSpeed = "0.6";
-      libinput.disableWhileTyping = true;
+      libinput.touchpad.naturalScrolling = true;
+      libinput.touchpad.middleEmulation = false;
+      libinput.touchpad.buttonMapping = "1 0 3";
+      libinput.touchpad.accelSpeed = "0.6";
+      libinput.touchpad.disableWhileTyping = true;
     };
 
     fstrim.enable = true;

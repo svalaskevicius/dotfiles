@@ -1,4 +1,4 @@
-resolver: lts-14.9
+resolver: lts-17.15
 nix:
   enable: true
   packages: [
@@ -22,16 +22,17 @@ nix:
      ]  
 flags:
   xmonad-contrib:
-    testing: false
+    pedantic: false
     use_xft: true
   xmonad:
-    testing: false
+    pedantic: false
 packages:
 - xmonad/
 - xmonad-contrib/
 extra-deps:
 - unix-2.7.2.2
-- process-1.6.4.0
+- process-1.6.9.0
 - iwlib-0.1.0
+- X11-1.10@sha256:ed01fba28081d6922462c2727a9a2e71f8ec3d962ed18963eee0c770558817d9,3703
   # - libmpd-0.9.0.10@sha256:5a2ff5795085425db11e76332833f2596c5512c861c41272489ed29b725e5538,4011
 
