@@ -34,7 +34,7 @@ end
 ----------------------------------
 cmd [[packadd packer.nvim]]
 require('packer').startup(function(use)
-  use {'wbthomason/packer.nvim', opt = true}
+  -- use {'wbthomason/packer.nvim', opt = true}
 
   use {'hrsh7th/nvim-compe', requires = {{'hrsh7th/vim-vsnip'}}}
   use 'scalameta/nvim-metals'
@@ -51,15 +51,9 @@ require('packer').startup(function(use)
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
   -- use 'svalaskevicius/material.nvim' -- '/home/sarunas/priv/dev/material.nvim/' --'marko-cerovac/material.nvim'
   use 'marko-cerovac/material.nvim'
-  use {
-    'hoob3rt/lualine.nvim',
-    requires = {'kyazdani42/nvim-web-devicons', opt = true}
-  }
   use {'akinsho/nvim-bufferline.lua', requires = 'kyazdani42/nvim-web-devicons'}
-  use {
-    'kyazdani42/nvim-tree.lua',
-    requires = {'kyazdani42/nvim-web-devicons', opt = true}
-  }
+  use { 'hoob3rt/lualine.nvim', requires = {'kyazdani42/nvim-web-devicons'} }
+  use { 'kyazdani42/nvim-tree.lua', requires = {'kyazdani42/nvim-web-devicons'} }
   -- use {
   --   -- Optional but recommended
   --   -- 'nvim-treesitter/nvim-treesitter',
@@ -74,6 +68,24 @@ require('packer').startup(function(use)
   use 'nvim-lua/lsp-status.nvim' 
   use 'folke/which-key.nvim' 
 end)
+
+
+require'nvim-web-devicons'.setup {
+  -- your personnal icons can go here (to override)
+  -- DevIcon will be appended to `name`
+  -- override = {
+  --   zsh = {
+  --     icon = "",
+  --     color = "#428850",
+  --     name = "Zsh"
+  --   }
+  -- };
+  -- globally enable default icons (default to false)
+  -- will get overriden by `get_icons` option
+  default = true;
+}
+
+g['nvim_web_devicons'] = 1 -- temporary until nvim-tree removes check?
 
 ----------------------------------
 -- VARIABLES ---------------------
@@ -191,39 +203,30 @@ vim.cmd [[hi! link LspReferenceWrite CursorColumn]]
 local lsp_status = require('lsp-status')
 lsp_status.register_progress()
 
--- local metals = require('metals')
---
--- metals.setup({
---   on_attach = lsp_status.on_attach,
---   capabilities = lsp_status.capabilities,
---   settings = {
---     showImplicitArguments = true,
---     excludedPackages = {'akka.actor.typed.javadsl', 'com.github.swagger.akka.javadsl'}
---   },
--- })
 
 metals_config = require'metals'.bare_config
-
 -- Example of settings
 metals_config.settings = {
   showImplicitArguments = true,
   excludedPackages = {'akka.actor.typed.javadsl', 'com.github.swagger.akka.javadsl'}
 }
-
 -- Example of how to ovewrite a handler
 metals_config.handlers['textDocument/publishDiagnostics'] =
     vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {virtual_text = {prefix = ''}})
-
 -- Example if you are including snippets
 -- local capabilities = vim.lsp.protocol.make_client_capabilities()
 local capabilities = lsp_status.capabilities
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 metals_config.capabilities = capabilities
-
 metals_config.on_attach = lsp_status.on_attach
 
 
 require'lspconfig'.rust_analyzer.setup({
+  on_attach = lsp_status.on_attach,
+  capabilities = lsp_status.capabilities,
+})
+
+require'lspconfig'.jdtls.setup({
   on_attach = lsp_status.on_attach,
   capabilities = lsp_status.capabilities,
 })
@@ -236,6 +239,7 @@ require'lualine'.setup {
   extensions = {'quickfix', 'nvim-tree', 'fzf'},
   theme = 'material-nvim',
   sections = {lualine_c = {lsp_status.status, lsp_status.progress }},
+  options = {disabled_filetypes = {'presenting_markdown'}},
 } 
 
 
@@ -310,7 +314,7 @@ require'nvim-treesitter.configs'.setup {
 -- Theme
 -- https://github.com/marko-cerovac/material.nvim/blob/pure-lua/lua/material/colors.lua
 vim.g.material_style = 'darker' -- 'deep ocean'
-vim.g.material_custom_colors = { bg = "#1A1A1A" , bg_alt = "#141414", contrast = "#141414", yellow = '#EFBB5B', float = '#141414', sidebar = '#151515' } 
+vim.g.material_custom_colors = { bg = "#1A1A1A" , bg_alt = "#141414", contrast = "#141414", yellow = '#EFBB5B', green = '#A5BE70', float = '#141414', sidebar = '#151515' } 
 vim.g.material_italic_comments = true
 vim.g.material_italic_keywords = true
 vim.g.material_italic_functions = true

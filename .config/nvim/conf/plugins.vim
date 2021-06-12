@@ -101,6 +101,11 @@ Plug 'will133/vim-dirdiff'
 Plug 'rktjmp/lush.nvim'
 Plug 'alaric/nortia.nvim'
 
+" Plug 'sotte/presenting.vim'
+Plug '/home/sarunas/src/presenting.vim'
+Plug 'junegunn/goyo.vim'
+
+" Plug 'jaxbot/semantic-highlight.vim'
 
 " Initialize plugin system
 call plug#end()

@@ -165,3 +165,11 @@ let g:rainbow_conf = {
 let g:nortia_bat_light_theme = 0
 let g:nortia_bat_dark_theme = 0
 
+let g:goyo_width = 80
+let g:goyo_height = 75
+let g:goyo_linenr = 0
+
+let g:presenting_width = 80
+let g:presenting_top_margin = 3
+let g:presenting_figlets = 0
+
