@@ -34,7 +34,7 @@ end
 ----------------------------------
 cmd [[packadd packer.nvim]]
 require('packer').startup(function(use)
-  -- use {'wbthomason/packer.nvim', opt = true}
+  use {'wbthomason/packer.nvim'}
 
   use {'hrsh7th/nvim-compe', requires = {{'hrsh7th/vim-vsnip'}}}
   use 'scalameta/nvim-metals'
@@ -65,8 +65,8 @@ require('packer').startup(function(use)
   --     })
   --   end
   -- }
-  use 'nvim-lua/lsp-status.nvim' 
-  use 'folke/which-key.nvim' 
+  use 'nvim-lua/lsp-status.nvim'
+  use 'folke/which-key.nvim'
 end)
 
 
@@ -91,7 +91,7 @@ g['nvim_web_devicons'] = 1 -- temporary until nvim-tree removes check?
 -- VARIABLES ---------------------
 ----------------------------------
 -- nvim-metals
-g['metals_server_version'] = '0.10.2+98-364a4481-SNAPSHOT'
+g['metals_server_version'] = '0.10.5'
 
 ----------------------------------
 -- OPTIONS -----------------------
@@ -145,7 +145,7 @@ map('n', 'gws', '<cmd>lua vim.lsp.buf.workspace_symbol()<CR>')
 map('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>')
 map('n', '<leader>f', '<cmd>lua vim.lsp.buf.formatting()<CR>')
 map('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>')
-map('n', '<leader>ws', '<cmd>lua require"metals".worksheet_hover()<CR>')
+map('n', '<leader>ws', '<cmd>lua require"metals".hover_worksheet()<CR>')
 map('n', '<leader>a', '<cmd>lua require"metals".open_all_diagnostics()<CR>')
 map('n', '<leader>d', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>') -- buffer diagnostics only
 map('n', '[c', '<cmd>lua vim.lsp.diagnostic.goto_prev { wrap = false }<CR>')
@@ -240,7 +240,7 @@ require'lualine'.setup {
   theme = 'material-nvim',
   sections = {lualine_c = {lsp_status.status, lsp_status.progress }},
   options = {disabled_filetypes = {'presenting_markdown'}},
-} 
+}
 
 
 require('bufferline').setup {
@@ -314,7 +314,7 @@ require'nvim-treesitter.configs'.setup {
 -- Theme
 -- https://github.com/marko-cerovac/material.nvim/blob/pure-lua/lua/material/colors.lua
 vim.g.material_style = 'darker' -- 'deep ocean'
-vim.g.material_custom_colors = { bg = "#1A1A1A" , bg_alt = "#141414", contrast = "#141414", yellow = '#EFBB5B', green = '#A5BE70', float = '#141414', sidebar = '#151515' } 
+vim.g.material_custom_colors = { bg = "#1A1A1A" , bg_alt = "#141414", contrast = "#141414", yellow = '#EFBB5B', green = '#A5BE70', float = '#141414', sidebar = '#151515' }
 vim.g.material_italic_comments = true
 vim.g.material_italic_keywords = true
 vim.g.material_italic_functions = true

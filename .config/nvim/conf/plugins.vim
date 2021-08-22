@@ -53,7 +53,6 @@ Plug 'christoomey/vim-tmux-navigator'
 " " Plug 'neoclide/coc-rls', {'do': 'yarn install --frozen-lockfile'}
 " Plug 'fannheyward/coc-rust-analyzer', {'do': 'yarn install --frozen-lockfile'}
 " Plug 'neoclide/coc-java', {'do': 'yarn install --frozen-lockfile'}
-Plug 'scalameta/nvim-metals'
 
 Plug 'derekwyatt/vim-scala'
 
