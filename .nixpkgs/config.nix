@@ -1,0 +1,1 @@
+config.zathura.useMupdf = true;
