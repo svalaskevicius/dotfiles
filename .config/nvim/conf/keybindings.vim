@@ -24,7 +24,7 @@ inoremap <C-Down> <ESC><C-D>a
 " nnoremap <Leader>t :TagbarOpenAutoClose <CR>
 
 function! OpenInMain(command_str)
-  if (expand('%') =~# 'NERD_tree' && winnr('$') > 1)
+  if (expand('%') =~# 'NvimTree' && winnr('$') > 1)
     exe "normal! \<c-w>\<c-w>"
   endif
   exe 'normal! ' . a:command_str . "\<cr>"
@@ -41,7 +41,7 @@ nnoremap <silent> <C-f> :call OpenInMain(':FZF')<cr>
 nnoremap <Leader>vr :so ~/.config/nvim/init.vim<CR>
 
 " Edit .vimrc
-nnoremap <Leader>ve :tabnew ~/.config/nvim/init.vim<CR>
+nnoremap <Leader>ve :tabnew ~/.config/nvim/init.vim <bar> :cd ~/.config/nvim/<CR>
 
 command! ShowMapping redir @" | silent map | redir END | new | put!
 nnoremap <Leader>vm :ShowMapping<CR>
@@ -237,17 +237,16 @@ nnoremap <C-M-Right> <C-I>
 inoremap <C-M-Left> <ESC><C-O>a
 inoremap <C-M-Right> <ESC><C-I>a
 
-" nmap <leader>1 <Plug>AirlineSelectTab1
-" nmap <leader>2 <Plug>AirlineSelectTab2
-" nmap <leader>3 <Plug>AirlineSelectTab3
-" nmap <leader>4 <Plug>AirlineSelectTab4
-" nmap <leader>5 <Plug>AirlineSelectTab5
-" nmap <leader>6 <Plug>AirlineSelectTab6
-" nmap <leader>7 <Plug>AirlineSelectTab7
-" nmap <leader>8 <Plug>AirlineSelectTab8
-" nmap <leader>9 <Plug>AirlineSelectTab9
-" nmap <C-Left> <Plug>AirlineSelectPrevTab
-" nmap <C-Right> <Plug>AirlineSelectNextTab
+nmap <leader>1 <Cmd>BufferLineGoToBuffer 1<cr>
+nmap <leader>2 <Cmd>BufferLineGoToBuffer 2<cr>
+nmap <leader>3 <Cmd>BufferLineGoToBuffer 3<cr>
+nmap <leader>4 <Cmd>BufferLineGoToBuffer 4<cr>
+nmap <leader>5 <Cmd>BufferLineGoToBuffer 5<cr>
+nmap <leader>6 <Cmd>BufferLineGoToBuffer 6<cr>
+nmap <leader>7 <Cmd>BufferLineGoToBuffer 7<cr>
+nmap <leader>8 <Cmd>BufferLineGoToBuffer 8<cr>
+nmap <leader>9 <Cmd>BufferLineGoToBuffer 9<cr>
+nmap <leader>0 <Cmd>BufferLineGoToBuffer 10<cr>
 
 noremap <ESC>[1;6A <C-S-Up>
 noremap! <ESC>[1;6A <C-S-Up>
@@ -268,11 +267,11 @@ nnoremap <silent><C-S-Left> :BufferLineMovePrev<CR>
 nnoremap <M-f> <ESC>:Rg<SPACE>''<left>
 
 function! CloseOtherBuffers()
-  let curr = bufnr("%")
-  let last = bufnr("$")
 
-  if curr > 1    | silent! execute "1,".(curr-1)."bd"     | endif
-  if curr < last | silent! execute (curr+1).",".last."bd" | endif
+  let curr = bufnr("%")
+  let to_close = join(map(filter(filter(getbufinfo(), 'v:val.bufnr != ' . curr), 'v:val.name !~ "NvimTree"'), 'v:val.bufnr'))
+
+  silent! execute "bd ".to_close
 endfun
 
 nnoremap <silent> <leader>bd :bp\|bd #<CR>

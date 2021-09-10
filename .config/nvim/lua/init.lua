@@ -91,7 +91,7 @@ g['nvim_web_devicons'] = 1 -- temporary until nvim-tree removes check?
 -- VARIABLES ---------------------
 ----------------------------------
 -- nvim-metals
-g['metals_server_version'] = '0.10.5'
+g['metals_server_version'] = '0.10.6'
 
 ----------------------------------
 -- OPTIONS -----------------------
@@ -247,8 +247,6 @@ require('bufferline').setup {
   options = {
     view = "default";
     numbers = "ordinal";
-    number_style = "superscript"; -- buffer_id at index 1, ordinal at index 2
-    mappings = true;
     max_name_length = 18;
     max_prefix_length = 15; -- prefix used when a buffer is de-duplicated
     tab_size = 18;
@@ -314,20 +312,20 @@ require'nvim-treesitter.configs'.setup {
 -- Theme
 -- https://github.com/marko-cerovac/material.nvim/blob/pure-lua/lua/material/colors.lua
 vim.g.material_style = 'darker' -- 'deep ocean'
-vim.g.material_custom_colors = { bg = "#1A1A1A" , bg_alt = "#141414", contrast = "#141414", yellow = '#EFBB5B', green = '#A5BE70', float = '#141414', sidebar = '#151515' }
-vim.g.material_italic_comments = true
-vim.g.material_italic_keywords = true
-vim.g.material_italic_functions = true
-vim.g.material_italic_variables = false
-vim.g.material_contrast = true
-vim.g.material_borders = true
-vim.g.material_disable_background = false
 vim.g.material_variable_color = '#60ABA5'
+
+require('material').setup({
+  custom_colors = { bg = "#1A1A1A" , bg_alt = "#141414", contrast = "#141414", yellow = '#EFBB5B', green = '#A5BE70', float = '#141414', sidebar = '#151515' },
+  italics = { comments = true, keywords = true, functions = true, variables = false },
+  contrast = true,
+  borders = true,
+  disable = { background = false },
+})
 
 vim.api.nvim_set_keymap('n', '<F11>', [[<Cmd>lua require('material.functions').toggle_style()<CR>]], { noremap = true, silent = true })
 
 -- Load the colorscheme
-require('material').set()
+cmd [[colorscheme material]]
 
 -- cmd [[hi NormalFloat guibg=#141414]]
 -- cmd [[hi WhichKeyFloat guibg=#141414]]
