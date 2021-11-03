@@ -37,7 +37,7 @@ require('packer').startup(function(use)
   use {'wbthomason/packer.nvim'}
 
   use {'hrsh7th/nvim-compe', requires = {{'hrsh7th/vim-vsnip'}}}
-  use 'scalameta/nvim-metals'
+  use {'scalameta/nvim-metals', requires = { "nvim-lua/plenary.nvim" }}
 
   use { 'neovim/nvim-lspconfig' }
   use { 'onsails/lspkind-nvim' }
@@ -47,6 +47,10 @@ require('packer').startup(function(use)
     requires = {
       'nvim-lua/plenary.nvim'
     }
+  }
+  use {
+    'nvim-telescope/telescope.nvim',
+    requires = { 'nvim-lua/plenary.nvim' }
   }
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
   -- use 'svalaskevicius/material.nvim' -- '/home/sarunas/priv/dev/material.nvim/' --'marko-cerovac/material.nvim'
@@ -67,8 +71,12 @@ require('packer').startup(function(use)
   -- }
   use 'nvim-lua/lsp-status.nvim'
   use 'folke/which-key.nvim'
+  -- use 'mfussenegger/nvim-jdtls'
 end)
 
+require'lspconfig'.jdtls.setup{
+  cmd = { '/home/sarunas/src/eclipse.jdt.ls/run.sh' } 
+}
 
 require'nvim-web-devicons'.setup {
   -- your personnal icons can go here (to override)
@@ -91,7 +99,7 @@ g['nvim_web_devicons'] = 1 -- temporary until nvim-tree removes check?
 -- VARIABLES ---------------------
 ----------------------------------
 -- nvim-metals
-g['metals_server_version'] = '0.10.6'
+g['metals_server_version'] = '0.10.8'
 
 ----------------------------------
 -- OPTIONS -----------------------
@@ -102,12 +110,10 @@ vim.o.shortmess = string.gsub(vim.o.shortmess, 'F', '') .. 'c'
 
 -- nvim tree
 
-g['nvim_tree_ignore'] = { '.git', 'node_modules', '.cache', 'target' } -- empty by default
 g['nvim_tree_gitignore'] = 1 -- 0 by default
 g['nvim_tree_auto_ignore_ft'] = {} -- [ 'startify', 'dashboard' ] -- empty by default, don't auto open tree on specific filetypes.
 g['nvim_tree_quit_on_open'] = 0 -- 0 by default, closes the tree when you open a file
 g['nvim_tree_indent_markers'] = 1 -- 0 by default, this option shows indent markers when folders are open
-g['nvim_tree_hide_dotfiles'] = 1 -- 0 by default, this option hides files and folders starting with a dot `.`
 g['nvim_tree_git_hl'] = 1 -- 0 by default, will enable file highlight for git attributes (can be used without the icons).
 g['nvim_tree_highlight_opened_files'] = 1 -- 0 by default, will enable folder and file icon highlight for opened files/directories.
 g['nvim_tree_root_folder_modifier'] = ':~' -- This is the default. See :help filename-modifiers for more options
@@ -137,20 +143,25 @@ require'nvim-tree'.setup({
   -- opens the tree when changing/opening a new tab if the tree wasn't previously opened
   open_on_tab         = false,
   -- hijacks new directory buffers when they are opened.
-  update_to_buf_dir   = true,
+  update_to_buf_dir   = {
+    enable = true,
+    auto_open = true,
+  },
   -- hijack the cursor in the tree to put it at the start of the filename
   hijack_cursor       = false,
   -- updates the root directory of the tree on `DirChanged` (when your run `:cd` usually) 
-  update_cwd          = false,
+  update_cwd          = true,
   -- show lsp diagnostics in the signcolumn
-  lsp_diagnostics     = true,
+  diagnostics     = {
+    enable = true,
+  },
   -- update the focused file on `BufEnter`, un-collapses the folders recursively until it finds the file
   update_focused_file = {
     -- enables the feature
     enable      = false,
     -- update the root directory of the tree to the one of the folder containing the file if the file is not under the current root directory
     -- only relevant when `update_focused_file.enable` is true
-    update_cwd  = false,
+    update_cwd  = true,
     -- list of buffer names / filetypes that will not update the cwd if the file isn't found under the current root directory
     -- only relevant when `update_focused_file.update_cwd` is true and `update_focused_file.enable` is true
     ignore_list = {}
@@ -177,6 +188,10 @@ require'nvim-tree'.setup({
       -- list of mappings to set on the tree manually
       list = {}
     }
+  },
+  filters = {
+    custom = { '.git', 'node_modules', '.cache', 'target' },
+    dotfiles = false
   }
 })
 
@@ -196,6 +211,7 @@ map('n', '<leader>a', '<cmd>lua require"metals".open_all_diagnostics()<CR>')
 map('n', '<leader>d', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>') -- buffer diagnostics only
 map('n', '[c', '<cmd>lua vim.lsp.diagnostic.goto_prev { wrap = false }<CR>')
 map('n', ']c', '<cmd>lua vim.lsp.diagnostic.goto_next { wrap = false }<CR>')
+
 
 -- completion
 -- This is just copied from the docs, edit to your liking
@@ -250,21 +266,30 @@ local lsp_status = require('lsp-status')
 lsp_status.register_progress()
 
 
-metals_config = require'metals'.bare_config
--- Example of settings
+-- metals_config = require'metals'.bare_config
+-- -- Example of settings
+-- metals_config.settings = {
+--   showImplicitArguments = true,
+--   excludedPackages = {'akka.actor.typed.javadsl', 'com.github.swagger.akka.javadsl'}
+-- }
+-- -- Example of how to ovewrite a handler
+-- metals_config.handlers['textDocument/publishDiagnostics'] =
+--     vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {virtual_text = {prefix = ''}})
+-- -- Example if you are including snippets
+-- -- local capabilities = vim.lsp.protocol.make_client_capabilities()
+-- local capabilities = lsp_status.capabilities
+-- capabilities.textDocument.completion.completionItem.snippetSupport = true
+-- metals_config.capabilities = capabilities
+-- metals_config.on_attach = lsp_status.on_attach
+
+
+metals_config = require("metals").bare_config()
 metals_config.settings = {
   showImplicitArguments = true,
-  excludedPackages = {'akka.actor.typed.javadsl', 'com.github.swagger.akka.javadsl'}
+  bloopSbtAlreadyInstalled = true,
+  showInferredType = true,
+  superMethodLensesEnabled = true,
 }
--- Example of how to ovewrite a handler
-metals_config.handlers['textDocument/publishDiagnostics'] =
-    vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {virtual_text = {prefix = ''}})
--- Example if you are including snippets
--- local capabilities = vim.lsp.protocol.make_client_capabilities()
-local capabilities = lsp_status.capabilities
-capabilities.textDocument.completion.completionItem.snippetSupport = true
-metals_config.capabilities = capabilities
-metals_config.on_attach = lsp_status.on_attach
 
 
 require'lspconfig'.rust_analyzer.setup({

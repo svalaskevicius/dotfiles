@@ -12,7 +12,6 @@
       stdenv.cc.libc
       glib
       libxml2
-      libav_0_8
       ffmpeg
       libxslt
       libGL
@@ -29,7 +28,7 @@
       perl
 
       git
-      openjdk8 maven scala sbt gnumake gcc nodejs
+      openjdk11 maven scala sbt gnumake gcc nodejs
       fira-code
     ]) ++ (with pkgs.xorg;
     [ libX11

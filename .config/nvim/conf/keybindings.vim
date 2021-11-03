@@ -31,17 +31,36 @@ function! OpenInMain(command_str)
 endfunction
 
 " Fuzzy search open buffers
-nnoremap <silent> <C-b> :call OpenInMain(':CtrlPBuffer')<cr>
+" nnoremap <silent> <C-b> :call OpenInMain(':CtrlPBuffer')<cr>
 " Fuzzy search tags
 " nnoremap <C-T> :CtrlPTag <CR>
 " Fuzzy search all project filenames
-nnoremap <silent> <C-f> :call OpenInMain(':FZF')<cr>
+" nnoremap <silent> <C-f> :call OpenInMain(':FZF')<cr>
+
+nnoremap <silent> <C-p> <cmd>lua require('telescope.builtin').resume()<cr>
+nnoremap <silent> <C-f> <cmd>lua require('telescope.builtin').find_files()<cr>
+nnoremap <silent> <C-M-f> <cmd>lua require('telescope.builtin').live_grep()<cr>
+nnoremap <silent> <C-b> <cmd>lua require('telescope.builtin').buffers()<cr>
+nnoremap <leader>ph <cmd>lua require('telescope.builtin').help_tags()<cr>
+nnoremap <leader>pf <cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<cr>
+nnoremap <leader>pr <cmd>lua require('telescope.builtin').lsp_references()<cr>
+nnoremap <leader>psd <cmd>lua require('telescope.builtin').lsp_document_symbols()<cr>
+nnoremap <leader>psw <cmd>lua require('telescope.builtin').lsp_workspace_symbols()<cr>
+nnoremap <leader>psq <cmd>lua require('telescope.builtin').lsp_dynamic_workspace_symbols()<cr>
+nnoremap <leader>pca <cmd>lua require('telescope.builtin').lsp_code_actions()<cr>
+nnoremap <leader>pdd <cmd>lua require('telescope.builtin').lsp_document_diagnostics()<cr>
+nnoremap <leader>pdw <cmd>lua require('telescope.builtin').lsp_workspace_diagnostics()<cr>
+nnoremap <leader>pi <cmd>lua require('telescope.builtin').lsp_implementations()<cr>
+nnoremap <leader>pd <cmd>lua require('telescope.builtin').lsp_definitions()<cr>
+nnoremap <leader>pt <cmd>lua require('telescope.builtin').lsp_type_definitions()<cr>
+nnoremap <leader>pp <cmd>lua require('telescope.builtin').treesitter()<cr>
+nnoremap <leader>pm <cmd>lua require('telescope').extensions.metals.commands()<cr>
 
 " Reload the .vimrc config
 nnoremap <Leader>vr :so ~/.config/nvim/init.vim<CR>
 
 " Edit .vimrc
-nnoremap <Leader>ve :tabnew ~/.config/nvim/init.vim <bar> :cd ~/.config/nvim/<CR>
+nnoremap <Leader>ve :tabnew ~/.config/nvim/lua/init.lua <bar> :tcd ~/.config/nvim/<CR>
 
 command! ShowMapping redir @" | silent map | redir END | new | put!
 nnoremap <Leader>vm :ShowMapping<CR>
