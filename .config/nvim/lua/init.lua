@@ -71,6 +71,7 @@ require('packer').startup(function(use)
   -- }
   use 'nvim-lua/lsp-status.nvim'
   use 'folke/which-key.nvim'
+  use 'sindrets/winshift.nvim'
   -- use 'mfussenegger/nvim-jdtls'
 end)
 
@@ -206,7 +207,7 @@ map('n', 'gws', '<cmd>lua vim.lsp.buf.workspace_symbol()<CR>')
 map('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>')
 map('n', '<leader>f', '<cmd>lua vim.lsp.buf.formatting()<CR>')
 map('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>')
-map('n', '<leader>ws', '<cmd>lua require"metals".hover_worksheet()<CR>')
+map('n', '<leader>cs', '<cmd>lua require"metals".hover_worksheet()<CR>')
 map('n', '<leader>a', '<cmd>lua require"metals".open_all_diagnostics()<CR>')
 map('n', '<leader>d', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>') -- buffer diagnostics only
 map('n', '[c', '<cmd>lua vim.lsp.diagnostic.goto_prev { wrap = false }<CR>')
@@ -398,7 +399,7 @@ vim.api.nvim_set_keymap('n', '<F11>', [[<Cmd>lua require('material.functions').t
 -- Load the colorscheme
 cmd [[colorscheme material]]
 
--- cmd [[hi NormalFloat guibg=#141414]]
+-- cmd [[hi NormalFloat guibg=#CCCCCC]]
 -- cmd [[hi WhichKeyFloat guibg=#141414]]
 -- cmd [[hi NvimTreeNormal guibg=#141414]]
 -- cmd [[autocmd Colorscheme * highlight NvimTreeNormal guibg=#21252B guifg=#9da5b3]]
@@ -427,3 +428,49 @@ require'which-key'.register({
     ["0"] = "which_key_ignore",
   }
 })
+
+
+require("winshift").setup({
+  highlight_moving_win = true,  -- Highlight the window being moved
+  focused_hl_group = "Visual",  -- The highlight group used for the moving window
+  moving_win_options = {
+    -- These are local options applied to the moving window while it's
+    -- being moved. They are unset when you leave Win-Move mode.
+    wrap = false,
+    cursorline = false,
+    cursorcolumn = false,
+    colorcolumn = "",
+  },
+  -- The window picker is used to select a window while swapping windows with
+  -- ':WinShift swap'.
+  -- A string of chars used as identifiers by the window picker.
+  window_picker_chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890",
+  window_picker_ignore = {
+    -- This table allows you to indicate to the window picker that a window
+    -- should be ignored if its buffer matches any of the following criteria.
+    filetype = {  -- List of ignored file types
+      "NvimTree",
+    },
+    buftype = {   -- List of ignored buftypes
+      "terminal",
+      "quickfix",
+    },
+    bufname = {   -- List of regex patterns matching ignored buffer names
+      [[.*foo/bar/baz\.qux]]
+    },
+  },
+})
+
+-- Start Win-Move mode:
+map('n', '<leader>ww', '<cmd>WinShift<CR>')
+map('n', '<leader>wx', '<cmd>WinShift swap<CR>')
+map('n', '<leader>w<left>', '<cmd>WinShift left<CR>')
+map('n', '<leader>w<right>', '<cmd>WinShift right<CR>')
+map('n', '<leader>w<up>', '<cmd>WinShift up<CR>')
+map('n', '<leader>w<down>', '<cmd>WinShift down<CR>')
+map('n', '<leader>w<C-left>', '<cmd>WinShift far_left<CR>')
+map('n', '<leader>w<C-right>', '<cmd>WinShift far_right<CR>')
+map('n', '<leader>w<C-up>', '<cmd>WinShift far_up<CR>')
+map('n', '<leader>w<C-down>', '<cmd>WinShift far_down<CR>')
+
+

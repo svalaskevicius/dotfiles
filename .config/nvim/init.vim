@@ -127,3 +127,9 @@ set t_ZR=[23m
 " :lua require('nortia.theme').set_contrast_threshold(3.5)
 "
 "
+" highlight WordUnderCursor gui=underline guibg=#333a39
+highlight WordUnderCursor guibg=#303636
+
+hi NormalFloat guibg=#333a39
+
+hi CursorLine guibg=#222222

@@ -17,14 +17,23 @@ endfun
 augroup defaultgroup
   autocmd!
 
-  " autocmd VimEnter * NERDTree
-
-  " Highlight symbol under cursor on CursorHold
-  " autocmd CursorHold * silent call CocActionAsync('highlight')
+  " highlight the word under cursor (CursorMoved is inperformant)
+  highlight WordUnderCursor cterm=underline guibg=#000000
+  autocmd CursorHold * call HighlightCursorWord()
+  function! HighlightCursorWord()
+      " if hlsearch is active, don't overwrite it!
+      let search = getreg('/')
+      let cword = expand('<cword>')
+      if match(cword, search) == -1
+          exe printf('match WordUnderCursor /\V\<%s\>/', escape(cword, '/\'))
+      endif
+  endfunction
 
   " autocmd WinEnter * call s:CloseIfOnlyNerdTreeLeft()
 
   autocmd FileType c,cpp,java,php,scala,haskell,ts,css autocmd BufWritePre * :call TrimWhitespace() " Trim whitespace on every save
+
+  autocmd BufWinEnter quickfix setlocal winhighlight=
 
   au BufRead,BufNewFile *.sbt set filetype=scala
   " Settings for rst / markdown
