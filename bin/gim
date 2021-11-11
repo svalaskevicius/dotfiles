@@ -1,0 +1,26 @@
+#!/bin/sh
+
+root="$(git rev-parse --show-toplevel)"
+pr="$(cat "$root/.gim.prefix")"
+br="$(git rev-parse --abbrev-ref HEAD)"
+
+if test -z "$pr" ; then
+  echo "no prefix configured"
+  exit 1
+fi
+
+prefix="$(echo "$br" | grep -Po "^$pr-([0-9]+)(?=-)"  )"
+
+if test -z "$prefix" ; then
+  echo "no prefix detected"
+  exit 1
+fi
+
+args="$*"
+
+if test -z "$args" ; then
+  echo "no message given"
+  exit 1
+fi
+
+exec git commit -m "$prefix: $args"
