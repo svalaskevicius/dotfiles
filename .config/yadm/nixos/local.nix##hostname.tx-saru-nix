@@ -8,6 +8,13 @@ let
   unstable = import <nixos-unstable> {
     config = config.nixpkgs.config;
   };
+  nvidia-offload = pkgs.writeShellScriptBin "nvidia-offload" ''
+    export __NV_PRIME_RENDER_OFFLOAD=1
+    export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
+    export __GLX_VENDOR_LIBRARY_NAME=nvidia
+    export __VK_LAYER_NV_optimus=NVIDIA_only
+    exec -a "$0" "$@"
+  '';
 in {
 
   boot.initrd.luks.devices = {
@@ -64,7 +71,7 @@ in {
     xserver = {
       dpi = 192;
       useGlamor = true;
-      videoDrivers = [ "modesetting" ];
+      videoDrivers = [ "nvidia" ];
 
       # Enable the Desktop Environment.
       displayManager.lightdm.enable = true;
@@ -92,14 +99,39 @@ in {
   programs.ssh.startAgent = true;
   programs.ssh.agentTimeout = "8h";
 
+
+  services.xserver.extraConfig = ''
+    Section "OutputClass"
+        Identifier "nvidia"
+        MatchDriver "nvidia-drm"
+        Driver "nvidia"
+        Option "AllowEmptyInitialConfiguration"
+        ModulePath "/usr/lib/nvidia/xorg"
+        ModulePath "/usr/lib/xorg/modules"
+    EndSection
+  '';
+  hardware.nvidia = {
+    # modesetting.enable = true;
+    prime = {
+      offload.enable = true;
+
+      # Bus ID of the Intel GPU. You can find it using lspci, either under 3D or VGA
+      intelBusId = "PCI:0:2:0";
+
+      # Bus ID of the NVIDIA GPU. You can find it using lspci, either under 3D or VGA
+      nvidiaBusId = "PCI:1:0:0";
+    };
+  };
+
   # nvidia
   environment.systemPackages = [
-      (pkgs.linuxPackages.nvidia_x11.override { libsOnly = true; kernel = null; })
-      (pkgs.pkgsi686Linux.linuxPackages.nvidia_x11.override { libsOnly = true; kernel = null; })
+    nvidia-offload
+    # pkgs.linuxPackages.nvidia_x11 # .override { libsOnly = true; kernel = null; })
+    # pkgs.pkgsi686Linux.linuxPackages.nvidia_x11 # .override { libsOnly = true; kernel = null; })
   ];
   # install nvidia drivers in addition to intel one
-  hardware.opengl.extraPackages = [ pkgs.linuxPackages.nvidia_x11.out ];
-  hardware.opengl.extraPackages32 = [ pkgs.pkgsi686Linux.linuxPackages.nvidia_x11.out ];
+  # hardware.opengl.extraPackages = [ pkgs.linuxPackages.nvidia_x11.out ];
+  # hardware.opengl.extraPackages32 = [ pkgs.pkgsi686Linux.linuxPackages.nvidia_x11.out ];
 
   # This value determines the NixOS release with which your system is to be
   # compatible, in order to avoid breaking some software such as database
