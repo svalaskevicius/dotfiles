@@ -280,8 +280,8 @@ nnoremap <silent><C-Right> :BufferLineCycleNext<CR>
 nnoremap <silent><C-Left> :BufferLineCyclePrev<CR>
 nnoremap <silent><C-S-Right> :BufferLineMoveNext<CR>
 nnoremap <silent><C-S-Left> :BufferLineMovePrev<CR>
-nnoremap <silent><C-M-Right> :tabnext<CR>
-nnoremap <silent><C-M-Left> :tabprevious<CR>
+" nnoremap <silent><C-M-Right> :tabnext<CR>
+" nnoremap <silent><C-M-Left> :tabprevious<CR>
 
 
 

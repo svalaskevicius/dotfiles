@@ -36,7 +36,17 @@ cmd [[packadd packer.nvim]]
 require('packer').startup(function(use)
   use {'wbthomason/packer.nvim'}
 
-  use {'hrsh7th/nvim-compe', requires = {{'hrsh7th/vim-vsnip'}}}
+  -- use {'hrsh7th/nvim-compe', requires = {{'hrsh7th/vim-vsnip'}}}
+
+  use({
+    "hrsh7th/nvim-cmp",
+    requires = {
+      { "hrsh7th/cmp-nvim-lsp" },
+      { "hrsh7th/cmp-vsnip" },
+      { "hrsh7th/vim-vsnip" },
+    },
+  })
+
   use {'scalameta/nvim-metals', requires = { "nvim-lua/plenary.nvim" }}
 
   use { 'neovim/nvim-lspconfig' }
@@ -76,7 +86,7 @@ require('packer').startup(function(use)
 end)
 
 require'lspconfig'.jdtls.setup{
-  cmd = { '/home/sarunas/src/eclipse.jdt.ls/run.sh' } 
+  cmd = { '/home/sarunas/src/eclipse.jdt.ls/run.sh' }
 }
 
 require'nvim-web-devicons'.setup {
@@ -100,7 +110,7 @@ g['nvim_web_devicons'] = 1 -- temporary until nvim-tree removes check?
 -- VARIABLES ---------------------
 ----------------------------------
 -- nvim-metals
-g['metals_server_version'] = '0.10.8'
+g['metals_server_version'] = '0.10.9'
 
 ----------------------------------
 -- OPTIONS -----------------------
@@ -150,7 +160,7 @@ require'nvim-tree'.setup({
   },
   -- hijack the cursor in the tree to put it at the start of the filename
   hijack_cursor       = false,
-  -- updates the root directory of the tree on `DirChanged` (when your run `:cd` usually) 
+  -- updates the root directory of the tree on `DirChanged` (when your run `:cd` usually)
   update_cwd          = true,
   -- show lsp diagnostics in the signcolumn
   diagnostics     = {
@@ -213,37 +223,85 @@ map('n', '<leader>d', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>') -- buffer
 map('n', '[c', '<cmd>lua vim.lsp.diagnostic.goto_prev { wrap = false }<CR>')
 map('n', ']c', '<cmd>lua vim.lsp.diagnostic.goto_next { wrap = false }<CR>')
 
+local cmp = require("cmp")
+cmp.setup({
+  sources = {
+    { name = "nvim_lsp" },
+    { name = "vsnip" },
+  },
+  snippet = {
+    expand = function(args)
+      -- Comes from vsnip
+      vim.fn["vsnip#anonymous"](args.body)
+    end,
+  },
+  mapping = {
+    -- None of this made sense to me when first looking into this since there
+    -- is no vim docs, but you can't have select = true here _unless_ you are
+    -- also using the snippet stuff. So keep in mind that if you remove
+    -- snippets you need to remove this select
+    -- ["<CR>"] = cmp.mapping.confirm({ select = true }),
+    -- I use tabs... some say you should stick to ins-completion
+    ["<Tab>"] = function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item()
+      else
+        fallback()
+      end
+    end,
+    ["<S-Tab>"] = function(fallback)
+      if cmp.visible() then
+        cmp.select_prev_item()
+      else
+        fallback()
+      end
+    end,
+    ['<C-n>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+    ['<C-p>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+    ['<Down>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
+    ['<Up>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
+    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<C-e>'] = cmp.mapping.close(),
+    ['<CR>'] = cmp.mapping.confirm({
+      behavior = cmp.ConfirmBehavior.Replace,
+      select = true,
+    })
+  },
+})
+
 
 -- completion
 -- This is just copied from the docs, edit to your liking
-require'compe'.setup {
-  enabled = true;
-  autocomplete = true;
-  debug = false;
-  min_length = 1;
-  preselect = 'enable';
-  throttle_time = 80;
-  source_timeout = 200;
-  incomplete_delay = 400;
-  allow_prefix_unmatch = false;
-
-  source = {
-    path = true;
-    buffer = true;
-    calc = true;
-    vsnip = true;
-    nvim_lsp = true;
-    nvim_lua = true;
-    spell = true;
-    tags = true;
-    snippets_nvim = true;
-  };
-}
-
+-- require'compe'.setup {
+--   enabled = true;
+--   autocomplete = true;
+--   debug = false;
+--   min_length = 1;
+--   preselect = 'enable';
+--   throttle_time = 80;
+--   source_timeout = 200;
+--   incomplete_delay = 400;
+--   allow_prefix_unmatch = false;
+--
+--   source = {
+--     path = true;
+--     buffer = true;
+--     calc = true;
+--     vsnip = true;
+--     nvim_lsp = true;
+--     nvim_lua = true;
+--     spell = true;
+--     tags = true;
+--     snippets_nvim = true;
+--   };
+-- }
+--
 map('i', '<S-Tab>', 'pumvisible() ? "\\<C-p>" : "\\<Tab>"', {expr = true})
 map('i', '<Tab>', 'pumvisible() ? "\\<C-n>" : "\\<Tab>"', {expr = true})
-map('i', '<CR>', 'compe#confirm("\\<CR>")', {expr = true})
-map('i', '<C-Space>', 'compe#complete()', {expr = true})
+-- map('i', '<CR>', 'compe#confirm("\\<CR>")', {expr = true})
+-- map('i', '<C-Space>', 'compe#complete()', {expr = true})
 
 ----------------------------------
 -- COMMANDS ----------------------
@@ -365,6 +423,34 @@ map('n', '<C-1>', '<cmd>lua require"bufferline".go_to_buffer(1)<CR>')
 map('n', '<C-2>', '<cmd>lua require"bufferline".go_to_buffer(2)<CR>')
 
 
+-- telescope
+
+-- https://github.com/nvim-telescope/telescope.nvim/wiki/Configuration-Recipes
+
+local previewers = require('telescope.previewers')
+
+local new_maker = function(filepath, bufnr, opts)
+  opts = opts or {}
+
+  filepath = vim.fn.expand(filepath)
+  vim.loop.fs_stat(filepath, function(_, stat)
+    if not stat then return end
+    if stat.size > 500000 then
+      return
+    else
+      previewers.buffer_previewer_maker(filepath, bufnr, opts)
+    end
+  end)
+end
+
+require('telescope').setup {
+  defaults = {
+    buffer_previewer_maker = new_maker,
+  }
+}
+
+
+-- treesitter
 
 require'nvim-treesitter.configs'.setup {
   ensure_installed = "all", -- one of "all", "maintained" (parsers with maintainers), or a list of languages

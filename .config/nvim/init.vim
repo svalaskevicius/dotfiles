@@ -19,7 +19,7 @@ for files in config_list
   endfor
 endfor
 
-:lua require('init')
+lua require('init')
 
 
 " set syntax highlighting options.
