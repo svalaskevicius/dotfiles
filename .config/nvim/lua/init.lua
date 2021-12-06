@@ -63,8 +63,6 @@ require('packer').startup(function(use)
     requires = { 'nvim-lua/plenary.nvim' }
   }
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
-  -- use 'svalaskevicius/material.nvim' -- '/home/sarunas/priv/dev/material.nvim/' --'marko-cerovac/material.nvim'
-  use 'marko-cerovac/material.nvim'
   use {'akinsho/nvim-bufferline.lua', requires = 'kyazdani42/nvim-web-devicons'}
   use { 'hoob3rt/lualine.nvim', requires = {'kyazdani42/nvim-web-devicons'} }
   use { 'kyazdani42/nvim-tree.lua', requires = {'kyazdani42/nvim-web-devicons'} }
@@ -121,7 +119,6 @@ vim.o.shortmess = string.gsub(vim.o.shortmess, 'F', '') .. 'c'
 
 -- nvim tree
 
-g['nvim_tree_gitignore'] = 1 -- 0 by default
 g['nvim_tree_auto_ignore_ft'] = {} -- [ 'startify', 'dashboard' ] -- empty by default, don't auto open tree on specific filetypes.
 g['nvim_tree_quit_on_open'] = 0 -- 0 by default, closes the tree when you open a file
 g['nvim_tree_indent_markers'] = 1 -- 0 by default, this option shows indent markers when folders are open
@@ -203,7 +200,12 @@ require'nvim-tree'.setup({
   filters = {
     custom = { '.git', 'node_modules', '.cache', 'target' },
     dotfiles = false
-  }
+  },
+  git = {
+    enable = true,
+    ignore = true,
+    timeout = 500,
+  },
 })
 
 -- LSP
@@ -367,7 +369,7 @@ require('gitsigns').setup()
 
 require'lualine'.setup {
   extensions = {'quickfix', 'nvim-tree', 'fzf'},
-  theme = 'material-nvim',
+  theme = 'onedark',
   sections = {lualine_c = {lsp_status.status, lsp_status.progress }},
   options = {disabled_filetypes = {'presenting_markdown'}},
 }
@@ -466,24 +468,6 @@ require'nvim-treesitter.configs'.setup {
 
 
 
-
--- Theme
--- https://github.com/marko-cerovac/material.nvim/blob/pure-lua/lua/material/colors.lua
-vim.g.material_style = 'darker' -- 'deep ocean'
-vim.g.material_variable_color = '#60ABA5'
-
-require('material').setup({
-  custom_colors = { bg = "#1A1A1A" , bg_alt = "#141414", contrast = "#141414", yellow = '#EFBB5B', green = '#A5BE70', float = '#141414', sidebar = '#151515' },
-  italics = { comments = true, keywords = true, functions = true, variables = false },
-  contrast = true,
-  borders = true,
-  disable = { background = false },
-})
-
-vim.api.nvim_set_keymap('n', '<F11>', [[<Cmd>lua require('material.functions').toggle_style()<CR>]], { noremap = true, silent = true })
-
--- Load the colorscheme
-cmd [[colorscheme material]]
 
 -- cmd [[hi NormalFloat guibg=#CCCCCC]]
 -- cmd [[hi WhichKeyFloat guibg=#141414]]

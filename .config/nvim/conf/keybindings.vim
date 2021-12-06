@@ -233,7 +233,7 @@ nnoremap <C-T> :call WhitespaceToggle()<cr>
 " copy mouse selection automatically
 " noremap <LeftRelease> "+y<LeftRelease>
 
-vnoremap <C-C> "+y
+" vnoremap <C-C> "+y
 " nnoremap <C-V> "+p
 " inoremap <C-V> <ESC>"+pa
 

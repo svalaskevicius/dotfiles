@@ -34,6 +34,8 @@ set history=1000
 set nospell
 set pastetoggle=<F12>
 
+set clipboard^=unnamed,unnamedplus
+
 " status lines -- note this is not used when airline is enabled
 if has('statusline')
     set laststatus=2

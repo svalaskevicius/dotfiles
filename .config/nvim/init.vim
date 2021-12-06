@@ -128,8 +128,9 @@ set t_ZR=[23m
 "
 "
 " highlight WordUnderCursor gui=underline guibg=#333a39
-highlight WordUnderCursor guibg=#303636
 
+colorscheme onedark
+hi Normal guibg=#141717
+hi WordUnderCursor guibg=#303636
 hi NormalFloat guibg=#333a39
-
 hi CursorLine guibg=#222222
