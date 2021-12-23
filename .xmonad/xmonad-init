@@ -8,7 +8,8 @@ feh --bg-tile ~/.xmonad/wallpaper.png
 
 #systemd-cat compton -b --backend glx
 systemd-cat xss-lock -n ~/.xmonad/bin/dim_screen.sh -- slock &
-systemd-cat notify-osd &
+# loaded by systemd: systemd-cat dunst -conf ~/.config/dunst/config &
+systemd-cat ~/.xmonad/bin/battery_check &
 
 export GDK_SCALE=2
 export GDK_DPI_SCALE=0.5

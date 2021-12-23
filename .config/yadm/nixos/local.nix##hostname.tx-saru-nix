@@ -49,8 +49,6 @@ in {
     keyMap = "uk";
   };
 
-  fonts.fontconfig.dpi = 192;
-
   powerManagement.powertop.enable=true;
 
   services = {

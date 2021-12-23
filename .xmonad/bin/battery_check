@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+
+bat20done=0
+bat10done=0
+
+sleep 5 # this is needed as for *some* reason if xmonad is reloaded w/o this, X is killed
+
+while true ; do
+  bat="$(battery)"
+  state=$(echo "$bat" | cut -f1 -d' ')
+  pc=$(echo "$bat" | cut -f2 -d' ')
+  if test "$state" = "Discharging" ; then
+    if test "$pc" -lt 20 -a $bat20done -eq 0; then
+      notify-send -u critical 'Battery is less than 20%' -t 60000 -i /run/current-system/sw/share/icons/gnome/256x256/status/battery-caution.png
+      light -S 10
+      bat20done=1
+    elif test "$pc" -lt 10 -a $bat10done -eq 0; then
+      notify-send -u critical 'Battery is less than 10% !' -i /run/current-system/sw/share/icons/gnome/256x256/status/battery-caution.png
+      light -S 1
+      bat10done=1
+    fi
+  else
+    bat20done=0
+    bat10done=0
+  fi
+  sleep 60
+done

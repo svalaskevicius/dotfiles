@@ -42,4 +42,5 @@ set -g theme_color_scheme dark
 
 set -x FZF_DEFAULT_COMMAND 'fd --type f'
 
+stty susp '^Z'  
 

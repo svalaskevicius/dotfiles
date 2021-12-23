@@ -61,7 +61,7 @@ in {
           zoom-us
           # xmonad env
           rofi scrot slock kbdlight xorg.xmodmap xcompmgr compton feh pamixer networkmanager_dmenu networkmanagerapplet stalonetray
-          xss-lock notify-osd libnotify ((unstable.polybar.override { pulseSupport = true; })
+          xss-lock dunst libnotify ((unstable.polybar.override { pulseSupport = true; })
           # .overrideAttrs(old: rec {
           #   version = "3.4.2+fc42";
           #   src = fetchFromGitHub {
