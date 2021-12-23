@@ -131,6 +131,8 @@ set t_ZR=[23m
 
 colorscheme onedark
 hi Normal guibg=#141717
-hi WordUnderCursor guibg=#303636
-hi NormalFloat guibg=#333a39
-hi CursorLine guibg=#222222
+hi NormalFloat guibg=#0b1212
+hi WordUnderCursor guibg=#1f302a
+hi NvimTreeIndentMarker guifg=#242a2a
+hi CursorLine guibg=#222a2a
+

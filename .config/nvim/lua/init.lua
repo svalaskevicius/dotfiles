@@ -41,12 +41,16 @@ require('packer').startup(function(use)
   use({
     "hrsh7th/nvim-cmp",
     requires = {
+      { "hrsh7th/cmp-buffer" },
       { "hrsh7th/cmp-nvim-lsp" },
       { "hrsh7th/cmp-vsnip" },
       { "hrsh7th/vim-vsnip" },
     },
   })
 
+  -- use {'kevinhwang91/nvim-bqf'} -- buggy!
+
+  use({ "liuchengxu/vista.vim" })
   use {'scalameta/nvim-metals', requires = { "nvim-lua/plenary.nvim" }}
 
   use { 'neovim/nvim-lspconfig' }
@@ -81,6 +85,8 @@ require('packer').startup(function(use)
   use 'folke/which-key.nvim'
   use 'sindrets/winshift.nvim'
   -- use 'mfussenegger/nvim-jdtls'
+
+  use({ "sheerun/vim-polyglot" })
 end)
 
 require'lspconfig'.jdtls.setup{
@@ -224,6 +230,7 @@ map('n', '<leader>a', '<cmd>lua require"metals".open_all_diagnostics()<CR>')
 map('n', '<leader>d', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>') -- buffer diagnostics only
 map('n', '[c', '<cmd>lua vim.lsp.diagnostic.goto_prev { wrap = false }<CR>')
 map('n', ']c', '<cmd>lua vim.lsp.diagnostic.goto_next { wrap = false }<CR>')
+map('n', '<leader>cv', '<cmd>Vista nvim_lsp<CR>')
 
 local cmp = require("cmp")
 cmp.setup({
