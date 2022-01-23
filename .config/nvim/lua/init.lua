@@ -41,10 +41,10 @@ require('packer').startup(function(use)
   use({
     "hrsh7th/nvim-cmp",
     requires = {
-      { "hrsh7th/cmp-buffer" },
       { "hrsh7th/cmp-nvim-lsp" },
       { "hrsh7th/cmp-vsnip" },
       { "hrsh7th/vim-vsnip" },
+      { "hrsh7th/cmp-buffer" },
     },
   })
 
@@ -114,7 +114,7 @@ g['nvim_web_devicons'] = 1 -- temporary until nvim-tree removes check?
 -- VARIABLES ---------------------
 ----------------------------------
 -- nvim-metals
-g['metals_server_version'] = '0.10.9'
+g['metals_server_version'] = '0.11.0'
 
 ----------------------------------
 -- OPTIONS -----------------------
@@ -225,11 +225,10 @@ map('n', 'gws', '<cmd>lua vim.lsp.buf.workspace_symbol()<CR>')
 map('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>')
 map('n', '<leader>f', '<cmd>lua vim.lsp.buf.formatting()<CR>')
 map('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>')
-map('n', '<leader>cs', '<cmd>lua require"metals".hover_worksheet()<CR>')
-map('n', '<leader>a', '<cmd>lua require"metals".open_all_diagnostics()<CR>')
-map('n', '<leader>d', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>') -- buffer diagnostics only
-map('n', '[c', '<cmd>lua vim.lsp.diagnostic.goto_prev { wrap = false }<CR>')
-map('n', ']c', '<cmd>lua vim.lsp.diagnostic.goto_next { wrap = false }<CR>')
+map('n', '<leader>a', '<cmd>lua vim.diagnostic.setqflist()<CR>')
+map('n', '<leader>d', '<cmd>lua vim.diagnostic.setloclist()<CR>') -- buffer diagnostics only
+map('n', '[c', '<cmd>lua vim.diagnostic.goto_prev { wrap = false }<CR>')
+map('n', ']c', '<cmd>lua vim.diagnostic.goto_next { wrap = false }<CR>')
 map('n', '<leader>cv', '<cmd>Vista nvim_lsp<CR>')
 
 local cmp = require("cmp")
@@ -320,6 +319,8 @@ cmd [[augroup lsp]]
 cmd [[autocmd!]]
 cmd [[autocmd FileType scala setlocal omnifunc=v:lua.vim.lsp.omnifunc]]
 cmd [[autocmd FileType scala,sbt lua require("metals").initialize_or_attach(metals_config)]]
+cmd [[autocmd FileType scala nnoremap <leader>cs  <cmd>lua require"metals".hover_worksheet()<CR>]]
+-- cmd [[autocmd FileType scala nnoremap <leader>a   <cmd>lua require"metals".open_all_diagnostics()<CR>]]
 cmd [[augroup end]]
 
 -- Need for symbol highlights to work correctly
@@ -374,11 +375,21 @@ require('lspkind').init()
 
 require('gitsigns').setup()
 
+local custom_lualine_theme = require'lualine.themes.ayu_dark'
+custom_lualine_theme.normal.c.bg = '#16272c'
+
 require'lualine'.setup {
   extensions = {'quickfix', 'nvim-tree', 'fzf'},
-  theme = 'onedark',
-  sections = {lualine_c = {lsp_status.status, lsp_status.progress }},
-  options = {disabled_filetypes = {'presenting_markdown'}},
+  sections = {
+    lualine_c = {
+        lsp_status.status, 
+        lsp_status.progress,
+    }
+  },
+  options = {
+    theme = custom_lualine_theme,
+    disabled_filetypes = {'presenting_markdown'}
+  },
 }
 
 

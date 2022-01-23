@@ -19,8 +19,6 @@ for files in config_list
   endfor
 endfor
 
-lua require('init')
-
 
 " set syntax highlighting options.
 syntax on
@@ -129,10 +127,22 @@ set t_ZR=[23m
 "
 " highlight WordUnderCursor gui=underline guibg=#333a39
 
-colorscheme onedark
-hi Normal guibg=#141717
+" colorscheme onedark
+" hi Normal guibg=#141717
+" hi NormalFloat guibg=#0b1212
+" hi WordUnderCursor guibg=#1f302a
+" hi NvimTreeIndentMarker guifg=#242a2a
+" hi CursorLine guibg=#222a2a
+
+
+colorscheme deus
+hi Normal guibg=#233138
 hi NormalFloat guibg=#0b1212
-hi WordUnderCursor guibg=#1f302a
+hi WordUnderCursor guibg=#1f1f2a
 hi NvimTreeIndentMarker guifg=#242a2a
-hi CursorLine guibg=#222a2a
+hi CursorLine guibg=#132228
+
+lua require('init')
+
+hi lualine_c_normal guibg=#505050
 

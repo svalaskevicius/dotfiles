@@ -62,7 +62,7 @@ nnoremap <Leader>vr :so ~/.config/nvim/init.vim<CR>
 " Edit .vimrc
 nnoremap <Leader>ve :tabnew ~/.config/nvim/lua/init.lua <bar> :tcd ~/.config/nvim/<CR>
 
-command! ShowMapping redir @" | silent map | redir END | new | put!
+command! ShowMapping redir @a> | silent map | redir END | new | normal "ap
 nnoremap <Leader>vm :ShowMapping<CR>
 
 " easier quickfix nav
