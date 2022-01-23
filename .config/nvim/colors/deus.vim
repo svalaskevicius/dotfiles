@@ -384,6 +384,8 @@ if version >= 700
   " Screen column that the cursor is
   hi! link CursorColumn CursorLine
 
+  call s:HL('WordUnderCursor', s:none, s:bg2)
+
   " Tab pages line filler
   call s:HL('TabLineFill', s:bg4, s:vim_bg, s:invert_tabline)
   " Active tab page label

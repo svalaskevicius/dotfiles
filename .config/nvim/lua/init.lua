@@ -376,7 +376,7 @@ require('lspkind').init()
 require('gitsigns').setup()
 
 local custom_lualine_theme = require'lualine.themes.ayu_dark'
-custom_lualine_theme.normal.c.bg = '#16272c'
+custom_lualine_theme.normal.c.bg = '#1c2326'
 
 require'lualine'.setup {
   extensions = {'quickfix', 'nvim-tree', 'fzf'},

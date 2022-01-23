@@ -136,13 +136,14 @@ set t_ZR=[23m
 
 
 colorscheme deus
-hi Normal guibg=#233138
-hi NormalFloat guibg=#0b1212
-hi WordUnderCursor guibg=#1f1f2a
-hi NvimTreeIndentMarker guifg=#242a2a
-hi CursorLine guibg=#132228
+" hi Normal guibg=#233138
+" hi NormalFloat guibg=#0b1212
+" hi WordUnderCursor guibg=#1f1f2a
+hi NvimTreeIndentMarker guifg=#435C41
+hi NvimTreeRootFolder gui=bold guifg=#aacccc
+" hi CursorLine guibg=#132228
 
 lua require('init')
 
-hi lualine_c_normal guibg=#505050
+ " hi lualine_c_normal guibg=#505050
 
