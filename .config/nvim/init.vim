@@ -134,6 +134,7 @@ set t_ZR=[23m
 " hi NvimTreeIndentMarker guifg=#242a2a
 " hi CursorLine guibg=#222a2a
 
+let g:deus_guisp_fallback = 'fg'
 
 colorscheme deus
 " hi Normal guibg=#233138

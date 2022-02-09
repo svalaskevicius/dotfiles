@@ -256,16 +256,16 @@ nnoremap <C-M-Right> <C-I>
 inoremap <C-M-Left> <ESC><C-O>a
 inoremap <C-M-Right> <ESC><C-I>a
 
-nmap <leader>1 <Cmd>BufferLineGoToBuffer 1<cr>
-nmap <leader>2 <Cmd>BufferLineGoToBuffer 2<cr>
-nmap <leader>3 <Cmd>BufferLineGoToBuffer 3<cr>
-nmap <leader>4 <Cmd>BufferLineGoToBuffer 4<cr>
-nmap <leader>5 <Cmd>BufferLineGoToBuffer 5<cr>
-nmap <leader>6 <Cmd>BufferLineGoToBuffer 6<cr>
-nmap <leader>7 <Cmd>BufferLineGoToBuffer 7<cr>
-nmap <leader>8 <Cmd>BufferLineGoToBuffer 8<cr>
-nmap <leader>9 <Cmd>BufferLineGoToBuffer 9<cr>
-nmap <leader>0 <Cmd>BufferLineGoToBuffer 10<cr>
+nmap <leader>1 :lua require"bufferline".go_to_buffer(1, true)<CR>
+nmap <leader>2 :lua require"bufferline".go_to_buffer(2, true)<CR>
+nmap <leader>3 :lua require"bufferline".go_to_buffer(3, true)<CR>
+nmap <leader>4 :lua require"bufferline".go_to_buffer(4, true)<CR>
+nmap <leader>5 :lua require"bufferline".go_to_buffer(5, true)<CR>
+nmap <leader>6 :lua require"bufferline".go_to_buffer(6, true)<CR>
+nmap <leader>7 :lua require"bufferline".go_to_buffer(7, true)<CR>
+nmap <leader>8 :lua require"bufferline".go_to_buffer(8, true)<CR>
+nmap <leader>9 :lua require"bufferline".go_to_buffer(9, true)<CR>
+nmap <leader>0 :lua require"bufferline".go_to_buffer(10, true)<CR>
 
 noremap <ESC>[1;6A <C-S-Up>
 noremap! <ESC>[1;6A <C-S-Up>

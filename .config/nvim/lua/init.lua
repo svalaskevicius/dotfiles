@@ -43,7 +43,6 @@ require('packer').startup(function(use)
     requires = {
       { "hrsh7th/cmp-nvim-lsp" },
       { "hrsh7th/cmp-vsnip" },
-      { "hrsh7th/vim-vsnip" },
       { "hrsh7th/cmp-buffer" },
     },
   })
@@ -114,7 +113,7 @@ g['nvim_web_devicons'] = 1 -- temporary until nvim-tree removes check?
 -- VARIABLES ---------------------
 ----------------------------------
 -- nvim-metals
-g['metals_server_version'] = '0.11.0'
+g['metals_server_version'] = '0.11.1+28-f3d65d76-SNAPSHOT'
 
 ----------------------------------
 -- OPTIONS -----------------------
@@ -358,6 +357,9 @@ metals_config.settings = {
   bloopSbtAlreadyInstalled = true,
   showInferredType = true,
   superMethodLensesEnabled = true,
+  serverProperties = {
+    "-XX:+UseG1GC", "-Xmx1g",
+  }
 }
 
 
@@ -382,7 +384,7 @@ require'lualine'.setup {
   extensions = {'quickfix', 'nvim-tree', 'fzf'},
   sections = {
     lualine_c = {
-        lsp_status.status, 
+        lsp_status.status,
         lsp_status.progress,
     }
   },
