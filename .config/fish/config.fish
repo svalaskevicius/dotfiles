@@ -44,3 +44,5 @@ set -x FZF_DEFAULT_COMMAND 'fd --type f'
 
 stty susp '^Z'  
 
+if which kubectl >/dev/null 2>&1 ; kubectl completion fish | source ; end
+

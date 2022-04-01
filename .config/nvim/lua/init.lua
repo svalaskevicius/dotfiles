@@ -226,6 +226,8 @@ map('n', '<leader>f', '<cmd>lua vim.lsp.buf.formatting()<CR>')
 map('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>')
 map('n', '<leader>a', '<cmd>lua vim.diagnostic.setqflist()<CR>')
 map('n', '<leader>d', '<cmd>lua vim.diagnostic.setloclist()<CR>') -- buffer diagnostics only
+map('n', '[e', '<cmd>lua vim.diagnostic.goto_prev { wrap = false, severity = vim.diagnostic.severity.ERROR }<CR>')
+map('n', ']e', '<cmd>lua vim.diagnostic.goto_next { wrap = false, severity = vim.diagnostic.severity.ERROR }<CR>')
 map('n', '[c', '<cmd>lua vim.diagnostic.goto_prev { wrap = false }<CR>')
 map('n', ']c', '<cmd>lua vim.diagnostic.goto_next { wrap = false }<CR>')
 map('n', '<leader>cv', '<cmd>Vista nvim_lsp<CR>')
@@ -358,7 +360,7 @@ metals_config.settings = {
   showInferredType = true,
   superMethodLensesEnabled = true,
   serverProperties = {
-    "-XX:+UseG1GC", "-Xmx1g",
+    "-XX:+UseG1GC", "-Xmx2g",
   }
 }
 
