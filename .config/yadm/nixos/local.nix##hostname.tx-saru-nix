@@ -26,7 +26,7 @@ in {
   };
 
   boot.blacklistedKernelModules = [ "nouveau" "rivafb" "nvidiafb" "rivatv" "nv" ];
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  # boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.kernelModules = [ "dell-smm-hwmon" ];
   boot.kernelParams = [
     "acpi_osi=Linux"
