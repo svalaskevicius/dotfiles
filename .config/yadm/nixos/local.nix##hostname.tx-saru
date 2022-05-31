@@ -1,0 +1,147 @@
+# Edit this configuration file to define what should be installed on
+# your system.  Help is available in the configuration.nix(5) man page
+# and in the NixOS manual (accessible by running ‘nixos-help’).
+
+{ config, pkgs, ... }:
+
+let
+  unstable = import <nixos-unstable> {
+    config = config.nixpkgs.config;
+  };
+  nvidia-offload = pkgs.writeShellScriptBin "nvidia-offload" ''
+    export __NV_PRIME_RENDER_OFFLOAD=1
+    export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
+    export __GLX_VENDOR_LIBRARY_NAME=nvidia
+    export __VK_LAYER_NV_optimus=NVIDIA_only
+    exec -a "$0" "$@"
+  '';
+in {
+  #
+  # Bootloader.
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.efi.efiSysMountPoint = "/boot/efi";
+
+  # Setup keyfile
+  boot.initrd.secrets = {
+    "/crypto_keyfile.bin" = null;
+  };
+
+  # Enable swap on luks
+  boot.initrd.luks.devices."luks-2a4bfa59-e7db-4690-8406-5fc1ec094096".device = "/dev/disk/by-uuid/2a4bfa59-e7db-4690-8406-5fc1ec094096";
+  boot.initrd.luks.devices."luks-2a4bfa59-e7db-4690-8406-5fc1ec094096".keyFile = "/crypto_keyfile.bin";
+  boot.initrd.luks.devices."luks-2a4bfa59-e7db-4690-8406-5fc1ec094096".preLVM = true;
+  boot.initrd.luks.devices."luks-2a4bfa59-e7db-4690-8406-5fc1ec094096".allowDiscards = true;
+
+  boot.blacklistedKernelModules = [ "nouveau" "rivafb" "nvidiafb" "rivatv" "nv" ];
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelModules = [ "dell-smm-hwmon" ];
+  boot.kernelParams = [
+    "acpi_osi=Linux"
+    "acpi_rev_override=1"
+    "i915.disable_power_well=0"
+    "i915.fastboot=1"
+    "dell-smm-hwmon.ignore_dmi=1"
+  ];
+
+
+  networking.hostName = "tx-saru"; # Define your hostname.
+
+  # Select internationalisation properties.
+  i18n = {
+    defaultLocale = "en_GB.UTF-8";
+  };
+
+  console = {
+    font = "latarcyrheb-sun32";
+    keyMap = "uk";
+  };
+
+  powerManagement.powertop.enable=true;
+
+  services = {
+    power-profiles-daemon.enable = false;
+    tlp.enable = true;
+    tlp.settings = {
+        CPU_SCALING_GOVERNOR_ON_AC = "powersave";
+        CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+        ENERGY_PERF_POLICY_ON_AC = "default";
+        ENERGY_PERF_POLICY_ON_BAT = "power";
+        CPU_HWP_ON_AC = "balance_performance";
+        CPU_HWP_ON_BAT = "balance_power";
+        RUNTIME_PM_BLACKLIST = "01:00.0";
+        USB_BLACKLIST = "413c:2113";
+    };
+
+
+    xserver = {
+      dpi = 192;
+      useGlamor = true;
+      videoDrivers = [ "nvidia" ];
+
+      # Enable the Desktop Environment.
+      displayManager.lightdm.enable = true;
+
+      windowManager.xmonad.enable = true;
+      windowManager.xmonad.enableContribAndExtras = true;
+      desktopManager.xterm.enable = false;
+      desktopManager.gnome.enable = true;
+      displayManager.defaultSession = "none+xmonad";
+    };
+    redshift.enable = true;
+
+    # Enable network printer
+    printing.enable = true;
+    avahi.enable = true;
+    avahi.nssmdns = true;
+  };
+
+  location = {
+    latitude = 51.5074;
+    longitude = 0.1278;
+    provider = "manual";
+  };
+
+  programs.ssh.startAgent = true;
+  programs.ssh.agentTimeout = "8h";
+
+
+  services.xserver.extraConfig = ''
+    Section "OutputClass"
+        Identifier "nvidia"
+        MatchDriver "nvidia-drm"
+        Driver "nvidia"
+        Option "AllowEmptyInitialConfiguration"
+        ModulePath "/usr/lib/nvidia/xorg"
+        ModulePath "/usr/lib/xorg/modules"
+    EndSection
+  '';
+  hardware.nvidia = {
+    # modesetting.enable = true;
+    prime = {
+      offload.enable = true;
+
+      # Bus ID of the Intel GPU. You can find it using lspci, either under 3D or VGA
+      intelBusId = "PCI:0:2:0";
+
+      # Bus ID of the NVIDIA GPU. You can find it using lspci, either under 3D or VGA
+      nvidiaBusId = "PCI:1:0:0";
+    };
+  };
+
+  # nvidia
+  environment.systemPackages = [
+    nvidia-offload
+    # pkgs.linuxPackages.nvidia_x11 # .override { libsOnly = true; kernel = null; })
+    # pkgs.pkgsi686Linux.linuxPackages.nvidia_x11 # .override { libsOnly = true; kernel = null; })
+  ];
+  # install nvidia drivers in addition to intel one
+  # hardware.opengl.extraPackages = [ pkgs.linuxPackages.nvidia_x11.out ];
+  # hardware.opengl.extraPackages32 = [ pkgs.pkgsi686Linux.linuxPackages.nvidia_x11.out ];
+
+  # This value determines the NixOS release with which your system is to be
+  # compatible, in order to avoid breaking some software such as database
+  # servers. You should change this only after NixOS release notes say you
+  # should.
+  system.stateVersion = "22.05"; # Did you read the comment?
+}
