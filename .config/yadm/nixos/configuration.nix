@@ -45,9 +45,9 @@ in {
   # $ nix search wget
   environment.systemPackages =
     let sysPack = with pkgs; [
-          acpi openvpn sysstat pavucontrol powertop psmisc tree lsof pciutils usbutils lm_sensors lshw bind file binutils-unwrapped iotop nox vim neovim wireguard wireguard-tools
+          acpi openvpn sysstat pavucontrol powertop psmisc tree lsof pciutils usbutils lm_sensors lshw bind file binutils-unwrapped iotop nox vim neovim wireguard-tools
         ];
-        toolsPack = with pkgs; [ bash fish wget httpie git p7zip tmux htop gnupg silver-searcher fzf fd unzip docker_compose yadm shellcheck jq exa ];
+        toolsPack = with pkgs; [ bash fish wget httpie git p7zip tmux htop gnupg silver-searcher fzf fd unzip docker-compose yadm shellcheck jq exa ];
         devPack = with pkgs; [ openjdk11 maven scala sbt coursier gnumake cmake gcc nodejs direnv];
         # editorsPack = with pkgs; [ vscode ];
         xPack = with pkgs; [
