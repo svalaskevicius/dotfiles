@@ -129,14 +129,11 @@ vim.o.shortmess = string.gsub(vim.o.shortmess, 'F', '') .. 'c'
 -- nvim tree
 
 g['nvim_tree_auto_ignore_ft'] = {} -- [ 'startify', 'dashboard' ] -- empty by default, don't auto open tree on specific filetypes.
-g['nvim_tree_git_hl'] = 1 -- 0 by default, will enable file highlight for git attributes (can be used without the icons).
-g['nvim_tree_highlight_opened_files'] = 1 -- 0 by default, will enable folder and file icon highlight for opened files/directories.
-g['nvim_tree_root_folder_modifier'] = ':~' -- This is the default. See :help filename-modifiers for more options
 g['nvim_tree_width_allow_resize']  = 1 -- 0 by default, will not resize the tree when opening a file
-g['nvim_tree_add_trailing'] = 1 -- 0 by default, append a trailing slash to folder names
-g['nvim_tree_group_empty'] = 1 --  0 by default, compact folders that only contain a single folder into one node in the file tree
-g['nvim_tree_special_files'] = { 'README.md', 'Makefile', 'MAKEFILE' } --  List of filenames that gets highlighted with NvimTreeSpecialFile
-g['nvim_tree_show_icons'] = { git = 1, folders = 1, files = 1 }
+-- g['nvim_tree_add_trailing'] = 1 -- 0 by default, append a trailing slash to folder names
+-- g['nvim_tree_group_empty'] = 1 --  0 by default, compact folders that only contain a single folder into one node in the file tree
+-- g['nvim_tree_special_files'] = { 'README.md', 'Makefile', 'MAKEFILE' } --  List of filenames that gets highlighted with NvimTreeSpecialFile
+-- g['nvim_tree_show_icons'] = { git = 1, folders = 1, files = 1 }
 
 map('n', '<leader>tt', '<cmd>NvimTreeToggle<CR>')
 map('n', '<leader>tr', '<cmd>NvimTreeRefresh<CR>')
@@ -221,7 +218,10 @@ require'nvim-tree'.setup({
   renderer = {
     indent_markers = {
       enable = true
-    }
+    },
+    highlight_git = true,
+    highlight_opened_files = "icon",
+    group_empty = true
   }
 })
 
