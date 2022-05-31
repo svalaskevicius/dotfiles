@@ -27,11 +27,17 @@ in {
     "/crypto_keyfile.bin" = null;
   };
 
-  # Enable swap on luks
-  boot.initrd.luks.devices."luks-2a4bfa59-e7db-4690-8406-5fc1ec094096".device = "/dev/disk/by-uuid/2a4bfa59-e7db-4690-8406-5fc1ec094096";
-  boot.initrd.luks.devices."luks-2a4bfa59-e7db-4690-8406-5fc1ec094096".keyFile = "/crypto_keyfile.bin";
-  boot.initrd.luks.devices."luks-2a4bfa59-e7db-4690-8406-5fc1ec094096".preLVM = true;
-  boot.initrd.luks.devices."luks-2a4bfa59-e7db-4690-8406-5fc1ec094096".allowDiscards = true;
+  # Enable swap on luks, allow discards
+  boot.initrd.luks.devices = {
+    luks-27b0b1ca-8f5a-43d7-8f4e-649153a1fe10 = {
+      device = "/dev/disk/by-uuid/27b0b1ca-8f5a-43d7-8f4e-649153a1fe10";
+      allowDiscards = true;
+    };
+    luks-2a4bfa59-e7db-4690-8406-5fc1ec094096 = {
+      device = "/dev/disk/by-uuid/2a4bfa59-e7db-4690-8406-5fc1ec094096";
+      allowDiscards = true;
+    };
+  };
 
   boot.blacklistedKernelModules = [ "nouveau" "rivafb" "nvidiafb" "rivatv" "nv" ];
   boot.kernelPackages = pkgs.linuxPackages_latest;
