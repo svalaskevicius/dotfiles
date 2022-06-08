@@ -105,6 +105,7 @@ myManageHook = composeAll
     , className =? "Whatsie"                --> doShift "4:comms \xf075"
     , className =? "Skype"                  --> doShift "5:comms \xf075"
     , className =? "zoom"                   --> doShift "5:comms \xf075"
+    , className =? ".zoom "                 --> doShift "5:comms \xf075"
     , className =? "zoom-us"                --> doShift "5:comms \xf075"
     , className =? "VirtualBox"             --> doShift "6:apps \xf080"
     , className =? "Gimp"                   --> doShift "6:apps \xf080"
@@ -369,9 +370,9 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   ++
 
   [
-    ((modMask .|. shiftMask, xK_g     ), windowPromptGoto  promptDef
-                         { autoComplete = Just 500000 })
-  , ((modMask .|. shiftMask, xK_b     ), windowPromptBring promptDef)
+    ((modMask .|. shiftMask, xK_g     ), windowPrompt promptDef { autoComplete = Just 500000 } Goto allWindows
+                         )
+  , ((modMask .|. shiftMask, xK_b     ), windowPrompt promptDef Bring allWindows)
   ]
 
   ++
@@ -437,7 +438,7 @@ myMouseBindings (XConfig {XMonad.modMask = modMask}) = M.fromList $
 -- By default, do nothing.
 myStartupHook = do
   setWMName "LG3D"
-  cfgDir <- getXMonadDir
+  cfgDir <- asks (cfgDir . directories)
   let initFile = cfgDir ++ "/xmonad-init"
   l <- runProcessWithInput "/usr/bin/env" ["bash", "-c",
         "if test ! \"$XMONAD_INIT_DONE\" = 'y' -a -f '" ++ initFile ++ "' ; then \
@@ -463,7 +464,7 @@ main = do
   -- xmproc <- spawnPipe "/run/current-system/sw/bin/xmobar ~/.xmonad/xmobar.hs"
   -- xmproc <- spawnPipe "~/.local/bin/xmobar ~/.xmonad/xmobar.hs"
   xmproc <- spawnPipe "~/.config/polybar/launch.sh"
-  xmonad $ docks $ ewmh defaults {
+  xmonad $ docks $ ewmhFullscreen defaults {
       -- logHook = dynamicLogWithPP $ xmobarPP {
       --       ppOutput = hPutStrLn xmproc
       --     , ppTitle = xmobarColor xmobarTitleColor "" . shorten 75
@@ -518,5 +519,5 @@ defaults = def {
     startupHook        = myStartupHook,
 
     -- make fullscreen work in chromium
-    handleEventHook    = fullscreenEventHook <+> handleTimerEvent <+> myEventHook
+    handleEventHook    =  handleTimerEvent <+> myEventHook
 }
