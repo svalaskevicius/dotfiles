@@ -45,7 +45,7 @@ in {
   # $ nix search wget
   environment.systemPackages =
     let sysPack = with pkgs; [
-          acpi openvpn sysstat pavucontrol powertop psmisc tree lsof pciutils usbutils lm_sensors lshw bind file binutils-unwrapped iotop nox vim neovim wireguard-tools
+          acpi openvpn sysstat pavucontrol powertop psmisc tree lsof pciutils usbutils lm_sensors lshw bind file binutils-unwrapped iotop nox vim neovim wireguard-tools sutils
         ];
         toolsPack = with pkgs; [ bash fish wget httpie git p7zip tmux htop gnupg silver-searcher fzf fd unzip docker-compose yadm shellcheck jq exa ];
         devPack = with pkgs; [ openjdk11 maven scala sbt coursier gnumake cmake gcc nodejs direnv];

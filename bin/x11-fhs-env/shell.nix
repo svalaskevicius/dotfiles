@@ -22,13 +22,17 @@
       gtk2
       gtk3
       cairo
-      gdk_pixbuf
+      gdk-pixbuf
       atk
       zlib
       perl
+      ripgrep
+      fish
 
       git
-      openjdk11 maven scala sbt gnumake gcc nodejs
+      # adoptopenjdk-hotspot-bin-11
+      openjdk11
+      maven scala sbt gnumake gcc nodejs coursier
       fira-code
     ]) ++ (with pkgs.xorg;
     [ libX11

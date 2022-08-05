@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+docker ps -q | xargs docker kill
+sleep 1
+poweroff
+

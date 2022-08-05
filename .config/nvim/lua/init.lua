@@ -88,6 +88,9 @@ require('packer').startup(function(use)
   use 'sheerun/vim-polyglot'
   use 'ggandor/leap.nvim'
   -- use 'vim-scripts/AnsiEsc.vim'
+  use 'powerman/vim-plugin-AnsiEsc'
+
+  use 'mfussenegger/nvim-dap'
 end)
 
 require('leap').set_default_keymaps()
@@ -117,7 +120,7 @@ g['nvim_web_devicons'] = 1 -- temporary until nvim-tree removes check?
 -- VARIABLES ---------------------
 ----------------------------------
 -- nvim-metals
-g['metals_server_version'] = '0.11.5+157-d0cf15ce-SNAPSHOT'
+g['metals_server_version'] = '0.11.6+73-2cee762e-SNAPSHOT'
 
 ----------------------------------
 -- OPTIONS -----------------------
@@ -548,21 +551,25 @@ require("winshift").setup({
   -- The window picker is used to select a window while swapping windows with
   -- ':WinShift swap'.
   -- A string of chars used as identifiers by the window picker.
-  window_picker_chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890",
-  window_picker_ignore = {
-    -- This table allows you to indicate to the window picker that a window
-    -- should be ignored if its buffer matches any of the following criteria.
-    filetype = {  -- List of ignored file types
-      "NvimTree",
-    },
-    buftype = {   -- List of ignored buftypes
-      "terminal",
-      "quickfix",
-    },
-    bufname = {   -- List of regex patterns matching ignored buffer names
-      [[.*foo/bar/baz\.qux]]
-    },
-  },
+  window_picker = function()
+    return require("winshift.lib").pick_window({
+      picker_chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890",
+      filter_rules = {
+        cur_win = true,
+        floats = true,
+        filetype = {
+          "NvimTree",
+        },
+        buftype = {
+          "terminal",
+          "quickfix",
+        },
+        bufname = {
+          [[.*foo/bar/baz\.qux]]
+        },
+      },
+    })
+  end,
 })
 
 -- Start Win-Move mode:
@@ -578,3 +585,57 @@ map('n', '<leader>w<C-up>', '<cmd>WinShift far_up<CR>')
 map('n', '<leader>w<C-down>', '<cmd>WinShift far_down<CR>')
 
 
+-- Debug settings if you're using nvim-dap
+local dap = require("dap")
+
+dap.configurations.scala = {
+  {
+    type = "scala",
+    request = "launch",
+    name = "RunOrTest",
+    metals = {
+      runType = "runOrTestFile",
+      --args = { "firstArg", "secondArg", "thirdArg" }, -- here just as an example
+    },
+  },
+  {
+    type = "scala",
+    request = "launch",
+    name = "Test Target",
+    metals = {
+      runType = "testTarget",
+    },
+  },
+  {
+    type = "scala",
+    request = "attach",
+    name = "Attach to Target",
+    host = "localhost",
+    port = 5005
+  },
+}
+
+metals_config.on_attach = function(client, bufnr)
+  require("metals").setup_dap()
+end
+
+-- Example mappings for usage with nvim-dap. If you don't use that, you can
+-- skip these
+map("n", "<leader>dc", [[<cmd>lua require"dap".continue()<CR>]])
+map("n", "<leader>dr", [[<cmd>lua require"dap".repl.toggle()<CR>]])
+map("n", "<leader>dK", [[<cmd>lua require"dap.ui.widgets".hover()<CR>]])
+map("n", "<leader>dt", [[<cmd>lua require"dap".toggle_breakpoint()<CR>]])
+map("n", "<leader>dso", [[<cmd>lua require"dap".step_over()<CR>]])
+map("n", "<leader>dsi", [[<cmd>lua require"dap".step_into()<CR>]])
+map("n", "<leader>dl", [[<cmd>lua require"dap".run_last()<CR>]])
+map("n", "<leader>dx", [[<cmd>lua require"dap".run_to_cursor()<CR>]])
+vim.keymap.set("n", "<leader>dz", function()
+  local widgets = require('dap.ui.widgets')
+  local my_sidebar = widgets.sidebar(widgets.frames)
+  my_sidebar.open()
+end, {desc = 'debugger frames'})
+vim.keymap.set("n", "<leader>dy", function()
+  local widgets = require('dap.ui.widgets')
+  local my_sidebar = widgets.sidebar(widgets.scopes)
+  my_sidebar.open()
+end, {desc = 'debugger scopes'})
