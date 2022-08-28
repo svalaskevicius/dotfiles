@@ -5,6 +5,7 @@ set -x -e
 sudo nix-channel --update nixos
 sudo nix-channel --update nixos-unstable
 # nix build --no-link -f '<nixpkgs/nixos>' config.system.build.toplevel
+nix --extra-experimental-features nix-command build --no-link -f '<nixpkgs/nixos>' config.system.build.toplevel
 sudo nixos-rebuild switch
 
 nix-env -u

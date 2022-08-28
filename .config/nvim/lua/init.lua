@@ -120,7 +120,7 @@ g['nvim_web_devicons'] = 1 -- temporary until nvim-tree removes check?
 -- VARIABLES ---------------------
 ----------------------------------
 -- nvim-metals
-g['metals_server_version'] = '0.11.6+73-2cee762e-SNAPSHOT'
+g['metals_server_version'] = '0.11.8'
 
 ----------------------------------
 -- OPTIONS -----------------------
@@ -484,6 +484,27 @@ end
 
 require('telescope').setup {
   defaults = {
+    mappings = {
+      i = {
+        -- map actions.which_key to <C-h> (default: <C-/>)
+        -- actions.which_key shows the mappings for your picker,
+        -- e.g. git_{create, delete, ...}_branch for the git_branches picker
+        ["<C-l>"] = function(prompt_bufnr)
+          local state = require "telescope.state"
+          local status = state.get_status(prompt_bufnr)
+          vim.api.nvim_win_call(status.results_win, function()
+            vim.cmd([[normal! 5zl]])
+          end)
+        end,
+        ["<C-h>"] = function(prompt_bufnr)
+          local state = require "telescope.state"
+          local status = state.get_status(prompt_bufnr)
+          vim.api.nvim_win_call(status.results_win, function()
+            vim.cmd([[normal! 5zh]])
+          end)
+        end
+      }
+    },
     buffer_previewer_maker = new_maker,
   }
 }
@@ -639,3 +660,8 @@ vim.keymap.set("n", "<leader>dy", function()
   local my_sidebar = widgets.sidebar(widgets.scopes)
   my_sidebar.open()
 end, {desc = 'debugger scopes'})
+
+
+map("n", "<C-L>", [[10zl]])
+map("n", "<C-H>", [[10zh]])
+
