@@ -336,7 +336,14 @@ cmd [[autocmd!]]
 cmd [[autocmd FileType scala setlocal omnifunc=v:lua.vim.lsp.omnifunc]]
 cmd [[autocmd FileType scala,sbt lua require("metals").initialize_or_attach(metals_config)]]
 cmd [[autocmd FileType scala nnoremap <leader>cs  <cmd>lua require"metals".hover_worksheet()<CR>]]
--- cmd [[autocmd FileType scala nnoremap <leader>a   <cmd>lua require"metals".open_all_diagnostics()<CR>]]
+cmd [[autocmd FileType scala nnoremap <leader>cl  <cmd>lua vim.lsp.codelens.run()<CR>]]
+cmd [[autocmd FileType scala nnoremap <leader>sh  <cmd>lua vim.lsp.buf.signature_help()<CR>]]
+cmd [[autocmd FileType scala nnoremap <leader>a  <cmd>lua vim.diagnostic.setqflist({severity = "E"})<CR>]]
+cmd [[autocmd FileType scala nnoremap <leader>aa  <cmd>lua vim.diagnostic.setqflist()<CR>]]
+cmd [[autocmd FileType scala nnoremap <leader>aw  <cmd>lua vim.diagnostic.setqflist({severity = "W"})<CR>]]
+cmd [[autocmd FileType scala nnoremap <leader>ad  <cmd>lua vim.diagnostic.setloclist()<CR>]]
+cmd [[autocmd FileType scala nnoremap <leader>tm   <cmd>lua require("metals.tvp").toggle_tree_view()<CR>]]
+cmd [[autocmd FileType scala nnoremap <leader>tg   <cmd>lua require("metals.tvp").reveal_in_tree()<CR>]]
 cmd [[augroup end]]
 
 -- Need for symbol highlights to work correctly
@@ -373,7 +380,7 @@ metals_config.settings = {
   showImplicitArguments = true,
   bloopSbtAlreadyInstalled = true,
   showInferredType = true,
-  superMethodLensesEnabled = true,
+  superMethodLensesEnabled = false,
   serverProperties = {
     "-XX:+UseG1GC", "-Xmx2g",
   }
