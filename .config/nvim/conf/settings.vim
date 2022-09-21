@@ -36,6 +36,10 @@ set pastetoggle=<F12>
 
 set clipboard^=unnamed,unnamedplus
 
+function! Treesitter_status() abort
+  return luaeval("require'nvim-treesitter.statusline'.statusline(_A)", {'indicator_size': 90})
+endfunction
+
 " status lines -- note this is not used when airline is enabled
 if has('statusline')
     set laststatus=2
@@ -44,7 +48,8 @@ if has('statusline')
     set statusline=%<%t\  " Filename
     set statusline+=%w%h%m%r " Options
     " set statusline+=%{fugitive#statusline()} " Git Hotness
-    set statusline+=%{nvim_treesitter#statusline(90)} " Git Hotness
+    " set statusline+=%{nvim_treesitter#statusline({indicator_size = 90})} " Git Hotness
+    set statusline+=%{Treesitter_status()}
     set statusline+=%#warningmsg#
     "set statusline+=%{SyntasticStatuslineFlag()}
     set statusline+=%*
