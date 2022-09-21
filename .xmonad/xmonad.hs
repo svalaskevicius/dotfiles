@@ -214,6 +214,10 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
   -- Switch to dual screen mode work
   , ((modMask .|. mod1Mask, xK_3),
        spawn "xrandr --output DP-1 --auto --left-of eDP-1 --set audio on && feh --bg-tile ~/.xmonad/wallpaper.png")
+  --
+  -- Switch to dual screen mode work
+  , ((modMask .|. mod1Mask, xK_4),
+       spawn "xrandr --output DP-2 --auto --left-of eDP-1 --set audio on && feh --bg-tile ~/.xmonad/wallpaper.png")
 
   -- Take a screenshot in select mode.
   -- After pressing this key binding, click a window, or draw a rectangle with
