@@ -1,5 +1,6 @@
 set shell=bash
 set nocompatible               " be iMproved
+set nomodeline
 
 " enable 256 colors
 " set t_Co=256
