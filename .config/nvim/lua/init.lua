@@ -120,7 +120,8 @@ g['nvim_web_devicons'] = 1 -- temporary until nvim-tree removes check?
 -- VARIABLES ---------------------
 ----------------------------------
 -- nvim-metals
-g['metals_server_version'] = '0.11.8'
+-- g['metals_server_version'] = '0.11.9'
+g['metals_server_version'] = '0.11.9+34-f8077f46-SNAPSHOT'
 
 ----------------------------------
 -- OPTIONS -----------------------
@@ -239,6 +240,7 @@ map('n', 'gws', '<cmd>lua vim.lsp.buf.workspace_symbol()<CR>')
 map('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>')
 map('n', '<leader>f', '<cmd>lua vim.lsp.buf.formatting()<CR>')
 map('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>')
+map('v', '<leader>ca', '<cmd>lua vim.lsp.buf.range_code_action()<CR>')
 map('n', '<leader>a', '<cmd>lua vim.diagnostic.setqflist()<CR>')
 map('n', '<leader>d', '<cmd>lua vim.diagnostic.setloclist()<CR>') -- buffer diagnostics only
 map('n', '[e', '<cmd>lua vim.diagnostic.goto_prev { wrap = false, severity = vim.diagnostic.severity.ERROR }<CR>')
