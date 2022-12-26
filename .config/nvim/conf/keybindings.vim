@@ -297,7 +297,7 @@ endfun
 
 nnoremap <silent> <leader>bd :bp\|bd #<CR>
 nnoremap <silent> <leader>bD :bp\|bd! #<CR>
-nnoremap <silent> <leader>bo :call CloseOtherBuffers()<CR>
+nnoremap <silent> <leader>bo :call CloseOtherBuffers()\|redraw!<CR>
 
 
 let g:NERDCreateDefaultMappings = 0

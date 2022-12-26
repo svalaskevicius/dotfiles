@@ -86,17 +86,17 @@ require('packer').startup(function(use)
   -- use 'mfussenegger/nvim-jdtls'
 
   use 'sheerun/vim-polyglot'
-  use 'ggandor/leap.nvim'
+  -- use 'ggandor/leap.nvim'
   -- use 'vim-scripts/AnsiEsc.vim'
   use 'powerman/vim-plugin-AnsiEsc'
 
   use 'mfussenegger/nvim-dap'
 end)
 
-require('leap').set_default_keymaps()
+-- require('leap').set_default_keymaps()
 
 require'lspconfig'.jdtls.setup{
-  cmd = { '/home/sarunas/src/eclipse.jdt.ls/run.sh' }
+  cmd = { 'sh', '-c', 'exec jdt-language-server -data ~/.jdt.workspace/$(pwd | md5sum | cut -d" " -f1)' }
 }
 
 require'nvim-web-devicons'.setup {
@@ -240,7 +240,7 @@ map('n', 'gws', '<cmd>lua vim.lsp.buf.workspace_symbol()<CR>')
 map('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>')
 map('n', '<leader>f', '<cmd>lua vim.lsp.buf.formatting()<CR>')
 map('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>')
-map('v', '<leader>ca', '<cmd>lua vim.lsp.buf.range_code_action()<CR>')
+map('v', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>')
 map('n', '<leader>a', '<cmd>lua vim.diagnostic.setqflist()<CR>')
 map('n', '<leader>d', '<cmd>lua vim.diagnostic.setloclist()<CR>') -- buffer diagnostics only
 map('n', '[e', '<cmd>lua vim.diagnostic.goto_prev { wrap = false, severity = vim.diagnostic.severity.ERROR }<CR>')
