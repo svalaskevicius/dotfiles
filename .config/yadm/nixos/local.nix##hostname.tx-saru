@@ -82,7 +82,6 @@ in {
 
     xserver = {
       dpi = 192;
-      useGlamor = true;
       videoDrivers = [ "nvidia" ];
 
       # Enable the Desktop Environment.
