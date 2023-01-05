@@ -1,4 +1,5 @@
-resolver: lts-18.19
+# resolver: lts-18.19
+resolver: lts-20.5
 nix:
   enable: true
   packages: [
@@ -31,8 +32,8 @@ packages:
 - xmonad-contrib/
 extra-deps:
 - unix-2.7.2.2
-- process-1.6.9.0
+- process-1.6.16.0
 - iwlib-0.1.0
-- X11-1.10@sha256:ed01fba28081d6922462c2727a9a2e71f8ec3d962ed18963eee0c770558817d9,3703
+- X11-1.10
   # - libmpd-0.9.0.10@sha256:5a2ff5795085425db11e76332833f2596c5512c861c41272489ed29b725e5538,4011
 

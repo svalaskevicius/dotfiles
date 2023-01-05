@@ -44,6 +44,8 @@ import Data.Foldable (traverse_)
 import XMonad.Actions.ShowText
 import Data.List (isInfixOf)
 
+import qualified Debug.Trace as D
+
 ------------------------------------------------------------------------
 -- Terminal
 -- The preferred terminal program, which is used in a binding below and by
@@ -130,13 +132,13 @@ myManageHook = composeAll
 -- which denotes layout choice.
 --
 --
-mySpacing = smartSpacing 1
-myLayout = avoidStruts (
-    (mySpacing $ Tall 1 (3/100) (1/2)) |||
-    (mySpacing $ Mirror (Tall 1 (3/100) (1/2))) |||
+-- mySpacing = smartSpacing 1
+myLayout = lessBorders (Combine Union OnlyFloat Screen) $ avoidStruts (
+    (Tall 1 (3/100) (1/2)) |||
+    (Mirror (Tall 1 (3/100) (1/2))) |||
     -- tabbed shrinkText tabConfig |||
     -- Full |||
-    -- spiral (6/7)) |||
+    -- spiral (6/7) |||
     noBorders Full
   )
 
@@ -519,7 +521,7 @@ defaults = def {
     mouseBindings      = myMouseBindings,
 
     -- hooks, layouts
-    layoutHook         = smartBorders myLayout,
+    layoutHook         = myLayout,
     manageHook         = myManageHook,
     startupHook        = myStartupHook,
 
