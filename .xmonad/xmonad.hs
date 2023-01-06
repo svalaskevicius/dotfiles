@@ -20,7 +20,8 @@ import qualified Data.Map        as M
 
 import XMonad.Config.Desktop
 import System.Environment (getEnvironment)
-
+import XMonad
+import XMonad.Hooks.EwmhDesktops
 import XMonad.Prompt
 import XMonad.Prompt.Window
 import XMonad.Prompt.ConfirmPrompt
@@ -506,7 +507,7 @@ textDef = def {
 --
 -- No need to modify this.
 --
-defaults = def {
+defaults = ewmh def {
     -- simple stuff
     terminal           = myTerminal,
     focusFollowsMouse  = myFocusFollowsMouse,
