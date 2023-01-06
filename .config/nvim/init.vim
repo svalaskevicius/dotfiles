@@ -136,13 +136,16 @@ set t_ZR=[23m
 
 let g:deus_guisp_fallback = 'fg'
 
-colorscheme deus
+colorscheme focuspoint " afterglow " deus
+
 " hi Normal guibg=#233138
-" hi NormalFloat guibg=#0b1212
+hi NormalFloat guibg=#0b1212
+hi Pmenu guibg=#1b2222
+hi PmenuSel guibg=#7b8552
 " hi WordUnderCursor guibg=#1f1f2a
 hi NvimTreeIndentMarker guifg=#435C41
 hi NvimTreeRootFolder gui=bold guifg=#aacccc
-" hi CursorLine guibg=#132228
+hi CursorLine guibg=#181a18
 
 lua require('init')
 
