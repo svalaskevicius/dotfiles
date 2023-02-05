@@ -99,10 +99,16 @@ require('packer').startup(function(use)
       'nvim-telescope/telescope.nvim', -- optional
     },
     -- tag = 'x.y.z' -- [^1]
+    use {
+      'm-demare/hlargs.nvim',
+      requires = { 'nvim-treesitter/nvim-treesitter' }
+    }
   }
 end)
 
 -- require('leap').set_default_keymaps()
+
+require('hlargs').setup()
 
 require'lspconfig'.jdtls.setup{
   cmd = { 'sh', '-c', 'exec jdt-language-server -data ~/.jdt.workspace/$(pwd | md5sum | cut -d" " -f1)' }
@@ -220,7 +226,7 @@ require'nvim-tree'.setup({
     }
   },
   filters = {
-    custom = { '.git', 'node_modules', '.cache', 'target' },
+    custom = { '^\\.git$', '^node_modules$', '^\\.cache$', '^target$', '^\\.tmp$', '^\\.gitignore$' },
     dotfiles = false
   },
   git = {
@@ -257,6 +263,7 @@ map('n', ']e', '<cmd>lua vim.diagnostic.goto_next { wrap = false, severity = vim
 map('n', '[c', '<cmd>lua vim.diagnostic.goto_prev { wrap = false }<CR>')
 map('n', ']c', '<cmd>lua vim.diagnostic.goto_next { wrap = false }<CR>')
 map('n', '<leader>cv', '<cmd>Vista nvim_lsp<CR>')
+map('n', '<leader>cc', '<cmd>Vista finder nvim_lsp<CR>')
 
 local cmp = require("cmp")
 cmp.setup({

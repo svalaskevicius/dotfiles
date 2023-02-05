@@ -1,4 +1,4 @@
-set shell=bash
+set shell=fish
 set nocompatible               " be iMproved
 set nomodeline
 
