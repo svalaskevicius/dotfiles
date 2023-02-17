@@ -104,6 +104,7 @@ require('packer').startup(function(use)
       requires = { 'nvim-treesitter/nvim-treesitter' }
     }
   }
+  use { 'vigoux/ltex-ls.nvim', requires = 'neovim/nvim-lspconfig' }
 end)
 
 -- require('leap').set_default_keymaps()
@@ -539,10 +540,10 @@ require('telescope').setup {
 
 require'nvim-treesitter.configs'.setup {
   ensure_installed = require'nvim-treesitter.parsers'.available_parsers(),
-  ignore_install = { }, -- List of parsers to ignore installing
+  ignore_install = { 'markdown' }, -- List of parsers to ignore installing
   highlight = {
     enable = true,              -- false will disable the whole extension
-    disable = {  },  -- list of language that will be disabled
+    disable = { 'markdown' },  -- list of language that will be disabled
   },
   indent = {
     enable = true
@@ -692,6 +693,60 @@ map("n", "<C-H>", [[10zh]])
 
 
 
+require'ltex-ls'.setup {
+  use_spellfile = false, -- Uses the value of 'spellfile' as an external file when checking the document
+  window_border = 'single', -- How the border should be rendered
+  on_attach = on_attach,
+  cmd = { "ltex-ls" },
+  filetypes = { "markdown", "text", "latex", "tex", "bib" },
+  flags = { debounce_text_changes = 300 },
+  settings = {
+    ltex = {
+      enabled = { "latex", "tex", "bib", "markdown", },
+      language = "en-GB",
+      configurationTarget = {
+            dictionary = "workspaceFolderExternalFile",
+            disabledRules = "workspaceFolder",
+            hiddenFalsePositives = "workspaceFolder",
+      },
+      disabledRules = {
+        ["en-GB"] = {"OXFORD_SPELLING_Z_NOT_S", "PASSIVE_VOICE"},
+      },
+      enableRules = {
+        ["en-GB"] = {"OXFORD_SPELLING_ISE_VERBS"},
+      },
+      dictionary = (function()
+          -- For dictionary, search for files in the runtime to have
+          -- and include them as externals the format for them is
+          -- dict/{LANG}.txt
+          --
+          -- Also add dict/default.txt to all of them
+          local files = {}
+          for _, file in ipairs(vim.api.nvim_get_runtime_file("dict/*", true)) do
+            local lang = vim.fn.fnamemodify(file, ":t:r")
+            local fullpath = vim.fs.normalize(file, ":p")
+            files[lang] = { ":" .. fullpath }
+          end
+
+          if files.default then
+            for lang, _ in pairs(files) do
+              if lang ~= "default" then
+                vim.list_extend(files[lang], files.default)
+              end
+            end
+            files.default = nil
+          end
+          if files['en-GB'] then
+            files['en-GB']:insert(1, ":"..vim.fn.getcwd() .. "/.ltex.dictionary.txt")
+          else
+            files['en-GB'] = {":"..vim.fn.getcwd().."/.ltex.dictionary.txt" }
+          end
+          -- print(vim.inspect(files))
+          return files
+        end)(),
+    }
+  }
+}
 
 
 -- haskell
