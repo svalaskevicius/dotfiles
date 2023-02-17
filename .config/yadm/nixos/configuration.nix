@@ -85,9 +85,11 @@ in {
           capitaine-cursors
         ];
         haskellPack = with pkgs.haskellPackages; [ ghc happy hasktags hlint xmobar stack cabal-install ];
-    in sysPack ++ toolsPack ++ xPack ++ haskellPack ++ devPack; # ++ editorsPack;
+        podmanPack = with pkgs; [ crun conmon podman podman-compose ];
+    in sysPack ++ toolsPack ++ xPack ++ haskellPack ++ devPack ++ podmanPack; # ++ editorsPack;
 
   virtualisation.docker.enable = true;
+  virtualisation.podman.enable = true;
   # virtualisation.virtualbox.host.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
