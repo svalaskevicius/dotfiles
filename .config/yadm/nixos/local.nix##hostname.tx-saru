@@ -41,7 +41,8 @@ in {
 
   boot.blacklistedKernelModules = [ "nouveau" "rivafb" "nvidiafb" "rivatv" "nv" ];
   boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.kernelModules = [ "dell-smm-hwmon" ];
+  boot.kernelModules = [ "dell-smm-hwmon" "acpi_call" ];
+  boot.extraModulePackages = [ pkgs.linuxPackages_latest.acpi_call ];
   boot.kernelParams = [
     "acpi_osi=Linux"
     "acpi_rev_override=1"
@@ -82,7 +83,18 @@ in {
 
     xserver = {
       dpi = 192;
-      videoDrivers = [ "nvidia" ];
+      # videoDrivers = [ "nvidia" ];
+      videoDrivers = [ "modesetting" ];
+
+      serverFlagsSection = ''
+        Option "AutoAddGPU" "false"
+      '';
+
+      deviceSection = ''
+        BusID "PCI:00:02.0"
+        Option "ProbeAllGpus" "false"
+      '';
+
 
       # Enable the Desktop Environment.
       displayManager.lightdm.enable = true;
@@ -111,28 +123,28 @@ in {
   programs.ssh.agentTimeout = "8h";
 
 
-  services.xserver.extraConfig = ''
-    Section "OutputClass"
-        Identifier "nvidia"
-        MatchDriver "nvidia-drm"
-        Driver "nvidia"
-        Option "AllowEmptyInitialConfiguration"
-        ModulePath "/usr/lib/nvidia/xorg"
-        ModulePath "/usr/lib/xorg/modules"
-    EndSection
-  '';
-  hardware.nvidia = {
-    # modesetting.enable = true;
-    prime = {
-      offload.enable = true;
-
-      # Bus ID of the Intel GPU. You can find it using lspci, either under 3D or VGA
-      intelBusId = "PCI:0:2:0";
-
-      # Bus ID of the NVIDIA GPU. You can find it using lspci, either under 3D or VGA
-      nvidiaBusId = "PCI:1:0:0";
-    };
-  };
+  # services.xserver.extraConfig = ''
+  #   Section "OutputClass"
+  #       Identifier "nvidia"
+  #       MatchDriver "nvidia-drm"
+  #       Driver "nvidia"
+  #       Option "AllowEmptyInitialConfiguration"
+  #       ModulePath "/usr/lib/nvidia/xorg"
+  #       ModulePath "/usr/lib/xorg/modules"
+  #   EndSection
+  # '';
+  # hardware.nvidia = {
+  #   # modesetting.enable = true;
+  #   prime = {
+  #     offload.enable = true;
+  #
+  #     # Bus ID of the Intel GPU. You can find it using lspci, either under 3D or VGA
+  #     intelBusId = "PCI:0:2:0";
+  #
+  #     # Bus ID of the NVIDIA GPU. You can find it using lspci, either under 3D or VGA
+  #     nvidiaBusId = "PCI:1:0:0";
+  #   };
+  # };
 
   # nvidia
   environment.systemPackages = [
