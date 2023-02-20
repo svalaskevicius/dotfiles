@@ -146,7 +146,7 @@ hi PmenuSel guibg=#7b8552
 hi NvimTreeIndentMarker guifg=#435C41
 hi NvimTreeRootFolder gui=bold guifg=#aacccc
 hi CursorLine guibg=#181a18
-
+hi VertSplit gui=none guifg=#404040 guibg=none 
 lua require('init')
 
  " hi lualine_c_normal guibg=#505050
