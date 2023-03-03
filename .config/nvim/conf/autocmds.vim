@@ -37,8 +37,8 @@ augroup defaultgroup
 
   au BufRead,BufNewFile *.sbt set filetype=scala
   " Settings for rst / markdown
-  autocmd FileType rst setlocal textwidth=78
-  autocmd Filetype markdown setlocal textwidth=78
+  autocmd FileType rst setlocal textwidth=100
+  autocmd Filetype markdown setlocal textwidth=100
 "  autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 "  autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 "  autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
