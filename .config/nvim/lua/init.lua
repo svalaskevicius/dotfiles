@@ -916,6 +916,7 @@ hop.setup()
 map('n', '<leader>ga', '<cmd>HopAnywhere<CR>')
 map('n', '<leader>gw', '<cmd>HopWord<CR>')
 map('n', '<C-h>', '<cmd>HopWord<CR>')
+map('n', '<C-x>', '<cmd>HopWord<CR>')
 -- local directions = require('hop.hint').HintDirection
 -- vim.keymap.set('', 'f', function()
 --   hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true })

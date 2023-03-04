@@ -181,3 +181,6 @@ let g:presenting_width = 80
 let g:presenting_top_margin = 3
 let g:presenting_figlets = 0
 
+set foldmethod=expr
+set foldexpr=nvim_treesitter#foldexpr()
+set nofoldenable  " Disable folding at startup.
