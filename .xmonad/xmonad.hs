@@ -1,6 +1,8 @@
 -- original author: Vic Fryzel http://github.com/vicfryzel/xmonad-config
 -- then others :)
 
+{-# LANGUAGE ImportQualifiedPost #-}
+
 import System.Exit
 import System.IO
 import XMonad
