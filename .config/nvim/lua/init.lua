@@ -178,7 +178,7 @@ g['nvim_tree_width_allow_resize']  = 1 -- 0 by default, will not resize the tree
 
 map('n', '<leader>tt', '<cmd>NvimTreeToggle<CR>')
 map('n', '<leader>tr', '<cmd>NvimTreeRefresh<CR>')
-map('n', '<leader>tf', '<cmd>NvimTreeFindFile<CR>')
+map('n', '<leader>tf', '<cmd>NvimTreeFindFile | NvimTreeFocus <CR>')
 
 
 require'nvim-tree'.setup({
