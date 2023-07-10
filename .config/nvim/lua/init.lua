@@ -158,7 +158,7 @@ g['nvim_web_devicons'] = 1 -- temporary until nvim-tree removes check?
 -- VARIABLES ---------------------
 ----------------------------------
 -- nvim-metals
-g['metals_server_version'] = '0.11.11'
+g['metals_server_version'] = '0.11.12'
 
 ----------------------------------
 -- OPTIONS -----------------------
@@ -380,7 +380,7 @@ cmd [[autocmd FileType scala,sbt lua require("metals").initialize_or_attach(meta
 cmd [[autocmd FileType scala nnoremap <leader>cs  <cmd>lua require"metals".hover_worksheet()<CR>]]
 cmd [[autocmd FileType scala nnoremap <leader>cl  <cmd>lua vim.lsp.codelens.run()<CR>]]
 cmd [[autocmd FileType scala nnoremap <leader>sh  <cmd>lua vim.lsp.buf.signature_help()<CR>]]
-cmd [[autocmd FileType scala nnoremap <leader>a  <cmd>lua vim.diagnostic.setqflist({severity = "E"})<CR>]]
+cmd [[autocmd FileType scala nnoremap <leader>ae  <cmd>lua vim.diagnostic.setqflist({severity = "E"})<CR>]]
 cmd [[autocmd FileType scala nnoremap <leader>aa  <cmd>lua vim.diagnostic.setqflist()<CR>]]
 cmd [[autocmd FileType scala nnoremap <leader>aw  <cmd>lua vim.diagnostic.setqflist({severity = "W"})<CR>]]
 cmd [[autocmd FileType scala nnoremap <leader>ad  <cmd>lua vim.diagnostic.setloclist()<CR>]]
@@ -916,7 +916,6 @@ local hop = require('hop')
 hop.setup()
 map('n', '<leader>ga', '<cmd>HopAnywhere<CR>')
 map('n', '<leader>gw', '<cmd>HopWord<CR>')
-map('n', '<C-h>', '<cmd>HopWord<CR>')
 map('n', '<C-x>', '<cmd>HopWord<CR>')
 -- local directions = require('hop.hint').HintDirection
 -- vim.keymap.set('', 'f', function()
