@@ -82,7 +82,7 @@
     pager = delta --keep-plus-minus-markers --dark --true-color auto
 
 [interactive]
-    diffFilter = delta --color-only --true-color auto
+    diffFilter = delta --color-only --dark --true-color auto
 
 [delta]
     navigate = true    # use n and N to move between diff sections

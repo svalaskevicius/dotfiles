@@ -1,3 +1,4 @@
 package direnv
 theme bobthefish
 theme default
+theme plain
