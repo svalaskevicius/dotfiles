@@ -8,6 +8,9 @@ let
   unstable = import <nixos-unstable> {
     config = config.nixpkgs.config;
   };
+  nix-alien-pkgs = import (
+    builtins.fetchTarball "https://github.com/thiagokokada/nix-alien/tarball/master"
+  ) { };
 in {
   imports =
     [ # Include the results of the hardware scan.
@@ -46,6 +49,7 @@ in {
   environment.systemPackages =
     let sysPack = with pkgs; [
           acpi openvpn sysstat pavucontrol powertop psmisc tree lsof pciutils usbutils lm_sensors lshw bind file binutils-unwrapped iotop nox vim neovim wireguard-tools sutils
+          nix-alien-pkgs.nix-alien
         ];
         toolsPack = with pkgs; [ bash fish wget httpie git p7zip tmux htop gnupg silver-searcher fzf fd unzip docker-compose yadm shellcheck jq exa ];
         devPack = with pkgs; [ openjdk11 maven scala sbt coursier gnumake cmake gcc nodejs direnv];
@@ -98,6 +102,7 @@ in {
   programs.slock.enable = true;
   programs.light.enable = true;
   programs.fish.enable = true;
+  programs.nix-ld.enable = true;
   # programs.mtr.enable = true;
   # programs.gnupg.agent = { enable = true; enableSSHSupport = true; };
 

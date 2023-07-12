@@ -40,16 +40,16 @@ in {
   };
 
   boot.blacklistedKernelModules = [ "nouveau" "rivafb" "nvidiafb" "rivatv" "nv" ];
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages;
   boot.kernelModules = [ "dell-smm-hwmon" "acpi_call" ];
-  boot.extraModulePackages = [ pkgs.linuxPackages_latest.acpi_call ];
+  boot.extraModulePackages = [ pkgs.linuxPackages.acpi_call ];
   boot.kernelParams = [
     "acpi_osi=Linux"
     "acpi_rev_override=1"
-    "i915.disable_power_well=0"
-    "i915.fastboot=1"
-    "i915.enable_guc=2"
-    "i915.enable_fbc=1"
+    # "i915.disable_power_well=0"
+    # "i915.fastboot=1"
+    # "i915.enable_guc=2"
+    # "i915.enable_fbc=1"
     "dell-smm-hwmon.ignore_dmi=1"
   ];
 
@@ -151,7 +151,8 @@ in {
   # nvidia
   environment.systemPackages = [
     nvidia-offload
-    # pkgs.linuxPackages.nvidia_x11 # .override { libsOnly = true; kernel = null; })
+    pkgs.linuxPackages.nvidia_x11 # .override { libsOnly = true; kernel = null; })
+    pkgs.cudatoolkit
     # pkgs.pkgsi686Linux.linuxPackages.nvidia_x11 # .override { libsOnly = true; kernel = null; })
   ];
   # install nvidia drivers in addition to intel one

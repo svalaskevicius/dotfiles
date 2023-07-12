@@ -34,6 +34,7 @@
       openjdk11
       maven scala sbt gnumake gcc nodejs coursier
       fira-code
+      cudatoolkit linuxPackages.nvidia_x11
     ]) ++ (with pkgs.xorg;
     [ libX11
       libXcursor
