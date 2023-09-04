@@ -9,11 +9,14 @@ br="$(git rev-parse --abbrev-ref HEAD)"
 #   exit 1
 # fi
 
-prefix="$(echo "$br" | grep -Po "^$pr-([0-9]+)(?=-)"  )"
+prefix=''
+for p in $pr ; do
+  mprefix="$(echo "$br" | grep -Po "^$p-([0-9]+)(?=-)"  )"
+  if ! test -z "$mprefix" ; then
+    prefix="$mprefix: "
+  fi
+done
 
-if ! test -z "$prefix" ; then
-  prefix="$prefix: "
-fi
 
 args="$*"
 
