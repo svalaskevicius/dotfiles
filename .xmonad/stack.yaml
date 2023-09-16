@@ -5,7 +5,6 @@ nix:
   packages: [
      nix
      gcc
-     xlibsWrapper
      xorg.libX11
      xorg.libXext
      xorg.libXinerama

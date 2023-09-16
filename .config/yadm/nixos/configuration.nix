@@ -21,7 +21,7 @@ in {
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.cleanTmpDir = true;
+  boot.tmp.cleanOnBoot = true;
 
   # Supposedly better for the SSD.
   fileSystems."/".options = [ "noatime" "nodiratime" "discard" ];
@@ -61,7 +61,6 @@ in {
           libreoffice
           okular
           unstable.kitty xorg.xdpyinfo
-          keepassx2 keepass
           zoom-us
           # xmonad env
           rofi scrot slock kbdlight xorg.xmodmap xcompmgr compton feh pamixer networkmanager_dmenu networkmanagerapplet stalonetray
