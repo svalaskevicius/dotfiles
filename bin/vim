@@ -6,6 +6,7 @@ export JAVA_HOME="$(readlink -f "$(which java)" | sed -e 's#/bin/java$##')"
 export JDTLS_CONFIG="/home/sarunas/src/eclipse.jdt.ls/org.eclipse.jdt.ls.product/target/repository/config_linux/"
 export WORKSPACE="$HOME/workspace"
 export CC=$(which gcc)
+export CC=gcc
 
 if test "$(id -u)" -eq "0" ; then
   myScript="$(readlink -f "$0")"

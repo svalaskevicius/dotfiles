@@ -158,7 +158,7 @@ g['nvim_web_devicons'] = 1 -- temporary until nvim-tree removes check?
 -- VARIABLES ---------------------
 ----------------------------------
 -- nvim-metals
-g['metals_server_version'] = '0.11.12'
+g['metals_server_version'] = '1.0.1'
 
 ----------------------------------
 -- OPTIONS -----------------------
@@ -235,13 +235,6 @@ require'nvim-tree'.setup({
     side = 'left',
     -- if true the tree will resize itself after opening a file
     -- auto_resize = false,
-    mappings = {
-      -- custom only false will merge the list with the default mappings
-      -- if true, it will only use your list to set the mappings
-      custom_only = false,
-      -- list of mappings to set on the tree manually
-      list = {}
-    }
   },
   filters = {
     custom = { '^\\.git$', '^node_modules$', '^\\.cache$', '^target$', '^\\.tmp$', '^\\.gitignore$' },
@@ -557,6 +550,34 @@ custom_lualine_theme.normal.c.bg = '#1c2326'
 require'lualine'.setup {
   extensions = {'quickfix', 'nvim-tree', 'fzf'},
   sections = {
+    lualine_b = {
+      'branch', 
+      'diff', 
+      {
+        'diagnostics',
+
+        -- Table of diagnostic sources, available sources are:
+        --   'nvim_lsp', 'nvim_diagnostic', 'nvim_workspace_diagnostic', 'coc', 'ale', 'vim_lsp'.
+        -- or a function that returns a table as such:
+        --   { error=error_cnt, warn=warn_cnt, info=info_cnt, hint=hint_cnt }
+        sources = { 'nvim_lsp', 'nvim_diagnostic', 'nvim_workspace_diagnostic' },
+
+        -- Displays diagnostics for the defined severity types
+        sections = { 'error', 'warn', 'info', 'hint' },
+
+        diagnostics_color = {
+          -- Same values as the general color option can be used here.
+          error = 'DiagnosticError', -- Changes diagnostics' error color.
+          warn  = 'DiagnosticWarn',  -- Changes diagnostics' warn color.
+          info  = 'DiagnosticInfo',  -- Changes diagnostics' info color.
+          hint  = 'DiagnosticHint',  -- Changes diagnostics' hint color.
+        },
+        symbols = {error = 'E', warn = 'W', info = 'I', hint = 'H'},
+        colored = true,           -- Displays diagnostics status in color if set to true.
+        update_in_insert = false, -- Update diagnostics in insert mode.
+        always_visible = false,   -- Show diagnostics even if there are none.
+      }
+    },
     lualine_c = {
         lsp_status.status,
         lsp_status.progress,
@@ -880,31 +901,31 @@ require'ltex-ls'.setup {
 }
 
 
--- haskell
-local ht = require('haskell-tools')
-local def_opts = { noremap = true, silent = true, }
-ht.setup {
-  hls = {
-    -- See nvim-lspconfig's  suggested configuration for keymaps, etc.
-    on_attach = function(client, bufnr)
-      local opts = vim.tbl_extend('keep', def_opts, { buffer = bufnr, })
-      -- haskell-language-server relies heavily on codeLenses,
-      -- so auto-refresh (see advanced configuration) is enabled by default
-      vim.keymap.set('n', '<space>ca', vim.lsp.codelens.run, opts)
-      vim.keymap.set('n', '<space>hs', ht.hoogle.hoogle_signature, opts)
-      -- default_on_attach(client, bufnr)  -- if defined, see nvim-lspconfig
-    end,
-  },
-}
--- Suggested keymaps that do not depend on haskell-language-server
--- Toggle a GHCi repl for the current package
-vim.keymap.set('n', '<leader>rr', ht.repl.toggle, def_opts)
--- Toggle a GHCi repl for the current buffer
-vim.keymap.set('n', '<leader>rf', function()
-  ht.repl.toggle(vim.api.nvim_buf_get_name(0))
-end, def_opts)
-vim.keymap.set('n', '<leader>rq', ht.repl.quit, def_opts)
-
+-- -- haskell
+-- local ht = require('haskell-tools')
+-- local def_opts = { noremap = true, silent = true, }
+-- ht.setup {
+--   hls = {
+--     -- See nvim-lspconfig's  suggested configuration for keymaps, etc.
+--     on_attach = function(client, bufnr)
+--       local opts = vim.tbl_extend('keep', def_opts, { buffer = bufnr, })
+--       -- haskell-language-server relies heavily on codeLenses,
+--       -- so auto-refresh (see advanced configuration) is enabled by default
+--       vim.keymap.set('n', '<space>ca', vim.lsp.codelens.run, opts)
+--       vim.keymap.set('n', '<space>hs', ht.hoogle.hoogle_signature, opts)
+--       -- default_on_attach(client, bufnr)  -- if defined, see nvim-lspconfig
+--     end,
+--   },
+-- }
+-- -- Suggested keymaps that do not depend on haskell-language-server
+-- -- Toggle a GHCi repl for the current package
+-- vim.keymap.set('n', '<leader>rr', ht.repl.toggle, def_opts)
+-- -- Toggle a GHCi repl for the current buffer
+-- vim.keymap.set('n', '<leader>rf', function()
+--   ht.repl.toggle(vim.api.nvim_buf_get_name(0))
+-- end, def_opts)
+-- vim.keymap.set('n', '<leader>rq', ht.repl.quit, def_opts)
+--
 
 
 
