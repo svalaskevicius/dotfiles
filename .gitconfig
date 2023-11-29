@@ -58,6 +58,10 @@
 
     su = !BR=$(git symbolic-ref --short HEAD) && git branch --set-upstream-to=origin/"$BR" "$BR"
 
+    logdt = "!f() { GIT_EXTERNAL_DIFF='difft --display inline' git log -p --ext-diff; }; f"
+
+    dft = "!f() { GIT_EXTERNAL_DIFF='difft --display inline' git diff --ext-diff \"$@\"; }; f"
+
 [web]
     browser = xdg-open
 
