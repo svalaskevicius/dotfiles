@@ -55,7 +55,7 @@ require('packer').startup(function(use)
 
   use { 'neovim/nvim-lspconfig' }
   use { 'onsails/lspkind-nvim' }
-  use { 'RRethy/vim-illuminate' }
+  -- use { 'RRethy/vim-illuminate' }
   use {
     'lewis6991/gitsigns.nvim',
     requires = {
@@ -133,9 +133,9 @@ end)
 
 require('hlargs').setup()
 
-require'lspconfig'.jdtls.setup{
-  cmd = { 'sh', '-c', 'exec jdt-language-server -data ~/.jdt.workspace/$(pwd | md5sum | cut -d" " -f1)' }
-}
+-- require'lspconfig'.jdtls.setup{
+--   cmd = { 'sh', '-c', 'exec jdt-language-server -data ~/.jdt.workspace/$(pwd | md5sum | cut -d" " -f1)' }
+-- }
 
 require'nvim-web-devicons'.setup {
   -- your personnal icons can go here (to override)
@@ -158,7 +158,7 @@ g['nvim_web_devicons'] = 1 -- temporary until nvim-tree removes check?
 -- VARIABLES ---------------------
 ----------------------------------
 -- nvim-metals
-g['metals_server_version'] = '1.0.1'
+g['metals_server_version'] = '1.1.0'
 
 ----------------------------------
 -- OPTIONS -----------------------
@@ -365,7 +365,7 @@ map('i', '<Tab>', 'pumvisible() ? "\\<C-n>" : "\\<Tab>"', {expr = true})
 cmd [[augroup lsp]]
 cmd [[autocmd!]]
 cmd [[autocmd FileType scala setlocal omnifunc=v:lua.vim.lsp.omnifunc]]
-cmd [[autocmd FileType scala,sbt lua require("metals").initialize_or_attach(metals_config)]]
+cmd [[autocmd FileType scala,sbt,java,sc lua require("metals").initialize_or_attach(metals_config)]]
 cmd [[autocmd FileType scala nnoremap <leader>cs  <cmd>lua require"metals".hover_worksheet()<CR>]]
 cmd [[autocmd FileType scala nnoremap <leader>cl  <cmd>lua vim.lsp.codelens.run()<CR>]]
 cmd [[autocmd FileType scala nnoremap <leader>sh  <cmd>lua vim.lsp.buf.signature_help()<CR>]]
@@ -416,6 +416,7 @@ metals_config.settings = {
     "-XX:+UseG1GC", "-Xmx2g",
   }
 }
+metals_config.scala_file_types = { "sbt", "scala", "java", "sc" }
 
 
 -- require'lspconfig'.rust_analyzer.setup({
@@ -551,8 +552,8 @@ require'lualine'.setup {
   extensions = {'quickfix', 'nvim-tree', 'fzf'},
   sections = {
     lualine_b = {
-      'branch', 
-      'diff', 
+      'branch',
+      'diff',
       {
         'diagnostics',
 
@@ -701,6 +702,19 @@ require'nvim-treesitter.configs'.setup {
     enable = true
   }
 }
+
+local hi = require'highlighter'
+local ts = require'vim.treesitter'
+vim.api.nvim_create_autocmd( 'FileType', {
+    callback = function(args)
+      pcall(function()
+          local parser = ts.get_parser(args.buf)
+          if parser ~= nil then
+            hi.new(parser)
+          end
+      end)
+    end
+})
 
 
 
@@ -934,6 +948,7 @@ hop.setup()
 map('n', '<leader>ga', '<cmd>HopAnywhere<CR>')
 map('n', '<leader>gw', '<cmd>HopWord<CR>')
 map('n', '<C-x>', '<cmd>HopWord<CR>')
+map('n', '<C-S-x>', '<cmd>HopAnywhere<CR>')
 -- local directions = require('hop.hint').HintDirection
 -- vim.keymap.set('', 'f', function()
 --   hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true })

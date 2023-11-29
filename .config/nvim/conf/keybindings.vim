@@ -278,10 +278,10 @@ noremap! <ESC>[1;6D <C-S-Left>
 
 nnoremap <silent><C-Right> :BufferLineCycleNext<CR>
 nnoremap <silent><C-Left> :BufferLineCyclePrev<CR>
-nnoremap <silent><C-S-Right> :BufferLineMoveNext<CR>
-nnoremap <silent><C-S-Left> :BufferLineMovePrev<CR>
-" nnoremap <silent><C-M-Right> :tabnext<CR>
-" nnoremap <silent><C-M-Left> :tabprevious<CR>
+nnoremap <silent><M-S-Right> :BufferLineMoveNext<CR>
+nnoremap <silent><M-S-Left> :BufferLineMovePrev<CR>
+nnoremap <silent><C-S-Right> :tabnext<CR>
+nnoremap <silent><C-S-Left> :tabprevious<CR>
 
 
 
