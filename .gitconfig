@@ -1,0 +1,101 @@
+[user]
+  name = Sarunas Valaskevicius
+  email = rakatan@gmail.com
+
+[push]
+  default = current
+
+[core]
+  quotepath = false
+  excludesfile = ~/.gitignore_global
+  autocrlf = input
+  preloadindex = true
+  ; pager = git-fancy-diff | less --tabs=4 -RFX
+
+[interactive]
+  singlekey = true
+  ; diffFilter = diff-so-fancy
+  diffFilter = delta --color-only
+
+[url "git://github.com/"]
+  insteadOf = gh:
+
+[url "git@github.com:"]
+  insteadOf = wgh:
+
+[color]
+  branch = auto
+  diff = auto
+  status = auto
+
+[apply]
+  whitespace = nowarn
+
+[alias]
+  s = status -s
+  st = status
+  a = add
+  c = commit -v
+  ci = commit
+  ca = commit -av
+  u = reset HEAD
+
+  b = branch
+  br = branch
+  bn = checkout -b
+  co = checkout
+
+  d = diff
+  dc = diff --cached
+  ds = diff --stat
+  m = merge --no-ff
+
+  l = log --oneline --graph
+  lg = log --graph --color --full-history --date=short --pretty=format:\"%Cred%h%Cblue%d %Creset %s %C(green)(%an) %Creset%ad\"
+  t = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+  lgall = log --graph --full-history --all --color --date=short --pretty=format:\"%Cred%h%Cblue%d %Creset %s %C(green)(%an) %Creset%ad\"
+
+  please = push --force-with-lease
+
+  su = !BR=$(git symbolic-ref --short HEAD) && git branch --set-upstream-to=origin/"$BR" "$BR"
+
+  logdt = "!f() { GIT_EXTERNAL_DIFF='difft --display inline' git log -p --ext-diff; }; f"
+
+  dft = "!f() { GIT_EXTERNAL_DIFF='difft --display inline' git diff --ext-diff \"$@\"; }; f"
+
+[web]
+  browser = xdg-open
+
+[difftool]
+  prompt = false
+
+[mergetool]
+  prompt = false
+
+[diff]
+  tool = vimdiff
+[merge]
+  tool = vimdiff
+[gc]
+  auto = 256
+
+
+[pull]
+  rebase = true
+
+[core]
+  pager = delta --keep-plus-minus-markers --dark --true-color auto
+
+[interactive]
+  diffFilter = delta --color-only --dark --true-color auto
+
+[delta]
+  navigate = true    # use n and N to move between diff sections
+  light = false      # set to true if you're in a terminal w/ a light background color (e.g. the default macOS terminal)
+
+[merge]
+  conflictstyle = diff3
+
+[diff]
+  colorMoved = default
+
