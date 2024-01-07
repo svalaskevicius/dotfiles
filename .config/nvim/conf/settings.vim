@@ -138,13 +138,13 @@ let g:NERDSpaceDelims = 1
 
 
 
-" CtrlP
-let g:ctrlp_follow_symlinks = 0
-let g:ctrlp_max_files = 20000
-let g:ctrlp_max_depth = 80
-let g:ctrlp_clear_cache_on_exit = 0
-let g:ctrlp_working_path_mode = ''
-let g:ctrlp_map = ''
+" " CtrlP
+" let g:ctrlp_follow_symlinks = 0
+" let g:ctrlp_max_files = 20000
+" let g:ctrlp_max_depth = 80
+" let g:ctrlp_clear_cache_on_exit = 0
+" let g:ctrlp_working_path_mode = ''
+" let g:ctrlp_map = ''
 
 
 let g:tmux_navigator_no_mappings = 1

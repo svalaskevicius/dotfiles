@@ -51,8 +51,6 @@ set background=dark
 set termguicolors
 " colorscheme afterglow " gruvbit " onedark " tender
 
-let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
-
 " let g:airline_theme = 'tendersar'
 
 " let g:deus_termcolors=256
@@ -132,11 +130,10 @@ set t_ZR=[23m
 " hi NvimTreeIndentMarker guifg=#242a2a
 " hi CursorLine guibg=#222a2a
 
-lua require('init')
-
 let g:deus_guisp_fallback = 'fg'
 
-colorscheme kanagawa-dragon " focuspoint " afterglow " deus
+lua require('init')
+
 
 " hi Normal guibg=#233138
 hi NormalFloat guibg=#0b1212
@@ -150,4 +147,4 @@ hi VertSplit gui=none guifg=#404040 guibg=none
 hi LspCodeLens guifg=#205050
 
  " hi lualine_c_normal guibg=#505050
-
+command! BaleiaColorize call s:baleia.once(bufnr('%'))

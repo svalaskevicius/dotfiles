@@ -77,17 +77,17 @@ nnoremap <C-w>o <C-w><C-w>
 
 nnoremap <silent> <CR> :noh<CR><CR>
 
-if has("gui_running")
-  imap <c-space> <c-r>=SuperTabAlternateCompletion("\<lt>c-x>\<lt>c-o>")<cr>
-else " no gui
-  if has("unix")
-    inoremap <Nul> <c-r>=SuperTabAlternateCompletion("\<lt>c-x>\<lt>c-o>")<cr>
-  endif
-endif
+" if has("gui_running")
+"   imap <c-space> <c-r>=SuperTabAlternateCompletion("\<lt>c-x>\<lt>c-o>")<cr>
+" else " no gui
+"   if has("unix")
+"     inoremap <Nul> <c-r>=SuperTabAlternateCompletion("\<lt>c-x>\<lt>c-o>")<cr>
+"   endif
+" endif
 
-vnoremap a= :Tabularize /=<CR>
-vnoremap a; :Tabularize /::<CR>
-vnoremap a- :Tabularize /-><CR>
+" vnoremap a= :Tabularize /=<CR>
+" vnoremap a; :Tabularize /::<CR>
+" vnoremap a- :Tabularize /-><CR>
 
 
 " Use `[b` and `]b` for navigate buffers

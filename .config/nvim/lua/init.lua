@@ -1,16 +1,3 @@
--------------------------------------------------------------------------------
--- These are example settings to use with nvim-metals and the nvim built in
--- LSP. Be sure to thoroughly read the the `:help nvim-metals` docs to get an
--- idea of what everything does.
---
--- The below configuration also makes use of the following plugins besides
--- nvim-metals, and therefore a bit opinionated:
---
--- - https://github.com/hrsh7th/nvim-compe
---    (needs hrsh7th/vim-vsnip) for snippet support
--- - https://github.com/wbthomason/packer.nvim for package management
--------------------------------------------------------------------------------
-
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
@@ -19,7 +6,6 @@ if not vim.loop.fs_stat(lazypath) then
     "clone",
     "--filter=blob:none",
     "https://github.com/folke/lazy.nvim.git",
-    "--branch=stable", -- latest stable release
     lazypath,
   })
 end
@@ -49,6 +35,7 @@ g.mapleader = " "
 -- PLUGINS -----------------------
 ----------------------------------
 require('lazy').setup({
+  'preservim/nerdcommenter',
 -- General fuzzy search capability
   -- 'junegunn/fzf', { 'dir': '~/.local/bin/fzf', 'do': './install --all' }
 
@@ -161,9 +148,9 @@ require('lazy').setup({
     dependencies = { 'nvim-lua/plenary.nvim' }
   },
   { 'nvim-treesitter/nvim-treesitter' }, -- , init = function() vim.cmd('TSUpdate') end },
-  { 'akinsho/bufferline.nvim', dependencies = 'kyazdani42/nvim-web-devicons' },
-  { 'hoob3rt/lualine.nvim', dependencies = {'kyazdani42/nvim-web-devicons'} },
-  { 'kyazdani42/nvim-tree.lua', dependencies = {'kyazdani42/nvim-web-devicons'} },
+  { 'akinsho/bufferline.nvim', dependencies = 'nvim-tree/nvim-web-devicons', lazy=false },
+  { 'hoob3rt/lualine.nvim', dependencies = {'nvim-tree/nvim-web-devicons'} },
+  { 'kyazdani42/nvim-tree.lua', dependencies = {'nvim-tree/nvim-web-devicons'} },
   -- use {
   --   -- Optional but recommended
   --   -- 'nvim-treesitter/nvim-treesitter',
@@ -182,7 +169,8 @@ require('lazy').setup({
   'sheerun/vim-polyglot',
   -- use 'ggandor/leap.nvim'
   -- use 'vim-scripts/AnsiEsc.vim'
-  'powerman/vim-plugin-AnsiEsc',
+  -- 'powerman/vim-plugin-AnsiEsc',
+  { 'm00qek/baleia.nvim', tag = 'v1.4.0' },
 
   'mfussenegger/nvim-dap',
   {
@@ -675,7 +663,7 @@ require'lualine'.setup {
 }
 
 
-require('bufferline').setup {
+require'bufferline'.setup {
   options = {
     view = "default";
     numbers = "ordinal";
@@ -786,19 +774,6 @@ require'nvim-treesitter.configs'.setup {
     enable = true
   }
 }
-
-local hi = require'highlighter'
-local ts = require'vim.treesitter'
-vim.api.nvim_create_autocmd( 'FileType', {
-    callback = function(args)
-      pcall(function()
-          local parser = ts.get_parser(args.buf)
-          if parser ~= nil then
-            hi.new(parser)
-          end
-      end)
-    end
-})
 
 
 
@@ -1046,4 +1021,50 @@ map('n', '<C-S-x>', '<cmd>HopAnywhere<CR>')
 -- vim.keymap.set('', 'T', function()
 --   hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })
 -- end, {remap=true})
+
+-- register autocommand for colorscheme change so when it's done in init.vim bufferline works ok
+
+
+
+require('kanagawa').setup({
+    compile = true,             -- enable compiling the colorscheme
+    undercurl = true,            -- enable undercurls
+    commentStyle = { italic = true },
+    functionStyle = {},
+    keywordStyle = { italic = true},
+    statementStyle = { bold = true },
+    typeStyle = {},
+    transparent = false,         -- do not set background color
+    dimInactive = false,         -- dim inactive window `:h hl-NormalNC`
+    terminalColors = true,       -- define vim.g.terminal_color_{0,17}
+    colors = {                   -- add/modify theme and palette colors
+        palette = {},
+        theme = { wave = {}, lotus = {}, dragon = {}, all = {} },
+    },
+    overrides = function(colors) -- add/modify highlights
+        return {}
+    end,
+    theme = "dragon",              -- Load "wave" theme when 'background' option is not set
+    background = {               -- map the value of 'background' option to a theme
+        dark = "dragon",           -- try "dragon" !
+        light = "lotus"
+    },
+})
+
+cmd("KanagawaCompile")
+cmd("colorscheme kanagawa-dragon") --  " focuspoint " afterglow " deus
+
+
+local hi = require'highlighter'
+local ts = require'vim.treesitter'
+vim.api.nvim_create_autocmd( 'FileType', {
+    callback = function(args)
+      pcall(function()
+          local parser = ts.get_parser(args.buf)
+          if parser ~= nil then
+            hi.new(parser)
+          end
+      end)
+    end
+})
 
