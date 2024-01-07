@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+test -f /dev/VolumeGroup1/root_snapshot && lvremove /dev/VolumeGroup1/root_snapshot
+
+fstrim -v /
+
+lvcreate -l '100%FREE' -s -n root_snapshot /dev/VolumeGroup1/root 
+
