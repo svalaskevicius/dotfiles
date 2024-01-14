@@ -30,12 +30,12 @@ local function map(mode, lhs, rhs, opts)
   vim.api.nvim_set_keymap(mode, lhs, rhs, options)
 end
 
-g.mapleader = " " 
+g.mapleader = " "
 ----------------------------------
 -- PLUGINS -----------------------
 ----------------------------------
 require('lazy').setup({
-  'preservim/nerdcommenter',
+  {'svalaskevicius/nerdcommenter'},
 -- General fuzzy search capability
   -- 'junegunn/fzf', { 'dir': '~/.local/bin/fzf', 'do': './install --all' }
 

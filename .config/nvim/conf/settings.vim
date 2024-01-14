@@ -135,6 +135,7 @@ let g:NERDCommentEmptyLines = 1
 let g:NERDTrimTrailingWhitespace = 1
 let g:NERDToggleCheckAllLines = 1
 let g:NERDSpaceDelims = 1
+let g:NERDAltDelims_c = 1
 
 
 
