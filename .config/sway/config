@@ -250,6 +250,13 @@ exec sh -c 'echo -e "Xft.dpi: 192\nXft.antialias: 1" | xrdb -merge ; xprop -root
 
 for_window [shell="xwayland"] title_format "[XWayland] %title"
 
+# for_window [app_id="Zoom"] floating enable
+# for_window [app_id="Zoom" title="Choose ONE of the audio conference options"] floating enable
+# for_window [app_id="Zoom" title="zoom"] floating enable
+# for_window [app_id="Zoom" title="Zoom Meeting"] floating disable
+# for_window [app_id="Zoom" title="Zoom - Free Account"] floating disable
+# for_window [app_id="Zoom" title="Zoom - Licensed Account"] floating disable
+
 input type:keyboard xkb_capslock disabled
 input type:keyboard xkb_numlock enabled
 
