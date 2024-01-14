@@ -212,6 +212,17 @@ require('hlargs').setup()
 --   cmd = { 'sh', '-c', 'exec jdt-language-server -data ~/.jdt.workspace/$(pwd | md5sum | cut -d" " -f1)' }
 -- }
 
+require('lspconfig').clangd.setup {
+    -- on_attach = keybinds.on_attach,
+    cmd = {
+        "clangd",
+        "--background-index",
+        "--suggest-missing-includes",
+        -- "--compile-commands-dir=/home/localuser/test/build",
+    },
+    filetypes = { "c", "cpp", "objc", "objcpp" },
+}
+
 require'nvim-web-devicons'.setup {
   -- your personnal icons can go here (to override)
   -- DevIcon will be appended to `name`
