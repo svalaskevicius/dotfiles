@@ -87,10 +87,6 @@ require('lazy').setup({
 --
 -- " Plug 'ntk148v/vim-horizon'
 --
--- Plug 'mlopes/vim-farin'
-   'rafi/awesome-vim-colorschemes',
-   'EdenEast/nightfox.nvim',
-   'rebelot/kanagawa.nvim',
 -- " Plug 'srcery-colors/srcery-vim'
 -- Plug 'tomasiser/vim-code-dark'
 -- Plug 'habamax/vim-gruvbit'
@@ -147,9 +143,17 @@ require('lazy').setup({
     'nvim-telescope/telescope.nvim',
     dependencies = { 'nvim-lua/plenary.nvim' }
   },
+  'nvim-telescope/telescope-ui-select.nvim',
   { 'nvim-treesitter/nvim-treesitter' }, -- , init = function() vim.cmd('TSUpdate') end },
+
+
+  'rafi/awesome-vim-colorschemes',
+  'EdenEast/nightfox.nvim',
+  { 'rebelot/kanagawa.nvim', lazy = false },
   { 'akinsho/bufferline.nvim', dependencies = 'nvim-tree/nvim-web-devicons', lazy=false },
   { 'hoob3rt/lualine.nvim', dependencies = {'nvim-tree/nvim-web-devicons'} },
+
+
   { 'kyazdani42/nvim-tree.lua', dependencies = {'nvim-tree/nvim-web-devicons'} },
   -- use {
   --   -- Optional but recommended
@@ -193,7 +197,7 @@ require('lazy').setup({
     branch = 'v2', -- optional but strongly recommended
     opts = {
       -- you can configure Hop the way you like here; see :h hop-config
-      keys = 'etovxqpdygfblzhckisuran' 
+      keys = 'etovxqpdygfblzhckisuran'
     }
   },
 
@@ -775,9 +779,17 @@ require('telescope').setup {
       }
     },
     buffer_previewer_maker = new_maker,
+  },
+  extensions = {
+    ["ui-select"] = {
+      require("telescope.themes").get_dropdown {
+        -- even more opts
+      }
+    }
   }
 }
 
+require("telescope").load_extension("ui-select")
 
 -- treesitter
 
@@ -997,11 +1009,11 @@ require'ltex-ls'.setup {
   window_border = 'single', -- How the border should be rendered
   on_attach = on_attach,
   cmd = { "ltex-ls" },
-  filetypes = { "markdown", "text", "latex", "tex", "bib" },
+  filetypes = { "markdown", "text", "latex", "tex", "bib", "gitcommit" },
   flags = { debounce_text_changes = 300 },
   settings = {
     ltex = {
-      enabled = { "latex", "tex", "bib", "markdown", },
+      enabled = { "latex", "tex", "bib", "markdown", "gitcommit" },
       language = "en-GB",
       configurationTarget = {
             dictionary = "workspaceFolderExternalFile",
