@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-test -f /dev/VolumeGroup1/root_snapshot && lvremove /dev/VolumeGroup1/root_snapshot
+test -e /dev/VolumeGroup1/root_snapshot && lvremove /dev/VolumeGroup1/root_snapshot && sleep 2
 
 fstrim -v /
 
