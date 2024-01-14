@@ -79,11 +79,12 @@ input type:keyboard repeat_rate 60
     # Start a terminal
     bindsym $mod+Return exec $term
 
-    # Kill focused window
-    bindsym $mod+Shift+q kill
+    # Reload the configuration file
+    bindsym $mod+Shift+r reload
 
     # Start your launcher
     bindsym $mod+d exec $menu
+    bindsym $mod+p exec $menu
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
@@ -92,8 +93,8 @@ input type:keyboard repeat_rate 60
     # mouse button for dragging.
     floating_modifier $mod normal
 
-    # Reload the configuration file
-    bindsym $mod+Shift+c reload
+    # Close focused window
+    bindsym $mod+Shift+c kill
 
     # Exit sway (logs you out of your Wayland session)
     bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
@@ -216,26 +217,36 @@ bindsym $mod+Control+l exec swaylock -f -c 000000
 # Status Bar:
 #
 # Read `man 5 sway-bar` for more information about this section.
-bar {
-    position top
+# bar {
+#     position top
+#     mode hide
+#
+#     # When the status_command prints a new line to stdout, swaybar updates.
+#     # The default just shows the current date and time.
+#     status_command while date +'%Y-%m-%d %I:%M:%S %p'; do sleep 1; done
+#
+#     colors {
+#         statusline #ffffff
+#         background #323232
+#         inactive_workspace #323232ff #323232ff #5c5c5c
+#     }
+# }
+bar bar1 {
+    id bar1
+    swaybar_command waybar -b bar1
     mode hide
-
-    # When the status_command prints a new line to stdout, swaybar updates.
-    # The default just shows the current date and time.
-    status_command while date +'%Y-%m-%d %I:%M:%S %p'; do sleep 1; done
-
-    colors {
-        statusline #ffffff
-        background #323232
-        inactive_workspace #323232ff #323232ff #5c5c5c
-    }
+    modifier $mod
 }
+
+# bindsym $mod+z exec killall -SIGUSR1 waybar
 
 include /etc/sway/config.d/*
 
 
 exec wl-paste -t text --watch clipman store --no-persist
 exec gammastep
+exec waybar -b bar1
+exec sh -c 'echo -e "Xft.dpi: 192\nXft.antialias: 1" | xrdb -merge ; xprop -root -format _XWAYLAND_GLOBAL_OUTPUT_SCALE 32c -set _XWAYLAND_GLOBAL_OUTPUT_SCALE 2'
 
 for_window [shell="xwayland"] title_format "[XWayland] %title"
 
