@@ -248,7 +248,7 @@ g['nvim_web_devicons'] = 1 -- temporary until nvim-tree removes check?
 -- VARIABLES ---------------------
 ----------------------------------
 -- nvim-metals
-g['metals_server_version'] = '1.1.0'
+g['metals_server_version'] = '1.2.0'
 
 ----------------------------------
 -- OPTIONS -----------------------
