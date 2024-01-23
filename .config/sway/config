@@ -24,9 +24,13 @@ set $menu tofi-run | xargs swaymsg exec --
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+output * bg ~/Pictures/jupiter.png fill
+# output * bg ~/Pictures/minimalist-black-digital-blend_3840x2160.jpg fill
 
 output * scale 1.5
+
+hide_edge_borders --smart-titles smart
+
 #
 # Example configuration:
 #
@@ -98,6 +102,9 @@ input type:keyboard repeat_rate 60
 
     # Exit sway (logs you out of your Wayland session)
     bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+
+
+    bindsym $mod+Shift+p exec /usr/share/sway/scripts/grimshot save area
 #
 # Moving around:
 #

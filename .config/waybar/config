@@ -14,7 +14,7 @@
         //"sway/language",
         "custom/scratchpad-indicator", "custom/pacman", "sway/mode", "idle_inhibitor"],
         "modules-center": ["sway/workspaces"],
-    "modules-right": [ "tray", "cpu", "memory", "temperature", "pulseaudio"
+        "modules-right": [ "tray", "cpu", "memory", "temperature", "pulseaudio"
         //"bluetooth", "network"
     ],
     // Modules configuration
@@ -102,7 +102,7 @@
         "critical-threshold": 74,
         "format-critical": "  {temperatureC}°C",
         "format": "{icon}  {temperatureC}°C",
-        "format-icons": ["", "", ""],
+        "format-icons": ["", "", ""],
         "max-length": 7,
         "min-length": 7
     },

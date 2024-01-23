@@ -40,3 +40,4 @@ set -x FZF_DEFAULT_COMMAND 'fd --type f'
 
 if which kubectl >/dev/null 2>&1 ; kubectl completion fish | source ; end
 
+direnv hook fish | source
