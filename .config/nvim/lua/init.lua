@@ -731,9 +731,8 @@ require'bufferline'.setup {
 }
 
 
-map('n', '<C-1>', '<cmd>lua require"bufferline".go_to_buffer(1)<CR>')
-map('n', '<C-2>', '<cmd>lua require"bufferline".go_to_buffer(2)<CR>')
-
+-- map('n', '<C-1>', '<cmd>lua require"bufferline".go_to(1)<CR>')
+-- map('n', '<C-2>', '<cmd>lua require"bufferline".go_to(2)<CR>')
 
 -- telescope
 

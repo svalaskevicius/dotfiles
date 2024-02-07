@@ -72,8 +72,8 @@ nnoremap <Leader>- :cprev<CR>
 nnoremap <Leader>= :cnext<CR>
 
 " Remap C-w C-w to C-w C-o, like in tmux
-nnoremap <C-w><C-o> <C-w><C-w>
-nnoremap <C-w>o <C-w><C-w>
+" nnoremap <C-w><C-o> <C-w><C-w>
+" nnoremap <C-w>o <C-w><C-w>
 
 nnoremap <silent> <CR> :noh<CR><CR>
 
