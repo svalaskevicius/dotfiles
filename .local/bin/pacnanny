@@ -1,0 +1,296 @@
+#!/bin/bash
+#       pacnanny
+#
+#       Copyright © 2013, 2018 Brandon Invergo <brandon@invergo.net>
+#
+#       pacnanny is free software: you can redistribute it and/or modify
+#       it under the terms of the GNU General Public License as published by
+#       the Free Software Foundation, either version 3 of the License, or
+#       (at your option) any later version.
+#
+#       pacnanny is distributed in the hope that it will be useful,
+#       but WITHOUT ANY WARRANTY; without even the implied warranty of
+#       MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#       GNU General Public License for more details.
+#
+#       You should have received a copy of the GNU General Public License
+#       along with pacnanny.  If not, see <http://www.gnu.org/licenses/>.
+
+
+# color: always, never, auto
+COLOR=always
+BROWSER="w3m -dump %s  | sed '1,9d;11s/\(.*\)/$(tput bold)\\\1$(tput sgr0)/;12d;/Copyright (C)/,\${/.*/d}'"
+NEWS_URL=https://archlinux.org/feeds/news/
+
+SHOW_NEWS=true
+WARN_ON_FORCE=true
+REPRINT_MESSAGES=true
+REPRINT_WARNINGS=true
+LIST_PACNEWS=true
+LIST_PACSAVES=true
+PROMPT_REBOOT=true
+
+pacmanbin="${PACMAN:-pacman}"
+[[ -r /etc/pacnanny.conf ]] && source /etc/pacnanny.conf
+
+show_news () {
+    if [ $COLOR = "never" ]; then
+        printf ":: Checking for Arch Linux news...\n"
+    else
+        printf "\033[1;34m::\033[0;1m Checking for Arch Linux news...\033[0m\n"
+    fi
+
+    last_update=$(date -d "`grep 'starting full system upgrade' /var/log/pacman.log | \
+                            tail -n1 | grep -o '[-0-9\]* [:0-9]*'`" '+%s')
+    news=/tmp/arch_news.rss
+    curl -L --silent $NEWS_URL -o $news
+    sed -i -e 's|<lastBuildDate>.*</lastBuildDate>||g' $news
+    article_dates=`grep -o -E "[0-9]+ [A-Za-z]+ [0-9]+ [0-9:]+" $news`
+
+    local IFS=$'\n'
+    # reformat the RSS so that each item is on its own line
+    items=`cat $news | tr -d '\n' | sed -e 's|<item>|\n<item>|g'`
+    while IFS= read -r d; do
+        # get the article's date in seconds since 1970
+        art_date=`date -d "$d" '+%s'`
+        # if it's new, show it
+        if [[ $art_date -gt $last_update ]]; then
+            URL=`sed -e "/lastBuildDate/d" <(echo "$items") | \
+                 grep --color=never "$d" | \
+                 grep -E -o --color=never "<link>https?://.*</link>" | \
+                 sed -e "s|<link>\(.*\)</link>|\1|"`
+            printf "Opening news item from $d\n"
+            eval $(printf "$BROWSER" $URL)
+        fi
+    done <<EOF
+$article_dates
+EOF
+    rm $news
+}
+
+filter_log () {
+    sed -e 's/\[.*\] //g'
+}
+
+display_messages () {
+    msgs=$(grep ALPM-SCRIPTLET <<EOF
+$1
+EOF
+)
+    msgs_filtered=$(sed -e '/warning: /d;s/\[.*\] //g' <<EOF
+$msgs
+EOF
+)
+    if [ "x$msgs_filtered" != "x" ]; then
+        if [ $COLOR = "never" ]; then
+            printf ":: Messages:\n"
+        else
+            printf "\033[1;34m::\033[0;1m Messages:\033[0m\n"
+        fi
+        printf "$msgs_filtered\n"
+    fi
+}
+
+display_warnings () {
+    warnings=$(grep --color=$COLOR warning: <<EOF
+$1
+EOF
+)
+    if [ "x$warnings" != "x" ]; then
+        if [ $COLOR = "never" ]; then
+            printf ":: Warnings:\n"
+        else
+            printf "\033[1;34m::\033[0;1m Warnings:\033[0m\n"
+        fi
+        printf "$warnings\n" | filter_log
+    fi
+}
+
+display_pacsaves () {
+    warnings=$(grep --color=never warning: <<EOF
+$1
+EOF
+)
+    pacsaves=$(grep --color=$COLOR -o "[-0-9_/a-z\.]*.pacsave" <<EOF
+$warnings
+EOF
+)
+    if [ "x$pacsaves" != "x" ]; then
+        if [ $COLOR = "never" ]; then
+            printf ":: New pacsave files:\n"
+        else
+            printf "\033[1;34m::\033[0;1m New pacsave files:\033[0m\n"
+        fi
+        printf "$pacsaves\n" | filter_log
+    fi
+}
+
+display_pacnews () {
+    warnings=$(grep --color=never warning: <<EOF
+$1
+EOF
+)
+    pacnews=$(grep --color=$COLOR -o "[-0-9_/a-z\.]*.pacnew" <<EOF
+$warnings
+EOF
+)
+    if [ "x$pacnews" != "x" ]; then
+        if [ $COLOR = "never" ]; then
+            printf ":: New pacnew files:\n"
+        else
+            printf "\033[1;34m::\033[0;1m New pacnew files:\033[0m\n"
+        fi
+        printf "$pacnews\n" | filter_log
+    fi
+}
+
+prompt_reboot () {
+    if $(grep -qP 'upgraded linux(?!-firmware)' <<EOF
+$1
+EOF
+        ); then
+        if [ $COLOR = "never" ]; then
+            printf ":: The kernel was updated.  Reboot now? (y/N)\n"
+        else
+            printf "\033[1;34m::\033[0;1m The kernel was updated.  Reboot now? (y/N)\033[0m\n"
+        fi
+        printf "\nThe kernel was updated. Reboot now? (y/N)\n"
+        read reboot_resp
+        if [ "$reboot_resp" = "y" ]; then
+            systemctl reboot
+        fi<<EOF
+
+EOF
+    fi
+}
+
+warn_on_force () {
+    printf "You should only use the '--force' option if you absolutely know what\n"
+    printf "you are doing (or if a dev told you to use it).  Are you sure you\n"
+    printf "should be doing this? (Y/n)\n"
+    read force_resp
+    if [ "$force_resp" = "n" ]; then
+        exit 0
+    fi
+}
+
+get_log_in_date_range () {
+    date1=`echo $1 | cut -d: -f1`
+    date2=`echo $1 | cut -d: -f2`
+    # Try to find a reasonable starting point in the file, otherwise
+    # this takes forever.
+    if grep -q `date -d "$date1" '+%Y-%m-%d %H:%M'` /var/log/pacman.log; then
+        start=`date -d "$date1" '+%Y-%m-%d %H:%M'`
+    elif grep -q `date -d "$date1" '+%Y-%m-%d'` /var/log/pacman.log; then
+        start=`date -d "$date1" '+%Y-%m-%d'`
+    elif grep -q `date -d "$date1" '+%Y-%m'` /var/log/pacman.log; then
+        start=`date -d "$date1" '+%Y-%m'`
+    elif grep -q `date -d "$date1" '+%Y'` /var/log/pacman.log; then
+        start=`date -d "$date1" '+%Y'`
+    else
+        start='.*'
+    fi
+    date1_secs=`date -d "$date1" '+%s'`
+    date2_secs=`date -d "$date2" '+%s'`
+    while IFS= read -r line; do
+        # get the date listed on the line, if there is one (otherwise
+        # continue)
+        line_date=`echo "$line" | grep -o -E "[0-9]{4}\-[0-9]{2}\-[0-9]{2} [0-9]{2}:[0-9]{2}"`
+        if [[ "x$line_date" == "x" ]]; then continue; fi
+        line_secs=`date -d "$line_date" '+%s'`
+        # check that the date is between the two provided
+        echo $line
+        if [[ $line_secs -ge $date1_secs && $line_secs -le $date2_secs ]]; then
+            echo "$line"
+        elif [[ $line_secs -gt $date2_secs ]]; then
+            break
+        fi
+    done <<EOF
+$(sed -n "/$start/,\${/.*/p}" /var/log/pacman.log)
+EOF
+}
+
+get_log_on_date () {
+    grep --color=never `date -d "$1" '+%Y-%m-%d'` /var/log/pacman.log
+}
+
+display_log () {
+    if [ $COLOR = "never" ]; then
+        printf ":: Log entries for $1:\n"
+    else
+        printf "\033[1;34m::\033[0;1m Log entries for $1:\033[0m\n"
+    fi
+    case "$1" in
+        *:*) get_log_in_date_range "$1" ;;
+        *) get_log_on_date "$1" ;;
+    esac
+}
+
+display_history () {
+    if [ $COLOR = "never" ]; then
+        printf ":: Package history for $1:\n"
+    else
+        printf "\033[1;34m::\033[0;1m Package history for $1:\033[0m\n"
+    fi
+    grep -a -E "(upgraded|installed|reinstalled|removed) $1 " /var/log/pacman.log | \
+        sed -r 's/\[([0-9]{4}\-[0-9]{2}\-[0-9]{2} [0-9]{2}:[0-9]{2})\].*(installed|reinstalled|upgraded|removed).*(\(.*\))/\1: \2 \3/g'
+}
+
+display_help () {
+    pacman --help $@ | sed 's/pacman/pacnanny/g'
+    if [[ $# -eq 0 ]]; then
+        cat <<EOF
+
+additional operations for pacnanny:
+    pacnanny --history [package(s)]
+    pacnanny --log     [date(:date)]
+
+EOF
+    fi
+    exit
+}
+
+pacnanny_args () {
+    operation=
+    case "$1" in
+        --history) operation=display_history ;;
+        --log) operation=display_log ;;
+        --help) operation=display_help;;
+    esac
+    shift
+    if [[ $# -eq 0 ]]; then
+        if [[ $operation == display_help ]]; then
+            display_help
+        else
+            echo "Not enough arguments."
+            exit
+        fi
+    fi
+    while (( "$#" )); do
+        $operation "$1"
+        shift
+    done
+    exit
+}
+
+case "$@" in
+    *--history*|*--log*|*--help*) pacnanny_args "$@";;
+    *-Syu*|*-Suy*|*-Syyu*|*-Syuy*|*-Suyy*) [[ $SHOW_NEWS = "true" ]] && show_news ;;
+esac
+
+case "$@" in
+    *--force*) [[ $WARN_ON_FORCE = "true" ]] && warn_on_force ;;
+esac
+
+run_date=`date '+%Y-%m-%d %H:%M'`
+$pacmanbin $@
+# get /var/log/pacman.log from our starting time until the end
+paclog=$(sed -n -e \
+    "/\[$run_date\] \[PACMAN\] Running 'pacman.*'/,\${/.*/p}" \
+    /var/log/pacman.log)
+
+[[ $REPRINT_MESSAGES = "true" ]] && display_messages "$paclog"
+[[ $REPRINT_WARNINGS = "true" ]] && display_warnings "$paclog"
+[[ $LIST_PACSAVES = "true" ]] && display_pacsaves "$paclog"
+[[ $LIST_PACNEWS = "true" ]] && display_pacnews "$paclog"
+[[ $PROMPT_REBOOT = "true" ]] && prompt_reboot "$paclog"

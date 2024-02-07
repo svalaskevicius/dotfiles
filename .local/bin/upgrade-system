@@ -1,0 +1,15 @@
+#!/bin/bash
+
+
+printf "Reset root snapshot? (y/N)\n"
+read reset
+if [ "$reset" = "y" ]; then
+    sudo reset-root-snapshot
+fi
+
+sudo pacnanny -Syu
+
+paru
+
+printf "Press ENTER to exit\n"
+read 

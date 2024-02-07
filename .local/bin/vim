@@ -1,15 +1,15 @@
 #!/usr/bin/env sh
 
-if test "$(id -u)" -eq "0" ; then
-  myScript="$(readlink -f "$0")"
-  orig="$(which -a vim | grep -v "$myScript" | head -n1)"
-  if test -z "$orig"; then
-    echo "Could not find vim. check $0"
-    exit 1
-  else
-    exec "$orig" "$@"
-  fi
-else
+# if test "$(id -u)" -eq "0" ; then
+#   myScript="$(readlink -f "$0")"
+#   orig="$(which -a vim | grep -v "$myScript" | head -n1)"
+#   if test -z "$orig"; then
+#     echo "Could not find vim. check $0"
+#     exit 1
+#   else
+#     exec "$orig" "$@"
+#   fi
+# else
   exec nvim "$@"
-fi
+# fi
 
