@@ -1,5 +1,5 @@
 
-eval "$(ssh-agent -s)"
+eval "$(ssh-agent -t 8h -s)"
 
 export EDITOR=vim
 

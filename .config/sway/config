@@ -81,7 +81,7 @@ input type:keyboard repeat_rate 60
 # Basics:
 #
     # Start a terminal
-    bindsym $mod+Return exec $term
+    bindsym $mod+Shift+Return exec $term
 
     # Reload the configuration file
     bindsym $mod+Shift+r reload
@@ -104,7 +104,7 @@ input type:keyboard repeat_rate 60
     bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
 
 
-    bindsym $mod+Shift+p exec /usr/share/sway/scripts/grimshot save area
+    bindsym $mod+Shift+p exec grimshot save area
 #
 # Moving around:
 #

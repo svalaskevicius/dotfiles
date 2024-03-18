@@ -11,5 +11,7 @@ sudo pacnanny -Syu
 
 paru
 
+sudo pacdiff
+
 printf "Press ENTER to exit\n"
 read 
