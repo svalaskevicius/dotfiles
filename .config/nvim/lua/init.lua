@@ -203,7 +203,7 @@ require('lazy').setup({
 
   'simrat39/rust-tools.nvim',
   'williamboman/mason.nvim',
-  'mfussenegger/nvim-dap',
+  {'mfussenegger/nvim-dap', dependencies = { "nvim-neotest/nvim-nio" }},
   {"rcarriga/nvim-dap-ui", dependencies = {"mfussenegger/nvim-dap"}},
   {"jonboh/nvim-dap-rr", dependencies = {"nvim-dap", "telescope.nvim"}},
 })
