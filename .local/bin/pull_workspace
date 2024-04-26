@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+if [ $# -lt 1 ]; then
+  echo "Usage: $0 WORKSPACE"
+  exit 1
+fi
+
+set -x
+
+WORKSPACE="$1"
+
+FOCUSED_OUTPUT="$(swaymsg -t get_outputs --raw | jq '. | map(select(.focused == true)) | .[0].name' -r)"
+CURRENT_OUTPUT="$(swaymsg -t get_workspaces --raw | jq -r ".[] | select(.num == $WORKSPACE) | .output")"
+
+if test -n "$CURRENT_OUTPUT" -a "$CURRENT_OUTPUT" != "$FOCUSED_OUTPUT" ; then
+  swaymsg "[workspace=${WORKSPACE}]" move workspace to output "${FOCUSED_OUTPUT}"
+fi 
+swaymsg workspace number "$WORKSPACE"
