@@ -269,15 +269,25 @@ exec gammastep
 exec waybar -b bar1
 exec sh -c 'echo -e "Xft.dpi: 192\nXft.antialias: 1" | xrdb -merge ; xprop -root -format _XWAYLAND_GLOBAL_OUTPUT_SCALE 32c -set _XWAYLAND_GLOBAL_OUTPUT_SCALE 2'
 
+input type:keyboard xkb_capslock disabled
+input type:keyboard xkb_numlock enabled
+
+
 for_window [shell="xwayland"] title_format "[XWayland] %title"
 
-# for_window [app_id="Zoom"] floating enable
+# assign <criteria> [→] [workspace] [number] <workspace>
+assign [app_id="firefox"] workspace 2
+assign [app_id="Slack"] workspace 4
+assign [class="zoom"] workspace 5 
+
+for_window [class="zoom"] floating enable
+for_window [class="zoom" title="Zoom Meeting"] floating disable
+for_window [class="zoom" title="Zoom - Free Account"] floating disable
+for_window [class="zoom" title="Zoom - Licensed Account"] floating disable
+for_window [class="zoom" title="Zoom Workplace - Licensed account"] floating disable
+
 # for_window [app_id="Zoom" title="Choose ONE of the audio conference options"] floating enable
 # for_window [app_id="Zoom" title="zoom"] floating enable
 # for_window [app_id="Zoom" title="Zoom Meeting"] floating disable
 # for_window [app_id="Zoom" title="Zoom - Free Account"] floating disable
 # for_window [app_id="Zoom" title="Zoom - Licensed Account"] floating disable
-
-input type:keyboard xkb_capslock disabled
-input type:keyboard xkb_numlock enabled
-
