@@ -187,7 +187,7 @@ require('lazy').setup({
       }
     }
   },
-  { 'vigoux/ltex-ls.nvim', dependencies = 'neovim/nvim-lspconfig' },
+  { 'svalaskevicius/ltex-ls.nvim', dependencies = 'neovim/nvim-lspconfig', branch = 'fixes' },
   {
     "folke/trouble.nvim",
     dependencies = "nvim-tree/nvim-web-devicons",
@@ -248,7 +248,7 @@ g['nvim_web_devicons'] = 1 -- temporary until nvim-tree removes check?
 -- VARIABLES ---------------------
 ----------------------------------
 -- nvim-metals
-g['metals_server_version'] = '1.3.0'
+g['metals_server_version'] = '1.3.1'
 
 ----------------------------------
 -- OPTIONS -----------------------
@@ -503,7 +503,7 @@ metals_config.settings = {
   showInferredType = true,
   superMethodLensesEnabled = false,
   serverProperties = {
-    "-XX:+UseG1GC", "-Xmx2g",
+    "-XX:+UseG1GC", "-Xmx8g",
   }
 }
 metals_config.scala_file_types = { "sbt", "scala", "java", "sc" }
