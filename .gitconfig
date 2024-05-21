@@ -12,6 +12,10 @@
   preloadindex = true
   ; pager = git-fancy-diff | less --tabs=4 -RFX
 
+[rerere]
+  enabled = true
+  autoUpdate = true
+
 [interactive]
   singlekey = true
   ; diffFilter = diff-so-fancy
