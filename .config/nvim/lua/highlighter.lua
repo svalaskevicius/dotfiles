@@ -1,3 +1,6 @@
+-- 
+-- BASED ON https://github.com/neovim/neovim/blob/master/runtime/lua/vim/treesitter/highlighter.lua
+--
 local api = vim.api
 local query = vim.treesitter.query
 local Range = require('vim.treesitter._range')
@@ -136,7 +139,10 @@ function TSHighlighter.new(tree, opts)
     end,
   }, true)
 
-  self.bufnr = tree:source() --[[@as integer]]
+  local source = tree:source()
+  assert(type(source) == 'number')
+
+  self.bufnr = source
   self.edit_count = 0
   self.redraw_count = 0
   self.line_count = {}
@@ -186,7 +192,7 @@ function TSHighlighter:destroy()
     TSHighlighter.active[self.bufnr] = nil
   end
 
-  if vim.api.nvim_buf_is_loaded(self.bufnr) then
+  if api.nvim_buf_is_loaded(self.bufnr) then
     vim.bo[self.bufnr].spelloptions = self.orig_spelloptions
     vim.b[self.bufnr].ts_highlight = nil
     if vim.g.syntax_on == 1 then
@@ -218,7 +224,7 @@ end
 ---@param start_row integer
 ---@param new_end integer
 function TSHighlighter:on_bytes(_, _, start_row, _, _, _, _, _, new_end)
-  api.nvim__buf_redraw_range(self.bufnr, start_row, start_row + new_end + 1)
+  api.nvim__redraw({ buf = self.bufnr, range = { start_row, start_row + new_end + 1 } })
 end
 
 ---@package
@@ -230,12 +236,11 @@ end
 ---@param changes Range6[]
 function TSHighlighter:on_changedtree(changes)
   for _, ch in ipairs(changes) do
-    api.nvim__buf_redraw_range(self.bufnr, ch[1], ch[4] + 1)
+    api.nvim__redraw({ buf = self.bufnr, range = { ch[1], ch[4] + 1 } })
   end
 end
 
 --- Gets the query used for @param lang
---
 ---@package
 ---@param lang string Language used by the highlighter.
 ---@return TSHighlighterQuery
@@ -301,35 +306,7 @@ local function on_line_impl(self, buf, line, is_spell_nav)
             conceal = metadata.conceal,
             spell = true,
           })
-        -- else
-        --   hl = highlighter_query.hl_cache[capture]
         end
-
-
-        -- local capture_name = highlighter_query:query().captures[capture]
-        -- local spell = nil ---@type boolean?
-        -- if capture_name == 'spell' then
-        --   spell = true
-        -- elseif capture_name == 'nospell' then
-        --   spell = false
-        -- end
-        --
-        -- -- Give nospell a higher priority so it always overrides spell captures.
-        -- local spell_pri_offset = capture_name == 'nospell' and 1 or 0
-        --
-        -- if hl and end_row >= line and (not is_spell_nav or spell ~= nil) then
-        --   local priority = (tonumber(metadata.priority) or vim.highlight.priorities.treesitter)
-        --     + spell_pri_offset
-        --   api.nvim_buf_set_extmark(buf, ns, start_row, start_col, {
-        --     end_line = end_row,
-        --     end_col = end_col,
-        --     hl_group = hl,
-        --     ephemeral = true,
-        --     priority = priority,
-        --     conceal = metadata.conceal,
-        --     spell = spell,
-        --   })
-        -- end
       end
 
       if start_row > line then
