@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+
+case "$1" in
+  "up") 
+    ~/.wireguard/wgconf.sh
+    wg-quick up ~/.wireguard/wg.gen.conf
+    ;;
+  "down") 
+    wg-quick down ~/.wireguard/wg.gen.conf
+    ;;
+  "reload") 
+    ~/.wireguard/wgconf.sh
+    NEW="$(cat ~/.wireguard/wg.gen.conf | grep -e '^\s*AllowedIPs\s*=' | grep -oe '\([0-9]\{1,3\}\.\)\{3\}[0-9]\{1,3\}\(/[0-9]\{1,3\}\)\?' | sed -e 's#/32$##' | sort | uniq)"
+    EXISTING="$(sudo ip -4 route list | grep wg.gen | awk '{print $1}' | sed -e 's#/32$##' | sort | uniq)"
+
+    while read -r line ; do
+      echo "ip -4 route add $line dev wg.gen"
+      sudo ip -4 route add "$line" dev wg.gen
+    done < <(comm -13  <(echo "$EXISTING") <(echo "$NEW"))
+    while read -r line ; do
+      echo "ip -4 route del $line"
+      sudo ip -4 route del "$line"
+    done < <(comm -23  <(echo "$EXISTING") <(echo "$NEW"))
+    ;;
+  "session")
+    cat <<EOF | sudo bash - 2>&1 > ~/wg.log
+      export HOME="$HOME"
+      set -e
+      go=1
+      trap "go=0; '$0' down" EXIT TERM INT
+      "$0" up
+      while test "\$go" -eq 1 ; do 
+        echo "\$(date -Iseconds) checking again"
+        "$0" reload
+        sleep 60
+      done
+EOF
+    ;;
+  *) 
+    echo 'up, down, reload, or session?'
+    ;;
+esac
