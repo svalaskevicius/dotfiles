@@ -794,10 +794,10 @@ require("telescope").load_extension("ui-select")
 
 require'nvim-treesitter.configs'.setup {
   ensure_installed = require'nvim-treesitter.parsers'.available_parsers(),
-  ignore_install = { 'markdown' }, -- List of parsers to ignore installing
+  ignore_install = { }, -- List of parsers to ignore installing
   highlight = {
     enable = true,              -- false will disable the whole extension
-    disable = { 'markdown' },  -- list of language that will be disabled
+    disable = { },  -- list of language that will be disabled
   },
   indent = {
     enable = true

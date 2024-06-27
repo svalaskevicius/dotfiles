@@ -1,4 +1,4 @@
--- 
+--
 -- BASED ON https://github.com/neovim/neovim/blob/master/runtime/lua/vim/treesitter/highlighter.lua
 --
 local api = vim.api
@@ -248,7 +248,15 @@ end
 ---@return TSHighlighterQuery
 function TSHighlighter:get_query(lang)
   if not self._queries[lang] then
-    self._queries[lang] = TSHighlighterQuery.new(lang)
+    local q;
+    -- vim.print(lang)
+    -- vim.print(xpcall(function()
+    --   q = TSHighlighterQuery.new(lang)
+    -- end, function(e)
+      q = { query = function() return false end }
+    -- end))
+    -- vim.print(q)
+    self._queries[lang] = q
   end
 
   return self._queries[lang]
