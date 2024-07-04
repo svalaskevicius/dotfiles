@@ -190,7 +190,40 @@ require('lazy').setup({
   { 'svalaskevicius/ltex-ls.nvim', dependencies = 'neovim/nvim-lspconfig', branch = 'fixes' },
   {
     "folke/trouble.nvim",
-    dependencies = "nvim-tree/nvim-web-devicons",
+    opts = {},
+    cmd = "Trouble",
+    keys = {
+      {
+        "<leader>a",
+        "<cmd>Trouble diagnostics toggle<cr>",
+        desc = "Diagnostics (Trouble)",
+      },
+      {
+        "<leader>d",
+        "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
+        desc = "Buffer Diagnostics (Trouble)",
+      },
+      {
+        "<leader>cs",
+        "<cmd>Trouble symbols toggle focus=false<cr>",
+        desc = "Symbols (Trouble)",
+      },
+      {
+        "<leader>cl",
+        "<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
+        desc = "LSP Definitions / references / ... (Trouble)",
+      },
+      {
+        "<leader>xL",
+        "<cmd>Trouble loclist toggle<cr>",
+        desc = "Location List (Trouble)",
+      },
+      {
+        "<leader>xQ",
+        "<cmd>Trouble qflist toggle<cr>",
+        desc = "Quickfix List (Trouble)",
+      },
+    },
   },
   {
     'phaazon/hop.nvim',
@@ -206,6 +239,7 @@ require('lazy').setup({
   {'mfussenegger/nvim-dap', dependencies = { "nvim-neotest/nvim-nio" }},
   {"rcarriga/nvim-dap-ui", dependencies = {"mfussenegger/nvim-dap"}},
   {"jonboh/nvim-dap-rr", dependencies = {"nvim-dap", "telescope.nvim"}},
+  'tidalcycles/vim-tidal'
 })
 
 -- require('leap').set_default_keymaps()
@@ -248,7 +282,7 @@ g['nvim_web_devicons'] = 1 -- temporary until nvim-tree removes check?
 -- VARIABLES ---------------------
 ----------------------------------
 -- nvim-metals
-g['metals_server_version'] = '1.3.1'
+g['metals_server_version'] = '1.3.2'
 
 ----------------------------------
 -- OPTIONS -----------------------
@@ -357,8 +391,8 @@ map('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>')
 map('n', '<leader>f', '<cmd>lua vim.lsp.buf.format()<CR>')
 map('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>')
 map('v', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>')
-map('n', '<leader>a', '<cmd>TroubleToggle workspace_diagnostics<CR>')
-map('n', '<leader>d', '<cmd>TroubleToggle document_diagnostics<CR>')
+-- map('n', '<leader>a', '<cmd>TroubleToggle workspace_diagnostics<CR>')
+-- map('n', '<leader>d', '<cmd>TroubleToggle document_diagnostics<CR>')
 -- map('n', '<leader>a', '<cmd>lua vim.diagnostic.setqflist()<CR>')
 -- map('n', '<leader>d', '<cmd>lua vim.diagnostic.setloclist()<CR>') -- buffer diagnostics only
 map('n', '[e', '<cmd>lua vim.diagnostic.goto_prev { wrap = false, severity = vim.diagnostic.severity.ERROR }<CR>')
