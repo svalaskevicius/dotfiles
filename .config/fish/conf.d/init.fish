@@ -8,6 +8,7 @@ end
 
 
 # set fish_greeting ""
+set -x _JAVA_AWT_WM_NONREPARENTING 1
 set -x CLICOLOR 1
 set -x EDITOR vim
 set -x BROWSER firefox
