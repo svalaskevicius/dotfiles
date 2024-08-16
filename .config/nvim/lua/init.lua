@@ -188,43 +188,43 @@ require('lazy').setup({
     }
   },
   { 'svalaskevicius/ltex-ls.nvim', dependencies = 'neovim/nvim-lspconfig', branch = 'fixes' },
-  {
-    "folke/trouble.nvim",
-    opts = {},
-    cmd = "Trouble",
-    keys = {
-      {
-        "<leader>a",
-        "<cmd>Trouble diagnostics toggle<cr>",
-        desc = "Diagnostics (Trouble)",
-      },
-      {
-        "<leader>d",
-        "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
-        desc = "Buffer Diagnostics (Trouble)",
-      },
-      {
-        "<leader>cs",
-        "<cmd>Trouble symbols toggle focus=false<cr>",
-        desc = "Symbols (Trouble)",
-      },
-      {
-        "<leader>cl",
-        "<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
-        desc = "LSP Definitions / references / ... (Trouble)",
-      },
-      {
-        "<leader>xL",
-        "<cmd>Trouble loclist toggle<cr>",
-        desc = "Location List (Trouble)",
-      },
-      {
-        "<leader>xQ",
-        "<cmd>Trouble qflist toggle<cr>",
-        desc = "Quickfix List (Trouble)",
-      },
-    },
-  },
+  -- {
+  --   "folke/trouble.nvim",
+  --   opts = {},
+  --   cmd = "Trouble",
+  --   keys = {
+  --     {
+  --       "<leader>a",
+  --       "<cmd>Trouble diagnostics toggle<cr>",
+  --       desc = "Diagnostics (Trouble)",
+  --     },
+  --     {
+  --       "<leader>d",
+  --       "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
+  --       desc = "Buffer Diagnostics (Trouble)",
+  --     },
+  --     {
+  --       "<leader>cs",
+  --       "<cmd>Trouble symbols toggle focus=false<cr>",
+  --       desc = "Symbols (Trouble)",
+  --     },
+  --     {
+  --       "<leader>cl",
+  --       "<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
+  --       desc = "LSP Definitions / references / ... (Trouble)",
+  --     },
+  --     {
+  --       "<leader>xL",
+  --       "<cmd>Trouble loclist toggle<cr>",
+  --       desc = "Location List (Trouble)",
+  --     },
+  --     {
+  --       "<leader>xQ",
+  --       "<cmd>Trouble qflist toggle<cr>",
+  --       desc = "Quickfix List (Trouble)",
+  --     },
+  --   },
+  -- },
   {
     'phaazon/hop.nvim',
     branch = 'v2', -- optional but strongly recommended
@@ -239,7 +239,7 @@ require('lazy').setup({
   {'mfussenegger/nvim-dap', dependencies = { "nvim-neotest/nvim-nio" }},
   {"rcarriga/nvim-dap-ui", dependencies = {"mfussenegger/nvim-dap"}},
   {"jonboh/nvim-dap-rr", dependencies = {"nvim-dap", "telescope.nvim"}},
-  'tidalcycles/vim-tidal'
+  'LunarVim/bigfile.nvim',
 })
 
 -- require('leap').set_default_keymaps()
@@ -282,7 +282,7 @@ g['nvim_web_devicons'] = 1 -- temporary until nvim-tree removes check?
 -- VARIABLES ---------------------
 ----------------------------------
 -- nvim-metals
-g['metals_server_version'] = '1.3.2'
+g['metals_server_version'] = '1.3.4'
 
 ----------------------------------
 -- OPTIONS -----------------------
@@ -856,19 +856,17 @@ require("which-key").setup {
 }
 
 
-require'which-key'.register({
-  ["<leader>"] = {
-    ["1"] = "which_key_ignore",
-    ["2"] = "which_key_ignore",
-    ["3"] = "which_key_ignore",
-    ["4"] = "which_key_ignore",
-    ["5"] = "which_key_ignore",
-    ["6"] = "which_key_ignore",
-    ["7"] = "which_key_ignore",
-    ["8"] = "which_key_ignore",
-    ["9"] = "which_key_ignore",
-    ["0"] = "which_key_ignore",
-  }
+require'which-key'.add({
+    { "<leader>0", hidden = true },
+    { "<leader>1", hidden = true },
+    { "<leader>2", hidden = true },
+    { "<leader>3", hidden = true },
+    { "<leader>4", hidden = true },
+    { "<leader>5", hidden = true },
+    { "<leader>6", hidden = true },
+    { "<leader>7", hidden = true },
+    { "<leader>8", hidden = true },
+    { "<leader>9", hidden = true },
 })
 
 
@@ -1186,3 +1184,5 @@ vim.api.nvim_create_autocmd( 'FileType', {
       end)
     end
 })
+
+

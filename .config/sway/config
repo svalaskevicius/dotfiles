@@ -264,7 +264,7 @@ include /etc/sway/config.d/*
 
 
 exec wl-paste -t text --watch clipman store --no-persist
-exec way-displays
+# exec way-displays
 exec gammastep
 exec waybar -b bar1
 exec sh -c 'echo -e "Xft.dpi: 192\nXft.antialias: 1" | xrdb -merge ; xprop -root -format _XWAYLAND_GLOBAL_OUTPUT_SCALE 32c -set _XWAYLAND_GLOBAL_OUTPUT_SCALE 2'
@@ -281,6 +281,7 @@ assign [app_id="Slack"] workspace 4
 assign [class="zoom"] workspace 5 
 
 for_window [class="zoom"] floating enable
+for_window [class="zoom" title="Meeting"] floating disable
 for_window [class="zoom" title="Zoom Meeting"] floating disable
 for_window [class="zoom" title="Zoom - Free Account"] floating disable
 for_window [class="zoom" title="Zoom - Licensed Account"] floating disable

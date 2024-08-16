@@ -10,17 +10,19 @@ case "$1" in
     ;;
   "reload") 
     ~/.wireguard/wgconf.sh
-    NEW="$(cat ~/.wireguard/wg.gen.conf | grep -e '^\s*AllowedIPs\s*=' | grep -oe '\([0-9]\{1,3\}\.\)\{3\}[0-9]\{1,3\}\(/[0-9]\{1,3\}\)\?' | sed -e 's#/32$##' | sort | uniq)"
-    EXISTING="$(sudo ip -4 route list | grep wg.gen | awk '{print $1}' | sed -e 's#/32$##' | sort | uniq)"
-
-    while read -r line ; do
-      echo "ip -4 route add $line dev wg.gen"
-      sudo ip -4 route add "$line" dev wg.gen
-    done < <(comm -13  <(echo "$EXISTING") <(echo "$NEW"))
-    while read -r line ; do
-      echo "ip -4 route del $line"
-      sudo ip -4 route del "$line"
-    done < <(comm -23  <(echo "$EXISTING") <(echo "$NEW"))
+    F="$HOME/.wireguard/wg.gen.conf"
+    sudo bash -c "/usr/bin/wg addconf wg.gen <(wg-quick strip '$F')"
+    # NEW="$(cat ~/.wireguard/wg.gen.conf | grep -e '^\s*AllowedIPs\s*=' | grep -oe '\([0-9]\{1,3\}\.\)\{3\}[0-9]\{1,3\}\(/[0-9]\{1,3\}\)\?' | sed -e 's#/32$##' | sort | uniq)"
+    # EXISTING="$(sudo ip -4 route list | grep wg.gen | awk '{print $1}' | sed -e 's#/32$##' | sort | uniq)"
+    #
+    # while read -r line ; do
+    #   echo "ip -4 route add $line dev wg.gen"
+    #   sudo ip -4 route add "$line" dev wg.gen
+    # done < <(comm -13  <(echo "$EXISTING") <(echo "$NEW"))
+    # while read -r line ; do
+    #   echo "ip -4 route del $line"
+    #   sudo ip -4 route del "$line"
+    # done < <(comm -23  <(echo "$EXISTING") <(echo "$NEW"))
     ;;
   "session")
     cat <<EOF | sudo bash - 2>&1 > ~/wg.log
