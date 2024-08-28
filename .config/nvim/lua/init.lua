@@ -166,7 +166,6 @@ require('lazy').setup({
   --     })
   --   end
   -- }
-  'nvim-lua/lsp-status.nvim',
   'folke/which-key.nvim',
   'sindrets/winshift.nvim',
 
@@ -509,8 +508,6 @@ vim.cmd [[hi! link LspReferenceWrite CursorColumn]]
 -- LSP Setup ---------------------
 ----------------------------------
 
-local lsp_status = require('lsp-status')
-lsp_status.register_progress()
 
 
 -- metals_config = require'metals'.bare_config
@@ -536,6 +533,7 @@ metals_config.settings = {
   bloopSbtAlreadyInstalled = true,
   showInferredType = true,
   superMethodLensesEnabled = false,
+  -- bloopVersion = "2.0.0",
   serverProperties = {
     "-XX:+UseG1GC", "-Xmx8g",
   }
@@ -708,8 +706,8 @@ require'lualine'.setup {
       }
     },
     lualine_c = {
-        lsp_status.status,
-        lsp_status.progress,
+        -- lsp_status.status,
+        -- lsp_status.progress,
     }
   },
   options = {
