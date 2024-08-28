@@ -1,5 +1,5 @@
 if status --is-login
-	for p in ~/bin ~/.config/fish/bin ~/.cargo/bin ~/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/bin/ ~/go/bin ~/.local/bin
+	for p in ~/bin ~/.config/fish/bin ~/.cargo/bin ~/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/bin/ ~/go/bin ~/.local/bin ~/.local/share/coursier/bin
 		if test -d $p
 			set -x PATH $p $PATH
 		end
@@ -9,6 +9,7 @@ end
 
 # set fish_greeting ""
 set -x _JAVA_AWT_WM_NONREPARENTING 1
+set -x JAVA_HOME /usr/lib/jvm/java-21-openjdk
 set -x CLICOLOR 1
 set -x EDITOR vim
 set -x BROWSER firefox
