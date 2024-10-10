@@ -1,13 +1,14 @@
 #!/bin/bash
 
+D="$(dirname "$0")"
 
 printf "Reset root snapshot? (y/N)\n"
 read reset
 if [ "$reset" = "y" ]; then
-    sudo reset-root-snapshot
+    sudo "$D/reset-root-snapshot"
 fi
 
-sudo pacnanny -Syu
+sudo "$D/pacnanny" -Syu
 
 paru
 

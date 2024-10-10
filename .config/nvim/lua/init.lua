@@ -1,4 +1,3 @@
-
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
@@ -15,7 +14,7 @@ local cmd = vim.cmd
 local g = vim.g
 
 local function opt(scope, key, value)
-  local scopes = {o = vim.o, b = vim.bo, w = vim.wo}
+  local scopes = { o = vim.o, b = vim.bo, w = vim.wo }
   scopes[scope][key] = value
   if scope ~= 'o' then
     scopes['o'][key] = value
@@ -23,7 +22,7 @@ local function opt(scope, key, value)
 end
 
 local function map(mode, lhs, rhs, opts)
-  local options = {noremap = true}
+  local options = { noremap = true }
   if opts then
     options = vim.tbl_extend('force', options, opts)
   end
@@ -35,86 +34,86 @@ g.mapleader = " "
 -- PLUGINS -----------------------
 ----------------------------------
 require('lazy').setup({
-  {'svalaskevicius/nerdcommenter'},
--- General fuzzy search capability
+  { 'svalaskevicius/nerdcommenter' },
+  -- General fuzzy search capability
   -- 'junegunn/fzf', { 'dir': '~/.local/bin/fzf', 'do': './install --all' }
 
--- Some surrounding characters trickery (not sure if should keep it)
---Plug 'tpope/vim-surround'
+  -- Some surrounding characters trickery (not sure if should keep it)
+  --Plug 'tpope/vim-surround'
 
--- Aligning - TODO - Check if it's doing any usefull stuff
--- Plug 'godlygeek/tabular'
+  -- Aligning - TODO - Check if it's doing any usefull stuff
+  -- Plug 'godlygeek/tabular'
 
--- " Ctrlp - quickly find files, tags and buffers using fuzzy search
--- Plug 'kien/ctrlp.vim'
+  -- " Ctrlp - quickly find files, tags and buffers using fuzzy search
+  -- Plug 'kien/ctrlp.vim'
 
--- " Nerdtree file browser
--- " Plug 'preservim/nerdtree'
+  -- " Nerdtree file browser
+  -- " Plug 'preservim/nerdtree'
 
--- " Easily comment - <Leader>cc
--- Plug 'preservim/nerdcommenter'
+  -- " Easily comment - <Leader>cc
+  -- Plug 'preservim/nerdcommenter'
 
--- " Git support
--- " Plug 'tpope/vim-fugitive'
+  -- " Git support
+  -- " Plug 'tpope/vim-fugitive'
 
--- " Apply a command on every file in the quickfix list :Qdo %s/Foobar/Barfoo
--- Plug 'henrik/vim-qargs'
+  -- " Apply a command on every file in the quickfix list :Qdo %s/Foobar/Barfoo
+  -- Plug 'henrik/vim-qargs'
 
   'tmux-plugins/vim-tmux-focus-events',
   'christoomey/vim-tmux-navigator',
 
--- 'derekwyatt/vim-scala'
+  -- 'derekwyatt/vim-scala'
 
--- 'neovimhaskell/haskell-vim'
--- " Plug 'alx741/vim-hindent'
--- Plug 'mpickering/hlint-refactor-vim'
+  -- 'neovimhaskell/haskell-vim'
+  -- " Plug 'alx741/vim-hindent'
+  -- Plug 'mpickering/hlint-refactor-vim'
 
--- Plug 'gruvbox-community/gruvbox'
--- Plug 'sonph/onehalf', {'rtp': 'vim/'}
--- Plug 'jacoborus/tender.vim'
+  -- Plug 'gruvbox-community/gruvbox'
+  -- Plug 'sonph/onehalf', {'rtp': 'vim/'}
+  -- Plug 'jacoborus/tender.vim'
 
---  'ryanoasis/vim-devicons'
+  --  'ryanoasis/vim-devicons'
 
--- Plug 'neomake/neomake'
---
--- Plug 'majutsushi/tagbar'
---
--- Plug 'chrisbra/Colorizer'
---
--- Plug 'luochen1990/rainbow'
---
--- " Plug 'YorickPeterse/happy_hacking.vim'
---
--- " Plug 'ntk148v/vim-horizon'
---
--- " Plug 'srcery-colors/srcery-vim'
--- Plug 'tomasiser/vim-code-dark'
--- Plug 'habamax/vim-gruvbit'
+  -- Plug 'neomake/neomake'
+  --
+  -- Plug 'majutsushi/tagbar'
+  --
+  -- Plug 'chrisbra/Colorizer'
+  --
+  -- Plug 'luochen1990/rainbow'
+  --
+  -- " Plug 'YorickPeterse/happy_hacking.vim'
+  --
+  -- " Plug 'ntk148v/vim-horizon'
+  --
+  -- " Plug 'srcery-colors/srcery-vim'
+  -- Plug 'tomasiser/vim-code-dark'
+  -- Plug 'habamax/vim-gruvbit'
 
--- Plug 'mileszs/ack.vim'
--- Plug 'jremmen/vim-ripgrep'
--- Plug 'stefandtw/quickfix-reflector.vim'
+  -- Plug 'mileszs/ack.vim'
+  -- Plug 'jremmen/vim-ripgrep'
+  -- Plug 'stefandtw/quickfix-reflector.vim'
 
   -- Plug 'svalaskevicius/vim-leader-guide'
--- " Plug 'liuchengxu/vim-which-key'
--- " Plug 'kana/vim-arpeggio'
+  -- " Plug 'liuchengxu/vim-which-key'
+  -- " Plug 'kana/vim-arpeggio'
 
   'vim-scripts/CycleColor',
 
   'will133/vim-dirdiff',
 
--- Plug 'rktjmp/lush.nvim'
--- Plug 'alaric/nortia.nvim'
---
--- " Plug 'sotte/presenting.vim'
--- Plug '/home/sarunas/src/presenting.vim'
--- Plug 'junegunn/goyo.vim'
---
--- " Plug 'jaxbot/semantic-highlight.vim'
--- "
---
--- Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
---
+  -- Plug 'rktjmp/lush.nvim'
+  -- Plug 'alaric/nortia.nvim'
+  --
+  -- " Plug 'sotte/presenting.vim'
+  -- Plug '/home/sarunas/src/presenting.vim'
+  -- Plug 'junegunn/goyo.vim'
+  --
+  -- " Plug 'jaxbot/semantic-highlight.vim'
+  -- "
+  --
+  -- Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
+  --
   -- 'hrsh7th/nvim-compe', dependencies = {'hrsh7th/vim-vsnip'},
 
   {
@@ -128,7 +127,7 @@ require('lazy').setup({
   },
 
   -- use({ "liuchengxu/vista.vim" })
-  {'scalameta/nvim-metals', dependencies = { "nvim-lua/plenary.nvim" }},
+  { 'scalameta/nvim-metals',       dependencies = { "nvim-lua/plenary.nvim" } },
 
   'neovim/nvim-lspconfig',
   'onsails/lspkind-nvim',
@@ -149,12 +148,12 @@ require('lazy').setup({
 
   'rafi/awesome-vim-colorschemes',
   'EdenEast/nightfox.nvim',
-  { 'rebelot/kanagawa.nvim', lazy = false },
-  { 'akinsho/bufferline.nvim', dependencies = 'nvim-tree/nvim-web-devicons', lazy=false },
-  { 'hoob3rt/lualine.nvim', dependencies = {'nvim-tree/nvim-web-devicons'} },
+  { 'rebelot/kanagawa.nvim',          lazy = false },
+  { 'akinsho/bufferline.nvim',        dependencies = 'nvim-tree/nvim-web-devicons',    lazy = false },
+  { 'hoob3rt/lualine.nvim',           dependencies = { 'nvim-tree/nvim-web-devicons' } },
 
 
-  { 'kyazdani42/nvim-tree.lua', dependencies = {'nvim-tree/nvim-web-devicons'} },
+  { 'kyazdani42/nvim-tree.lua',       dependencies = { 'nvim-tree/nvim-web-devicons' } },
   -- use {
   --   -- Optional but recommended
   --   -- 'nvim-treesitter/nvim-treesitter',
@@ -173,7 +172,7 @@ require('lazy').setup({
   -- use 'ggandor/leap.nvim'
   -- use 'vim-scripts/AnsiEsc.vim'
   -- 'powerman/vim-plugin-AnsiEsc',
-  { 'm00qek/baleia.nvim', tag = 'v1.4.0' },
+  { 'm00qek/baleia.nvim',          tag = 'v1.4.0' },
 
   {
     'MrcJkb/haskell-tools.nvim',
@@ -181,8 +180,9 @@ require('lazy').setup({
       'neovim/nvim-lspconfig',
       'nvim-lua/plenary.nvim',
       'nvim-telescope/telescope.nvim', -- optional
-      {'m-demare/hlargs.nvim',
-      dependencies = { 'nvim-treesitter/nvim-treesitter' }
+      {
+        'm-demare/hlargs.nvim',
+        dependencies = { 'nvim-treesitter/nvim-treesitter' }
       }
     }
   },
@@ -235,9 +235,9 @@ require('lazy').setup({
 
   'simrat39/rust-tools.nvim',
   'williamboman/mason.nvim',
-  {'mfussenegger/nvim-dap', dependencies = { "nvim-neotest/nvim-nio" }},
-  {"rcarriga/nvim-dap-ui", dependencies = {"mfussenegger/nvim-dap"}},
-  {"jonboh/nvim-dap-rr", dependencies = {"nvim-dap", "telescope.nvim"}},
+  { 'mfussenegger/nvim-dap', dependencies = { "nvim-neotest/nvim-nio" } },
+  { "rcarriga/nvim-dap-ui",  dependencies = { "mfussenegger/nvim-dap" } },
+  { "jonboh/nvim-dap-rr",    dependencies = { "nvim-dap", "telescope.nvim" } },
   'LunarVim/bigfile.nvim',
 })
 
@@ -250,17 +250,49 @@ require('hlargs').setup()
 -- }
 
 require('lspconfig').clangd.setup {
-    -- on_attach = keybinds.on_attach,
-    cmd = {
-        "clangd",
-        "--background-index",
-        "--suggest-missing-includes",
-        -- "--compile-commands-dir=/home/localuser/test/build",
-    },
-    filetypes = { "c", "cpp", "objc", "objcpp" },
+  -- on_attach = keybinds.on_attach,
+  cmd = {
+    "clangd",
+    "--background-index",
+    "--suggest-missing-includes",
+    -- "--compile-commands-dir=/home/localuser/test/build",
+  },
+  filetypes = { "c", "cpp", "objc", "objcpp" },
 }
 
-require'nvim-web-devicons'.setup {
+require 'lspconfig'.lua_ls.setup {
+  on_init = function(client)
+    local path = client.workspace_folders[1].name
+    if vim.loop.fs_stat(path .. '/.luarc.json') or vim.loop.fs_stat(path .. '/.luarc.jsonc') then
+      return
+    end
+
+    client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
+      runtime = {
+        -- Tell the language server which version of Lua you're using
+        -- (most likely LuaJIT in the case of Neovim)
+        version = 'LuaJIT'
+      },
+      -- Make the server aware of Neovim runtime files
+      workspace = {
+        checkThirdParty = false,
+        library = {
+          vim.env.VIMRUNTIME
+          -- Depending on the usage, you might want to add additional paths here.
+          -- "${3rd}/luv/library"
+          -- "${3rd}/busted/library",
+        }
+        -- or pull in all of 'runtimepath'. NOTE: this is a lot slower
+        -- library = vim.api.nvim_get_runtime_file("", true)
+      }
+    })
+  end,
+  settings = {
+    Lua = {}
+  }
+}
+
+require 'nvim-web-devicons'.setup {
   -- your personnal icons can go here (to override)
   -- DevIcon will be appended to `name`
   -- override = {
@@ -272,7 +304,7 @@ require'nvim-web-devicons'.setup {
   -- };
   -- globally enable default icons (default to false)
   -- will get overriden by `get_icons` option
-  default = true;
+  default = true,
 }
 
 g['nvim_web_devicons'] = 1 -- temporary until nvim-tree removes check?
@@ -281,19 +313,19 @@ g['nvim_web_devicons'] = 1 -- temporary until nvim-tree removes check?
 -- VARIABLES ---------------------
 ----------------------------------
 -- nvim-metals
-g['metals_server_version'] = '1.3.5'
+g['metals_server_version'] = '1.3.5+154-82e4d406-SNAPSHOT'
 
 ----------------------------------
 -- OPTIONS -----------------------
 ----------------------------------
 -- global
 opt('o', 'completeopt', 'menuone,noinsert,noselect')
-vim.o.shortmess = string.gsub(vim.o.shortmess, 'F', '') .. 'c'
+vim.o.shortmess                   = string.gsub(vim.o.shortmess, 'F', '') .. 'c'
 
 -- nvim tree
 
-g['nvim_tree_auto_ignore_ft'] = {} -- [ 'startify', 'dashboard' ] -- empty by default, don't auto open tree on specific filetypes.
-g['nvim_tree_width_allow_resize']  = 1 -- 0 by default, will not resize the tree when opening a file
+g['nvim_tree_auto_ignore_ft']     = {} -- [ 'startify', 'dashboard' ] -- empty by default, don't auto open tree on specific filetypes.
+g['nvim_tree_width_allow_resize'] = 1  -- 0 by default, will not resize the tree when opening a file
 -- g['nvim_tree_add_trailing'] = 1 -- 0 by default, append a trailing slash to folder names
 -- g['nvim_tree_group_empty'] = 1 --  0 by default, compact folders that only contain a single folder into one node in the file tree
 -- g['nvim_tree_special_files'] = { 'README.md', 'Makefile', 'MAKEFILE' } --  List of filenames that gets highlighted with NvimTreeSpecialFile
@@ -304,8 +336,8 @@ map('n', '<leader>tr', '<cmd>NvimTreeRefresh<CR>')
 map('n', '<leader>tf', '<cmd>NvimTreeFindFile | NvimTreeFocus <CR>')
 
 
-require'nvim-tree'.setup({
-  actions = {
+require 'nvim-tree'.setup({
+  actions             = {
     open_file = {
       window_picker = {
         enable = true
@@ -313,7 +345,7 @@ require'nvim-tree'.setup({
       quit_on_open = false
     }
   },
-    -- disables netrw completely
+  -- disables netrw completely
   disable_netrw       = true,
   -- hijack netrw window on startup
   hijack_netrw        = true,
@@ -329,7 +361,7 @@ require'nvim-tree'.setup({
   -- updates the root directory of the tree on `DirChanged` (when your run `:cd` usually)
   update_cwd          = true,
   -- show lsp diagnostics in the signcolumn
-  diagnostics     = {
+  diagnostics         = {
     enable = true,
   },
   -- update the focused file on `BufEnter`, un-collapses the folders recursively until it finds the file
@@ -344,14 +376,14 @@ require'nvim-tree'.setup({
     ignore_list = {}
   },
   -- configuration options for the system open command (`s` in the tree by default)
-  system_open = {
+  system_open         = {
     -- the command to run this, leaving nil should work in most cases
     cmd  = nil,
     -- the command arguments as a list
     args = {}
   },
 
-  view = {
+  view                = {
     -- width of the window, can be either a number (columns) or a string in `%`
     width = 40,
     -- side of the tree, can be one of 'left' | 'right' | 'top' | 'bottom'
@@ -359,16 +391,16 @@ require'nvim-tree'.setup({
     -- if true the tree will resize itself after opening a file
     -- auto_resize = false,
   },
-  filters = {
+  filters             = {
     custom = { '^\\.git$', '^node_modules$', '^\\.cache$', '^target$', '^\\.tmp$', '^\\.gitignore$' },
     dotfiles = false
   },
-  git = {
+  git                 = {
     enable = true,
     ignore = true,
     timeout = 500,
   },
-  renderer = {
+  renderer            = {
     indent_markers = {
       enable = true
     },
@@ -476,8 +508,8 @@ cmp.setup({
 --   };
 -- }
 --
-map('i', '<S-Tab>', 'pumvisible() ? "\\<C-p>" : "\\<Tab>"', {expr = true})
-map('i', '<Tab>', 'pumvisible() ? "\\<C-n>" : "\\<Tab>"', {expr = true})
+map('i', '<S-Tab>', 'pumvisible() ? "\\<C-p>" : "\\<Tab>"', { expr = true })
+map('i', '<Tab>', 'pumvisible() ? "\\<C-n>" : "\\<Tab>"', { expr = true })
 -- map('i', '<CR>', 'compe#confirm("\\<CR>")', {expr = true})
 -- map('i', '<C-Space>', 'compe#complete()', {expr = true})
 
@@ -485,20 +517,21 @@ map('i', '<Tab>', 'pumvisible() ? "\\<C-n>" : "\\<Tab>"', {expr = true})
 -- COMMANDS ----------------------
 ----------------------------------
 -- LSP
-cmd [[augroup lsp]]
-cmd [[autocmd!]]
-cmd [[autocmd FileType scala setlocal omnifunc=v:lua.vim.lsp.omnifunc]]
-cmd [[autocmd FileType scala,sbt,java,sc lua require("metals").initialize_or_attach(metals_config)]]
-cmd [[autocmd FileType scala nnoremap <leader>cs  <cmd>lua require"metals".hover_worksheet()<CR>]]
-cmd [[autocmd FileType scala nnoremap <leader>cl  <cmd>lua vim.lsp.codelens.run()<CR>]]
-cmd [[autocmd FileType scala nnoremap <leader>sh  <cmd>lua vim.lsp.buf.signature_help()<CR>]]
-cmd [[autocmd FileType scala nnoremap <leader>ae  <cmd>lua vim.diagnostic.setqflist({severity = "E"})<CR>]]
-cmd [[autocmd FileType scala nnoremap <leader>aa  <cmd>lua vim.diagnostic.setqflist()<CR>]]
-cmd [[autocmd FileType scala nnoremap <leader>aw  <cmd>lua vim.diagnostic.setqflist({severity = "W"})<CR>]]
-cmd [[autocmd FileType scala nnoremap <leader>ad  <cmd>lua vim.diagnostic.setloclist()<CR>]]
-cmd [[autocmd FileType scala nnoremap <leader>tm   <cmd>lua require("metals.tvp").toggle_tree_view()<CR>]]
-cmd [[autocmd FileType scala nnoremap <leader>tg   <cmd>lua require("metals.tvp").reveal_in_tree()<CR>]]
-cmd [[augroup end]]
+vim.cmd [[augroup scalalsp]]
+vim.cmd [[autocmd!]]
+vim.cmd [[autocmd FileType scala setlocal omnifunc=v:lua.vim.lsp.omnifunc]]
+vim.cmd [[autocmd FileType scala,sbt,java,sc lua require("metals").initialize_or_attach(metals_config)]]
+vim.cmd [[autocmd FileType scala nnoremap <leader>cs  <cmd>lua require"metals".hover_worksheet()<CR>]]
+vim.cmd [[autocmd FileType scala nnoremap <leader>tm   <cmd>lua require("metals.tvp").toggle_tree_view()<CR>]]
+vim.cmd [[autocmd FileType scala nnoremap <leader>tg   <cmd>lua require("metals.tvp").reveal_in_tree()<CR>]]
+vim.cmd [[augroup end]]
+
+vim.cmd [[nnoremap <leader>cl  <cmd>lua vim.lsp.codelens.run()<CR>]]
+vim.cmd [[nnoremap <leader>sh  <cmd>lua vim.lsp.buf.signature_help()<CR>]]
+vim.cmd [[nnoremap <leader>ae  <cmd>lua vim.diagnostic.setqflist({severity = "E"})<CR>]]
+vim.cmd [[nnoremap <leader>aa  <cmd>lua vim.diagnostic.setqflist()<CR>]]
+vim.cmd [[nnoremap <leader>aw  <cmd>lua vim.diagnostic.setqflist({severity = "W"})<CR>]]
+vim.cmd [[nnoremap <leader>ad  <cmd>lua vim.diagnostic.setloclist()<CR>]]
 
 -- Need for symbol highlights to work correctly
 vim.cmd [[hi! link LspReferenceText CursorColumn]]
@@ -671,11 +704,11 @@ require('lspkind').init()
 
 require('gitsigns').setup()
 
-local custom_lualine_theme = require'lualine.themes.ayu_dark'
+local custom_lualine_theme = require 'lualine.themes.ayu_dark'
 custom_lualine_theme.normal.c.bg = '#1c2326'
 
-require'lualine'.setup {
-  extensions = {'quickfix', 'nvim-tree', 'fzf'},
+require 'lualine'.setup {
+  extensions = { 'quickfix', 'nvim-tree', 'fzf' },
   sections = {
     lualine_b = {
       'branch',
@@ -699,35 +732,35 @@ require'lualine'.setup {
           info  = 'DiagnosticInfo',  -- Changes diagnostics' info color.
           hint  = 'DiagnosticHint',  -- Changes diagnostics' hint color.
         },
-        symbols = {error = 'E', warn = 'W', info = 'I', hint = 'H'},
+        symbols = { error = 'E', warn = 'W', info = 'I', hint = 'H' },
         colored = true,           -- Displays diagnostics status in color if set to true.
         update_in_insert = false, -- Update diagnostics in insert mode.
         always_visible = false,   -- Show diagnostics even if there are none.
       }
     },
     lualine_c = {
-        -- lsp_status.status,
-        -- lsp_status.progress,
+      -- lsp_status.status,
+      -- lsp_status.progress,
     }
   },
   options = {
     theme = custom_lualine_theme,
-    disabled_filetypes = {'presenting_markdown'}
+    disabled_filetypes = { 'presenting_markdown' }
   },
 }
 
 
-require'bufferline'.setup {
+require 'bufferline'.setup {
   options = {
-    view = "default";
-    numbers = "ordinal";
-    max_name_length = 18;
-    max_prefix_length = 15; -- prefix used when a buffer is de-duplicated
-    tab_size = 18;
-    diagnostics = "nvim_lsp";
+    view = "default",
+    numbers = "ordinal",
+    max_name_length = 18,
+    max_prefix_length = 15, -- prefix used when a buffer is de-duplicated
+    tab_size = 18,
+    diagnostics = "nvim_lsp",
     diagnostics_indicator = function(count, level, diagnostics_dict)
-      return "("..count..")"
-    end;
+      return "(" .. count .. ")"
+    end,
     -- NOTE: this will be called a lot so don't do any heavy processing here
     custom_filter = function(buf_number)
       -- filter out filetypes you don't want to see
@@ -743,18 +776,18 @@ require'bufferline'.setup {
       -- if vim.fn.getcwd() == "<work-repo>" and vim.bo[buf_number].filetype ~= "wiki" then
       --   return true
       -- end
-    end;
-    offsets = {{filetype = "NvimTree", text = "File Explorer", text_align = "left"}};
-    show_buffer_icons = true; -- disable filetype icons for buffers
-    show_buffer_close_icons = false;
-    show_close_icon = false;
-    show_tab_indicators = true;
-    persist_buffer_sort = true; -- whether or not custom sorted buffers should persist
+    end,
+    offsets = { { filetype = "NvimTree", text = "File Explorer", text_align = "left" } },
+    show_buffer_icons = true, -- disable filetype icons for buffers
+    show_buffer_close_icons = false,
+    show_close_icon = false,
+    show_tab_indicators = true,
+    persist_buffer_sort = true, -- whether or not custom sorted buffers should persist
     -- can also be a table containing 2 custom separators
     -- [focused and unfocused]. eg: { '|', '|' }
-    separator_style = "slant";
-    enforce_regular_tabs = false;
-    always_show_bufferline = false;
+    separator_style = "slant",
+    enforce_regular_tabs = false,
+    always_show_bufferline = false,
     -- sort_by = 'extension' | 'relative_directory' | 'directory' | function(buffer_a, buffer_b)
     --   -- add custom logic
     --   return buffer_a.modified > buffer_b.modified
@@ -824,12 +857,12 @@ require("telescope").load_extension("ui-select")
 
 -- treesitter
 
-require'nvim-treesitter.configs'.setup {
-  ensure_installed = require'nvim-treesitter.parsers'.available_parsers(),
-  ignore_install = { }, -- List of parsers to ignore installing
+require 'nvim-treesitter.configs'.setup {
+  ensure_installed = require 'nvim-treesitter.parsers'.available_parsers(),
+  ignore_install = {}, -- List of parsers to ignore installing
   highlight = {
-    enable = true,              -- false will disable the whole extension
-    disable = { },  -- list of language that will be disabled
+    enable = true,     -- false will disable the whole extension
+    disable = {},      -- list of language that will be disabled
   },
   indent = {
     enable = true
@@ -854,23 +887,23 @@ require("which-key").setup {
 }
 
 
-require'which-key'.add({
-    { "<leader>0", hidden = true },
-    { "<leader>1", hidden = true },
-    { "<leader>2", hidden = true },
-    { "<leader>3", hidden = true },
-    { "<leader>4", hidden = true },
-    { "<leader>5", hidden = true },
-    { "<leader>6", hidden = true },
-    { "<leader>7", hidden = true },
-    { "<leader>8", hidden = true },
-    { "<leader>9", hidden = true },
+require 'which-key'.add({
+  { "<leader>0", hidden = true },
+  { "<leader>1", hidden = true },
+  { "<leader>2", hidden = true },
+  { "<leader>3", hidden = true },
+  { "<leader>4", hidden = true },
+  { "<leader>5", hidden = true },
+  { "<leader>6", hidden = true },
+  { "<leader>7", hidden = true },
+  { "<leader>8", hidden = true },
+  { "<leader>9", hidden = true },
 })
 
 
 require("winshift").setup({
-  highlight_moving_win = true,  -- Highlight the window being moved
-  focused_hl_group = "Visual",  -- The highlight group used for the moving window
+  highlight_moving_win = true, -- Highlight the window being moved
+  focused_hl_group = "Visual", -- The highlight group used for the moving window
   moving_win_options = {
     -- These are local options applied to the moving window while it's
     -- being moved. They are unset when you leave Win-Move mode.
@@ -919,11 +952,11 @@ map('n', '<leader>w<C-down>', '<cmd>WinShift far_down<CR>')
 -- Debug settings if you're using nvim-dap
 local dap = require("dap")
 
-local cpptools_path = vim.fn.stdpath("data").."/mason/packages/cpptools/extension/debugAdapters/bin/OpenDebugAD7"
+local cpptools_path = vim.fn.stdpath("data") .. "/mason/packages/cpptools/extension/debugAdapters/bin/OpenDebugAD7"
 dap.adapters.cppdbg = {
-    id = 'cppdbg',
-    type = 'executable',
-    command = cpptools_path,
+  id = 'cppdbg',
+  type = 'executable',
+  command = cpptools_path,
 }
 
 dap.configurations.scala = {
@@ -965,7 +998,7 @@ vim.keymap.set("n", "<F9>", dap.step_out)
 vim.keymap.set("n", "<F10>", dap.step_into)
 vim.keymap.set("n", "<F11>", dap.pause)
 vim.keymap.set("n", "<F56>", dap.down) -- <A-F8>
-vim.keymap.set("n", "<F57>", dap.up) -- <A-F9>
+vim.keymap.set("n", "<F57>", dap.up)   -- <A-F9>
 -- map("n", "<leader>dr", [[<cmd>lua require"dap".repl.toggle()<CR>]])
 -- map("n", "<leader>dK", [[<cmd>lua require"dap.ui.widgets".hover()<CR>]])
 -- map("n", "<leader>dl", [[<cmd>lua require"dap".run_last()<CR>]])
@@ -983,25 +1016,25 @@ vim.keymap.set("n", "<F57>", dap.up) -- <A-F9>
 
 local rr_dap = require("nvim-dap-rr")
 rr_dap.setup({
-    mappings = {
-        -- you will probably want to change these defaults to that they match
-        -- your usual debugger mappings
-        continue = "<F7>",
-        step_over = "<F8>",
-        step_out = "<F9>",
-        step_into = "<F10>",
-        reverse_continue = "<F19>", -- <S-F7>
-        reverse_step_over = "<F20>", -- <S-F8>
-        reverse_step_out = "<F21>", -- <S-F9>
-        reverse_step_into = "<F22>", -- <S-F10>
-        -- instruction level stepping
-        step_over_i = "<F32>", -- <C-F8>
-        step_out_i = "<F33>", -- <C-F8>
-        step_into_i = "<F34>", -- <C-F8>
-        reverse_step_over_i = "<F44>", -- <SC-F8>
-        reverse_step_out_i = "<F45>", -- <SC-F9>
-        reverse_step_into_i = "<F46>", -- <SC-F10>
-    }
+  mappings = {
+    -- you will probably want to change these defaults to that they match
+    -- your usual debugger mappings
+    continue = "<F7>",
+    step_over = "<F8>",
+    step_out = "<F9>",
+    step_into = "<F10>",
+    reverse_continue = "<F19>",    -- <S-F7>
+    reverse_step_over = "<F20>",   -- <S-F8>
+    reverse_step_out = "<F21>",    -- <S-F9>
+    reverse_step_into = "<F22>",   -- <S-F10>
+    -- instruction level stepping
+    step_over_i = "<F32>",         -- <C-F8>
+    step_out_i = "<F33>",          -- <C-F8>
+    step_into_i = "<F34>",         -- <C-F8>
+    reverse_step_over_i = "<F44>", -- <SC-F8>
+    reverse_step_out_i = "<F45>",  -- <SC-F9>
+    reverse_step_into_i = "<F46>", -- <SC-F10>
+  }
 })
 dap.configurations.rust = { rr_dap.get_rust_config() }
 dap.configurations.cpp = { rr_dap.get_config() }
@@ -1033,8 +1066,8 @@ map("n", "<C-H>", [[10zh]])
 
 
 
-require'ltex-ls'.setup {
-  use_spellfile = false, -- Uses the value of 'spellfile' as an external file when checking the document
+require 'ltex-ls'.setup {
+  use_spellfile = false,    -- Uses the value of 'spellfile' as an external file when checking the document
   window_border = 'single', -- How the border should be rendered
   on_attach = on_attach,
   cmd = { "ltex-ls" },
@@ -1045,45 +1078,45 @@ require'ltex-ls'.setup {
       enabled = { "latex", "tex", "bib", "markdown", "gitcommit" },
       language = "en-GB",
       configurationTarget = {
-            dictionary = "workspaceFolderExternalFile",
-            disabledRules = "workspaceFolder",
-            hiddenFalsePositives = "workspaceFolder",
+        dictionary = "workspaceFolderExternalFile",
+        disabledRules = "workspaceFolder",
+        hiddenFalsePositives = "workspaceFolder",
       },
       disabledRules = {
-        ["en-GB"] = {"OXFORD_SPELLING_Z_NOT_S", "PASSIVE_VOICE"},
+        ["en-GB"] = { "OXFORD_SPELLING_Z_NOT_S", "PASSIVE_VOICE" },
       },
       enableRules = {
-        ["en-GB"] = {"OXFORD_SPELLING_ISE_VERBS"},
+        ["en-GB"] = { "OXFORD_SPELLING_ISE_VERBS" },
       },
       dictionary = (function()
-          -- For dictionary, search for files in the runtime to have
-          -- and include them as externals the format for them is
-          -- dict/{LANG}.txt
-          --
-          -- Also add dict/default.txt to all of them
-          local files = {}
-          for _, file in ipairs(vim.api.nvim_get_runtime_file("dict/*", true)) do
-            local lang = vim.fn.fnamemodify(file, ":t:r")
-            local fullpath = vim.fs.normalize(file, ":p")
-            files[lang] = { ":" .. fullpath }
-          end
+        -- For dictionary, search for files in the runtime to have
+        -- and include them as externals the format for them is
+        -- dict/{LANG}.txt
+        --
+        -- Also add dict/default.txt to all of them
+        local files = {}
+        for _, file in ipairs(vim.api.nvim_get_runtime_file("dict/*", true)) do
+          local lang = vim.fn.fnamemodify(file, ":t:r")
+          local fullpath = vim.fs.normalize(file, ":p")
+          files[lang] = { ":" .. fullpath }
+        end
 
-          if files.default then
-            for lang, _ in pairs(files) do
-              if lang ~= "default" then
-                vim.list_extend(files[lang], files.default)
-              end
+        if files.default then
+          for lang, _ in pairs(files) do
+            if lang ~= "default" then
+              vim.list_extend(files[lang], files.default)
             end
-            files.default = nil
           end
-          if files['en-GB'] then
-            files['en-GB']:insert(1, ":"..vim.fn.getcwd() .. "/.ltex.dictionary.txt")
-          else
-            files['en-GB'] = {":"..vim.fn.getcwd().."/.ltex.dictionary.txt" }
-          end
-          -- print(vim.inspect(files))
-          return files
-        end)(),
+          files.default = nil
+        end
+        if files['en-GB'] then
+          files['en-GB']:insert(1, ":" .. vim.fn.getcwd() .. "/.ltex.dictionary.txt")
+        else
+          files['en-GB'] = { ":" .. vim.fn.getcwd() .. "/.ltex.dictionary.txt" }
+        end
+        -- print(vim.inspect(files))
+        return files
+      end)(),
     }
   }
 }
@@ -1142,45 +1175,43 @@ map('n', '<C-S-x>', '<cmd>HopAnywhere<CR>')
 
 
 require('kanagawa').setup({
-    compile = true,             -- enable compiling the colorscheme
-    undercurl = true,            -- enable undercurls
-    commentStyle = { italic = true },
-    functionStyle = {},
-    keywordStyle = { italic = true},
-    statementStyle = { bold = true },
-    typeStyle = {},
-    transparent = false,         -- do not set background color
-    dimInactive = false,         -- dim inactive window `:h hl-NormalNC`
-    terminalColors = true,       -- define vim.g.terminal_color_{0,17}
-    colors = {                   -- add/modify theme and palette colors
-        palette = {},
-        theme = { wave = {}, lotus = {}, dragon = {}, all = {} },
-    },
-    overrides = function(colors) -- add/modify highlights
-        return {}
-    end,
-    theme = "dragon",              -- Load "wave" theme when 'background' option is not set
-    background = {               -- map the value of 'background' option to a theme
-        dark = "dragon",           -- try "dragon" !
-        light = "lotus"
-    },
+  compile = true,   -- enable compiling the colorscheme
+  undercurl = true, -- enable undercurls
+  commentStyle = { italic = true },
+  functionStyle = {},
+  keywordStyle = { italic = true },
+  statementStyle = { bold = true },
+  typeStyle = {},
+  transparent = false,   -- do not set background color
+  dimInactive = false,   -- dim inactive window `:h hl-NormalNC`
+  terminalColors = true, -- define vim.g.terminal_color_{0,17}
+  colors = {             -- add/modify theme and palette colors
+    palette = {},
+    theme = { wave = {}, lotus = {}, dragon = {}, all = {} },
+  },
+  overrides = function(colors) -- add/modify highlights
+    return {}
+  end,
+  theme = "dragon",  -- Load "wave" theme when 'background' option is not set
+  background = {     -- map the value of 'background' option to a theme
+    dark = "dragon", -- try "dragon" !
+    light = "lotus"
+  },
 })
 
 cmd("KanagawaCompile")
 cmd("colorscheme kanagawa-dragon") --  " focuspoint " afterglow " deus
 
 
-local hi = require'highlighter'
-local ts = require'vim.treesitter'
-vim.api.nvim_create_autocmd( 'FileType', {
-    callback = function(args)
-      pcall(function()
-          local parser = ts.get_parser(args.buf)
-          if parser ~= nil then
-            hi.new(parser)
-          end
-      end)
-    end
+local hi = require 'highlighter'
+local ts = require 'vim.treesitter'
+vim.api.nvim_create_autocmd('FileType', {
+  callback = function(args)
+    pcall(function()
+      local parser = ts.get_parser(args.buf)
+      if parser ~= nil then
+        hi.new(parser)
+      end
+    end)
+  end
 })
-
-

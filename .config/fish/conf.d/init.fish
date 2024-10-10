@@ -1,5 +1,5 @@
 if status --is-login
-	for p in ~/bin ~/.config/fish/bin ~/.cargo/bin ~/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/bin/ ~/go/bin ~/.local/bin ~/.local/share/coursier/bin
+	for p in ~/bin ~/.config/fish/bin ~/.cargo/bin ~/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/bin/ ~/go/bin ~/.local/bin ~/.local/share/coursier/bin ~/.cache/scalacli/local-repo/bin/scala-cli/
 		if test -d $p
 			set -x PATH $p $PATH
 		end
