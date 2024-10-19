@@ -1,0 +1,10 @@
+#!/bin/sh
+
+s=10
+
+(sleep $s && /usr/bin/poweroff) &
+p="$!"
+
+zenity --info --width 300 --text "Going to power off in $s seconds. Click OK to cancel"
+
+kill "$p"

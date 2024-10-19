@@ -1,0 +1,9 @@
+#!/bin/sh
+
+OPEN_TTYS="$(loginctl list-sessions -j | jq -r '.[] |.tty | select(. != null)' | sort | uniq | wc -l)"
+
+if test "$OPEN_TTYS" -eq "1" ; then
+  systemctl suspend
+else
+  echo "Will not suspend as there are more TTYs open" >&2
+fi
