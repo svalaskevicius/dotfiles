@@ -116,6 +116,7 @@ require('lazy').setup({
   --
   -- 'hrsh7th/nvim-compe', dependencies = {'hrsh7th/vim-vsnip'},
 
+
   {
     "hrsh7th/nvim-cmp",
     dependencies = {
@@ -239,6 +240,18 @@ require('lazy').setup({
   { "rcarriga/nvim-dap-ui",  dependencies = { "mfussenegger/nvim-dap" } },
   { "jonboh/nvim-dap-rr",    dependencies = { "nvim-dap", "telescope.nvim" } },
   'LunarVim/bigfile.nvim',
+  {
+    "olimorris/codecompanion.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+      "hrsh7th/nvim-cmp",                                                                    -- Optional: For using slash commands and variables in the chat buffer
+      "nvim-telescope/telescope.nvim",                                                       -- Optional: For using slash commands
+      { "MeanderingProgrammer/render-markdown.nvim", ft = { "markdown", "codecompanion" } }, -- Optional: For prettier markdown rendering
+      { "stevearc/dressing.nvim",                    opts = {} },                            -- Optional: Improves `vim.ui.select`
+    },
+    config = true
+  }
 })
 
 -- require('leap').set_default_keymaps()
@@ -313,7 +326,7 @@ g['nvim_web_devicons'] = 1 -- temporary until nvim-tree removes check?
 -- VARIABLES ---------------------
 ----------------------------------
 -- nvim-metals
-g['metals_server_version'] = '1.3.5+154-82e4d406-SNAPSHOT'
+g['metals_server_version'] = '1.4.0'
 
 ----------------------------------
 -- OPTIONS -----------------------
@@ -432,6 +445,8 @@ map('n', '[c', '<cmd>lua vim.diagnostic.goto_prev { wrap = false }<CR>')
 map('n', ']c', '<cmd>lua vim.diagnostic.goto_next { wrap = false }<CR>')
 -- map('n', '<leader>cv', '<cmd>Vista nvim_lsp<CR>')
 -- map('n', '<leader>cc', '<cmd>Vista finder nvim_lsp<CR>')
+
+
 
 local cmp = require("cmp")
 cmp.setup({
@@ -1215,3 +1230,37 @@ vim.api.nvim_create_autocmd('FileType', {
     end)
   end
 })
+
+
+
+
+
+require("codecompanion").setup({
+  adapters = {
+    qwen = function()
+      return require("codecompanion.adapters").extend("ollama", {
+        name = "qwen",
+        schema = {
+          model = {
+            default = "qwen2.5-coder:32b",
+          },
+          num_ctx = {
+            default = 8192,
+          },
+          num_predict = {
+            default = -1,
+          },
+        },
+      })
+    end,
+  },
+  strategies = {
+    chat = {
+      adapter = "qwen",
+    },
+    inline = {
+      adapter = "qwen",
+    },
+  },
+})
+
