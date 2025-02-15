@@ -102,11 +102,9 @@ function TSHighlighterQuery:query()
   return self._query
 end
 
----@package
----
 --- Creates a highlighter for `tree`.
 ---
----@param tree LanguageTree parser object to use for highlighting
+---@param tree vim.treesitter.LanguageTree parser object to use for highlighting
 ---@param opts (table|nil) Configuration of the highlighter:
 ---           - queries table overwrite queries used by the highlighter
 ---@return TSHighlighter Created highlighter object

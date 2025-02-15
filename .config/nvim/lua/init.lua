@@ -240,6 +240,7 @@ require('lazy').setup({
   { "rcarriga/nvim-dap-ui",  dependencies = { "mfussenegger/nvim-dap" } },
   { "jonboh/nvim-dap-rr",    dependencies = { "nvim-dap", "telescope.nvim" } },
   'LunarVim/bigfile.nvim',
+
   {
     "olimorris/codecompanion.nvim",
     dependencies = {
@@ -252,6 +253,37 @@ require('lazy').setup({
     },
     config = true
   }
+
+  -- {
+  --   "David-Kunz/gen.nvim",
+  --   opts = {
+  --     model = "qwen2.5-coder:32b", -- The default model to use.
+  --     quit_map = "q",              -- set keymap to close the response window
+  --     retry_map = "<c-r>",         -- set keymap to re-send the current prompt
+  --     accept_map = "<c-cr>",       -- set keymap to replace the previous selection with the last result
+  --     host = "localhost",          -- The host running the Ollama service.
+  --     port = "11434",              -- The port on which the Ollama service is listening.
+  --     display_mode = "split",      -- The display mode. Can be "float" or "split" or "horizontal-split".
+  --     show_prompt = true,          -- Shows the prompt submitted to Ollama. Can be true (3 lines) or "full".
+  --     show_model = true,           -- Displays which model you are using at the beginning of your chat session.
+  --     no_auto_close = true,        -- Never closes the window automatically.
+  --     file = false,                -- Write the payload to a temporary file to keep the command short.
+  --     hidden = false,              -- Hide the generation window (if true, will implicitly set `prompt.replace = true`), requires Neovim >= 0.10
+  --     init = function(options) pcall(io.popen, "ollama serve > /dev/null 2>&1 &") end,
+  --     -- Function to initialize Ollama
+  --     command = function(options)
+  --       local body = { model = options.model, stream = true }
+  --       return "curl --silent --no-buffer -X POST http://" .. options.host .. ":" .. options.port .. "/api/chat -d $body"
+  --     end,
+  --     -- The command for the Ollama service. You can use placeholders $prompt, $model and $body (shellescaped).
+  --     -- This can also be a command string.
+  --     -- The executed command must return a JSON object with { response, context }
+  --     -- (context property is optional).
+  --     -- list_models = '<omitted lua function>', -- Retrieves a list of model names
+  --     result_filetype = "markdown", -- Configure filetype of the result buffer
+  --     debug = false                 -- Prints errors and the command which is run.
+  --   }
+  -- },
 })
 
 -- require('leap').set_default_keymaps()
@@ -326,7 +358,7 @@ g['nvim_web_devicons'] = 1 -- temporary until nvim-tree removes check?
 -- VARIABLES ---------------------
 ----------------------------------
 -- nvim-metals
-g['metals_server_version'] = '1.4.0'
+g['metals_server_version'] = '1.5.1'
 
 ----------------------------------
 -- OPTIONS -----------------------
@@ -658,7 +690,7 @@ rt.setup({
       -- Backend used for displaying the graph
       -- see: https://graphviz.org/docs/outputs/
       -- default: x11
-      backend = "x11",
+      backend = "gtk",
       -- where to store the output, nil for no output stored (relative
       -- path from pwd)
       -- default: nil
@@ -1253,6 +1285,22 @@ require("codecompanion").setup({
         },
       })
     end,
+    deepseek = function()
+      return require("codecompanion.adapters").extend("ollama", {
+        name = "deepseek",
+        schema = {
+          model = {
+            default = "deepseek-r1:32b-8k",
+          },
+          num_ctx = {
+            default = 8192,
+          },
+          num_predict = {
+            default = -1,
+          },
+        },
+      })
+    end,
   },
   strategies = {
     chat = {
@@ -1263,4 +1311,26 @@ require("codecompanion").setup({
     },
   },
 })
+
+-- map('n', '<leader>cc', '<cmd>CodeCompanion<CR>')
+-- map('v', '<leader>cc', "<cmd>execute \"normal! :'<,'>CodeCompanion<CR>\"<CR>")
+
+vim.keymap.set({ "n", "v" }, "<C-c>", "<cmd>CodeCompanionActions<cr>", { noremap = true, silent = true })
+vim.keymap.set({ "n", "v" }, "<Leader>cc", "<cmd>CodeCompanionChat Toggle<cr>", { noremap = true, silent = true })
+vim.keymap.set("v", "ga", "<cmd>CodeCompanionChat Add<cr>", { noremap = true, silent = true })
+
+-- Expand 'cc' into 'CodeCompanion' in the command line
+vim.cmd([[cab cc CodeCompanion]])
+
+-- nnoremap <silent> <C-c> :CodeCompanionChat<CR>
+-- vnoremap <silent> <C-c> :<C-u>execute "normal! :\'\<lt>,\'>CodeCompanion\<lt>CR>"<CR>
+
+-- require('gen').prompts['Fix_Code'] = {
+--   prompt = "Fix the following code. Only output the result in format ```$filetype\n...\n```:\n```$filetype\n$text\n```",
+--   replace = true,
+--   extract = "```$filetype\n(.-)```"
+-- }
+-- vim.keymap.set({ 'n', 'v' }, '<leader>ff', ':Gen<CR>')
+-- vim.keymap.set({ 'n', 'v' }, '<leader>fa', ':Gen Ask<CR>')
+-- vim.keymap.set({ 'n', 'v' }, '<leader>fs', ':Gen Fix_Code<CR>')
 
