@@ -72,8 +72,8 @@ exec swayidle -w \
 
 input type:keyboard {
     xkb_layout "gb"
-    xkb_variant "colemak,,typewriter"
-    xkb_options "grp:win_space_toggle"
+#    xkb_variant "colemak,,typewriter"
+#    xkb_options "grp:win_space_toggle"
 }
 
 input type:keyboard xkb_model "pc105"
