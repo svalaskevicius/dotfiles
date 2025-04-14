@@ -145,6 +145,7 @@ require('lazy').setup({
   },
   'nvim-telescope/telescope-ui-select.nvim',
   { 'nvim-treesitter/nvim-treesitter' }, -- , init = function() vim.cmd('TSUpdate') end },
+  { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
 
 
   'rafi/awesome-vim-colorschemes',
@@ -172,8 +173,8 @@ require('lazy').setup({
   'sheerun/vim-polyglot',
   -- use 'ggandor/leap.nvim'
   -- use 'vim-scripts/AnsiEsc.vim'
-  -- 'powerman/vim-plugin-AnsiEsc',
-  { 'm00qek/baleia.nvim',          tag = 'v1.4.0' },
+  'powerman/vim-plugin-AnsiEsc',
+  -- { 'm00qek/baleia.nvim',          tag = 'v1.4.0' },
 
   {
     'MrcJkb/haskell-tools.nvim',
@@ -432,7 +433,7 @@ require 'nvim-tree'.setup({
     -- width of the window, can be either a number (columns) or a string in `%`
     width = 40,
     -- side of the tree, can be one of 'left' | 'right' | 'top' | 'bottom'
-    side = 'left',
+    side = 'right',
     -- if true the tree will resize itself after opening a file
     -- auto_resize = false,
   },
@@ -868,6 +869,24 @@ end
 
 require('telescope').setup {
   defaults = {
+    -- vimgrep_arguments = {
+    --     "rg",
+    --     "--color=never",
+    --     "--no-heading",
+    --     "--with-filename",
+    --     "--line-number",
+    --     "--column",
+    --     "--smart-case",
+    --     "--max-results=500" -- Set max results
+    -- },
+    -- prompt_prefix = "🔍 ",
+    -- selection_caret = " ",
+    -- entry_prefix = "  ",
+    -- layout_strategy = "horizontal",
+    -- layout_config = {
+    --   preview_width = 0.5,
+    -- },
+    file_ignore_patterns = { "node_modules", ".git/" },
     mappings = {
       i = {
         -- map actions.which_key to <C-h> (default: <C-/>)
@@ -891,16 +910,31 @@ require('telescope').setup {
     },
     buffer_previewer_maker = new_maker,
   },
+  -- pickers = {
+  --   live_grep = {
+  --     only_sort_text = true,
+  --     theme = "dropdown",
+  --     max_results = 500, -- Limit results
+  --   }
+  -- },
   extensions = {
     ["ui-select"] = {
       require("telescope.themes").get_dropdown {
         -- even more opts
       }
+    },
+    fzf = {
+      fuzzy = true,                    -- false will only do exact matching
+      override_generic_sorter = true,  -- override the generic sorter
+      override_file_sorter = true,     -- override the file sorter
+      case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
+                                       -- the default case_mode is "smart_case"
     }
   }
 }
 
 require("telescope").load_extension("ui-select")
+require('telescope').load_extension('fzf')
 
 -- treesitter
 

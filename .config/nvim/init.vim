@@ -147,5 +147,6 @@ hi VertSplit gui=none guifg=#404040 guibg=none
 hi LspCodeLens guifg=#205050
 
  " hi lualine_c_normal guibg=#505050
-let s:baleia = luaeval("require('baleia').setup { }")
-command! BaleiaColorize call s:baleia.once(bufnr('%'))
+" let s:baleia = luaeval("require('baleia').setup { }")
+" command! BaleiaColorize call s:baleia.once(bufnr('%'))
+"

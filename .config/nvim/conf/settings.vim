@@ -33,7 +33,7 @@ set completeopt=menuone,menu,longest
 
 set history=1000
 set nospell
-set pastetoggle=<F12>
+" set pastetoggle=<F12>
 
 set clipboard^=unnamed,unnamedplus
 
