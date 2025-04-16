@@ -25,4 +25,4 @@ project/.bloop/
 project/metals.sbt
 .ltex.dictionary.txt
 .ltex_ls_cache.json
-
+.scala-build
