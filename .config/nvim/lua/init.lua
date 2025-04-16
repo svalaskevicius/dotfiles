@@ -355,6 +355,62 @@ require 'nvim-web-devicons'.setup {
 
 g['nvim_web_devicons'] = 1 -- temporary until nvim-tree removes check?
 
+require('illuminate').configure({
+  -- providers: provider used to get references in the buffer, ordered by priority
+  providers = {
+    'lsp',
+    'treesitter',
+    -- 'regex',
+  },
+  -- delay: delay in milliseconds
+  delay = 100,
+  -- filetype_overrides: filetype specific overrides.
+  -- The keys are strings to represent the filetype while the values are tables that
+  -- supports the same keys passed to .configure except for filetypes_denylist and filetypes_allowlist
+  filetype_overrides = {},
+  -- filetypes_denylist: filetypes to not illuminate, this overrides filetypes_allowlist
+  filetypes_denylist = {
+    'dirbuf',
+    'dirvish',
+    'fugitive',
+  },
+  -- filetypes_allowlist: filetypes to illuminate, this is overridden by filetypes_denylist
+  -- You must set filetypes_denylist = {} to override the defaults to allow filetypes_allowlist to take effect
+  filetypes_allowlist = {},
+  -- modes_denylist: modes to not illuminate, this overrides modes_allowlist
+  -- See `:help mode()` for possible values
+  modes_denylist = {},
+  -- modes_allowlist: modes to illuminate, this is overridden by modes_denylist
+  -- See `:help mode()` for possible values
+  modes_allowlist = {},
+  -- providers_regex_syntax_denylist: syntax to not illuminate, this overrides providers_regex_syntax_allowlist
+  -- Only applies to the 'regex' provider
+  -- Use :echom synIDattr(synIDtrans(synID(line('.'), col('.'), 1)), 'name')
+  providers_regex_syntax_denylist = {},
+  -- providers_regex_syntax_allowlist: syntax to illuminate, this is overridden by providers_regex_syntax_denylist
+  -- Only applies to the 'regex' provider
+  -- Use :echom synIDattr(synIDtrans(synID(line('.'), col('.'), 1)), 'name')
+  providers_regex_syntax_allowlist = {},
+  -- under_cursor: whether or not to illuminate under the cursor
+  under_cursor = true,
+  -- large_file_cutoff: number of lines at which to use large_file_config
+  -- The `under_cursor` option is disabled when this cutoff is hit
+  large_file_cutoff = 10000,
+  -- large_file_config: config to use for large files (based on large_file_cutoff).
+  -- Supports the same keys passed to .configure
+  -- If nil, vim-illuminate will be disabled for large files.
+  large_file_overrides = nil,
+  -- min_count_to_highlight: minimum number of matches required to perform highlighting
+  min_count_to_highlight = 1,
+  -- should_enable: a callback that overrides all other settings to
+  -- enable/disable illumination. This will be called a lot so don't do
+  -- anything expensive in it.
+  should_enable = function(bufnr) return true end,
+  -- case_insensitive_regex: sets regex case sensitivity
+  case_insensitive_regex = false,
+  -- disable_keymaps: disable default keymaps
+  disable_keymaps = false,
+})
 ----------------------------------
 -- VARIABLES ---------------------
 ----------------------------------
@@ -561,6 +617,25 @@ map('i', '<Tab>', 'pumvisible() ? "\\<C-n>" : "\\<Tab>"', { expr = true })
 -- map('i', '<CR>', 'compe#confirm("\\<CR>")', {expr = true})
 -- map('i', '<C-Space>', 'compe#complete()', {expr = true})
 
+function FilterQuickfixByCWD()
+  local cwd = vim.fn.getcwd()
+  local new_qf = {}
+  local qf_list = vim.fn.getqflist()
+
+  -- print("CWD", cwd)
+  for _, item in ipairs(qf_list) do
+    local full_path = vim.fn.fnamemodify(vim.fn.bufname(item.bufnr), ":p")
+    -- print("Buffer Number:", item.bufnr)
+    -- print("Buffer Name:", bufname)
+    -- print("Full Path:", full_path)
+    if string.sub(full_path, 1, #cwd) == cwd then
+      table.insert(new_qf, item)
+    end
+  end
+
+  vim.fn.setqflist(new_qf)
+end
+
 ----------------------------------
 -- COMMANDS ----------------------
 ----------------------------------
@@ -580,6 +655,7 @@ vim.cmd [[nnoremap <leader>ae  <cmd>lua vim.diagnostic.setqflist({severity = "E"
 vim.cmd [[nnoremap <leader>aa  <cmd>lua vim.diagnostic.setqflist()<CR>]]
 vim.cmd [[nnoremap <leader>aw  <cmd>lua vim.diagnostic.setqflist({severity = "W"})<CR>]]
 vim.cmd [[nnoremap <leader>ad  <cmd>lua vim.diagnostic.setloclist()<CR>]]
+vim.cmd [[nnoremap <leader>af  <cmd>lua FilterQuickfixByCWD()<CR>]]
 
 -- Need for symbol highlights to work correctly
 vim.cmd [[hi! link LspReferenceText CursorColumn]]
@@ -755,6 +831,58 @@ require('gitsigns').setup()
 local custom_lualine_theme = require 'lualine.themes.ayu_dark'
 custom_lualine_theme.normal.c.bg = '#1c2326'
 
+local add_codecompanion_to_lualine = function()
+  local M = require("lualine.component"):extend()
+
+  M.processing = false
+  M.spinner_index = 1
+
+  local spinner_symbols = {
+    "⠋",
+    "⠙",
+    "⠹",
+    "⠸",
+    "⠼",
+    "⠴",
+    "⠦",
+    "⠧",
+    "⠇",
+    "⠏",
+  }
+  local spinner_symbols_len = 10
+
+  -- Initializer
+  function M:init(options)
+    M.super.init(self, options)
+
+    local group = vim.api.nvim_create_augroup("CodeCompanionHooks", {})
+
+    vim.api.nvim_create_autocmd({ "User" }, {
+      pattern = "CodeCompanionRequest*",
+      group = group,
+      callback = function(request)
+        if request.match == "CodeCompanionRequestStarted" then
+          self.processing = true
+        elseif request.match == "CodeCompanionRequestFinished" then
+          self.processing = false
+        end
+      end,
+    })
+  end
+
+  -- Function that runs every time statusline is updated
+  function M:update_status()
+    if self.processing then
+      self.spinner_index = (self.spinner_index % spinner_symbols_len) + 1
+      return spinner_symbols[self.spinner_index]
+    else
+      return nil
+    end
+  end
+
+  return M
+end
+
 require 'lualine'.setup {
   extensions = { 'quickfix', 'nvim-tree', 'fzf' },
   sections = {
@@ -789,6 +917,8 @@ require 'lualine'.setup {
     lualine_c = {
       -- lsp_status.status,
       -- lsp_status.progress,
+      add_codecompanion_to_lualine()
+
     }
   },
   options = {
@@ -1150,7 +1280,7 @@ map("n", "<C-H>", [[10zh]])
 require 'ltex-ls'.setup {
   use_spellfile = false,    -- Uses the value of 'spellfile' as an external file when checking the document
   window_border = 'single', -- How the border should be rendered
-  on_attach = on_attach,
+  -- on_attach = on_attach,
   cmd = { "ltex-ls" },
   filetypes = { "markdown", "text", "latex", "tex", "bib", "gitcommit" },
   flags = { debounce_text_changes = 300 },
@@ -1178,7 +1308,7 @@ require 'ltex-ls'.setup {
         local files = {}
         for _, file in ipairs(vim.api.nvim_get_runtime_file("dict/*", true)) do
           local lang = vim.fn.fnamemodify(file, ":t:r")
-          local fullpath = vim.fs.normalize(file, ":p")
+          local fullpath = vim.fs.normalize(file)
           files[lang] = { ":" .. fullpath }
         end
 
@@ -1303,6 +1433,22 @@ vim.api.nvim_create_autocmd('FileType', {
 
 require("codecompanion").setup({
   adapters = {
+    qwq = function()
+      return require("codecompanion.adapters").extend("ollama", {
+        name = "qwq",
+        schema = {
+          model = {
+            default = "qwq",
+          },
+          num_ctx = {
+            default = 8192,
+          },
+          num_predict = {
+            default = -1,
+          },
+        },
+      })
+    end,
     qwen = function()
       return require("codecompanion.adapters").extend("ollama", {
         name = "qwen",
@@ -1335,13 +1481,23 @@ require("codecompanion").setup({
         },
       })
     end,
+    openai = function()
+      return require("codecompanion.adapters").extend("openai", {
+        env = {
+          -- api_key = "cmd:op read op://personal/OpenAI/credential --no-newline",
+        },
+      })
+    end,
   },
   strategies = {
     chat = {
-      adapter = "qwen",
+      adapter = "qwq",
     },
     inline = {
       adapter = "qwen",
+    },
+    agent = {
+      adapter = "qwq",
     },
   },
 })
@@ -1367,4 +1523,3 @@ vim.cmd([[cab cc CodeCompanion]])
 -- vim.keymap.set({ 'n', 'v' }, '<leader>ff', ':Gen<CR>')
 -- vim.keymap.set({ 'n', 'v' }, '<leader>fa', ':Gen Ask<CR>')
 -- vim.keymap.set({ 'n', 'v' }, '<leader>fs', ':Gen Fix_Code<CR>')
-
