@@ -64,6 +64,21 @@ nnoremap <Leader>ve :tabnew ~/.config/nvim/lua/init.lua <bar> :tcd ~/.config/nvi
 
 command! ShowMapping redir @a> | silent map | redir END | new | normal "ap
 nnoremap <Leader>vm :ShowMapping<CR>
+"
+" Show syntax highlighting groups for word under cursor
+nmap <leader>z :call <SID>SynStack()<CR>
+function! <SID>SynStack()
+  if !exists("*synstack")
+    return
+  endif
+  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+endfunc
+
+nmap <leader>Z :call <SID>SynGroup()<CR>
+function! <SID>SynGroup()
+    let l:s = synID(line('.'), col('.'), 1)
+    echo synIDattr(l:s, 'name') . ' -> ' . synIDattr(synIDtrans(l:s), 'name')
+endfun
 
 " easier quickfix nav
 nnoremap [q    :cp<CR>
