@@ -135,18 +135,21 @@ let g:deus_guisp_fallback = 'fg'
 lua require('init')
 
 
-" hi Normal guibg=#233138
-hi NormalFloat guibg=#0b1212
-hi Pmenu guibg=#1b2222
-hi PmenuSel guibg=#7b8552
-" hi WordUnderCursor guibg=#1f1f2a
-hi NvimTreeIndentMarker guifg=#435C41
-hi NvimTreeRootFolder gui=bold guifg=#aacccc
+hi Normal guibg=#151515
+hi NormalFloat guibg=#405025
+" hi Pmenu guibg=#1b2222
+" hi PmenuSel guibg=#7b8552
+hi WordUnderCursor guibg=#1f1f09
+" hi NvimTreeIndentMarker guifg=#435C41
+" hi NvimTreeRootFolder gui=bold guifg=#aacccc
 hi CursorLine guibg=#1f1a15
 hi VertSplit gui=none guifg=#404040 guibg=none
-hi LspCodeLens guifg=#205050
+" hi LspCodeLens guifg=#205050
 
  " hi lualine_c_normal guibg=#505050
 " let s:baleia = luaeval("require('baleia').setup { }")
 " command! BaleiaColorize call s:baleia.once(bufnr('%'))
 "
+
+set shortmess=ltToOCFaWIcFqA
+

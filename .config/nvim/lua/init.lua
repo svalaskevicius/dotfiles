@@ -150,12 +150,12 @@ require('lazy').setup({
 
   'rafi/awesome-vim-colorschemes',
   'EdenEast/nightfox.nvim',
-  { 'rebelot/kanagawa.nvim',          lazy = false },
-  { 'akinsho/bufferline.nvim',        dependencies = 'nvim-tree/nvim-web-devicons',    lazy = false },
-  { 'hoob3rt/lualine.nvim',           dependencies = { 'nvim-tree/nvim-web-devicons' } },
+  { 'rebelot/kanagawa.nvim',    lazy = false },
+  { 'akinsho/bufferline.nvim',  dependencies = 'nvim-tree/nvim-web-devicons',    lazy = false },
+  { 'hoob3rt/lualine.nvim',     dependencies = { 'nvim-tree/nvim-web-devicons' } },
 
 
-  { 'kyazdani42/nvim-tree.lua',       dependencies = { 'nvim-tree/nvim-web-devicons' } },
+  { 'kyazdani42/nvim-tree.lua', dependencies = { 'nvim-tree/nvim-web-devicons' } },
   -- use {
   --   -- Optional but recommended
   --   -- 'nvim-treesitter/nvim-treesitter',
@@ -188,7 +188,7 @@ require('lazy').setup({
       }
     }
   },
-  { 'svalaskevicius/ltex-ls.nvim', dependencies = 'neovim/nvim-lspconfig', branch = 'fixes' },
+  { 'svalaskevicius/ltex-ls.nvim', dependencies = 'neovim/nvim-lspconfig',         branch = 'fixes' },
   -- {
   --   "folke/trouble.nvim",
   --   opts = {},
@@ -237,9 +237,9 @@ require('lazy').setup({
 
   'simrat39/rust-tools.nvim',
   'williamboman/mason.nvim',
-  { 'mfussenegger/nvim-dap', dependencies = { "nvim-neotest/nvim-nio" } },
-  { "rcarriga/nvim-dap-ui",  dependencies = { "mfussenegger/nvim-dap" } },
-  { "jonboh/nvim-dap-rr",    dependencies = { "nvim-dap", "telescope.nvim" } },
+  { 'mfussenegger/nvim-dap',       dependencies = { "nvim-neotest/nvim-nio" } },
+  { "rcarriga/nvim-dap-ui",        dependencies = { "mfussenegger/nvim-dap" } },
+  { "jonboh/nvim-dap-rr",          dependencies = { "nvim-dap", "telescope.nvim" } },
   'LunarVim/bigfile.nvim',
 
   {
@@ -253,7 +253,7 @@ require('lazy').setup({
       { "stevearc/dressing.nvim",                    opts = {} },                            -- Optional: Improves `vim.ui.select`
     },
     config = true
-  }
+  },
 
   -- {
   --   "David-Kunz/gen.nvim",
@@ -285,11 +285,363 @@ require('lazy').setup({
   --     debug = false                 -- Prints errors and the command which is run.
   --   }
   -- },
+  -- {
+  --   "j-hui/fidget.nvim",
+  --   -- tag = "v1.0.0", -- Make sure to update this to something recent!
+  --   opts = {
+  --     -- Options related to LSP progress subsystem
+  --     progress = {
+  --       poll_rate = 0,            -- How and when to poll for progress messages
+  --       suppress_on_insert = false, -- Suppress new messages while in insert mode
+  --       ignore_done_already = false, -- Ignore new tasks that are already complete
+  --       ignore_empty_message = false, -- Ignore new tasks that don't contain a message
+  --       clear_on_detach =         -- Clear notification group when LSP server detaches
+  --           function(client_id)
+  --             local client = vim.lsp.get_client_by_id(client_id)
+  --             return client and client.name or nil
+  --           end,
+  --       notification_group = -- How to get a progress message's notification group key
+  --           function(msg) return msg.lsp_client.name end,
+  --       ignore = {},     -- List of LSP servers to ignore
+  --
+  --       -- -- Options related to how LSP progress messages are displayed as notifications
+  --       display = {
+  --         render_limit = 16, -- How many LSP messages to show at once
+  --         done_ttl = 3, -- How long a message should persist after completion
+  --         done_icon = "✔", -- Icon shown when all LSP progress tasks are complete
+  --         done_style = "Constant", -- Highlight group for completed LSP tasks
+  --         progress_ttl = math.huge, -- How long a message should persist when in progress
+  --         progress_icon = -- Icon shown when LSP progress tasks are in progress
+  --         { "dots" },
+  --         progress_style = -- Highlight group for in-progress LSP tasks
+  --         "WarningMsg",
+  --         group_style = "Title", -- Highlight group for group name (LSP server name)
+  --         icon_style = "Question", -- Highlight group for group icons
+  --         priority = 30, -- Ordering priority for LSP notification group
+  --         skip_history = true, -- Whether progress notifications should be omitted from history
+  --         -- format_message = -- How to format a progress message
+  --         --     require("fidget.progress.display").default_format_message,
+  --         format_annote = -- How to format a progress annotation
+  --             function(msg) return msg.title end,
+  --         format_group_name = -- How to format a progress notification group's name
+  --             function(group) return tostring(group) end,
+  --         overrides = { -- Override options from the default notification config
+  --           rust_analyzer = { name = "rust-analyzer" },
+  --         },
+  --       },
+  --
+  --       -- Options related to Neovim's built-in LSP client
+  --       lsp = {
+  --         progress_ringbuf_size = 0, -- Configure the nvim's LSP progress ring buffer size
+  --         log_handler = false,   -- Log `$/progress` handler invocations (for debugging)
+  --       },
+  --     },
+  --
+  --     -- Options related to notification subsystem
+  --     notification = {
+  --       poll_rate = 10,           -- How frequently to update and render notifications
+  --       filter = vim.log.levels.INFO, -- Minimum notifications level
+  --       history_size = 128,       -- Number of removed messages to retain in history
+  --       override_vim_notify = false, -- Automatically override vim.notify() with Fidget
+  --       -- configs =                 -- How to configure notification groups when instantiated
+  --       -- { default = require("fidget.notification").default_config },
+  --       -- redirect =                -- Conditionally redirect notifications to another backend
+  --       --     function(msg, level, opts)
+  --       --       if opts and opts.on_open then
+  --       --         return require("fidget.integration.nvim-notify").delegate(msg, level, opts)
+  --       --       end
+  --       --     end,
+  --
+  --       -- Options related to how notifications are rendered as text
+  --       view = {
+  --         stack_upwards = true, -- Display notification items from bottom to top
+  --         icon_separator = " ", -- Separator between group name and icon
+  --         group_separator = "---", -- Separator between notification groups
+  --         group_separator_hl = -- Highlight group used for group separator
+  --         "Comment",
+  --         render_message =     -- How to render notification messages
+  --             function(msg, cnt)
+  --               return cnt == 1 and msg or string.format("(%dx) %s", cnt, msg)
+  --             end,
+  --       },
+  --
+  --       -- Options related to the notification window and buffer
+  --       window = {
+  --         normal_hl = "Comment", -- Base highlight group in the notification window
+  --         winblend = 100,    -- Background color opacity in the notification window
+  --         border = "none",   -- Border around the notification window
+  --         zindex = 45,       -- Stacking priority of the notification window
+  --         max_width = 0,     -- Maximum width of the notification window
+  --         max_height = 0,    -- Maximum height of the notification window
+  --         x_padding = 1,     -- Padding from right edge of window boundary
+  --         y_padding = 0,     -- Padding from bottom edge of window boundary
+  --         align = "bottom",  -- How to align the notification window
+  --         relative = "editor", -- What the notification window position is relative to
+  --       },
+  --     },
+  --
+  --     -- Options related to integrating with other plugins
+  --     integration = {
+  --       ["nvim-tree"] = {
+  --         enable = true, -- Integrate with nvim-tree/nvim-tree.lua (if installed)
+  --       },
+  --       ["xcodebuild-nvim"] = {
+  --         enable = true, -- Integrate with wojciech-kulik/xcodebuild.nvim (if installed)
+  --       },
+  --     },
+  --
+  --     -- Options related to logging
+  --     logger = {
+  --       level = vim.log.levels.WARN, -- Minimum logging level
+  --       max_size = 10000,        -- Maximum log file size, in KB
+  --       float_precision = 0.01,  -- Limit the number of decimals displayed for floats
+  --       path =                   -- Where Fidget writes its logs to
+  --           string.format("%s/fidget.nvim.log", vim.fn.stdpath("cache")),
+  --     },
+  --   }
+  -- },
+  {
+    "folke/noice.nvim",
+    event = "VeryLazy",
+    opts = {
+      cmdline = {
+        enabled = true,         -- enables the Noice cmdline UI
+        view = "cmdline_popup", -- view for rendering the cmdline. Change to `cmdline` to get a classic cmdline at the bottom
+        opts = {
+          position = "100%",
+          size = {
+            width = "100%",
+            height = 1,
+          },
+          border = {
+            padding = {
+              top = 0,
+              bottom = 0,
+              left = 0,
+              right = 0,
+            },
+            style = "none",
+            text = {
+              top = "",
+              top_align = "center",
+              bottom = "",
+              bottom_align = "left",
+            },
+          },
+        }, -- global options for the cmdline. See section on views
+        ---@type table<string, CmdlineFormat>
+        format = {
+          -- conceal: (default=true) This will hide the text in the cmdline that matches the pattern.
+          -- view: (default is cmdline view)
+          -- opts: any options passed to the view
+          -- icon_hl_group: optional hl_group for the icon
+          -- title: set to anything or empty string to hide
+          cmdline = { pattern = "^:", icon = "", lang = "vim" },
+          search_down = { kind = "search", pattern = "^/", icon = " ", lang = "regex" },
+          search_up = { kind = "search", pattern = "^%?", icon = " ", lang = "regex" },
+          filter = { pattern = "^:%s*!", icon = "$", lang = "bash" },
+          lua = { pattern = { "^:%s*lua%s+", "^:%s*lua%s*=%s*", "^:%s*=%s*" }, icon = "", lang = "lua" },
+          help = { pattern = "^:%s*he?l?p?%s+", icon = "" },
+          input = { view = "cmdline_input", icon = "󰥻 " }, -- Used by input()
+          -- lua = false, -- to disable a format, set to `false`
+        },
+      },
+      messages = {
+        -- NOTE: If you enable messages, then the cmdline is enabled automatically.
+        -- This is a current Neovim limitation.
+        enabled = true,          -- enables the Noice messages UI
+        view = "notify",         -- default view for messages
+        view_error = "notify",   -- view for errors
+        view_warn = "notify",    -- view for warnings
+        view_history = "messages", -- view for :messages
+        view_search = "virtualtext", -- view for search count messages. Set to `false` to disable
+      },
+      popupmenu = {
+        enabled = true, -- enables the Noice popupmenu UI
+        ---@type 'nui'|'cmp'
+        backend = "nui", -- backend to use to show regular cmdline completions
+        ---@type NoicePopupmenuItemKind|false
+        -- Icons for completion item kinds (see defaults at noice.config.icons.kinds)
+        kind_icons = {}, -- set to `false` to disable icons
+      },
+      -- default options for require('noice').redirect
+      -- see the section on Command Redirection
+      ---@type NoiceRouteConfig
+      redirect = {
+        view = "popup",
+        filter = { event = "msg_show" },
+      },
+      -- You can add any custom commands below that will be available with `:Noice command`
+      ---@type table<string, NoiceCommand>
+      commands = {
+        history = {
+          -- options for the message history that you get with `:Noice`
+          view = "split",
+          opts = { enter = true, format = "details" },
+          filter = {
+            any = {
+              { event = "notify" },
+              { error = true },
+              { warning = true },
+              { event = "msg_show", kind = { "" } },
+              { event = "lsp",      kind = "message" },
+            },
+          },
+        },
+        -- :Noice last
+        last = {
+          view = "popup",
+          opts = { enter = true, format = "details" },
+          filter = {
+            any = {
+              { event = "notify" },
+              { error = true },
+              { warning = true },
+              { event = "msg_show", kind = { "" } },
+              { event = "lsp",      kind = "message" },
+            },
+          },
+          filter_opts = { count = 1 },
+        },
+        -- :Noice errors
+        errors = {
+          -- options for the message history that you get with `:Noice`
+          view = "popup",
+          opts = { enter = true, format = "details" },
+          filter = { error = true },
+          filter_opts = { reverse = true },
+        },
+        all = {
+          -- options for the message history that you get with `:Noice`
+          view = "split",
+          opts = { enter = true, format = "details" },
+          filter = {},
+        },
+      },
+      notify = {
+        -- Noice can be used as `vim.notify` so you can route any notification like other messages
+        -- Notification messages have their level and other properties set.
+        -- event is always "notify" and kind can be any log level as a string
+        -- The default routes will forward notifications to nvim-notify
+        -- Benefit of using Noice for this is the routing and consistent history view
+        enabled = true,
+        view = "notify",
+      },
+      lsp = {
+        progress = {
+          enabled = true,
+          -- Lsp Progress is formatted using the builtins for lsp_progress. See config.format.builtin
+          -- See the section on formatting for more details on how to customize.
+          --- @type NoiceFormat|string
+          format = "lsp_progress",
+          --- @type NoiceFormat|string
+          format_done = "lsp_progress_done",
+          throttle = 1000 / 30, -- frequency to update lsp progress message
+          view = "mini",
+        },
+        override = {
+          -- override the default lsp markdown formatter with Noice
+          ["vim.lsp.util.convert_input_to_markdown_lines"] = false,
+          -- override the lsp markdown formatter with Noice
+          ["vim.lsp.util.stylize_markdown"] = false,
+          -- override cmp documentation with Noice (needs the other options to work)
+          ["cmp.entry.get_documentation"] = false,
+        },
+        hover = {
+          enabled = false,
+          silent = false, -- set to true to not show a message if hover is not available
+          view = nil, -- when nil, use defaults from documentation
+          ---@type NoiceViewOptions
+          opts = {},  -- merged with defaults from documentation
+        },
+        signature = {
+          enabled = false,
+          auto_open = {
+            enabled = true,
+            trigger = true, -- Automatically show signature help when typing a trigger character from the LSP
+            luasnip = true, -- Will open signature help when jumping to Luasnip insert nodes
+            throttle = 50, -- Debounce lsp signature help request by 50ms
+          },
+          view = nil,   -- when nil, use defaults from documentation
+          ---@type NoiceViewOptions
+          opts = {},    -- merged with defaults from documentation
+        },
+        message = {
+          -- Messages shown by lsp servers
+          enabled = true,
+          view = "notify",
+          opts = {},
+        },
+        -- defaults for hover and signature help
+        documentation = {
+          view = "hover",
+          ---@type NoiceViewOptions
+          opts = {
+            lang = "markdown",
+            replace = true,
+            render = "plain",
+            format = { "{message}" },
+            win_options = { concealcursor = "n", conceallevel = 3 },
+          },
+        },
+      },
+      markdown = {
+        hover = {
+          ["|(%S-)|"] = vim.cmd.help, -- vim help links
+          -- ["%[.-%]%((%S-)%)"] = require("noice.util").open,     -- markdown links
+        },
+        highlights = {
+          ["|%S-|"] = "@text.reference",
+          ["@%S+"] = "@parameter",
+          ["^%s*(Parameters:)"] = "@text.title",
+          ["^%s*(Return:)"] = "@text.title",
+          ["^%s*(See also:)"] = "@text.title",
+          ["{%S-}"] = "@parameter",
+        },
+      },
+      health = {
+        checker = true, -- Disable if you don't want health checks to run
+      },
+      ---@type NoicePresets
+      presets = {
+        -- you can enable a preset by setting it to true, or a table that will override the preset config
+        -- you can also add custom presets that you can enable/disable with enabled=true
+        bottom_search = true,      -- use a classic bottom cmdline for search
+        command_palette = false,   -- position the cmdline and popupmenu together
+        long_message_to_split = false, -- long messages will be sent to a split
+        inc_rename = false,        -- enables an input dialog for inc-rename.nvim
+        lsp_doc_border = false,    -- add a border to hover docs and signature help
+      },
+      throttle = 1000 / 30,        -- how frequently does Noice need to check for ui updates? This has no effect when in blocking mode.
+      ---@type NoiceConfigViews
+      views = {}, ---@see section on views
+      ---@type NoiceRouteConfig[]
+      routes = {}, --- @see section on routes
+      ---@type table<string, NoiceFilter>
+      status = {}, --- @see section on statusline components
+      ---@type NoiceFormatOptions
+      format = {}, --- @see section on formatting
+    },
+    dependencies = {
+      -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+      "MunifTanjim/nui.nvim",
+      -- OPTIONAL:
+      --   `nvim-notify` is only needed, if you want to use the notification view.
+      --   If not available, we use `mini` as the fallback
+      "rcarriga/nvim-notify",
+    }
+  }
 })
 
 -- require('leap').set_default_keymaps()
 
 require('hlargs').setup()
+
+-- require("noice").setup({
+-- })
+--
+-- require("fidget").setup({
+-- })
 
 -- require'lspconfig'.jdtls.setup{
 --   cmd = { 'sh', '-c', 'exec jdt-language-server -data ~/.jdt.workspace/$(pwd | md5sum | cut -d" " -f1)' }
@@ -1054,11 +1406,11 @@ require('telescope').setup {
       }
     },
     fzf = {
-      fuzzy = true,                    -- false will only do exact matching
-      override_generic_sorter = true,  -- override the generic sorter
-      override_file_sorter = true,     -- override the file sorter
-      case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
-                                       -- the default case_mode is "smart_case"
+      fuzzy = true,                   -- false will only do exact matching
+      override_generic_sorter = true, -- override the generic sorter
+      override_file_sorter = true,    -- override the file sorter
+      case_mode = "smart_case",       -- or "ignore_case" or "respect_case"
+      -- the default case_mode is "smart_case"
     }
   }
 }
