@@ -254,6 +254,91 @@ require('lazy').setup({
     },
     config = true
   },
+  {
+    "folke/zen-mode.nvim",
+    opts = {
+      window = {
+        backdrop = 0.95, -- shade the backdrop of the Zen window. Set to 1 to keep the same as Normal
+        -- height and width can be:
+        -- * an absolute number of cells when > 1
+        -- * a percentage of the width / height of the editor when <= 1
+        -- * a function that returns the width or the height
+        width = 120, -- width of the Zen window
+        height = 1,  -- height of the Zen window
+        -- by default, no options are changed for the Zen window
+        -- uncomment any of the options below, or add other vim.wo options you want to apply
+        options = {
+          signcolumn = "no",      -- disable signcolumn
+          number = false,         -- disable number column
+          relativenumber = false, -- disable relative numbers
+          cursorline = false,     -- disable cursorline
+          cursorcolumn = false,   -- disable cursor column
+          foldcolumn = "0",       -- disable fold column
+          list = false,           -- disable whitespace characters
+        },
+      },
+      plugins = {
+        -- disable some global vim options (vim.o...)
+        -- comment the lines to not apply the options
+        options = {
+          enabled = true,
+          ruler = false,   -- disables the ruler text in the cmd line area
+          showcmd = false, -- disables the command in the last line of the screen
+          -- you may turn on/off statusline in zen mode by setting 'laststatus'
+          -- statusline will be shown only if 'laststatus' == 3
+          laststatus = 0,               -- turn off the statusline in zen mode
+        },
+        twilight = { enabled = true },  -- enable to start Twilight when zen mode opens
+        gitsigns = { enabled = false }, -- disables git signs
+        tmux = { enabled = false },     -- disables the tmux statusline
+        todo = { enabled = false },     -- if set to "true", todo-comments.nvim highlights will be disabled
+        -- this will change the font size on kitty when in zen mode
+        -- to make this work, you need to set the following kitty options:
+        -- - allow_remote_control socket-only
+        -- - listen_on unix:/tmp/kitty
+        kitty = {
+          enabled = false,
+          font = "+4", -- font size increment
+        },
+        -- this will change the font size on alacritty when in zen mode
+        -- requires  Alacritty Version 0.10.0 or higher
+        -- uses `alacritty msg` subcommand to change font size
+        alacritty = {
+          enabled = false,
+          font = "14", -- font size
+        },
+        -- this will change the font size on wezterm when in zen mode
+        -- See alse also the Plugins/Wezterm section in this projects README
+        wezterm = {
+          enabled = false,
+          -- can be either an absolute font size or the number of incremental steps
+          font = "+4", -- (10% increase per step)
+        },
+        -- this will change the scale factor in Neovide when in zen mode
+        -- See alse also the Plugins/Wezterm section in this projects README
+        neovide = {
+          enabled = false,
+          -- Will multiply the current scale factor by this number
+          scale = 1.2,
+          -- disable the Neovide animations while in Zen mode
+          disable_animations = {
+            neovide_animation_length = 0,
+            neovide_cursor_animate_command_line = false,
+            neovide_scroll_animation_length = 0,
+            neovide_position_animation_length = 0,
+            neovide_cursor_animation_length = 0,
+            neovide_cursor_vfx_mode = "",
+          }
+        },
+      },
+      -- callback where you can add custom code when the Zen window opens
+      on_open = function(win)
+      end,
+      -- callback where you can add custom code when the Zen window closes
+      on_close = function()
+      end,
+    }
+  },
 
   -- {
   --   "David-Kunz/gen.nvim",
@@ -449,15 +534,15 @@ require('lazy').setup({
       messages = {
         -- NOTE: If you enable messages, then the cmdline is enabled automatically.
         -- This is a current Neovim limitation.
-        enabled = true,          -- enables the Noice messages UI
-        view = "notify",         -- default view for messages
-        view_error = "notify",   -- view for errors
-        view_warn = "notify",    -- view for warnings
-        view_history = "messages", -- view for :messages
+        enabled = true,              -- enables the Noice messages UI
+        view = "notify",             -- default view for messages
+        view_error = "notify",       -- view for errors
+        view_warn = "notify",        -- view for warnings
+        view_history = "messages",   -- view for :messages
         view_search = "virtualtext", -- view for search count messages. Set to `false` to disable
       },
       popupmenu = {
-        enabled = true, -- enables the Noice popupmenu UI
+        enabled = true,  -- enables the Noice popupmenu UI
         ---@type 'nui'|'cmp'
         backend = "nui", -- backend to use to show regular cmdline completions
         ---@type NoicePopupmenuItemKind|false
@@ -550,9 +635,9 @@ require('lazy').setup({
         hover = {
           enabled = false,
           silent = false, -- set to true to not show a message if hover is not available
-          view = nil, -- when nil, use defaults from documentation
+          view = nil,     -- when nil, use defaults from documentation
           ---@type NoiceViewOptions
-          opts = {},  -- merged with defaults from documentation
+          opts = {},      -- merged with defaults from documentation
         },
         signature = {
           enabled = false,
@@ -560,11 +645,11 @@ require('lazy').setup({
             enabled = true,
             trigger = true, -- Automatically show signature help when typing a trigger character from the LSP
             luasnip = true, -- Will open signature help when jumping to Luasnip insert nodes
-            throttle = 50, -- Debounce lsp signature help request by 50ms
+            throttle = 50,  -- Debounce lsp signature help request by 50ms
           },
-          view = nil,   -- when nil, use defaults from documentation
+          view = nil,       -- when nil, use defaults from documentation
           ---@type NoiceViewOptions
-          opts = {},    -- merged with defaults from documentation
+          opts = {},        -- merged with defaults from documentation
         },
         message = {
           -- Messages shown by lsp servers
@@ -606,13 +691,13 @@ require('lazy').setup({
       presets = {
         -- you can enable a preset by setting it to true, or a table that will override the preset config
         -- you can also add custom presets that you can enable/disable with enabled=true
-        bottom_search = true,      -- use a classic bottom cmdline for search
-        command_palette = false,   -- position the cmdline and popupmenu together
+        bottom_search = true,          -- use a classic bottom cmdline for search
+        command_palette = false,       -- position the cmdline and popupmenu together
         long_message_to_split = false, -- long messages will be sent to a split
-        inc_rename = false,        -- enables an input dialog for inc-rename.nvim
-        lsp_doc_border = false,    -- add a border to hover docs and signature help
+        inc_rename = false,            -- enables an input dialog for inc-rename.nvim
+        lsp_doc_border = false,        -- add a border to hover docs and signature help
       },
-      throttle = 1000 / 30,        -- how frequently does Noice need to check for ui updates? This has no effect when in blocking mode.
+      throttle = 1000 / 30,            -- how frequently does Noice need to check for ui updates? This has no effect when in blocking mode.
       ---@type NoiceConfigViews
       views = {}, ---@see section on views
       ---@type NoiceRouteConfig[]
@@ -711,7 +796,7 @@ require('illuminate').configure({
   -- providers: provider used to get references in the buffer, ordered by priority
   providers = {
     'lsp',
-    'treesitter',
+    -- 'treesitter',
     -- 'regex',
   },
   -- delay: delay in milliseconds
@@ -767,7 +852,7 @@ require('illuminate').configure({
 -- VARIABLES ---------------------
 ----------------------------------
 -- nvim-metals
-g['metals_server_version'] = '1.5.1'
+g['metals_server_version'] = '1.5.2'
 
 ----------------------------------
 -- OPTIONS -----------------------
