@@ -1266,7 +1266,7 @@ require('lspkind').init()
 require('gitsigns').setup()
 
 local custom_lualine_theme = require 'lualine.themes.ayu_dark'
-custom_lualine_theme.normal.c.bg = '#1c2326'
+custom_lualine_theme.normal.c.bg = '#101314'
 
 local add_codecompanion_to_lualine = function()
   local M = require("lualine.component"):extend()
@@ -1320,6 +1320,20 @@ local add_codecompanion_to_lualine = function()
   return M
 end
 
+
+
+
+
+local function macro_recording()
+  local reg = vim.fn.reg_recording()
+  if reg == "" then
+    return ""
+  else
+    return "Recording @" .. reg
+  end
+end
+
+
 require 'lualine'.setup {
   extensions = { 'quickfix', 'nvim-tree', 'fzf' },
   sections = {
@@ -1354,8 +1368,15 @@ require 'lualine'.setup {
     lualine_c = {
       -- lsp_status.status,
       -- lsp_status.progress,
-      add_codecompanion_to_lualine()
-
+      add_codecompanion_to_lualine(),
+      -- {
+      --   require("noice").api.statusline.mode.get,
+      --   cond = require("noice").api.statusline.mode.has,
+      --   color = { fg = "#ff9e64" },
+      -- }
+    },
+    lualine_x = {
+      macro_recording, "encoding", "fileformat", "filetype"
     }
   },
   options = {
