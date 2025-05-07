@@ -1,0 +1,49 @@
+#!/bin/bash
+
+set -e
+
+test -e /dev/mapper/mirrored-decrypted || sudo cryptsetup open /dev/VG2/mirrored mirrored-decrypted  --key-file /mirror-img.key
+
+mount | grep -e '/dev/mapper/mirrored-decrypted\s\+on\s\+/mnt/mirrored' >/dev/null || sudo mount /dev/mapper/mirrored-decrypted /mnt/mirrored/
+
+# cd /mnt/mirrored/photo-manager/photoprism
+cd /mnt/mirrored/photo-manager/immich
+
+docker compose up -d
+
+set +e
+
+wait_for_http_200() {
+    local URL=$1
+    local TIMEOUT=${2:-60}
+    local INTERVAL=2
+    local START_TIME=$(date +%s)
+
+    echo "Waiting for HTTP 200 from $URL..."
+
+    while :; do
+        local HTTP_CODE
+        HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" "$URL")
+
+        if [ "$HTTP_CODE" -eq 200 ]; then
+            echo "Received HTTP 200 from $URL"
+            return 0
+        fi
+
+        local CURRENT_TIME
+        CURRENT_TIME=$(date +%s)
+        local ELAPSED=$((CURRENT_TIME - START_TIME))
+
+        if [ "$ELAPSED" -ge "$TIMEOUT" ]; then
+            echo "Timed out after $TIMEOUT seconds waiting for HTTP 200 from $URL (last code: $HTTP_CODE)"
+            return 1
+        fi
+
+        sleep "$INTERVAL"
+    done
+}
+
+wait_for_http_200 http://localhost:2283/photos
+
+firefox http://localhost:2283/photos &
+
