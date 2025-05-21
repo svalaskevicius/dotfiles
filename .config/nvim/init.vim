@@ -136,7 +136,7 @@ lua require('init')
 
 
 hi Normal guibg=#151515
-hi NormalFloat guibg=#203010
+hi NormalFloat guibg=#105050
 " hi Pmenu guibg=#1b2222
 " hi PmenuSel guibg=#7b8552
 hi WordUnderCursor guibg=#1f1f09

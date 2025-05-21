@@ -695,7 +695,7 @@ require('lazy').setup({
         command_palette = false,       -- position the cmdline and popupmenu together
         long_message_to_split = false, -- long messages will be sent to a split
         inc_rename = false,            -- enables an input dialog for inc-rename.nvim
-        lsp_doc_border = false,        -- add a border to hover docs and signature help
+        lsp_doc_border = true,        -- add a border to hover docs and signature help
       },
       throttle = 1000 / 30,            -- how frequently does Noice need to check for ui updates? This has no effect when in blocking mode.
       ---@type NoiceConfigViews
@@ -1981,3 +1981,32 @@ vim.cmd([[cab cc CodeCompanion]])
 -- vim.keymap.set({ 'n', 'v' }, '<leader>ff', ':Gen<CR>')
 -- vim.keymap.set({ 'n', 'v' }, '<leader>fa', ':Gen Ask<CR>')
 -- vim.keymap.set({ 'n', 'v' }, '<leader>fs', ':Gen Fix_Code<CR>')
+
+
+
+
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "markdown",
+  callback = function(args)
+    local win_id = vim.api.nvim_get_current_win()
+    -- local winhl = vim.api.nvim_get_option_value("winhl", { win = win_id })
+    local cfg = vim.api.nvim_win_get_config(win_id)
+
+    if cfg.relative ~= "" then
+      vim.api.nvim_set_option_value("winhl", "RenderMarkdownCode:MyPopupCode,LineNr:MyPopupLineNr,Normal:MyPopupNormal,WordUnderCursor:MyPopupWordUnderCursor,RenderMarkdownH1Bg:MyPopupRenderMarkdownH1Bg,RenderMarkdownH2Bg:MyPopupRenderMarkdownH2Bg,RenderMarkdownH3Bg:MyPopupRenderMarkdownH3Bg,RenderMarkdownH4Bg:MyPopupRenderMarkdownH4Bg,RenderMarkdownH5Bg:MyPopupRenderMarkdownH5Bg,RenderMarkdownH6Bg:MyPopupRenderMarkdownH6Bg", { win = win_id })
+      -- vim.api.nvim_set_option_value("winhl", "RenderMarkdownCode:MyPopupCode,Normal:MyPopupNormal", { win = win_id })
+    end
+  end
+})
+vim.cmd("highlight MyPopupCode guibg=#205070")
+vim.cmd("highlight MyPopupNormal guibg=#106060")
+vim.cmd("highlight MyPopupLineNr guibg=#106060")
+vim.cmd("highlight MyPopupWordUnderCursor guibg=#406060")
+vim.cmd("highlight MyPopupRenderMarkdownH1Bg guibg=#103030")
+vim.cmd("highlight MyPopupRenderMarkdownH2Bg guibg=#307050")
+vim.cmd("highlight MyPopupRenderMarkdownH3Bg guibg=#305070")
+vim.cmd("highlight MyPopupRenderMarkdownH4Bg guibg=#305070")
+vim.cmd("highlight MyPopupRenderMarkdownH5Bg guibg=#305070")
+vim.cmd("highlight MyPopupRenderMarkdownH6Bg guibg=#305070")
+
