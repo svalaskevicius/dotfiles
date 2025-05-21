@@ -73,7 +73,6 @@ exec swayidle -w \
 input type:keyboard {
     xkb_layout "gb"
     # xkb_variant "colemak,,typewriter"
-    # xkb_variant "colemak,,typewriter"
     # xkb_options "grp:win_space_toggle"
 }
 
