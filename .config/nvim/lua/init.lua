@@ -1921,6 +1921,12 @@ vim.api.nvim_create_autocmd( 'LspTokenUpdate', {
 
 
 require("codecompanion").setup({
+  opts = {
+    log_level = "TRACE", -- TRACE|DEBUG|ERROR|INFO
+    system_prompt = function(opts)
+      return [[/nothink Be brief and succinct. Minimize prose. Use Markdown formatting in your answers. Include the programming language name at the start of the Markdown code blocks. Avoid including line numbers in code blocks. Use actual line breaks instead of '\n' in your response to begin new lines. Use '\n' only when you want a literal backslash followed by a character 'n'.]]
+    end,
+  },
   adapters = {
     qwq = function()
       return require("codecompanion.adapters").extend("ollama", {
