@@ -852,7 +852,7 @@ require('illuminate').configure({
 -- VARIABLES ---------------------
 ----------------------------------
 -- nvim-metals
-g['metals_server_version'] = '1.5.2'
+g['metals_server_version'] = '1.6.0'
 
 ----------------------------------
 -- OPTIONS -----------------------
@@ -1739,7 +1739,7 @@ require 'ltex-ls'.setup {
   use_spellfile = false,    -- Uses the value of 'spellfile' as an external file when checking the document
   window_border = 'single', -- How the border should be rendered
   -- on_attach = on_attach,
-  cmd = { "ltex-ls" },
+  cmd = { "sh", "-c", "JAVA_OPTS=-Djdk.xml.totalEntitySizeLimit=1000000 ltex-ls" },
   filetypes = { "markdown", "text", "latex", "tex", "bib", "gitcommit" },
   flags = { debounce_text_changes = 300 },
   settings = {
