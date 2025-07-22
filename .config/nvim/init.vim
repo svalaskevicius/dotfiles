@@ -150,6 +150,9 @@ hi VertSplit gui=none guifg=#404040 guibg=none
 " let s:baleia = luaeval("require('baleia').setup { }")
 " command! BaleiaColorize call s:baleia.once(bufnr('%'))
 "
+hi Function cterm=none ctermfg=142 gui=none guifg=#b8bb26
+hi Structure cterm=bold ctermfg=107 gui=bold guifg=#8ec07c
+hi link @lsp.type.namespace.scala Identifier
 
 set shortmess=ltToOCFaWIcFqA
 
