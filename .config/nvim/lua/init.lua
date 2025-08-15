@@ -715,7 +715,8 @@ require('lazy').setup({
       --   If not available, we use `mini` as the fallback
       "rcarriga/nvim-notify",
     }
-  }
+  },
+  "github/copilot.vim"
 })
 
 -- require('leap').set_default_keymaps()
@@ -1006,20 +1007,20 @@ cmp.setup({
     -- snippets you need to remove this select
     -- ["<CR>"] = cmp.mapping.confirm({ select = true }),
     -- I use tabs... some say you should stick to ins-completion
-    ["<Tab>"] = function(fallback)
-      if cmp.visible() then
-        cmp.select_next_item()
-      else
-        fallback()
-      end
-    end,
-    ["<S-Tab>"] = function(fallback)
-      if cmp.visible() then
-        cmp.select_prev_item()
-      else
-        fallback()
-      end
-    end,
+    -- ["<Tab>"] = function(fallback)
+    --   if cmp.visible() then
+    --     cmp.select_next_item()
+    --   else
+    --     fallback()
+    --   end
+    -- end,
+    -- ["<S-Tab>"] = function(fallback)
+    --   if cmp.visible() then
+    --     cmp.select_prev_item()
+    --   else
+    --     fallback()
+    --   end
+    -- end,
     ['<C-n>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
     ['<C-p>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
     ['<Down>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
@@ -1947,7 +1948,7 @@ vim.api.nvim_create_autocmd('LspTokenUpdate', {
 
 require("codecompanion").setup({
   opts = {
-    log_level = "TRACE", -- TRACE|DEBUG|ERROR|INFO
+    log_level = "INFO", -- TRACE|DEBUG|ERROR|INFO
     system_prompt = function(opts)
       return
       [[/nothink Be brief and succinct. Minimize prose. Use Markdown formatting in your answers. Include the programming language name at the start of the Markdown code blocks. Avoid including line numbers in code blocks. Use actual line breaks instead of '\n' in your response to begin new lines. Use '\n' only when you want a literal backslash followed by a character 'n'.]]
@@ -1961,11 +1962,12 @@ require("codecompanion").setup({
           model = {
             -- default = "qwen3:30b",
             -- default = "qwen3:14b",
-            default = "qwen3:32b",
+            -- default = "qwen3:32b",
+            default = "hf.co/unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF:UD-Q4_K_XL",
             -- default = "qwen2.5-coder:32b",
           },
           num_ctx = {
-            default = 40960,
+            default = 10240,
             -- default = 8192,
           },
           num_predict = {
@@ -1977,13 +1979,18 @@ require("codecompanion").setup({
   },
   strategies = {
     chat = {
-      adapter = "qwen",
+      adapter = "copilot",
+      -- adapter = "qwen",
     },
+    -- inline = {
+    --   adapter = "qwen",
+    -- },
     inline = {
-      adapter = "qwen",
+      adapter = "copilot",
     },
     agent = {
-      adapter = "qwen",
+      -- adapter = "qwen",
+      adapter = "copilot",
     },
   },
 })
