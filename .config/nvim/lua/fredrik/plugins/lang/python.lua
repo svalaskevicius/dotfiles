@@ -59,10 +59,10 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
     vim.opt_local.tabstop = 4
     vim.opt_local.softtabstop = 4
     vim.opt_local.shiftwidth = 4
-    vim.opt_local.colorcolumn = "88"
+    -- vim.opt_local.colorcolumn = "88"
     vim.opt_local.expandtab = true
 
-    vim.opt_local.colorcolumn = "120"
+    -- vim.opt_local.colorcolumn = "120"
   end,
 })
 
@@ -116,9 +116,10 @@ return {
           -- ref: https://github.com/neovim/nvim-lspconfig/blob/master/lua/lspconfig/configs/ruff.lua
           cmd = { "ruff", "server" },
           filetypes = { "python" },
-          root_dir = (function()
-            return vim.fs.root(0, root_files)
-          end)(),
+          root_markers = root_files,
+          -- root_dir = (function()
+          --   return vim.fs.root(0, root_files)
+          -- end)(),
           on_attach = function(client, bufnr)
             if client.name == "ruff" then
               -- Disable hover in favor of Pyright
@@ -177,60 +178,60 @@ return {
     },
   },
 
-  {
-    "nvim-neotest/neotest",
-    lazy = true,
-    ft = { "python" },
-    dependencies = {
-      "nvim-neotest/neotest-python",
-    },
-    opts = function(_, opts)
-      opts.adapters = opts.adapters or {}
-      opts.adapters["neotest-python"] = {
-        runner = "pytest",
-        -- TODO: write coverage...
-        args = { "--log-level", "INFO", "--color", "yes", "-vv", "-s" },
-        dap = { justMyCode = false },
-      }
-    end,
-  },
+  -- {
+  --   "nvim-neotest/neotest",
+  --   lazy = true,
+  --   ft = { "python" },
+  --   dependencies = {
+  --     "nvim-neotest/neotest-python",
+  --   },
+  --   opts = function(_, opts)
+  --     opts.adapters = opts.adapters or {}
+  --     opts.adapters["neotest-python"] = {
+  --       runner = "pytest",
+  --       -- TODO: write coverage...
+  --       args = { "--log-level", "INFO", "--color", "yes", "-vv", "-s" },
+  --       dap = { justMyCode = false },
+  --     }
+  --   end,
+  -- },
 
-  {
-    "andythigpen/nvim-coverage",
-    lazy = true,
-    ft = { "python" },
-    dependencies = { "nvim-lua/plenary.nvim" },
-    opts = {
-      auto_reload = true,
-      lang = {
-        python = {
-          coverage_file = vim.fn.getcwd() .. "/coverage.out",
-        },
-      },
-    },
-  },
+  -- {
+  --   "andythigpen/nvim-coverage",
+  --   lazy = true,
+  --   ft = { "python" },
+  --   dependencies = { "nvim-lua/plenary.nvim" },
+  --   opts = {
+  --     auto_reload = true,
+  --     lang = {
+  --       python = {
+  --         coverage_file = vim.fn.getcwd() .. "/coverage.out",
+  --       },
+  --     },
+  --   },
+  -- },
 
-  {
-    "mfussenegger/nvim-dap",
-    lazy = true,
-    ft = { "python" },
-    dependencies = {
-      {
-        "jay-babu/mason-nvim-dap.nvim",
-        dependencies = {
-          "mason-org/mason.nvim",
-        },
-        opts = function(_, opts)
-          opts.ensure_installed = opts.ensure_installed or {}
-          vim.list_extend(opts.ensure_installed, { "debugpy" })
-        end,
-      },
-      {
-        "mfussenegger/nvim-dap-python",
-        config = function(_, opts)
-          require("dap-python").setup("uv", opts)
-        end,
-      },
-    },
-  },
+  -- {
+  --   "mfussenegger/nvim-dap",
+  --   lazy = true,
+  --   ft = { "python" },
+  --   dependencies = {
+  --     {
+  --       "jay-babu/mason-nvim-dap.nvim",
+  --       dependencies = {
+  --         "mason-org/mason.nvim",
+  --       },
+  --       opts = function(_, opts)
+  --         opts.ensure_installed = opts.ensure_installed or {}
+  --         vim.list_extend(opts.ensure_installed, { "debugpy" })
+  --       end,
+  --     },
+  --     {
+  --       "mfussenegger/nvim-dap-python",
+  --       config = function(_, opts)
+  --         require("dap-python").setup("uv", opts)
+  --       end,
+  --     },
+  --   },
+  -- },
 }

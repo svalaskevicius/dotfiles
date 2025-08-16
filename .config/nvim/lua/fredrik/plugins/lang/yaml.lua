@@ -6,7 +6,7 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.opt_local.shiftwidth = 2
     vim.opt_local.expandtab = true
 
-    vim.opt_local.colorcolumn = "120" -- NOTE: also see yamllint config
+    -- vim.opt_local.colorcolumn = "120" -- NOTE: also see yamllint config
   end,
 })
 
@@ -78,8 +78,8 @@ return {
       linters = {
         yamllint = {
           args = {
-            "--config-file",
-            require("fredrik.utils.environ").getenv("DOTFILES") .. "/extras/templates/.yamllint.yml",
+            -- "--config-file",
+            -- require("fredrik.utils.environ").getenv("DOTFILES") .. "/extras/templates/.yamllint.yml",
             "--format",
             "parsable",
             "-",

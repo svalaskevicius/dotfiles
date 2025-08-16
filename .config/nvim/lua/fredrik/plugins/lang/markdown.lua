@@ -55,8 +55,8 @@ return {
       linters = {
         markdownlint = {
           args = {
-            "--config",
-            require("fredrik.utils.environ").getenv("DOTFILES") .. "/extras/templates/.markdownlint.json",
+            -- "--config",
+            -- require("fredrik.utils.environ").getenv("DOTFILES") .. "/extras/templates/.markdownlint.json",
             "--stdin",
           },
         },
@@ -68,9 +68,9 @@ return {
     "iamcco/markdown-preview.nvim",
     lazy = true,
     ft = { "markdown" },
-    build = function()
-      vim.fn["mkdp#util#install"]()
-    end,
+    -- build = function()
+    --   vim.fn["mkdp#util#install"]()
+    -- end,
     cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
   },
 
@@ -97,13 +97,13 @@ return {
           "sources.default",
         },
       },
-      {
-        -- "epwalsh/obsidian.nvim",
-        "obsidian-nvim/obsidian.nvim",
-        opts = {
-          ui = { enable = false },
-        },
-      },
+      -- {
+      --   -- "epwalsh/obsidian.nvim",
+      --   "obsidian-nvim/obsidian.nvim",
+      --   opts = {
+      --     ui = { enable = false },
+      --   },
+      -- },
     },
     ---@module 'render-markdown'
     ---@type render.md.UserConfig

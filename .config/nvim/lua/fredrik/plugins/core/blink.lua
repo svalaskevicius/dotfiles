@@ -64,12 +64,12 @@ return {
               return not vim.tbl_contains({ "AvanteInput", "codecompanion" }, vim.bo.filetype)
             end,
           },
-          snippets = {
-            opts = {
-              friendly_snippets = true,
-              search_paths = { require("fredrik.utils.environ").getenv("DOTFILES") .. "/nvim-fredrik/snippets" },
-            },
-          },
+          -- snippets = {
+          --   opts = {
+          --     friendly_snippets = true,
+          --     search_paths = { require("fredrik.utils.environ").getenv("DOTFILES") .. "/nvim-fredrik/snippets" },
+          --   },
+          -- },
         },
       },
     },

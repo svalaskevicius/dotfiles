@@ -25,13 +25,13 @@ return {
       styles = {
         notification_history = {
           relative = "editor",
-          width = 0.9,
-          height = 0.9,
+          width = 0.98,
+          height = 0.98,
         },
       },
 
       dashboard = {
-        enabled = true,
+        enabled = false,
         preset = {
           keys = {
             { icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
@@ -52,7 +52,7 @@ return {
           style = "out",
           easing = "linear",
           duration = {
-            step = 20, -- ms per step
+            step = 20,   -- ms per step
             total = 500, -- maximum duration
           },
         },
@@ -83,12 +83,13 @@ return {
         actions = require("trouble.sources.snacks").actions,
         sources = {
           files = {
-            hidden = true, -- NOTE: toggle with alt+h
+            hidden = true,   -- NOTE: toggle with alt+h
             ignored = false, -- NOTE: toggle with alt+h
           },
         },
         win = {
           input = {
+            border = "none",
             keys = {
               ["<c-t>"] = {
                 "trouble_open",
@@ -97,17 +98,51 @@ return {
             },
           },
         },
+        layouts = {
+          default = {
+            layout = {
+              box = "horizontal",
+              width = 0.9,
+              min_width = 120,
+              height = 0.9,
+              {
+                box = "vertical",
+                border = "none",
+                title = "{title} {live} {flags}",
+                { win = "input", height = 1,     border = "bottom" },
+                { win = "list",  border = "none" },
+              },
+              { win = "preview", title = "{preview}", border = "left", width = 0.5 },
+            },
+          },
+          vertical = {
+            layout = {
+              backdrop = false,
+              -- width = 0.99,
+              min_width = 80,
+              -- height = 1,
+              min_height = 30,
+              box = "vertical",
+              border = "none",
+              title = "{title} {live} {flags}",
+              title_pos = "center",
+              { win = "input",   height = 1,          border = "bottom" },
+              { win = "list",    border = "none" },
+              { win = "preview", title = "{preview}", height = 0.4,     border = "top" },
+            },
+          }
+        },
       },
 
       explorer = {
-        enabled = true,
+        enabled = false,
       },
 
       quickfile = { enabled = true },
 
       statuscolumn = { enabled = true },
 
-      terminal = { enabled = true },
+      terminal = { enabled = false },
 
       zen = {
         enabled = true,
@@ -133,16 +168,56 @@ return {
       ---@type table[table]
       local snacks_keymaps = require("fredrik.config.keymaps").setup_snacks_keymaps()
       ---@type table[table]
-      local terminal_keymaps = require("fredrik.config.keymaps").setup_terminal_keymaps()
+      -- local terminal_keymaps = require("fredrik.config.keymaps").setup_terminal_keymaps()
 
       local merged_keymaps = {}
       for _, keymap in ipairs(snacks_keymaps) do
         table.insert(merged_keymaps, keymap)
       end
-      for _, keymap in ipairs(terminal_keymaps) do
-        table.insert(merged_keymaps, keymap)
-      end
+      -- for _, keymap in ipairs(terminal_keymaps) do
+      --   table.insert(merged_keymaps, keymap)
+      -- end
       return merged_keymaps
+    end,
+    config = function(_, opts)
+      local s = require("snacks")
+      s.setup(opts)
+      s.picker.highlight.winhl = function(prefix)
+        links = links or {}
+        local winhl = {
+          -- Normal = "",
+          NormalFloat = "",
+          FloatBorder = "Border",
+          FloatTitle = "Title",
+          FloatFooter = "Footer",
+          FloatCursorLine = "CursorLine",
+        }
+        local ret = {} ---@type string[]
+        local groups = {} ---@type table<string, string>
+        for k, v in pairs(winhl) do
+          groups[v] = links[k] or (prefix == "SnacksPicker" and k or ("SnacksPicker" .. v))
+          ret[#ret + 1] = ("%s:%s%s"):format(k, prefix, v)
+        end
+        s.util.set_hl(groups, { prefix = prefix, default = true })
+        return table.concat(ret, ",")
+      end
+      -- ("SnacksPicker"),
+
+      -- local hl = vim.api.nvim_set_hl
+      --
+      -- -- Backgrounds
+      -- hl(0, "SnacksPicker", { bg = "#1e1e2e" })
+      -- hl(0, "SnacksNormal", { bg = "#1e1e2e" })
+      -- hl(0, "SnacksNormalNC", { bg = "#181825" })
+      -- hl(0, "SnacksWinBar", { bg = "#313244", fg = "#c0caf5" })
+      -- hl(0, "SnacksBackdrop", { bg = "#000000", blend = 50 })
+      --
+      -- -- Borders → hide them by matching bg
+      -- hl(0, "SnacksBorder", { fg = "#1e1e2e", bg = "#1e1e2e" })
+      -- hl(0, "SnacksBorderNC", { fg = "#181825", bg = "#181825" })
+      --
+      -- -- Notifications (optional, also no borders)
+      -- hl(0, "SnacksNotifierBorder", { fg = "#1e1e2e", bg = "#1e1e2e" })
     end,
   },
 }

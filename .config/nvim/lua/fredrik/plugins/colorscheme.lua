@@ -10,80 +10,43 @@ local function set_light()
   -- vim.cmd.colorscheme("tokyonight-day")
 end
 
-local function tmux_is_running()
-  local processes = vim.fn.systemlist("ps -e | grep tmux")
-  local found = false
-  for _, process in ipairs(processes) do
-    if string.find(process, "grep") then
-      -- do nothing, just skip
-    elseif string.find(process, "tmux") then
-      found = true
-    end
-  end
-  return found
-end
-
-local function set_tmux(style)
-  if not tmux_is_running() then
-    return
-  end
-
-  local tmux_theme = ""
-  if style == "dark" then
-    tmux_theme = vim.fn.expand("~/.local/share/fredrik/lazy/tokyonight.nvim/extras/tmux/tokyonight_moon.tmux")
-  elseif style == "light" then
-    tmux_theme = vim.fn.expand("~/.local/share/fredrik/lazy/nightfox.nvim/extra/dayfox/dayfox.tmux")
-  end
-
-  if vim.fn.filereadable(tmux_theme) == 1 then
-    os.execute("tmux source-file " .. tmux_theme)
-  end
-end
-
 return {
   -- color scheme managers
+  'vim-scripts/CycleColor',
+  { 
+    'RRethy/vim-illuminate',
+  },
+  'rafi/awesome-vim-colorschemes',
   {
-    "f-person/auto-dark-mode.nvim",
-    lazy = false, -- NOTE: use afonsofrancof/OSC11.nvim instead
+    'rebelot/kanagawa.nvim',
     enabled = false,
-    priority = 1000,
-    dependencies = {},
-    init = function()
-      set_dark() -- avoid flickering when starting nvim, default to dark mode
+    config = function(_, opts)
+      require("kanagawa").setup({
+        compile = true, -- enable terminal_color_piling the colorscheme
+        undercurl = true, -- enable undercurls
+        commentStyle = { italic = true },
+        functionStyle = {},
+        keywordStyle = { italic = true },
+        statementStyle = { bold = true },
+        typeStyle = {},
+        transparent = false, -- do not set background color
+        dimInactive = false, -- dim inactive window `:h hl-NormalNC`
+        terminalColors = true, -- define vim.g.terminal_color_{0,17}
+        colors = {         -- add/modify theme and palette colors
+          palette = {},
+          theme = { wave = {}, lotus = {}, dragon = {}, all = {} },
+        },
+        overrides = function(colors) -- add/modify highlights
+          return {}
+        end,
+        theme = "dragon", -- Load "wave" theme when 'background' option is not set
+        background = { -- map the value of 'background' option to a theme
+          dark = "dragon", -- try "dragon" !
+          light = "lotus"
+        },
+      })
     end,
-    opts = {
-      update_interval = 3000, -- milliseconds
-      set_dark_mode = function()
-        set_dark()
-        set_tmux("dark")
-      end,
-      set_light_mode = function()
-        set_light()
-        set_tmux("light")
-      end,
-    },
   },
-  {
-    "afonsofrancof/OSC11.nvim",
-    init = function()
-      set_dark() -- avoid flickering when starting nvim, default to dark mode
-    end,
-    opts = {
-      -- Function to call when switching to dark theme
-      on_dark = function()
-        set_dark()
-        set_tmux("dark")
-      end,
-      -- Function to call when switching to light theme
-      on_light = function()
-        set_light()
-        set_tmux("light")
-      end,
-    },
-  },
-
-  -- color schemes
-
   {
     "uga-rosa/ccc.nvim",
     enabled = false, -- NOTE: enable when needed
@@ -100,7 +63,7 @@ return {
   },
   {
     "folke/tokyonight.nvim",
-    enabled = true,
+    enabled = false,
     lazy = true,
     ---@class tokyonight.Config
     opts = {
@@ -115,7 +78,7 @@ return {
   },
   {
     "EdenEast/nightfox.nvim",
-    enabled = true,
+    enabled = false,
     lazy = true,
     opts = {
       options = {

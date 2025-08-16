@@ -34,7 +34,8 @@ local vertex_fn = function()
     -- OpenAI-compatible API: https://cloud.google.com/vertex-ai/generative-ai/docs/migrate/openai/overview
     --
     -- regional url
-    url = "https://${location}-aiplatform.googleapis.com/v1/projects/${project_id}/locations/${location}/endpoints/openapi/chat/completions",
+    url =
+    "https://${location}-aiplatform.googleapis.com/v1/projects/${project_id}/locations/${location}/endpoints/openapi/chat/completions",
     -- global url
     -- url = "https://aiplatform.googleapis.com/v1/projects/${project_id}/locations/global/endpoints/openapi/chat/completions",
     env = {
@@ -66,15 +67,18 @@ end
 --- Ollama config for CodeCompanion.
 local ollama_fn = function()
   return require("codecompanion.adapters").extend("ollama", {
+    name = "qwen",
     schema = {
       model = {
-        default = "gemma3:1b",
-        -- default = "deepseek-r1:7b",
-        -- default = "llama3.1:7b",
-        -- default = "codellama:7b",
+        -- default = "qwen3:30b",
+        -- default = "qwen3:14b",
+        -- default = "qwen3:32b",
+        default = "hf.co/unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF:UD-Q4_K_XL",
+        -- default = "qwen2.5-coder:32b",
       },
       num_ctx = {
-        default = 16384,
+        default = 10240,
+        -- default = 8192,
       },
       num_predict = {
         default = -1,
@@ -84,12 +88,12 @@ local ollama_fn = function()
 end
 
 local supported_adapters = {
-  anthropic = anthropic_fn,
-  openai = openai_fn,
-  gemini = gemini_fn,
-  deepseek = deepseek_fn,
+  -- anthropic = anthropic_fn,
+  -- openai = openai_fn,
+  -- gemini = gemini_fn,
+  -- deepseek = deepseek_fn,
   ollama = ollama_fn,
-  vertex = vertex_fn,
+  -- vertex = vertex_fn,
 }
 
 return {
@@ -131,27 +135,27 @@ return {
     },
     opts = {
 
-      opts = {
-        send_code = function()
-          if vim.fn.filereadable(".llm_ok") == 1 then
-            -- override by adding a .llm_ok file in the project root
-            return true
-          end
-
-          if os.getenv("GOOGLE_CLOUD_PROJECT") then
-            -- this is not perfect, as it technically does not prevent sending code to any specific provider
-            return true
-          end
-
-          return require("fredrik.utils.private").is_code_public()
-        end,
-      },
+      -- opts = {
+      --   send_code = function()
+      --     if vim.fn.filereadable(".llm_ok") == 1 then
+      --       -- override by adding a .llm_ok file in the project root
+      --       return true
+      --     end
+      --
+      --     if os.getenv("GOOGLE_CLOUD_PROJECT") then
+      --       -- this is not perfect, as it technically does not prevent sending code to any specific provider
+      --       return true
+      --     end
+      --
+      --     return require("fredrik.utils.private").is_code_public()
+      --   end,
+      -- },
 
       adapters = supported_adapters,
 
       strategies = {
         chat = {
-          adapter = "anthropic",
+          adapter = "ollama",
           slash_commands = {
             buffer = { opts = { provider = "snacks" } },
             file = { opts = { provider = "snacks" } },
@@ -160,10 +164,13 @@ return {
           },
         },
         inline = {
-          adapter = "anthropic",
+          adapter = "ollama",
         },
         cmd = {
-          adapter = "anthropic",
+          adapter = "ollama",
+        },
+        agent = {
+          adapter = "ollama",
         },
       },
 

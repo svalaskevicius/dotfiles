@@ -1,5 +1,9 @@
 M = {}
 
+vim.opt.shell = "fish"
+vim.opt.compatible = false -- disable compatibility with old vim versions
+vim.opt.modeline = false
+
 -- leader key
 vim.g.mapleader = " "
 vim.g.maplocalleader = ","
@@ -28,13 +32,14 @@ vim.opt.fillchars = {
 
 -- line numbers
 vim.opt.number = true
-vim.opt.relativenumber = false
+vim.opt.relativenumber = true
 
 -- set tab and indents defaults (can be overridden by per-language configs)
-vim.opt.tabstop = 4 -- display tabs as 4 spaces
-vim.opt.softtabstop = 4 -- insert 4 spaces when tab is pressed
-vim.opt.shiftwidth = 4 -- indent << or >> by 4 spaces
-vim.opt.expandtab = false -- expand tab into spaces
+vim.opt.tabstop = 4      -- display tabs as 4 spaces
+vim.opt.softtabstop = 4  -- insert 4 spaces when tab is pressed
+vim.opt.shiftwidth = 4   -- indent << or >> by 4 spaces
+vim.opt.expandtab = true -- expand tab into spaces
+vim.opt.smarttab = true
 
 -- NOTE: do not set a global ruler here, as it will show in undesirable places.
 -- Instead, set this in the per-language config files.
@@ -53,7 +58,7 @@ vim.opt.wrap = false
 vim.opt.linebreak = true -- Wrap lines at convenient points
 
 -- completion
-vim.opt.completeopt = "menuone,noselect"
+vim.opt.completeopt = "menuone,longest,fuzzy"
 
 -- 24-bit color
 vim.opt.termguicolors = true
@@ -61,11 +66,11 @@ vim.opt.termguicolors = true
 -- sign column
 vim.opt.signcolumn = "yes"
 
--- rounded corners on floating windows
-vim.opt.winborder = "rounded"
+-- borders on floating windows
+vim.opt.winborder = "shadow"
 
 -- cursor line highlight
-vim.opt.cursorline = false
+vim.opt.cursorline = true
 
 -- Enable cursor blinking in all modes
 --
@@ -89,16 +94,19 @@ function _G.custom_foldtext()
   local line_text = vim.fn.substitute(line, "\t", " ", "g")
   return string.format("%s (%d lines)", line_text, line_count)
 end
+
 function M.treesitter_foldexpr()
   vim.opt_local.foldmethod = "expr"
   vim.opt_local.foldexpr = "v:lua.vim.treesitter.foldexpr()"
   vim.opt_local.foldtext = "v:lua.custom_foldtext()"
 end
+
 function M.lsp_foldexpr()
   vim.opt_local.foldmethod = "expr"
   vim.opt_local.foldexpr = "v:lua.vim.lsp.foldexpr()"
   vim.opt_local.foldtext = "v:lua.custom_foldtext()"
 end
+
 vim.opt.foldcolumn = "0"
 vim.opt.foldenable = true
 vim.opt.foldlevel = 99
@@ -114,12 +122,14 @@ vim.opt.mouse = "a"
 vim.opt.mousescroll = { "ver:1", "hor:6" }
 
 -- project specific settings (see lazyrc.lua for .lazy.lua support)
-vim.opt.exrc = true -- allow local .nvim.lua .vimrc .exrc files
+vim.opt.exrc = true   -- allow local .nvim.lua .vimrc .exrc files
 vim.opt.secure = true -- disable shell and write commands in local .nvim.lua .vimrc .exrc files
 
 -- sync with system clipboard
 -- NOTE: https://github.com/neovim/neovim/issues/11804
 vim.opt.clipboard = "unnamedplus"
+
+vim.opt.history = 1000 -- keep 1000 lines of command history
 
 -- TODO: pick from https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
 vim.opt.listchars = "tab:▸ ,trail:·,nbsp:␣,extends:❯,precedes:❮" -- show symbols for whitespace
@@ -137,5 +147,33 @@ if vim.fn.getenv("TERM_PROGRAM") == "ghostty" then
   vim.opt.title = true
   vim.opt.titlestring = "%{fnamemodify(getcwd(), ':t')}"
 end
+
+vim.opt.wildignore = {
+  "*.swp",
+  "*.swo",
+  "*.bak",
+  "*.tmp",
+  "*.temp",
+  "*.zip",
+  "*.tar.gz",
+  "*.tar.bz2",
+  "*.tar.xz",
+  "node_modules/*",
+  ".git/*",
+  ".hg/*",
+  ".svn/*",
+}
+
+vim.opt.diffopt = {
+  "algorithm:patience", -- Use the patience diff algorithm
+  "filler", -- Fill the lines with filler text
+  "vertical", -- Show diff in vertical split
+  "iwhite", -- Ignore whitespace changes
+  "hiddenoff", -- Hide the diff when the buffer is hidden
+}
+
+vim.opt.shortmess = "ltToOCFaWIcFqA"
+
+vim.opt.synmaxcol = 1000 -- Limit syntax highlighting to 1000 lines
 
 return M

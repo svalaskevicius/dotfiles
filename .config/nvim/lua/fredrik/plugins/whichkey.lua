@@ -8,7 +8,7 @@ return {
       "echasnovski/mini.icons",
     },
     opts = {
-      preset = "helix",
+      -- preset = "helix",
     },
     config = function(_, opts)
       vim.o.timeout = true

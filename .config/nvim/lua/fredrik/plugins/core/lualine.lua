@@ -8,7 +8,7 @@ return {
   "nvim-lualine/lualine.nvim",
   event = "VeryLazy",
   dependencies = {
-    "zbirenbaum/copilot.lua",
+    -- "zbirenbaum/copilot.lua",
   },
   opts = {
 
@@ -70,11 +70,11 @@ return {
   },
   config = function(_, opts)
     -- TODO: make more generic insertion function which can insert anywhere.
-    if opts.copilot then
-      table.insert(opts.sections.lualine_x, 1, opts.copilot.lualine_component)
-    else
-      vim.notify("Lualine: copilot component not loaded", vim.log.levels.WARN)
-    end
+    -- if opts.copilot then
+    --   table.insert(opts.sections.lualine_x, 1, opts.copilot.lualine_component)
+    -- else
+    --   vim.notify("Lualine: copilot component not loaded", vim.log.levels.WARN)
+    -- end
 
     if opts.dap_status then
       table.insert(opts.sections.lualine_x, 2, opts.dap_status.lualine_component)
@@ -91,7 +91,7 @@ return {
     if opts.mcphub then
       table.insert(opts.sections.lualine_x, 4, opts.mcphub.lualine_component)
     else
-      vim.notify("Lualine: mcphub component not loaded", vim.log.levels.WARN)
+      -- vim.notify("Lualine: mcphub component not loaded", vim.log.levels.DEBUG)
     end
 
     require("lualine").setup(opts)
