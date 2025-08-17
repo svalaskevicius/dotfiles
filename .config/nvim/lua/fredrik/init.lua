@@ -113,10 +113,10 @@ vim.cmd("highlight MyPopupRenderMarkdownH6Bg guibg=#305070")
 
 local set_hl = vim.api.nvim_set_hl
 set_hl(0, 'Normal', { bg = '#151515' })
-set_hl(0, 'NormalFloat', { bg = '#052020' })
-set_hl(0, 'FloatBorder', { bg = '#052020' })
-set_hl(0, 'FloatTitle', { bg = '#052020' })
-set_hl(0, 'FloatFooter', { bg = '#052020' })
+set_hl(0, 'NormalFloat', { bg = '#052a30' })
+set_hl(0, 'FloatBorder', { bg = '#052a30' })
+set_hl(0, 'FloatTitle', { bg = '#052a30' })
+set_hl(0, 'FloatFooter', { bg = '#052a30' })
 set_hl(0, 'FloatCursorLine', { bg = '#204040' })
 -- set_hl(0, 'Pmenu', { bg = '#1b2222' })
 -- set_hl(0, 'PmenuSel', { bg = '#7b8552' })
@@ -169,4 +169,116 @@ vim.cmd("highlight MyPopupRenderMarkdownH3Bg guibg=#305070")
 vim.cmd("highlight MyPopupRenderMarkdownH4Bg guibg=#305070")
 vim.cmd("highlight MyPopupRenderMarkdownH5Bg guibg=#305070")
 vim.cmd("highlight MyPopupRenderMarkdownH6Bg guibg=#305070")
+
+-- Define command :HiPick
+vim.api.nvim_create_user_command("HiPick", function()
+  print("Click somewhere to inspect highlight…")
+
+  -- temporary key listener
+  local listener
+  listener = vim.on_key(function(key)
+    -- left mouse click is "<LeftMouse>"
+    if key == vim.keycode("<LeftMouse>") then
+      local m = vim.fn.getmousepos()
+      print(vim.inspect(m))
+      local synid = vim.fn.synIDtrans(vim.fn.screenattr(m.screenrow, m.screencol))
+      local group = vim.fn.synIDattr(synid, "name")
+
+      if group ~= "" then
+        vim.cmd("highlight " .. group)
+      else
+        print("No highlight at clicked position")
+      end
+
+      -- unregister listener
+      vim.on_key(nil, listener)
+    end
+  end, vim.api.nvim_get_current_buf())
+end, { desc = "Click to inspect highlight group" })
+
+
+
+--vim.api.nvim_create_user_command("FloatsList", function()
+  --local floats = {}
+  --for _, win in ipairs(vim.api.nvim_list_wins()) do
+    --local cfg = vim.api.nvim_win_get_config(win)
+    --if cfg.relative ~= "" then
+      --table.insert(floats, {
+        --win = win,
+        --buf = vim.api.nvim_win_get_buf(win),
+        --config = cfg,
+      --})
+    --end
+  --end
+  --if vim.tbl_isempty(floats) then
+    --print("No floating windows found")
+  --else
+    --print(vim.inspect(floats))
+  --end
+--end, { desc = "List current floating windows" })
+
+
+
+vim.api.nvim_create_user_command("FloatsList", function()
+  local floats = {}
+  for _, win in ipairs(vim.api.nvim_list_wins()) do
+    local cfg = vim.api.nvim_win_get_config(win)
+    if cfg.relative ~= "" then
+      local buf = vim.api.nvim_win_get_buf(win)
+      local name = vim.api.nvim_buf_get_name(buf)
+      local ft = vim.bo[buf].filetype
+      local bt = vim.bo[buf].buftype
+      local lines = vim.api.nvim_buf_get_lines(buf, 0, 3, false) -- preview first 3 lines
+
+      table.insert(floats, {
+        win = win,
+        buf = buf,
+        name = name ~= "" and name or "[No Name]",
+        filetype = ft,
+        buftype = bt,
+        focusable = cfg.focusable,
+        zindex = cfg.zindex,
+        relative = cfg.relative,
+        row = cfg.row,
+        col = cfg.col,
+        width = cfg.width,
+        height = cfg.height,
+        border = cfg.border,
+        preview = table.concat(lines, " "),
+      })
+    end
+  end
+
+  -- open scratch buffer
+  vim.cmd("botright new")
+  local out_buf = vim.api.nvim_get_current_buf()
+  vim.bo[out_buf].buftype = "nofile"
+  vim.bo[out_buf].bufhidden = "wipe"
+  vim.bo[out_buf].swapfile = false
+  vim.bo[out_buf].modifiable = true
+
+  if vim.tbl_isempty(floats) then
+    vim.api.nvim_buf_set_lines(out_buf, 0, -1, false, { "No floating windows found" })
+  else
+    local lines = {}
+    for _, f in ipairs(floats) do
+      table.insert(lines, string.rep("=", 50))
+      table.insert(lines, ("Win: %d | Buf: %d"):format(f.win, f.buf))
+      table.insert(lines, ("Name: %s"):format(f.name))
+      table.insert(lines, ("Filetype: %s | Buftype: %s"):format(f.filetype, f.buftype))
+      table.insert(lines, ("Focusable: %s | Zindex: %s"):format(tostring(f.focusable), tostring(f.zindex)))
+      table.insert(lines, ("Pos: row=%s col=%s | size=%dx%d"):format(f.row, f.col, f.width, f.height))
+      table.insert(lines, ("Border: %s"):format(vim.inspect(f.border)))
+      table.insert(lines, ("Preview: %s"):format(f.preview))
+    end
+    vim.api.nvim_buf_set_lines(out_buf, 0, -1, false, lines)
+  end
+
+  vim.bo[out_buf].modifiable = false
+end, { desc = "List current floating windows in scratch buffer" })
+
+vim.cmd("hi TreesitterContext guibg=#052010")
+vim.cmd("hi TreesitterContextLineNumber guibg=#051010")
+vim.cmd("hi TreesitterContextBottom gui=underline guisp=#205040")
+vim.cmd("hi TreesitterContextLineNumberBottom gui=underline guisp=#205040")
 

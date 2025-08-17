@@ -20,7 +20,7 @@ return {
       })
 
       -- set initial state to auto-format
-      vim.g.auto_format = true
+      vim.g.auto_format = false
 
       require("conform").setup(opts)
       require("fredrik.config.keymaps").setup_conform_keymaps()

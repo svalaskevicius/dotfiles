@@ -1110,6 +1110,7 @@ end
 
 function M.setup_conform_keymaps()
 	map_normal_mode("<leader>uf", require("fredrik.utils.toggle").toggle_formatting, "Toggle auto-formatting")
+	map_normal_mode("<leader>f", vim.lsp.buf.format, "Format buffer")
 end
 
 function M.setup_lsp_keymaps()
@@ -1292,6 +1293,14 @@ function M.setup_codecompanion_keymaps()
 		{
 			"<C-c>",
 			"<cmd>CodeCompanionActions<cr>",
+			mode = { "n", "v" },
+			noremap = true,
+			silent = true,
+			desc = "CodeCompanion actions",
+		},
+		{
+			"<C-c>c",
+			"<cmd>CodeCompanionChat<cr>",
 			mode = { "n", "v" },
 			noremap = true,
 			silent = true,

@@ -95,6 +95,10 @@ return {
                 "trouble_open",
                 mode = { "n", "i" },
               },
+              ["<c-l>"] = {
+                "loclist",
+                mode = { "n", "i" },
+              },
             },
           },
         },

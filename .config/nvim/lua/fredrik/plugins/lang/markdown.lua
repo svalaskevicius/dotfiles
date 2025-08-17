@@ -122,4 +122,95 @@ return {
     },
     keys = require("fredrik.config.keymaps").setup_markdown_keymaps(),
   },
+
+  {
+    "virtual-lsp-config",
+    dependencies = {
+      {
+        "mason-org/mason-lspconfig.nvim",
+        dependencies = {
+          {
+            "mason-org/mason.nvim",
+          },
+        },
+        opts = function(_, opts)
+          opts.ensure_installed = opts.ensure_installed or {}
+          vim.list_extend(opts.ensure_installed, { "ltex_plus" })
+        end,
+      },
+      { "barreiroleo/ltex-extra.nvim" },
+    },
+    ft = { "markdown", "tex", "latex", "bib", "gitcommit" },
+    opts = {
+      servers = {
+        ---@type vim.lsp.Config
+        ltex_plus = {
+          cmd = { "ltex-ls-plus" },
+          filetypes = { "markdown", "tex", "latex", "bib", "gitcommit" },
+          root_markers = { ".git", ".ltex" },
+          on_attach = function(client, bufnr)
+            require("ltex_extra").setup {
+              -- table <string> : languages for witch dictionaries will be loaded, e.g. { "es-AR", "en-US" }
+              -- https://valentjn.github.io/ltex/supported-languages.html#natural-languages
+              load_langs = { "en-GB" }, -- en-US as default
+              -- boolean : whether to load dictionaries on startup
+              init_check = true,
+              -- string : relative or absolute path to store dictionaries
+              -- e.g. subfolder in the project root or the current working directory: ".ltex"
+              -- e.g. shared files for all projects:  vim.fn.expand("~") .. "/.local/share/ltex"
+              path = ".ltex", -- project root or current working directory
+              -- string : "none", "trace", "debug", "info", "warn", "error", "fatal"
+              log_level = "warn",
+            }
+          end,
+          settings = {
+            ltex = {
+              enabled = { "latex", "tex", "bib", "markdown", "gitcommit" },
+              language = "en-GB",
+              --configurationTarget = {
+              --dictionary = "workspaceFolderExternalFile",
+              --disabledRules = "workspaceFolder",
+              --hiddenFalsePositives = "workspaceFolder",
+              --},
+              disabledRules = {
+                ["en-GB"] = { "OXFORD_SPELLING_Z_NOT_S", "PASSIVE_VOICE" },
+              },
+              enableRules = {
+                ["en-GB"] = { "OXFORD_SPELLING_ISE_VERBS" },
+              },
+              -- dictionary = (function()
+              --   -- For dictionary, search for files in the runtime to have
+              --   -- and include them as externals the format for them is
+              --   -- dict/{LANG}.txt
+              --   --
+              --   -- Also add dict/default.txt to all of them
+              --   local files = {}
+              --   for _, file in ipairs(vim.api.nvim_get_runtime_file("dict/*", true)) do
+              --     local lang = vim.fn.fnamemodify(file, ":t:r")
+              --     local fullpath = vim.fs.normalize(file)
+              --     files[lang] = { ":" .. fullpath }
+              --   end
+              --
+              --   if files.default then
+              --     for lang, _ in pairs(files) do
+              --       if lang ~= "default" then
+              --         vim.list_extend(files[lang], files.default)
+              --       end
+              --     end
+              --     files.default = nil
+              --   end
+              --   if files["en-GB"] then
+              --     files["en-GB"]:insert(1, ":" .. vim.fn.getcwd() .. "/.ltex.dictionary.txt")
+              --   else
+              --     files["en-GB"] = { ":" .. vim.fn.getcwd() .. "/.ltex.dictionary.txt" }
+              --   end
+              --   -- print(vim.inspect(files))
+              --   return files
+              -- end)(),
+            },
+          },
+        },
+      },
+    },
+  },
 }

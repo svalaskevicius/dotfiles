@@ -128,6 +128,8 @@ return {
     },
     opts = {
       multiwindow = true,
+      max_lines = 7,
+      min_window_height = 50,
     },
   },
 }
