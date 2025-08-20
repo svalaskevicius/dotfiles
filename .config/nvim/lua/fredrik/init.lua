@@ -133,13 +133,14 @@ set_hl(0, 'VertSplit', { fg = '#404040', bg = 'NONE', bold = false })
 --   baleia.once(vim.api.nvim_get_current_buf())
 -- end, {})
 
-set_hl(0, 'Function', { cterm = {}, ctermfg = 142,  fg = '#b8bb26' })
-set_hl(0, 'Structure', { cterm = { bold = true }, ctermfg = 107,  fg = '#8ec07c' })
+set_hl(0, 'Function', { cterm = {}, ctermfg = 142, fg = '#b8bb26' })
+set_hl(0, 'Structure', { cterm = { bold = true }, ctermfg = 107, fg = '#8ec07c' })
 vim.api.nvim_set_hl(0, '@lsp.type.namespace.scala', { link = 'Identifier' })
 
 
 
 
+---------------------------------
 
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "markdown",
@@ -170,6 +171,7 @@ vim.cmd("highlight MyPopupRenderMarkdownH4Bg guibg=#305070")
 vim.cmd("highlight MyPopupRenderMarkdownH5Bg guibg=#305070")
 vim.cmd("highlight MyPopupRenderMarkdownH6Bg guibg=#305070")
 
+--------------------------------
 -- Define command :HiPick
 vim.api.nvim_create_user_command("HiPick", function()
   print("Click somewhere to inspect highlight…")
@@ -198,25 +200,7 @@ end, { desc = "Click to inspect highlight group" })
 
 
 
---vim.api.nvim_create_user_command("FloatsList", function()
-  --local floats = {}
-  --for _, win in ipairs(vim.api.nvim_list_wins()) do
-    --local cfg = vim.api.nvim_win_get_config(win)
-    --if cfg.relative ~= "" then
-      --table.insert(floats, {
-        --win = win,
-        --buf = vim.api.nvim_win_get_buf(win),
-        --config = cfg,
-      --})
-    --end
-  --end
-  --if vim.tbl_isempty(floats) then
-    --print("No floating windows found")
-  --else
-    --print(vim.inspect(floats))
-  --end
---end, { desc = "List current floating windows" })
-
+-----------------------
 
 
 vim.api.nvim_create_user_command("FloatsList", function()
@@ -281,4 +265,30 @@ vim.cmd("hi TreesitterContext guibg=#052010")
 vim.cmd("hi TreesitterContextLineNumber guibg=#051010")
 vim.cmd("hi TreesitterContextBottom gui=underline guisp=#205040")
 vim.cmd("hi TreesitterContextLineNumberBottom gui=underline guisp=#205040")
+
+
+
+
+
+
+
+
+------
+
+
+vim.keymap.set('n', '<leader>yop',
+  function()
+    local current_buffer = vim.api.nvim_get_current_buf()
+    vim.diagnostic.enable(not vim.diagnostic.is_enabled({ bufnr = current_buffer }), { bufnr = current_buffer })
+  end,
+  { noremap = true }
+)
+
+
+------
+
+vim.cmd("nnoremap <C-M-Left> <C-O>")
+vim.cmd("nnoremap <C-M-Right> <C-I>")
+vim.cmd("inoremap <C-M-Left> <ESC><C-O>a")
+vim.cmd("inoremap <C-M-Right> <ESC><C-I>a")
 
