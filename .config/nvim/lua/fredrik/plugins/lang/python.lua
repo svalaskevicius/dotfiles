@@ -1,44 +1,44 @@
---- Find the path to the binary in the python virtual environment.
---- First search active virtual environment, then .venv folder,
---- then mason and last give up.
----
---- NOTE: this function is likely redundant, as Mason is configured
---- to _append_ to PATH, leaving binaries from the .venv found first.
----
---- @param name string
---- @return string
-local function find_python_binary(name)
-  local binary_name = name
-  if vim.fn.has("win32") == 1 then
-    binary_name = name .. ".exe"
-  end
-
-  local bin_dir = vim.fn.has("win32") == 1 and "Scripts" or "bin"
-
-  local path
-  if vim.env.VIRTUAL_ENV ~= nil then
-    path = vim.fs.joinpath(vim.env.VIRTUAL_ENV, bin_dir, binary_name)
-  else
-    path = vim.fs.joinpath(vim.fn.getcwd(), ".venv", bin_dir, binary_name)
-  end
-
-  if vim.fn.executable(path) == 1 then
-    return path
-  end
-
-  local pkg = require("mason-registry").get_package(name)
-  if pkg ~= nil then
-    local cmd = pkg:get_install_path() .. "/bin/" .. name
-    if vim.fn.filereadable(cmd) == 1 then
-      vim.notify_once("Using from mason-registry: " .. vim.inspect(cmd), vim.log.levels.WARN)
-      return cmd
-    end
-  end
-
-  vim.notify_once("Could not find binary in .venv or mason-registry: " .. name, vim.log.levels.ERROR)
-
-  return name
-end
+-- --- Find the path to the binary in the python virtual environment.
+-- --- First search active virtual environment, then .venv folder,
+-- --- then mason and last give up.
+-- ---
+-- --- NOTE: this function is likely redundant, as Mason is configured
+-- --- to _append_ to PATH, leaving binaries from the .venv found first.
+-- ---
+-- --- @param name string
+-- --- @return string
+-- local function find_python_binary(name)
+--   local binary_name = name
+--   if vim.fn.has("win32") == 1 then
+--     binary_name = name .. ".exe"
+--   end
+-- 
+--   local bin_dir = vim.fn.has("win32") == 1 and "Scripts" or "bin"
+-- 
+--   local path
+--   if vim.env.VIRTUAL_ENV ~= nil then
+--     path = vim.fs.joinpath(vim.env.VIRTUAL_ENV, bin_dir, binary_name)
+--   else
+--     path = vim.fs.joinpath(vim.fn.getcwd(), ".venv", bin_dir, binary_name)
+--   end
+-- 
+--   if vim.fn.executable(path) == 1 then
+--     return path
+--   end
+-- 
+--   local pkg = require("mason-registry").get_package(name)
+--   if pkg ~= nil then
+--     local cmd = pkg:get_install_path() .. "/bin/" .. name
+--     if vim.fn.filereadable(cmd) == 1 then
+--       vim.notify_once("Using from mason-registry: " .. vim.inspect(cmd), vim.log.levels.WARN)
+--       return cmd
+--     end
+--   end
+-- 
+--   vim.notify_once("Could not find binary in .venv or mason-registry: " .. name, vim.log.levels.ERROR)
+-- 
+--   return name
+-- end
 
 local root_files = {
   "pyproject.toml",
@@ -82,12 +82,12 @@ return {
       opts.linters_by_ft = opts.linters_by_ft or {}
       opts.linters = opts.linters or {}
 
-      opts.linters_by_ft["python"] = { "mypy" }
-      opts.linters["mypy"] = {
-        cmd = function()
-          return find_python_binary("mypy")
-        end,
-      }
+      -- opts.linters_by_ft["python"] = { "mypy" }
+      -- opts.linters["mypy"] = {
+      --   cmd = function()
+      --     return find_python_binary("mypy")
+      --   end,
+      -- }
     end,
   },
 
@@ -103,7 +103,7 @@ return {
         },
         opts = function(_, opts)
           opts.ensure_installed = opts.ensure_installed or {}
-          vim.list_extend(opts.ensure_installed, { "basedpyright", "ruff" })
+          vim.list_extend(opts.ensure_installed, { "pylsp", "ruff" })
         end,
       },
     },
@@ -145,36 +145,10 @@ return {
             ruff = {},
           },
         },
-
-        ---@type vim.lsp.Config
-        basedpyright = {
-          -- lsp: https://github.com/DetachHead/basedpyright
-          --      https://docs.basedpyright.com/latest/configuration/language-server-settings/
-          -- ref: https://github.com/neovim/nvim-lspconfig/blob/master/lua/lspconfig/configs/basedpyright.lua
-          cmd = { "basedpyright-langserver", "--stdio" },
-          filetypes = { "python" },
-          root_markers = root_files,
-          log_level = vim.lsp.protocol.MessageType.Debug,
-          settings = {
-            python = {
-              venvPath = os.getenv("VIRTUAL_ENV"),
-              pythonPath = vim.fn.exepath("python"),
-            },
-            basedpyright = {
-              -- https://docs.basedpyright.com/#/settings
-              disableOrganizeImports = true, -- deletgate to ruff
-              analysis = {
-                -- NOTE: uncomment this to ignore linting. Good for projects where
-                -- basedpyright lights up as a christmas tree.
-                -- ignore = { "*" },
-                autoSearchPaths = true,
-                useLibraryCodeForTypes = true,
-                diagnosticMode = "openFilesOnly",
-              },
-            },
-          },
-        },
       },
+
+      pylsp = {
+      }
     },
   },
 
