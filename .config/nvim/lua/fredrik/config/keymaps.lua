@@ -38,8 +38,8 @@ vim.keymap.set("n", "<C-S-Right>", ":tabnext<CR>", { silent = true })
 vim.keymap.set("n", "<C-S-Left>", ":tabprevious<CR>", { silent = true })
 
 -- buffers
-vim.keymap.set("n", "<leader>bd", "<cmd>:bp\\|bd #<cr>", { desc = "Delete buffer" })
-vim.keymap.set("n", "<leader>bD", "<cmd>:bp\\|bd #<cr>", { desc = "DELETE buffer" })
+vim.keymap.set("n", "<leader>bd", "<cmd>:bp|bd #<cr>", { desc = "Delete buffer" })
+vim.keymap.set("n", "<leader>bD", "<cmd>:bp|bd #<cr>", { desc = "DELETE buffer" })
 vim.keymap.set("n", "<leader>bo", function()
 	local visible = {}
 	for _, win in pairs(vim.api.nvim_list_wins()) do
