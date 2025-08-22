@@ -102,12 +102,12 @@ end
 
 map_normal_mode("<leader>uf", require("fredrik.utils.toggle").toggle_manual_folding, "Toggle manual folding")
 
-
-
-vim.keymap.set("n", "<leader>ve",
-  function() vim.cmd(":tabnew ~/.config/nvim/lua/fredrik/init.lua | :tcd ~/.config/nvim/") end, { desc = "Edit config" })
-vim.keymap.set("n", "<leader>vm", function() vim.cmd("redir @a> | silent map | redir END | new | normal \"ap") end,
-  { desc = "Show mappings" })
+vim.keymap.set("n", "<leader>ve", function()
+  vim.cmd(":tabnew ~/.config/nvim/lua/fredrik/init.lua | :tcd ~/.config/nvim/")
+end, { desc = "Edit config" })
+vim.keymap.set("n", "<leader>vm", function()
+  vim.cmd('redir @a> | silent map | redir END | new | normal "ap')
+end, { desc = "Show mappings" })
 
 function M.setup_trouble_keymaps()
   return {
@@ -238,6 +238,10 @@ end
 
 function M.setup_blink_cmp_keymaps()
   -- https://cmp.saghen.dev/configuration/keymap
+  local fbGen = require('blink.cmp.keymap.fallback')
+  local tabFallback = fbGen.wrap('i', '<Tab>')
+  local sTabFallback = fbGen.wrap('i', '<S-Tab>')
+
   return {
     preset = "none",
 
@@ -245,8 +249,30 @@ function M.setup_blink_cmp_keymaps()
     ["<C-e>"] = { "hide", "fallback" },
     ["<CR>"] = { "accept", "fallback" },
 
-    ["<Tab>"] = { function(cmp) cmp.select_next({ auto_insert = true }) end },
-    ["<S-Tab>"] = { function(cmp) cmp.select_prev({ auto_insert = true }) end },
+    ["<Tab>"] = {
+      function(cmp)
+        if cmp.is_visible() then
+          cmp.select_next({ auto_insert = true })
+        else
+          local f = tabFallback(false)
+          if f ~= nil then
+            vim.api.nvim_feedkeys(f, 'n', false)
+          end
+        end
+      end,
+    },
+    ["<S-Tab>"] = {
+      function(cmp)
+        if cmp.is_visible() then
+          cmp.select_prev({ auto_insert = true })
+        else
+          local f = sTabFallback(false)
+          if f ~= nil then
+            vim.api.nvim_feedkeys(f, 'n', false)
+          end
+        end
+      end,
+    },
 
     ["<Up>"] = { "select_prev", "fallback" },
     ["<Down>"] = { "select_next", "fallback" },
@@ -1163,8 +1189,14 @@ function M.setup_markdown_keymaps()
 end
 
 function M.setup_diagnostics_keymaps()
-  map_normal_mode("<leader>ud", function()
+  map_normal_mode("<leader>uD", function()
     vim.diagnostic.enable(not vim.diagnostic.is_enabled())
+  end, "Toggle diagnostics (all buffers)")
+
+  map_normal_mode("<leader>ud", function()
+    local current_buffer = vim.api.nvim_get_current_buf()
+    local filter = { bufnr = current_buffer }
+    vim.diagnostic.enable(not vim.diagnostic.is_enabled(filter), filter)
   end, "Toggle diagnostics")
 end
 
