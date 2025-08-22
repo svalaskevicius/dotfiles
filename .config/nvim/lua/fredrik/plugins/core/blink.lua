@@ -6,7 +6,8 @@ return {
     version = "*",
     dependencies = {
       -- NOTE: https://github.com/Saghen/blink.compat is also available
-      "rafamadriz/friendly-snippets",
+      -- "rafamadriz/friendly-snippets",
+      "fang2hou/blink-copilot",
     },
 
     -- OR build from source, requires nightly: https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust
@@ -50,8 +51,15 @@ return {
       -- default list of enabled providers defined so that you can extend it
       -- elsewhere in your config, without redefining it, via `opts_extend`
       sources = {
-        default = { "lsp", "path", "snippets", "buffer" },
+        default = { "copilot", "lsp", "path", "buffer" },
+        -- default = { "copilot", "lsp", "path", "snippets", "buffer" },
         providers = {
+          copilot = {
+            name = "copilot",
+            module = "blink-copilot",
+            score_offset = 100,
+            async = true,
+          },
           path = {
             -- TODO: use custom field and move to respective plugin
             enabled = function()
