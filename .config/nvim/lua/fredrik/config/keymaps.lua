@@ -1,5 +1,12 @@
 M = {}
 
+
+
+vim.cmd("nnoremap <C-M-Left> <C-O>")
+vim.cmd("nnoremap <C-M-Right> <C-I>")
+vim.cmd("inoremap <C-M-Left> <ESC><C-O>a")
+vim.cmd("inoremap <C-M-Right> <ESC><C-I>a")
+
 -- windows
 vim.keymap.set("n", "<M-h>", "<C-w>h", { desc = "Go to left window", silent = true, noremap = true })
 vim.keymap.set("n", "<M-j>", "<C-w>j", { desc = "Go to lower window", silent = true, noremap = true })

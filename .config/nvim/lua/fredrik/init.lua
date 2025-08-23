@@ -382,10 +382,3 @@ vim.cmd("hi TreesitterContext guibg=#052010")
 vim.cmd("hi TreesitterContextLineNumber guibg=#051010")
 vim.cmd("hi TreesitterContextBottom gui=underline guisp=#205040")
 vim.cmd("hi TreesitterContextLineNumberBottom gui=underline guisp=#205040")
-
-------
-
-vim.cmd("nnoremap <C-M-Left> <C-O>")
-vim.cmd("nnoremap <C-M-Right> <C-I>")
-vim.cmd("inoremap <C-M-Left> <ESC><C-O>a")
-vim.cmd("inoremap <C-M-Right> <ESC><C-I>a")
