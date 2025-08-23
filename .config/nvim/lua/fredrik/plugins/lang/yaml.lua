@@ -59,35 +59,35 @@ return {
     },
   },
 
-  {
-    "mfussenegger/nvim-lint",
-    dependencies = {
-      {
-        "mason-org/mason.nvim",
-        opts = function(_, opts)
-          opts.ensure_installed = opts.ensure_installed or {}
-          vim.list_extend(opts.ensure_installed, { "yamllint", "actionlint" })
-        end,
-      },
-    },
-    opts = {
-      linters_by_ft = {
-        yaml = { "yamllint" },
-        gha = { "actionlint" },
-      },
-      linters = {
-        yamllint = {
-          args = {
-            -- "--config-file",
-            -- require("fredrik.utils.environ").getenv("DOTFILES") .. "/extras/templates/.yamllint.yml",
-            "--format",
-            "parsable",
-            "-",
-          },
-        },
-      },
-    },
-  },
+  -- {
+  --   "mfussenegger/nvim-lint",
+  --   dependencies = {
+  --     {
+  --       "mason-org/mason.nvim",
+  --       opts = function(_, opts)
+  --         opts.ensure_installed = opts.ensure_installed or {}
+  --         vim.list_extend(opts.ensure_installed, { "yamllint", "actionlint" })
+  --       end,
+  --     },
+  --   },
+  --   opts = {
+  --     linters_by_ft = {
+  --       yaml = { "yamllint" },
+  --       gha = { "actionlint" },
+  --     },
+  --     linters = {
+  --       yamllint = {
+  --         args = {
+  --           -- "--config-file",
+  --           -- require("fredrik.utils.environ").getenv("DOTFILES") .. "/extras/templates/.yamllint.yml",
+  --           "--format",
+  --           "parsable",
+  --           "-",
+  --         },
+  --       },
+  --     },
+  --   },
+  -- },
 
   {
     "virtual-lsp-config",

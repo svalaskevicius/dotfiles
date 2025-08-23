@@ -45,8 +45,9 @@ vim.keymap.set("n", "<C-S-Right>", ":tabnext<CR>", { silent = true })
 vim.keymap.set("n", "<C-S-Left>", ":tabprevious<CR>", { silent = true })
 
 -- buffers
-vim.keymap.set("n", "<leader>bd", "<cmd>:bp|bd #<cr>", { desc = "Delete buffer" })
-vim.keymap.set("n", "<leader>bD", "<cmd>:bp|bd #<cr>", { desc = "DELETE buffer" })
+vim.keymap.set("n", "<leader>bd", "<cmd>:bp|bd #<CR>", { desc = "Delete buffer" })
+vim.keymap.set("n", "<leader>bD", "<cmd>:bp|bd #<CR>", { desc = "DELETE buffer" })
+
 vim.keymap.set("n", "<leader>bo", function()
   local visible = {}
   for _, win in pairs(vim.api.nvim_list_wins()) do
@@ -58,6 +59,18 @@ vim.keymap.set("n", "<leader>bo", function()
     end
   end
 end, { desc = "Close all other buffers" })
+
+vim.keymap.set("n", "<leader>bO", function()
+  local visible = {}
+  for _, win in pairs(vim.api.nvim_list_wins()) do
+    visible[vim.api.nvim_win_get_buf(win)] = true
+  end
+  for _, buf in pairs(vim.api.nvim_list_bufs()) do
+    if not visible[buf] then
+      vim.api.nvim_buf_delete(buf, { force = true })
+    end
+  end
+end, { desc = "CLOSE all other buffers" })
 
 -- tabs (can also use gt and gT)
 -- vim.keymap.set("n", "<leader><tab>l", "<cmd>tablast<cr>", { desc = "Last Tab", silent = true })
@@ -108,7 +121,6 @@ local function map_normal_mode(keys, func, desc)
 end
 
 map_normal_mode("<leader>uf", require("fredrik.utils.toggle").toggle_manual_folding, "Toggle manual folding")
-
 
 
 vim.keymap.set("n", "<leader>ve",
@@ -357,7 +369,27 @@ function M.setup_telescope_keymaps()
     -- },
 
     -- search
-    { "<leader>so", "<cmd>Telescope vim_options<cr>", desc = "[s]earch [o]ptions" },
+
+    { "<leader>vo",        "<cmd>Telescope vim_options<cr>",                                            desc = "Vim options" },
+    { "<leader>p",         group = "Telescope" },
+    { "<leader>p<leader>", "<cmd>lua require('telescope.builtin').resume()<CR>",                        desc = "Show last results" },
+    { "<leader>pF",        "<cmd>lua require('telescope.builtin').find_files()<CR>",                    desc = "Find files" },
+    { "<leader>pg",        "<cmd>lua require('telescope.builtin').live_grep()<CR>",                     desc = "Live grep" },
+    { "<leader>ph",        "<cmd>lua require('telescope.builtin').help_tags()<CR>",                     desc = "Help tags" },
+    { "<leader>pb",        "<cmd>lua require('telescope.builtin').buffers()<CR>",                       desc = "Buffers" },
+    { "<leader>pf",        "<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>",     desc = "Current buffer fuzzy find" },
+    { "<leader>pr",        "<cmd>lua require('telescope.builtin').lsp_references()<CR>",                desc = "LSP references" },
+    { "<leader>psd",       "<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>",          desc = "LSP document symbols" },
+    { "<leader>psw",       "<cmd>lua require('telescope.builtin').lsp_workspace_symbols()<CR>",         desc = "LSP workspace symbols" },
+    { "<leader>psq",       "<cmd>lua require('telescope.builtin').lsp_dynamic_workspace_symbols()<CR>", desc = "LSP dynamic workspace symbols" },
+    { "<leader>pca",       "<cmd>lua require('telescope.builtin').lsp_code_actions()<CR>",              desc = "LSP code actions" },
+    { "<leader>pdd",       "<cmd>lua require('telescope.builtin').lsp_document_diagnostics()<CR>",      desc = "LSP document diagnostics" },
+    { "<leader>pdw",       "<cmd>lua require('telescope.builtin').lsp_workspace_diagnostics()<CR>",     desc = "LSP workspace diagnostics" },
+    { "<leader>pi",        "<cmd>lua require('telescope.builtin').lsp_implementations()<CR>",           desc = "LSP implementations" },
+    { "<leader>pd",        "<cmd>lua require('telescope.builtin').lsp_definitions()<CR>",               desc = "LSP definitions" },
+    { "<leader>pt",        "<cmd>lua require('telescope.builtin').lsp_type_definitions()<CR>",          desc = "LSP type definitions" },
+    { "<leader>pp",        "<cmd>lua require('telescope.builtin').treesitter()<CR>",                    desc = "Treesitter" },
+    { "<leader>pm",        "<cmd>lua require('telescope').extensions.metals.commands()<CR>",            desc = "Metals commands" }
   }
 end
 
@@ -1268,6 +1300,7 @@ function M.setup_whichkey(wk)
     { "<leader>sn",    group = "noice" },
     { "<leader>t",     group = "test" },
     { "<leader>u",     group = "ui" },
+    { "<leader>v",     group = "vim" },
     { "<leader>x",     group = "diagnostics/quickfix" },
     { "<leader>w",     group = "windows",             proxy = "<C-w>" },
     {
