@@ -109,12 +109,12 @@ end
 
 map_normal_mode("<leader>uf", require("fredrik.utils.toggle").toggle_manual_folding, "Toggle manual folding")
 
-vim.keymap.set("n", "<leader>ve", function()
-  vim.cmd(":tabnew ~/.config/nvim/lua/fredrik/init.lua | :tcd ~/.config/nvim/")
-end, { desc = "Edit config" })
-vim.keymap.set("n", "<leader>vm", function()
-  vim.cmd('redir @a> | silent map | redir END | new | normal "ap')
-end, { desc = "Show mappings" })
+
+
+vim.keymap.set("n", "<leader>ve",
+  function() vim.cmd(":tabnew ~/.config/nvim/lua/fredrik/init.lua | :tcd ~/.config/nvim/") end, { desc = "Edit config" })
+vim.keymap.set("n", "<leader>vm", function() vim.cmd("redir @a> | silent map | redir END | new | normal \"ap") end,
+  { desc = "Show mappings" })
 
 function M.setup_trouble_keymaps()
   return {
