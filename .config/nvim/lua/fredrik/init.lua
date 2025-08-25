@@ -263,3 +263,18 @@ vim.cmd("hi TreesitterContext guibg=#052010")
 vim.cmd("hi TreesitterContextLineNumber guibg=#051010")
 vim.cmd("hi TreesitterContextBottom gui=underline guisp=#205040")
 vim.cmd("hi TreesitterContextLineNumberBottom gui=underline guisp=#205040")
+
+
+
+
+
+vim.cmd("hi NeogitDiffAddHighlight guifg=#225544 guibg=#b8bb26")
+vim.cmd("hi NeogitDiffAdd  guifg=#114422 guibg=#b8bb26")
+vim.cmd("hi NeogitDiffAddCursor guifg=#b8bb26 guibg=#485516")
+
+vim.cmd("hi NeogitDiffDeleteHighlight guifg=#1c1c1c guibg=#fb4934")
+vim.cmd("hi NeogitDiffDelete guifg=#171717 guibg=#fb4934")
+vim.cmd("hi NeogitDiffDeleteCursor guifg=#fb4934 guibg=#551105")
+
+
+
