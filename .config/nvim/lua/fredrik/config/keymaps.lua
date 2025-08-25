@@ -46,7 +46,7 @@ vim.keymap.set("n", "<C-S-Left>", ":tabprevious<CR>", { silent = true })
 
 -- buffers
 vim.keymap.set("n", "<leader>bd", "<cmd>:bp|bd #<CR>", { desc = "Delete buffer" })
-vim.keymap.set("n", "<leader>bD", "<cmd>:bp|bd #<CR>", { desc = "DELETE buffer" })
+vim.keymap.set("n", "<leader>bD", "<cmd>:bp|bd! #<CR>", { desc = "DELETE buffer" })
 
 vim.keymap.set("n", "<leader>bo", function()
   local visible = {}
