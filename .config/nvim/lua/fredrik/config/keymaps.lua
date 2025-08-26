@@ -1370,7 +1370,7 @@ end
 function M.setup_codecompanion_keymaps()
   return {
     {
-      "<C-c>",
+      "<M-a>",
       "<cmd>CodeCompanionActions<cr>",
       mode = { "n", "v" },
       noremap = true,
@@ -1378,7 +1378,7 @@ function M.setup_codecompanion_keymaps()
       desc = "CodeCompanion actions",
     },
     {
-      "<C-c>c",
+      "<M-c>",
       "<cmd>CodeCompanionChat<cr>",
       mode = { "n", "v" },
       noremap = true,
