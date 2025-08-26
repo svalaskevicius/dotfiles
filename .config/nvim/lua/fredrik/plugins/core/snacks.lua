@@ -142,7 +142,7 @@ return {
         enabled = false,
       },
 
-      quickfile = { enabled = true },
+      quickfile = { enabled = false }, -- breaks bigfile plugin
 
       statuscolumn = { enabled = true },
 
@@ -186,7 +186,7 @@ return {
     config = function(_, opts)
       local s = require("snacks")
       s.setup(opts)
-      s.picker.highlight.winhl = function(prefix)
+      s.picker.highlight.winhl = function(prefix, links)
         links = links or {}
         local winhl = {
           -- Normal = "",
