@@ -1379,7 +1379,7 @@ function M.setup_codecompanion_keymaps()
     },
     {
       "<M-c>",
-      "<cmd>CodeCompanionChat<cr>",
+      "<cmd>CodeCompanionChat Toggle<cr>",
       mode = { "n", "v" },
       noremap = true,
       silent = true,
