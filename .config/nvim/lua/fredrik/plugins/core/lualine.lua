@@ -1,3 +1,12 @@
+local function macro_recording()
+  local reg = vim.fn.reg_recording()
+  if reg == "" then
+    return ""
+  else
+    return "Recording @" .. reg
+  end
+end
+
 local function folder()
   local cwd = vim.fn.getcwd()
   local foldername = cwd:match("([^/]+)$")
@@ -54,10 +63,10 @@ return {
         "diagnostics",
       },
       lualine_c = {
-        { folder, color = { gui = "bold" }, separator = "/", padding = { left = 1, right = 0 } },
-        { "filename", path = 1, padding = { left = 0, right = 1 } },
+        { folder,     color = { gui = "bold" }, separator = "/",                  padding = { left = 1, right = 0 } },
+        { "filename", path = 1,                 padding = { left = 0, right = 1 } },
       },
-      lualine_x = { "encoding", "filetype" },
+      lualine_x = { macro_recording, "encoding", "filetype" },
       lualine_y = { "progress" },
       lualine_z = { "location" },
     },

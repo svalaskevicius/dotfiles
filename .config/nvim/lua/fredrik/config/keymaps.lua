@@ -408,7 +408,11 @@ function M.setup_snacks_keymaps()
         local opts = {
           multi = { "buffers", "files" },
           hidden = true,
-          ignored = true,
+          smartcase = true,
+          fuzzy = true,
+          frecency = true,
+          history_bonus = true,
+          ignored = false,
           exclude = { "*.pb.go", ".venv/*", ".mypy_cache/*", ".repro/*", "**/target/*" },
           formatters = {
             file = {
@@ -694,7 +698,7 @@ function M.setup_snacks_keymaps()
       desc = "[s]earch [g]it [b]ranches",
     },
 
-    -- 
+    --
     {
       "<leader>cR",
       function()
