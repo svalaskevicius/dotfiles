@@ -1,4 +1,5 @@
 /.gim.prefix
+.ltex/
 .rsync_cache
 .vagrant
 *~
