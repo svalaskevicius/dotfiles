@@ -21,11 +21,11 @@ function M.setup_diagnostics()
     --   current_line = false,
     -- },
 
-    -- virtual_text = false,
-    virtual_text = function(_, _)
-      ---@class vim.diagnostic.Opts.VirtualText
-      return { spacing = 4, source = "if_many", prefix = prefix }
-    end,
+    virtual_text = false,
+    -- virtual_text = function(_, _)
+    --   ---@class vim.diagnostic.Opts.VirtualText
+    --   return { spacing = 4, source = "if_many", prefix = prefix }
+    -- end,
 
     underline = true,
     update_in_insert = false,

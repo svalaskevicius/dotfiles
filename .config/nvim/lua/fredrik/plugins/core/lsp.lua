@@ -102,6 +102,15 @@ local function register_lspattach_autocmd()
           })
         end
 
+        -- diagnostic popup
+        vim.api.nvim_create_autocmd("CursorHold", {
+          callback = function()
+            if vim.fn.mode() == "n" then
+              vim.diagnostic.open_float(nil, { focus = false })
+            end
+          end,
+        })
+
         -- set up workspace diagnostics
         if client:supports_method("workspace/diagnostic", args.buf) then
           -- WARNING: not sure if this is the intended use case. Let's see...

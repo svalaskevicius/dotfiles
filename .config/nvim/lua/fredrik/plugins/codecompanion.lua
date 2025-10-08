@@ -1,68 +1,68 @@
 -- Tools and agents compatibility: https://codecompanion.olimorris.dev/usage/chat-buffer/agents.html#compatibility
 
-local anthropic_fn = function()
-  -- models: https://docs.anthropic.com/en/docs/about-claude/models/overview
-  local anthropic_config = {
-    env = { api_key = "cmd:op read op://Personal/Anthropic/tokens/neovim --no-newline" },
-  }
-  return require("codecompanion.adapters").extend("anthropic", anthropic_config)
-end
-
-local openai_fn = function()
-  local openai_config = {
-    env = { api_key = "cmd:op read op://Personal/OpenAI/tokens/neovim --no-newline" },
-  }
-  return require("codecompanion.adapters").extend("openai", openai_config)
-end
-
-local gemini_fn = function()
-  -- models: https://ai.google.dev/gemini-api/docs/models
-  local gemini_config = {
-    env = { api_key = "cmd:op read op://Personal/Google/tokens/gemini --no-newline" },
-    schema = {
-      model = {
-        default = "gemini-2.5-flash",
-      },
-    },
-  }
-  return require("codecompanion.adapters").extend("gemini", gemini_config)
-end
-
-local vertex_fn = function()
-  -- models: https://ai.google.dev/gemini-api/docs/models
-  local vertex_config = {
-    -- OpenAI-compatible API: https://cloud.google.com/vertex-ai/generative-ai/docs/migrate/openai/overview
-    --
-    -- regional url
-    url =
-    "https://${location}-aiplatform.googleapis.com/v1/projects/${project_id}/locations/${location}/endpoints/openapi/chat/completions",
-    -- global url
-    -- url = "https://aiplatform.googleapis.com/v1/projects/${project_id}/locations/global/endpoints/openapi/chat/completions",
-    env = {
-      project_id = os.getenv("GOOGLE_CLOUD_PROJECT"),
-      location = os.getenv("GOOGLE_CLOUD_LOCATION"),
-      api_key = "cmd: gcloud auth application-default print-access-token",
-    },
-    schema = {
-      model = {
-        default = "google/gemini-2.5-pro",
-      },
-      choices = {
-        ["google/gemini-2.5-pro"] = { opts = { can_reason = true, has_vision = true } },
-        ["google/gemini-2.5-flash"] = { opts = { can_reason = true, has_vision = true } },
-      },
-    },
-  }
-  return require("codecompanion.adapters").extend("gemini", vertex_config)
-end
-
-local deepseek_fn = function()
-  -- models: https://api-docs.deepseek.com/quick_start/pricing
-  local deepseek_config = {
-    env = { api_key = "cmd:op read op://Personal/DeepSeek/tokens/neovim --no-newline" },
-  }
-  return require("codecompanion.adapters").extend("deepseek", deepseek_config)
-end
+-- local anthropic_fn = function()
+--   -- models: https://docs.anthropic.com/en/docs/about-claude/models/overview
+--   local anthropic_config = {
+--     env = { api_key = "cmd:op read op://Personal/Anthropic/tokens/neovim --no-newline" },
+--   }
+--   return require("codecompanion.adapters").extend("anthropic", anthropic_config)
+-- end
+-- 
+-- local openai_fn = function()
+--   local openai_config = {
+--     env = { api_key = "cmd:op read op://Personal/OpenAI/tokens/neovim --no-newline" },
+--   }
+--   return require("codecompanion.adapters").extend("openai", openai_config)
+-- end
+-- 
+-- local gemini_fn = function()
+--   -- models: https://ai.google.dev/gemini-api/docs/models
+--   local gemini_config = {
+--     env = { api_key = "cmd:op read op://Personal/Google/tokens/gemini --no-newline" },
+--     schema = {
+--       model = {
+--         default = "gemini-2.5-flash",
+--       },
+--     },
+--   }
+--   return require("codecompanion.adapters").extend("gemini", gemini_config)
+-- end
+-- 
+-- local vertex_fn = function()
+--   -- models: https://ai.google.dev/gemini-api/docs/models
+--   local vertex_config = {
+--     -- OpenAI-compatible API: https://cloud.google.com/vertex-ai/generative-ai/docs/migrate/openai/overview
+--     --
+--     -- regional url
+--     url =
+--     "https://${location}-aiplatform.googleapis.com/v1/projects/${project_id}/locations/${location}/endpoints/openapi/chat/completions",
+--     -- global url
+--     -- url = "https://aiplatform.googleapis.com/v1/projects/${project_id}/locations/global/endpoints/openapi/chat/completions",
+--     env = {
+--       project_id = os.getenv("GOOGLE_CLOUD_PROJECT"),
+--       location = os.getenv("GOOGLE_CLOUD_LOCATION"),
+--       api_key = "cmd: gcloud auth application-default print-access-token",
+--     },
+--     schema = {
+--       model = {
+--         default = "google/gemini-2.5-pro",
+--       },
+--       choices = {
+--         ["google/gemini-2.5-pro"] = { opts = { can_reason = true, has_vision = true } },
+--         ["google/gemini-2.5-flash"] = { opts = { can_reason = true, has_vision = true } },
+--       },
+--     },
+--   }
+--   return require("codecompanion.adapters").extend("gemini", vertex_config)
+-- end
+-- 
+-- local deepseek_fn = function()
+--   -- models: https://api-docs.deepseek.com/quick_start/pricing
+--   local deepseek_config = {
+--     env = { api_key = "cmd:op read op://Personal/DeepSeek/tokens/neovim --no-newline" },
+--   }
+--   return require("codecompanion.adapters").extend("deepseek", deepseek_config)
+-- end
 
 --- Ollama config for CodeCompanion.
 local ollama_fn = function()
@@ -151,7 +151,9 @@ return {
       --   end,
       -- },
 
-      adapters = supported_adapters,
+      adapters = {
+        http = supported_adapters,
+      },
 
       strategies = {
         chat = {

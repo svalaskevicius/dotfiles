@@ -138,7 +138,7 @@ return {
             settings = {
               -- https://docs.astral.sh/ruff/editors/settings/
               configurationPreference = "filesystemFirst",
-              lineLength = 88,
+              lineLength = 140,
             },
           },
           settings = {
