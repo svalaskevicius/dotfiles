@@ -9,6 +9,8 @@ mount | grep -e '/dev/mapper/mirrored-decrypted\s\+on\s\+/mnt/mirrored' >/dev/nu
 # cd /mnt/mirrored/photo-manager/photoprism
 cd /mnt/mirrored/photo-manager/immich
 
+sudo systemctl start docker
+
 docker compose up -d
 
 set +e
