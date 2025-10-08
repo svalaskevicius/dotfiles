@@ -121,7 +121,7 @@ local function register_lspattach_autocmd()
         end
 
         -- setup LSP-provided folding
-        if client:supports_method("textDocument/foldingRange", args.buf) then
+        if client:supports_method("textDocument/foldingRange", args.buf) and not vim.wo.diff then
           require("fredrik.config.options").lsp_foldexpr()
         end
       end
