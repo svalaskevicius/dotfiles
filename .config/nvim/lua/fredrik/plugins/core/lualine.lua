@@ -66,7 +66,21 @@ return {
         { folder,     color = { gui = "bold" }, separator = "/",                  padding = { left = 1, right = 0 } },
         { "filename", path = 1,                 padding = { left = 0, right = 1 } },
       },
-      lualine_x = { macro_recording, "encoding", "filetype" },
+      lualine_x = {
+        {
+          require 'minuet.lualine',
+          -- the follwing is the default configuration
+          -- the name displayed in the lualine. Set to "provider", "model" or "both"
+          -- display_name = 'both',
+          -- separator between provider and model name for option "both"
+          -- provider_model_separator = ':',
+          -- whether show display_name when no completion requests are active
+          -- display_on_idle = false,
+        },
+        macro_recording,
+        "encoding",
+        "filetype"
+      },
       lualine_y = { "progress" },
       lualine_z = { "location" },
     },

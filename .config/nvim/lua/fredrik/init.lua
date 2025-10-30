@@ -276,19 +276,7 @@ vim.cmd("hi NeogitDiffDeleteHighlight guifg=#1c1c1c guibg=#fb4934")
 vim.cmd("hi NeogitDiffDelete guifg=#171717 guibg=#fb4934")
 vim.cmd("hi NeogitDiffDeleteCursor guifg=#fb4934 guibg=#551105")
 
--- REPLACE OP
-function ReplaceOperator(type)
-  if type == "line" then
-    vim.cmd('normal! "_ddP')
-  elseif type == "char" then
-    vim.cmd('normal! `["_d`]P')
-  elseif type == "block" then
-    vim.cmd('normal! `["_d`]P')
-  end
-end
 
-vim.keymap.set("n", "gp", function()
-  vim.o.operatorfunc = "v:lua.ReplaceOperator"
-  return "g@"
+vim.keymap.set('x', 'p', function()
+  return 'pgv"' .. vim.v.register .. 'y'
 end, { expr = true })
-

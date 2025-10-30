@@ -45,9 +45,8 @@ vim.keymap.set("n", "<C-S-Right>", ":tabnext<CR>", { silent = true })
 vim.keymap.set("n", "<C-S-Left>", ":tabprevious<CR>", { silent = true })
 
 -- buffers
-vim.keymap.set("n", "<leader>bd", "<cmd>:bp|bd #<CR>", { desc = "Delete buffer" })
-vim.keymap.set("n", "<leader>bD", "<cmd>:bp|bd! #<CR>", { desc = "DELETE buffer" })
-
+vim.keymap.set("n", "<leader>bd", "<cmd>:bp|bd #<cr>", { desc = "Delete buffer" })
+vim.keymap.set("n", "<leader>bD", "<cmd>:bp|bd #<cr>", { desc = "DELETE buffer" })
 vim.keymap.set("n", "<leader>bo", function()
   local visible = {}
   for _, win in pairs(vim.api.nvim_list_wins()) do
@@ -59,18 +58,6 @@ vim.keymap.set("n", "<leader>bo", function()
     end
   end
 end, { desc = "Close all other buffers" })
-
-vim.keymap.set("n", "<leader>bO", function()
-  local visible = {}
-  for _, win in pairs(vim.api.nvim_list_wins()) do
-    visible[vim.api.nvim_win_get_buf(win)] = true
-  end
-  for _, buf in pairs(vim.api.nvim_list_bufs()) do
-    if not visible[buf] then
-      vim.api.nvim_buf_delete(buf, { force = true })
-    end
-  end
-end, { desc = "CLOSE all other buffers" })
 
 -- tabs (can also use gt and gT)
 -- vim.keymap.set("n", "<leader><tab>l", "<cmd>tablast<cr>", { desc = "Last Tab", silent = true })
@@ -122,11 +109,12 @@ end
 
 map_normal_mode("<leader>uf", require("fredrik.utils.toggle").toggle_manual_folding, "Toggle manual folding")
 
-
-vim.keymap.set("n", "<leader>ve",
-  function() vim.cmd(":tabnew ~/.config/nvim/lua/fredrik/init.lua | :tcd ~/.config/nvim/") end, { desc = "Edit config" })
-vim.keymap.set("n", "<leader>vm", function() vim.cmd("redir @a> | silent map | redir END | new | normal \"ap") end,
-  { desc = "Show mappings" })
+vim.keymap.set("n", "<leader>ve", function()
+  vim.cmd(":tabnew ~/.config/nvim/lua/fredrik/init.lua | :tcd ~/.config/nvim/")
+end, { desc = "Edit config" })
+vim.keymap.set("n", "<leader>vm", function()
+  vim.cmd('redir @a> | silent map | redir END | new | normal "ap')
+end, { desc = "Show mappings" })
 
 function M.setup_trouble_keymaps()
   return {
@@ -181,6 +169,8 @@ function M.setup_lsp_autocmd_keymaps(buf)
   -- Rename the variable under your cursor
   --  Most Language Servers support renaming across files, etc.
   map("<leader>cr", vim.lsp.buf.rename, "[C]ode [R]ename")
+
+  map("<leader>cR", Snacks.rename.rename_file, "[C]ode [R]ename")
 
   -- Execute a code action, usually your cursor needs to be on top of an error
   -- or a suggestion from your LSP for this to activate.
@@ -300,8 +290,6 @@ function M.setup_blink_cmp_keymaps()
     ["<C-f>"] = { "scroll_documentation_down", "fallback" },
 
     ["<C-k>"] = { "show_signature", "hide_signature", "fallback" },
-
-    ['<M-y>'] = require('minuet').make_blink_map(),
   }
 end
 
@@ -369,27 +357,7 @@ function M.setup_telescope_keymaps()
     -- },
 
     -- search
-
-    { "<leader>vo",        "<cmd>Telescope vim_options<cr>",                                            desc = "Vim options" },
-    { "<leader>p",         group = "Telescope" },
-    { "<leader>p<leader>", "<cmd>lua require('telescope.builtin').resume()<CR>",                        desc = "Show last results" },
-    { "<leader>pF",        "<cmd>lua require('telescope.builtin').find_files()<CR>",                    desc = "Find files" },
-    { "<leader>pg",        "<cmd>lua require('telescope.builtin').live_grep()<CR>",                     desc = "Live grep" },
-    { "<leader>ph",        "<cmd>lua require('telescope.builtin').help_tags()<CR>",                     desc = "Help tags" },
-    { "<leader>pb",        "<cmd>lua require('telescope.builtin').buffers()<CR>",                       desc = "Buffers" },
-    { "<leader>pf",        "<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>",     desc = "Current buffer fuzzy find" },
-    { "<leader>pr",        "<cmd>lua require('telescope.builtin').lsp_references()<CR>",                desc = "LSP references" },
-    { "<leader>psd",       "<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>",          desc = "LSP document symbols" },
-    { "<leader>psw",       "<cmd>lua require('telescope.builtin').lsp_workspace_symbols()<CR>",         desc = "LSP workspace symbols" },
-    { "<leader>psq",       "<cmd>lua require('telescope.builtin').lsp_dynamic_workspace_symbols()<CR>", desc = "LSP dynamic workspace symbols" },
-    { "<leader>pca",       "<cmd>lua require('telescope.builtin').lsp_code_actions()<CR>",              desc = "LSP code actions" },
-    { "<leader>pdd",       "<cmd>lua require('telescope.builtin').lsp_document_diagnostics()<CR>",      desc = "LSP document diagnostics" },
-    { "<leader>pdw",       "<cmd>lua require('telescope.builtin').lsp_workspace_diagnostics()<CR>",     desc = "LSP workspace diagnostics" },
-    { "<leader>pi",        "<cmd>lua require('telescope.builtin').lsp_implementations()<CR>",           desc = "LSP implementations" },
-    { "<leader>pd",        "<cmd>lua require('telescope.builtin').lsp_definitions()<CR>",               desc = "LSP definitions" },
-    { "<leader>pt",        "<cmd>lua require('telescope.builtin').lsp_type_definitions()<CR>",          desc = "LSP type definitions" },
-    { "<leader>pp",        "<cmd>lua require('telescope.builtin').treesitter()<CR>",                    desc = "Treesitter" },
-    { "<leader>pm",        "<cmd>lua require('telescope').extensions.metals.commands()<CR>",            desc = "Metals commands" }
+    { "<leader>so", "<cmd>Telescope vim_options<cr>", desc = "[s]earch [o]ptions" },
   }
 end
 
@@ -410,11 +378,7 @@ function M.setup_snacks_keymaps()
         local opts = {
           multi = { "buffers", "files" },
           hidden = true,
-          smartcase = true,
-          fuzzy = true,
-          frecency = true,
-          history_bonus = true,
-          ignored = false,
+          ignored = true,
           exclude = { "*.pb.go", ".venv/*", ".mypy_cache/*", ".repro/*", "**/target/*" },
           formatters = {
             file = {
@@ -432,19 +396,12 @@ function M.setup_snacks_keymaps()
         ---@class snacks.picker.grep.Config: snacks.picker.proc.Config
         local opts = {
           hidden = true,
-          ignored = false,
+          ignored = true,
           exclude = { "*.pb.go", ".venv/*", ".mypy_cache/*", ".repro/*", "**/target/*" },
         }
         Snacks.picker.grep(opts)
       end,
       desc = "Grep",
-    },
-    {
-      "<leader>S",
-      function()
-        Snacks.picker.resume()
-      end,
-      desc = "Resume last search",
     },
     -- {
     --   "<leader>e",
@@ -705,15 +662,6 @@ function M.setup_snacks_keymaps()
         Snacks.picker.git_branches()
       end,
       desc = "[s]earch [g]it [b]ranches",
-    },
-
-    --
-    {
-      "<leader>cR",
-      function()
-        Snacks.rename.rename_file()
-      end,
-      desc = "[C]ode [R]ename",
     },
 
     -- custom pickers
@@ -1248,6 +1196,7 @@ function M.setup_markdown_keymaps()
 end
 
 function M.setup_diagnostics_keymaps()
+<<<<<<< HEAD
   map_normal_mode("<leader>uD", function()
     vim.diagnostic.enable(not vim.diagnostic.is_enabled())
   end, "Toggle diagnostics (all buffers)")
@@ -1257,6 +1206,13 @@ function M.setup_diagnostics_keymaps()
     local filter = { bufnr = current_buffer }
     vim.diagnostic.enable(not vim.diagnostic.is_enabled(filter), filter)
   end, "Toggle diagnostics")
+||||||| parent of 5a6a222 (refactor)
+	map_normal_mode("<leader>ud", function()
+		vim.diagnostic.enable(not vim.diagnostic.is_enabled())
+	end, "Toggle diagnostics")
+=======
+  map_normal_mode("<leader>ud", require("fredrik.utils.toggle").toggle_diagnostics, "Toggle diagnostics")
+>>>>>>> 5a6a222 (refactor)
 end
 
 function M.setup_winshift_keymaps()
@@ -1320,7 +1276,6 @@ function M.setup_whichkey(wk)
     { "<leader>sn",    group = "noice" },
     { "<leader>t",     group = "test" },
     { "<leader>u",     group = "ui" },
-    { "<leader>v",     group = "vim" },
     { "<leader>x",     group = "diagnostics/quickfix" },
     { "<leader>w",     group = "windows",             proxy = "<C-w>" },
     {
@@ -1390,7 +1345,7 @@ end
 function M.setup_codecompanion_keymaps()
   return {
     {
-      "<M-a>",
+      "<C-c>",
       "<cmd>CodeCompanionActions<cr>",
       mode = { "n", "v" },
       noremap = true,
@@ -1398,8 +1353,8 @@ function M.setup_codecompanion_keymaps()
       desc = "CodeCompanion actions",
     },
     {
-      "<M-c>",
-      "<cmd>CodeCompanionChat Toggle<cr>",
+      "<C-c>c",
+      "<cmd>CodeCompanionChat<cr>",
       mode = { "n", "v" },
       noremap = true,
       silent = true,
