@@ -440,7 +440,7 @@ function M.setup_snacks_keymaps()
       desc = "Grep",
     },
     {
-      "<leader>S",
+      "<leader>s<leader>",
       function()
         Snacks.picker.resume()
       end,
