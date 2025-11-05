@@ -54,7 +54,8 @@ return {
       -- default list of enabled providers defined so that you can extend it
       -- elsewhere in your config, without redefining it, via `opts_extend`
       sources = {
-        default = { "copilot", "minuet", "lsp", "path", "buffer" },
+        default = { "copilot", "lsp", "path", "buffer" },
+        -- default = { "copilot", "minuet", "lsp", "path", "buffer" },
         -- default = { "copilot", "lsp", "path", "snippets", "buffer" },
         providers = {
           copilot = {
@@ -63,15 +64,15 @@ return {
             score_offset = 100,
             async = true,
           },
-          minuet = {
-            name = 'minuet',
-            module = 'minuet.blink',
-            async = true,
-            -- Should match minuet.config.request_timeout * 1000,
-            -- since minuet.config.request_timeout is in seconds
-            timeout_ms = 8000,
-            score_offset = 100, -- Gives minuet higher priority among suggestions
-          },
+          -- minuet = {
+          --   name = 'minuet',
+          --   module = 'minuet.blink',
+          --   async = true,
+          --   -- Should match minuet.config.request_timeout * 1000,
+          --   -- since minuet.config.request_timeout is in seconds
+          --   timeout_ms = 8000,
+          --   score_offset = 100, -- Gives minuet higher priority among suggestions
+          -- },
           path = {
             -- TODO: use custom field and move to respective plugin
             enabled = function()

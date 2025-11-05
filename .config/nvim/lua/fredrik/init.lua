@@ -171,7 +171,7 @@ vim.cmd("highlight MyPopupRenderMarkdownH3Bg guibg=#305070")
 vim.cmd("highlight MyPopupRenderMarkdownH4Bg guibg=#305070")
 vim.cmd("highlight MyPopupRenderMarkdownH5Bg guibg=#305070")
 vim.cmd("highlight MyPopupRenderMarkdownH6Bg guibg=#305070")
-
+vim.cmd("highlight RenderMarkdownCode guibg=#105040")
 --------------------------------
 -- Define command :HiPick
 vim.api.nvim_create_user_command("HiPick", function()

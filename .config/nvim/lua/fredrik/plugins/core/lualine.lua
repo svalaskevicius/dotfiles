@@ -68,7 +68,7 @@ return {
       },
       lualine_x = {
         {
-          require 'minuet.lualine',
+          -- require 'minuet.lualine',
           -- the follwing is the default configuration
           -- the name displayed in the lualine. Set to "provider", "model" or "both"
           -- display_name = 'both',

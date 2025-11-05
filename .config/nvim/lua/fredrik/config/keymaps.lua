@@ -301,7 +301,7 @@ function M.setup_blink_cmp_keymaps()
 
     ["<C-k>"] = { "show_signature", "hide_signature", "fallback" },
 
-    ['<M-y>'] = require('minuet').make_blink_map(),
+    -- ['<M-y>'] = require('minuet').make_blink_map(),
   }
 end
 
