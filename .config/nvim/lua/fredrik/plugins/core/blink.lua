@@ -54,8 +54,9 @@ return {
       -- default list of enabled providers defined so that you can extend it
       -- elsewhere in your config, without redefining it, via `opts_extend`
       sources = {
-        default = { "copilot", "lsp", "path", "buffer" },
+        -- default = { "copilot", "lsp", "path", "buffer" },
         -- default = { "copilot", "minuet", "lsp", "path", "buffer" },
+        default = { "lsp", "path", "buffer" },
         -- default = { "copilot", "lsp", "path", "snippets", "buffer" },
         providers = {
           copilot = {
@@ -70,7 +71,7 @@ return {
             async = true,
             -- Should match minuet.config.request_timeout * 1000,
             -- since minuet.config.request_timeout is in seconds
-            timeout_ms = 8000,
+            timeout_ms = 30000,
             score_offset = 100, -- Gives minuet higher priority among suggestions
           },
           path = {

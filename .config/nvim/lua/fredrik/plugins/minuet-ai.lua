@@ -7,7 +7,7 @@ return {
           enable_auto_complete = true,
         },
         provider = 'openai_fim_compatible',
-        request_timeout = 15,
+        request_timeout = 30,
         n_completions = 1, -- recommend for local model for resource saving
         -- I recommend beginning with a small context window size and incrementally
         -- expanding it, depending on your local computing power. A context window
