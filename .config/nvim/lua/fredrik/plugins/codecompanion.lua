@@ -70,14 +70,15 @@ local ollama_fn = function()
     name = "qwen",
     schema = {
       model = {
-        -- default = "qwen3:30b",
+        default = "qwen3-coder:30bfim",
         -- default = "qwen3:14b",
         -- default = "qwen3:32b",
-        default = "hf.co/unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF:UD-Q4_K_XL",
+        -- default = "hf.co/unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF:UD-Q4_K_XL",
         -- default = "qwen2.5-coder:32b",
       },
       num_ctx = {
-        default = 10240,
+        default = 16384,
+        -- default = 10240,
         -- default = 8192,
       },
       num_predict = {

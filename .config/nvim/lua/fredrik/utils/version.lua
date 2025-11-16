@@ -1,3 +1,5 @@
+local vim = vim
+
 M = {}
 
 function M.is_neovim_0_10_0()
