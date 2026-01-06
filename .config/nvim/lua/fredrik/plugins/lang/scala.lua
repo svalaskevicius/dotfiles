@@ -8,11 +8,23 @@ return {
     end,
     opts = function()
       local metals_config = require("metals").bare_config()
-      --metals_config.capabilities = require("cmp_nvim_lsp").default_capabilities()
+      -- metals_config.capabilities = require("cmp_nvim_lsp").default_capabilities()
+      -- metals_config.capabilities.textDocument.foldingRange = {
+      --   dynamicRegistration = false,
+      --   lineFoldingOnly = true
+      -- }
       --metals_config.on_attach = function(client, bufnr)
       --vim.keymap.set("n", "K", vim.lsp.buf.hover)
       --end
-
+      metals_config.settings = {
+        showImplicitArguments = true,
+        -- defaultBspToBuildTool = true,
+        serverProperties = {
+          "-Xmx8g",
+        },
+        startMcpServer = true,
+        -- serverVersion = "latest.snapshot",
+      }
       metals_config.tvp = {
         panel_width = 40,
         panel_alignment = "left",

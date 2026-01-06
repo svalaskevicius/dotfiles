@@ -112,33 +112,97 @@ vim.cmd("highlight MyPopupRenderMarkdownH5Bg guibg=#305070")
 vim.cmd("highlight MyPopupRenderMarkdownH6Bg guibg=#305070")
 
 
-local set_hl = vim.api.nvim_set_hl
-set_hl(0, 'Normal', { bg = '#151515' })
-set_hl(0, 'NormalFloat', { bg = '#052a30' })
-set_hl(0, 'FloatBorder', { bg = '#052a30' })
-set_hl(0, 'FloatTitle', { bg = '#052a30' })
-set_hl(0, 'FloatFooter', { bg = '#052a30' })
-set_hl(0, 'FloatCursorLine', { bg = '#204040' })
--- set_hl(0, 'Pmenu', { bg = '#1b2222' })
--- set_hl(0, 'PmenuSel', { bg = '#7b8552' })
-set_hl(0, 'WordUnderCursor', { bg = '#1f1f09' })
--- set_hl(0, 'NvimTreeIndentMarker', { fg = '#435C41' })
--- set_hl(0, 'NvimTreeRootFolder', { bold = true, fg = '#aacccc' })
-set_hl(0, 'CursorLine', { bg = '#1c1c1c' })
-set_hl(0, 'VertSplit', { fg = '#404040', bg = 'NONE', bold = false })
--- set_hl(0, 'LspCodeLens', { fg = '#205050' })
+local set_colours = function()
+  local set_hl = vim.api.nvim_set_hl
+  if vim.o.background == "light" then
+    -- set_hl(0, 'Normal', { bg = '#151515' })
+    -- set_hl(0, 'NormalFloat', { bg = '#052a30' })
+    -- set_hl(0, 'FloatBorder', { bg = '#052a30' })
+    -- set_hl(0, 'FloatTitle', { bg = '#052a30' })
+    -- set_hl(0, 'FloatFooter', { bg = '#052a30' })
+    set_hl(0, 'FloatCursorLine', { bg = '#e0c050' })
+    -- -- set_hl(0, 'Pmenu', { bg = '#1b2222' })
+    -- -- set_hl(0, 'PmenuSel', { bg = '#7b8552' })
+    set_hl(0, 'WordUnderCursor', { bg = '#cfcf09' })
+    -- -- set_hl(0, 'NvimTreeIndentMarker', { fg = '#435C41' })
+    -- -- set_hl(0, 'NvimTreeRootFolder', { bold = true, fg = '#aacccc' })
+    -- set_hl(0, 'CursorLine', { bg = '#1c1c1c' })
+    -- set_hl(0, 'VertSplit', { fg = '#404040', bg = 'NONE', bold = false })
+    -- -- set_hl(0, 'LspCodeLens', { fg = '#205050' })
+    -- 
+    -- -- set_hl(0, 'lualine_c_normal', { bg = '#505050' })
+    -- -- local baleia = require('baleia').setup {}
+    -- -- vim.api.nvim_create_user_command('BaleiaColorize', function()
+    -- --   baleia.once(vim.api.nvim_get_current_buf())
+    -- -- end, {})
+    -- 
+    -- set_hl(0, 'Function', { cterm = {}, ctermfg = 142, fg = '#b8bb26' })
+    -- set_hl(0, 'Structure', { cterm = { bold = true }, ctermfg = 107, fg = '#8ec07c' })
+    -- 
+    -- set_hl(0, '@lsp.type.namespace.scala', { link = 'Identifier' })
+    -- 
+    -- 
+    -- set_hl(0, 'TreesitterContext', { bg = '#052010' })
+    -- set_hl(0, 'TreesitterContextLineNumber', { bg = '#051010' })
+    -- set_hl(0, 'TreesitterContextBottom', { underline = true, sp = '#205040' })
+    -- set_hl(0, 'TreesitterContextLineNumberBottom', { underline = true, sp = '#205040' })
+    -- 
+    -- set_hl(0, 'NeogitDiffAddHighlight', { fg = '#225544', bg = '#b8bb26' })
+    -- set_hl(0, 'NeogitDiffAdd', { fg = '#114422', bg = '#b8bb26' })
+    -- set_hl(0, 'NeogitDiffAddCursor', { fg = '#b8bb26', bg = '#485516' })
+    -- 
+    -- set_hl(0, 'NeogitDiffDeleteHighlight', { fg = '#1c1c1c', bg = '#fb4934' })
+    -- set_hl(0, 'NeogitDiffDelete', { fg = '#171717', bg = '#fb4934' })
+    -- set_hl(0, 'NeogitDiffDeleteCursor', { fg = '#fb4934', bg = '#551105' })
 
--- set_hl(0, 'lualine_c_normal', { bg = '#505050' })
--- local baleia = require('baleia').setup {}
--- vim.api.nvim_create_user_command('BaleiaColorize', function()
---   baleia.once(vim.api.nvim_get_current_buf())
--- end, {})
+    set_hl(0, 'NonText', { fg = "#959491" })
+  else
+    set_hl(0, 'Normal', { bg = '#151515' })
+    set_hl(0, 'NormalFloat', { bg = '#052a30' })
+    set_hl(0, 'FloatBorder', { bg = '#052a30' })
+    set_hl(0, 'FloatTitle', { bg = '#052a30' })
+    set_hl(0, 'FloatFooter', { bg = '#052a30' })
+    set_hl(0, 'FloatCursorLine', { bg = '#204040' })
+    -- set_hl(0, 'Pmenu', { bg = '#1b2222' })
+    -- set_hl(0, 'PmenuSel', { bg = '#7b8552' })
+    set_hl(0, 'WordUnderCursor', { bg = '#1f1f09' })
+    -- set_hl(0, 'NvimTreeIndentMarker', { fg = '#435C41' })
+    -- set_hl(0, 'NvimTreeRootFolder', { bold = true, fg = '#aacccc' })
+    set_hl(0, 'CursorLine', { bg = '#1c1c1c' })
+    set_hl(0, 'VertSplit', { fg = '#404040', bg = 'NONE', bold = false })
+    -- set_hl(0, 'LspCodeLens', { fg = '#205050' })
 
-set_hl(0, 'Function', { cterm = {}, ctermfg = 142, fg = '#b8bb26' })
-set_hl(0, 'Structure', { cterm = { bold = true }, ctermfg = 107, fg = '#8ec07c' })
-vim.api.nvim_set_hl(0, '@lsp.type.namespace.scala', { link = 'Identifier' })
+    -- set_hl(0, 'lualine_c_normal', { bg = '#505050' })
+    -- local baleia = require('baleia').setup {}
+    -- vim.api.nvim_create_user_command('BaleiaColorize', function()
+    --   baleia.once(vim.api.nvim_get_current_buf())
+    -- end, {})
+
+    set_hl(0, 'Function', { cterm = {}, ctermfg = 142, fg = '#b8bb26' })
+    set_hl(0, 'Structure', { cterm = { bold = true }, ctermfg = 107, fg = '#8ec07c' })
+
+    set_hl(0, '@lsp.type.namespace.scala', { link = 'Identifier' })
 
 
+    set_hl(0, 'TreesitterContext', { bg = '#052010' })
+    set_hl(0, 'TreesitterContextLineNumber', { bg = '#051010' })
+    set_hl(0, 'TreesitterContextBottom', { underline = true, sp = '#205040' })
+    set_hl(0, 'TreesitterContextLineNumberBottom', { underline = true, sp = '#205040' })
+
+    set_hl(0, 'NeogitDiffAddHighlight', { fg = '#225544', bg = '#b8bb26' })
+    set_hl(0, 'NeogitDiffAdd', { fg = '#114422', bg = '#b8bb26' })
+    set_hl(0, 'NeogitDiffAddCursor', { fg = '#b8bb26', bg = '#485516' })
+
+    set_hl(0, 'NeogitDiffDeleteHighlight', { fg = '#1c1c1c', bg = '#fb4934' })
+    set_hl(0, 'NeogitDiffDelete', { fg = '#171717', bg = '#fb4934' })
+    set_hl(0, 'NeogitDiffDeleteCursor', { fg = '#fb4934', bg = '#551105' })
+
+    set_hl(0, 'NonText', { fg = "#706965" })
+  end
+end
+
+set_colours()
+vim.api.nvim_create_autocmd("ColorScheme", { callback = set_colours })
 
 
 ---------------------------------
@@ -258,23 +322,6 @@ vim.api.nvim_create_user_command("FloatsList", function()
 
   vim.bo[out_buf].modifiable = false
 end, { desc = "List current floating windows in scratch buffer" })
-
-vim.cmd("hi TreesitterContext guibg=#052010")
-vim.cmd("hi TreesitterContextLineNumber guibg=#051010")
-vim.cmd("hi TreesitterContextBottom gui=underline guisp=#205040")
-vim.cmd("hi TreesitterContextLineNumberBottom gui=underline guisp=#205040")
-
-
-
-
-
-vim.cmd("hi NeogitDiffAddHighlight guifg=#225544 guibg=#b8bb26")
-vim.cmd("hi NeogitDiffAdd  guifg=#114422 guibg=#b8bb26")
-vim.cmd("hi NeogitDiffAddCursor guifg=#b8bb26 guibg=#485516")
-
-vim.cmd("hi NeogitDiffDeleteHighlight guifg=#1c1c1c guibg=#fb4934")
-vim.cmd("hi NeogitDiffDelete guifg=#171717 guibg=#fb4934")
-vim.cmd("hi NeogitDiffDeleteCursor guifg=#fb4934 guibg=#551105")
 
 
 vim.keymap.set('x', 'p', function()

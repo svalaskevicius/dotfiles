@@ -7,14 +7,14 @@
 --   }
 --   return require("codecompanion.adapters").extend("anthropic", anthropic_config)
 -- end
--- 
+--
 -- local openai_fn = function()
 --   local openai_config = {
 --     env = { api_key = "cmd:op read op://Personal/OpenAI/tokens/neovim --no-newline" },
 --   }
 --   return require("codecompanion.adapters").extend("openai", openai_config)
 -- end
--- 
+--
 -- local gemini_fn = function()
 --   -- models: https://ai.google.dev/gemini-api/docs/models
 --   local gemini_config = {
@@ -27,7 +27,7 @@
 --   }
 --   return require("codecompanion.adapters").extend("gemini", gemini_config)
 -- end
--- 
+--
 -- local vertex_fn = function()
 --   -- models: https://ai.google.dev/gemini-api/docs/models
 --   local vertex_config = {
@@ -55,7 +55,7 @@
 --   }
 --   return require("codecompanion.adapters").extend("gemini", vertex_config)
 -- end
--- 
+--
 -- local deepseek_fn = function()
 --   -- models: https://api-docs.deepseek.com/quick_start/pricing
 --   local deepseek_config = {
@@ -88,12 +88,51 @@ local ollama_fn = function()
   })
 end
 
+local local_openai_fn = function()
+  local base = require("codecompanion.adapters").extend("openai", {
+    url = "http://127.0.0.1:8000/v1/chat/completions",
+    schema = {
+      model = {
+        default = "qwen3-coder",
+      },
+      temperature = {
+        default = 0.7
+      },
+      top_k = {
+        default = 20
+      },
+      top_p = {
+        default = 0.8
+      },
+      stop = {
+        -- default = {"<|im_start|>", "<|im_end|>", "<|endoftext|>"}
+      },
+      num_ctx = {
+        default = 32864 / 2,
+      },
+      repeat_penalty = { default = 1.05 },
+      use_beam_search = { default = true },
+    }
+  })
+  local prev = base.build_request
+  base.build_request = function(self, params)
+    local req = prev(self, params)
+
+    -- set stop sequences explicitly
+    req.stop = { "<|im_start|>", "<|im_end|>", "<|endoftext|>" }
+
+    return req
+  end
+  return base
+end
+
 local supported_adapters = {
   -- anthropic = anthropic_fn,
   -- openai = openai_fn,
   -- gemini = gemini_fn,
   -- deepseek = deepseek_fn,
   ollama = ollama_fn,
+  local_openai = local_openai_fn,
   -- vertex = vertex_fn,
 }
 
@@ -158,7 +197,7 @@ return {
 
       strategies = {
         chat = {
-          adapter = "ollama",
+          adapter = "local_openai",
           slash_commands = {
             buffer = { opts = { provider = "snacks" } },
             file = { opts = { provider = "snacks" } },
@@ -167,13 +206,13 @@ return {
           },
         },
         inline = {
-          adapter = "ollama",
+          adapter = "local_openai",
         },
         cmd = {
-          adapter = "ollama",
+          adapter = "local_openai",
         },
         agent = {
-          adapter = "ollama",
+          adapter = "local_openai",
         },
       },
 
@@ -215,7 +254,7 @@ return {
 
       display = {
         chat = {
-          show_settings = true,
+          show_settings = false,
           icons = {
             pinned_buffer = " ",
             watched_buffer = "👀 ",
