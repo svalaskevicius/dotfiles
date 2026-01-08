@@ -71,7 +71,7 @@
 #waybar {
     background: @bg;
     color: @light;
-    font-family: "Cantarell", "Font Awesome 5 Pro";
+    font-family: "Cantarell", "Monofoki Nerd Font";
     font-size: 14px;
     font-weight: bold;
 }
