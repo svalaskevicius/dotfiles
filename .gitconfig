@@ -56,6 +56,7 @@
 
   l = log --oneline --graph
   lg = log --graph --color --full-history --date=short --pretty=format:\"%Cred%h%Cblue%d %Creset %s %C(green)(%an) %Creset%ad\"
+  lgt = log --graph --color --full-history --date=iso --pretty=format:\"%Cred%h%Cblue%d %Creset %s %C(green)(%an) %Creset%ad\"
   t = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
   lgall = log --graph --full-history --all --color --date=short --pretty=format:\"%Cred%h%Cblue%d %Creset %s %C(green)(%an) %Creset%ad\"
 
@@ -103,3 +104,6 @@
 [diff]
   colorMoved = default
 
+[merge "mergiraf"]
+    name = mergiraf
+    driver = mergiraf merge --git %O %A %B -s %S -x %X -y %Y -p %P -l %L
