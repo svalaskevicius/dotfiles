@@ -55,8 +55,7 @@ return {
       linters = {
         markdownlint = {
           args = {
-            -- "--config",
-            -- require("fredrik.utils.environ").getenv("DOTFILES") .. "/extras/templates/.markdownlint.json",
+            "--config", vim.fn.expand("~/.markdownlint.json"),
             "--stdin",
           },
         },
