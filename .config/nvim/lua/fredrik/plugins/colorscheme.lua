@@ -13,8 +13,18 @@ end
 return {
   -- color scheme managers
   'vim-scripts/CycleColor',
-  { 
+  {
     'RRethy/vim-illuminate',
+    config = function(_, opts)
+      require('illuminate').configure({
+        providers = {
+          'lsp',
+          -- 'treesitter',
+          'regex',
+        },
+      }
+      )
+    end
   },
   'rafi/awesome-vim-colorschemes',
   {
@@ -22,25 +32,25 @@ return {
     enabled = false,
     config = function(_, opts)
       require("kanagawa").setup({
-        compile = true, -- enable terminal_color_piling the colorscheme
+        compile = true,   -- enable terminal_color_piling the colorscheme
         undercurl = true, -- enable undercurls
         commentStyle = { italic = true },
         functionStyle = {},
         keywordStyle = { italic = true },
         statementStyle = { bold = true },
         typeStyle = {},
-        transparent = false, -- do not set background color
-        dimInactive = false, -- dim inactive window `:h hl-NormalNC`
+        transparent = false,   -- do not set background color
+        dimInactive = false,   -- dim inactive window `:h hl-NormalNC`
         terminalColors = true, -- define vim.g.terminal_color_{0,17}
-        colors = {         -- add/modify theme and palette colors
+        colors = {             -- add/modify theme and palette colors
           palette = {},
           theme = { wave = {}, lotus = {}, dragon = {}, all = {} },
         },
         overrides = function(colors) -- add/modify highlights
           return {}
         end,
-        theme = "dragon", -- Load "wave" theme when 'background' option is not set
-        background = { -- map the value of 'background' option to a theme
+        theme = "dragon",  -- Load "wave" theme when 'background' option is not set
+        background = {     -- map the value of 'background' option to a theme
           dark = "dragon", -- try "dragon" !
           light = "lotus"
         },

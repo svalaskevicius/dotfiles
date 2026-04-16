@@ -28,3 +28,4 @@ project/metals.sbt
 .ltex_ls_cache.json
 .scala-build
 .envrc
+/opencode.json

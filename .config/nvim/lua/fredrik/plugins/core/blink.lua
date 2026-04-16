@@ -65,15 +65,15 @@ return {
             score_offset = 100,
             async = true,
           },
-          minuet = {
-            name = 'minuet',
-            module = 'minuet.blink',
-            async = true,
-            -- Should match minuet.config.request_timeout * 1000,
-            -- since minuet.config.request_timeout is in seconds
-            timeout_ms = 30000,
-            score_offset = 100, -- Gives minuet higher priority among suggestions
-          },
+          -- minuet = {
+          --   name = 'minuet',
+          --   module = 'minuet.blink',
+          --   async = true,
+          --   -- Should match minuet.config.request_timeout * 1000,
+          --   -- since minuet.config.request_timeout is in seconds
+          --   timeout_ms = 30000,
+          --   score_offset = 100, -- Gives minuet higher priority among suggestions
+          -- },
           path = {
             -- TODO: use custom field and move to respective plugin
             enabled = function()

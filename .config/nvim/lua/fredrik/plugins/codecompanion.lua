@@ -89,40 +89,65 @@ local ollama_fn = function()
 end
 
 local local_openai_fn = function()
-  local base = require("codecompanion.adapters").extend("openai", {
-    url = "http://127.0.0.1:8000/v1/chat/completions",
+  local base = require("codecompanion.adapters").extend("openai_compatible", {
+    env = {
+      url = "http://127.0.0.1:8000",
+      api_key = "TERM",
+      chat_url = "/v1/chat/completions",
+    },
+    handlers = {
+      parse_message_meta = function(self, data)
+        local extra = data.extra
+        if extra and extra.reasoning_content then
+          data.output.reasoning = { content = extra.reasoning_content }
+          if data.output.content == "" then
+            data.output.content = nil
+          end
+        end
+        return data
+      end,
+    },
+    interactions = {
+      chat = {
+        adapter = "llama.cpp",
+      },
+      inline = {
+        adapter = "llama.cpp",
+      },
+    },
+    -- url = "http://127.0.0.1:8000/v1/chat/completions",
     schema = {
       model = {
-        default = "qwen3-coder",
+        default = "cog",
       },
       temperature = {
-        default = 0.7
+        default = 0.4
       },
       top_k = {
-        default = 20
+        default = 40
       },
       top_p = {
-        default = 0.8
+        default = 0.85
       },
       stop = {
         -- default = {"<|im_start|>", "<|im_end|>", "<|endoftext|>"}
       },
       num_ctx = {
-        default = 32864 / 2,
+        default = 262144,
       },
       repeat_penalty = { default = 1.05 },
       use_beam_search = { default = true },
     }
   })
-  local prev = base.build_request
-  base.build_request = function(self, params)
-    local req = prev(self, params)
-
-    -- set stop sequences explicitly
-    req.stop = { "<|im_start|>", "<|im_end|>", "<|endoftext|>" }
-
-    return req
-  end
+  -- local prev = base.build_request
+  -- base.build_request = function(self, params)
+  --   local req = prev(self, params)
+  --
+  --   -- set stop sequences explicitly
+  --   req.stop = { "<|im_start|>", "<|im_end|>", "<|endoftext|>" }
+  --
+  --   return req
+  -- end
   return base
 end
 
@@ -131,7 +156,7 @@ local supported_adapters = {
   -- openai = openai_fn,
   -- gemini = gemini_fn,
   -- deepseek = deepseek_fn,
-  ollama = ollama_fn,
+  -- ollama = ollama_fn,
   local_openai = local_openai_fn,
   -- vertex = vertex_fn,
 }
@@ -149,7 +174,7 @@ return {
         },
       },
       "folke/snacks.nvim",
-      "ravitemer/mcphub.nvim",
+      "svalaskevicius/mcphub.nvim",
       "ravitemer/codecompanion-history.nvim",
       {
         "saghen/blink.cmp",
@@ -174,7 +199,9 @@ return {
       },
     },
     opts = {
-
+      opts = {
+        log_level = "TRACE", -- or "TRACE"
+      },
       -- opts = {
       --   send_code = function()
       --     if vim.fn.filereadable(".llm_ok") == 1 then
@@ -203,6 +230,66 @@ return {
             file = { opts = { provider = "snacks" } },
             help = { opts = { provider = "snacks" } },
             symbols = { opts = { provider = "snacks" } },
+          },
+          opts = {
+            system_prompt = function(ctx)
+              return [[You are an existentialist programming assistant named "Borg", working within the Neovim text editor.
+
+You can answer general programming questions and perform the following tasks:
+* Answer general programming questions.
+* Explain how the code in a Neovim buffer works.
+* Review the selected code from a Neovim buffer.
+* Generate unit tests for the selected code.
+* Propose fixes for problems in the selected code.
+* Scaffold code for a new workspace.
+* Find relevant code to the user's query.
+* Propose fixes for test failures.
+* Answer questions about Neovim.
+
+Follow the user's requirements carefully and to the letter.
+Use the context and attachments the user provides.
+Keep your answers short and impersonal, especially if the user's context is outside your core tasks.
+Use Markdown formatting in your answers.
+Do not use H1 or H2 markdown headers.
+When suggesting code changes or new content, use Markdown code blocks.
+To start a code block, use 4 backticks.
+After the backticks, add the programming language name as the language ID.
+To close a code block, use 4 backticks on a new line.
+If the code modifies an existing file or should be placed at a specific location, add a line comment with 'filepath:' and the file path.
+If you want the user to decide where to place the code, do not add the file path comment.
+In the code block, use a line comment with '...existing code...' to indicate code that is already present in the file.
+Code block example:
+````languageId
+// filepath: /path/to/file
+// ...existing code...
+{ changed code }
+// ...existing code...
+{ changed code }
+// ...existing code...
+````
+Ensure line comments use the correct syntax for the programming language (e.g. "#" for Python, "--" for Lua).
+For code blocks use four backticks to start and end.
+Avoid wrapping the whole response in triple backticks.
+Do not include diff formatting unless explicitly asked.
+Do not include line numbers in code blocks.
+
+When given a task:
+1. Think step-by-step and, unless the user requests otherwise or the task is very simple, describe your plan in pseudocode.
+2. When outputting code blocks, ensure only relevant code is included, avoiding any repeating or unrelated code.
+3. End your response with a short suggestion for the next user turn that directly supports continuing the conversation.
+            ]] .. string.format(
+                [[Additional context:
+All non-code text responses must be written in the %s language.
+The current date is %s.
+The user's Neovim version is %s.
+The user is working on a %s machine. Please respond with system specific commands if applicable.
+]],
+                ctx.language,
+                ctx.date,
+                ctx.nvim_version,
+                ctx.os
+              )
+            end
           },
         },
         inline = {
@@ -239,7 +326,7 @@ return {
             -- Picker interface ("telescope" or "snacks" or "fzf-lua" or "default")
             picker = "snacks",
             -- Automatically generate titles for new chats
-            auto_generate_title = true,
+            auto_generate_title = false,
             ---On exiting and entering neovim, loads the last chat on opening chat
             continue_last_chat = false,
             ---When chat is cleared with `gx` delete the chat from history
@@ -255,6 +342,8 @@ return {
       display = {
         chat = {
           show_settings = false,
+          fold_reasoning = true,
+          show_reasoning = true,
           icons = {
             pinned_buffer = " ",
             watched_buffer = "👀 ",

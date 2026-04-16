@@ -15,7 +15,8 @@ set $up k
 set $right l
 # Your preferred terminal emulator
 # set $term foot
-set $term kitty tmux
+# set $term kitty tmux
+set $term foot tmux
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
@@ -27,7 +28,12 @@ set $out2 HDMI-A-1
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg ~/Pictures/jupiter.png fill
+# output * bg ~/Pictures/Littleplanet.png fill
+# output * bg ~/Pictures/Horsehead_Lin_2596.jpg center
+# output * bg ~/Pictures/Pleiades_Pelizzo_9396.jpg fill
+output * bg ~/Pictures/little_leaf_7680x4320.jpg fill
+# output * bg ~/Pictures/MarsClouds_Perseverance.png fill
+# output * bg ~/Pictures/jupiter.png fill
 # output * bg ~/Pictures/minimalist-black-digital-blend_3840x2160.jpg fill
 
 output * scale 1.5

@@ -301,7 +301,7 @@ function M.setup_blink_cmp_keymaps()
 
     ["<C-k>"] = { "show_signature", "hide_signature", "fallback" },
 
-    ['<M-y>'] = require('minuet').make_blink_map(),
+    -- ['<M-y>'] = require('minuet').make_blink_map(),
   }
 end
 
@@ -1229,21 +1229,21 @@ end
 
 function M.setup_markdown_keymaps()
   return {
-    {
-      "<Leader>uM",
-      function()
-        local m = require("render-markdown")
-        local enabled = require("render-markdown.state").enabled
-        if enabled then
-          m.disable()
-          vim.cmd("setlocal conceallevel=0")
-        else
-          m.enable()
-          vim.cmd("setlocal conceallevel=2")
-        end
-      end,
-      desc = "Toggle markdown render",
-    },
+    -- {
+    --   "<Leader>uM",
+    --   function()
+    --     local m = require("render-markdown")
+    --     local enabled = require("render-markdown.state").enabled
+    --     if enabled then
+    --       m.disable()
+    --       vim.cmd("setlocal conceallevel=0")
+    --     else
+    --       m.enable()
+    --       vim.cmd("setlocal conceallevel=2")
+    --     end
+    --   end,
+    --   desc = "Toggle markdown render",
+    -- },
   }
 end
 

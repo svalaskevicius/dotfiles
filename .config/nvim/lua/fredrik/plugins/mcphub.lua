@@ -7,7 +7,7 @@ return {
   -- https://www.aimcp.info/en
 
   {
-    "ravitemer/mcphub.nvim",
+    "svalaskevicius/mcphub.nvim",
     lazy = true,
     dependencies = {
       "nvim-lua/plenary.nvim", -- Required for Job and HTTP requests

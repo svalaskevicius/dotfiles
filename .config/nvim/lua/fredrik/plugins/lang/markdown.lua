@@ -1,12 +1,12 @@
 -- Fix conceallevel for markdown files
-vim.api.nvim_create_autocmd({ "FileType" }, {
-  group = vim.api.nvim_create_augroup("markdown_conceal", { clear = true }),
-  pattern = { "markdown" },
-  callback = function()
-    vim.opt_local.wrap = true
-    vim.opt_local.conceallevel = 2
-  end,
-})
+-- vim.api.nvim_create_autocmd({ "FileType" }, {
+--   group = vim.api.nvim_create_augroup("markdown_conceal", { clear = true }),
+--   pattern = { "markdown" },
+--   callback = function()
+--     vim.opt_local.wrap = true
+--     vim.opt_local.conceallevel = 2
+--   end,
+-- })
 
 return {
   {
@@ -73,54 +73,54 @@ return {
     cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
   },
 
-  {
-    "MeanderingProgrammer/render-markdown.nvim",
-    lazy = true,
-    ft = { "markdown" },
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter",
-      "echasnovski/mini.icons",
-      {
-        "saghen/blink.cmp",
-        ---@module 'blink.cmp'
-        ---@type blink.cmp.Config
-        opts = {
-          sources = {
-            default = { "markdown" },
-            providers = {
-              markdown = { name = "RenderMarkdown", module = "render-markdown.integ.blink" },
-            },
-          },
-        },
-        opts_extend = {
-          "sources.default",
-        },
-      },
-      -- {
-      --   -- "epwalsh/obsidian.nvim",
-      --   "obsidian-nvim/obsidian.nvim",
-      --   opts = {
-      --     ui = { enable = false },
-      --   },
-      -- },
-    },
-    ---@module 'render-markdown'
-    ---@type render.md.UserConfig
-    opts = {
-      code = {
-        sign = false,
-        width = "block",
-        right_pad = 1,
-      },
-      heading = {
-        enabled = false,
-        -- width = "block",
-        -- sign = false,
-        -- icons = {},
-      },
-    },
-    keys = require("fredrik.config.keymaps").setup_markdown_keymaps(),
-  },
+  -- {
+  --   "MeanderingProgrammer/render-markdown.nvim",
+  --   lazy = true,
+  --   ft = { "markdown" },
+  --   dependencies = {
+  --     "nvim-treesitter/nvim-treesitter",
+  --     "echasnovski/mini.icons",
+  --     {
+  --       "saghen/blink.cmp",
+  --       ---@module 'blink.cmp'
+  --       ---@type blink.cmp.Config
+  --       opts = {
+  --         sources = {
+  --           default = { "markdown" },
+  --           providers = {
+  --             markdown = { name = "RenderMarkdown", module = "render-markdown.integ.blink" },
+  --           },
+  --         },
+  --       },
+  --       opts_extend = {
+  --         "sources.default",
+  --       },
+  --     },
+  --     -- {
+  --     --   -- "epwalsh/obsidian.nvim",
+  --     --   "obsidian-nvim/obsidian.nvim",
+  --     --   opts = {
+  --     --     ui = { enable = false },
+  --     --   },
+  --     -- },
+  --   },
+  --   ---@module 'render-markdown'
+  --   ---@type render.md.UserConfig
+  --   opts = {
+  --     code = {
+  --       sign = false,
+  --       width = "block",
+  --       right_pad = 1,
+  --     },
+  --     heading = {
+  --       enabled = false,
+  --       -- width = "block",
+  --       -- sign = false,
+  --       -- icons = {},
+  --     },
+  --   },
+  --   keys = require("fredrik.config.keymaps").setup_markdown_keymaps(),
+  -- },
 
   {
     "virtual-lsp-config",
@@ -166,16 +166,16 @@ return {
             ltex = {
               enabled = { "latex", "tex", "bib", "markdown", "gitcommit" },
               language = "en-GB",
-              --configurationTarget = {
-              --dictionary = "workspaceFolderExternalFile",
-              --disabledRules = "workspaceFolder",
-              --hiddenFalsePositives = "workspaceFolder",
-              --},
+              configurationTarget = {
+                dictionary = "workspaceFolderExternalFile",
+                disabledRules = "workspaceFolder",
+                hiddenFalsePositives = "workspaceFolder",
+              },
+              enabledRules = {
+                ["en-GB"] = { "OXFORD_SPELLING_ISE_VERBS" },
+              },
               disabledRules = {
                 ["en-GB"] = { "OXFORD_SPELLING_Z_NOT_S", "PASSIVE_VOICE" },
-              },
-              enableRules = {
-                ["en-GB"] = { "OXFORD_SPELLING_ISE_VERBS" },
               },
               -- dictionary = (function()
               --   -- For dictionary, search for files in the runtime to have
