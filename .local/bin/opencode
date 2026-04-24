@@ -1,0 +1,59 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+CURRENT="$(readlink -f "$0")"
+ORIG="$(which -a opencode | grep -v "$CURRENT" | head -n1)"
+
+if test -z "$ORIG" ; then
+  echo "No opencode found (wrapper at $CURRENT)" >&2
+  exit 1
+fi
+
+PROJECT_DIR="$(pwd)"
+HOME_DIR="$HOME"
+
+mkdir -p /tmp/opencode-cache
+
+exec bwrap \
+  --unshare-all \
+  --share-net \
+  --new-session \
+  \
+  --ro-bind /usr /usr \
+  --ro-bind /bin /bin \
+  --ro-bind /lib /lib \
+  --ro-bind /lib64 /lib64 \
+  \
+  --ro-bind /usr/sbin /usr/sbin \
+  --ro-bind /sbin /sbin \
+  \
+  --ro-bind /etc/resolv.conf /etc/resolv.conf \
+  --ro-bind /etc/hosts /etc/hosts \
+  --ro-bind /etc/passwd /etc/passwd \
+  --ro-bind /etc/group /etc/group \
+  \
+  --proc /proc \
+  --tmpfs /tmp \
+  --dev /dev \
+  \
+  --dir /home/dev \
+  --setenv HOME /home/dev \
+  --setenv TMPDIR /tmp \
+  --setenv XDG_CONFIG_HOME /home/dev/.config \
+  --setenv XDG_CACHE_HOME /home/dev/.cache \
+  \
+  --bind "$HOME_DIR/.config/opencode" /home/dev/.config/opencode \
+  --bind "$HOME_DIR/.npm" /home/dev/.npm \
+  --bind "/tmp/opencode-cache" /home/dev/.cache \
+  \
+  --bind "$PROJECT_DIR" /workspace \
+  --chdir /workspace \
+  \
+  --setenv PATH "/usr/local/bin:/usr/bin:/bin" \
+  \
+  --die-with-parent \
+  \
+  -- \
+  "$ORIG" "$@"
+
