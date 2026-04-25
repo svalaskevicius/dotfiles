@@ -62,8 +62,8 @@ bwrap_args=(
   --ro-bind "$HOME_DIR/.gitignore_global" /home/dev/.gitignore_global
 
   --bind "$HOME_DIR/.config/opencode" /home/dev/.config/opencode
+  --bind "$HOME_DIR/.cache/opencode" /home/dev/.cache/opencode
   --bind "$HOME_DIR/.npm" /home/dev/.npm
-  --bind "/tmp/opencode-cache" /home/dev/.cache
 
   --bind "$WORKSPACE_DIR" /workspace
   --chdir "/workspace/${CHDIR_PATH}"
