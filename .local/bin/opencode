@@ -5,55 +5,73 @@ set -euo pipefail
 CURRENT="$(readlink -f "$0")"
 ORIG="$(which -a opencode | grep -v "$CURRENT" | head -n1)"
 
-if test -z "$ORIG" ; then
+if test -z "${ORIG:-}"; then
   echo "No opencode found (wrapper at $CURRENT)" >&2
   exit 1
 fi
 
-PROJECT_DIR="$(pwd)"
+# Find git root: cwd if it has .git, walk up parents, fallback to cwd
+WORKSPACE_DIR="$PWD"
+while [ ! -d "$WORKSPACE_DIR/.git" ]; do
+  WORKSPACE_DIR="$(dirname "$WORKSPACE_DIR")"
+  if [ "$WORKSPACE_DIR" = "/" ]; then
+    WORKSPACE_DIR="$PWD"
+    break
+  fi
+done
+
+# Compute relative path from git root to original cwd for --chdir
+if [[ "$PWD" == "$WORKSPACE_DIR/"* ]]; then
+  CHDIR_PATH="${PWD#$WORKSPACE_DIR/}"
+else
+  CHDIR_PATH="."
+fi
+
 HOME_DIR="$HOME"
 
 mkdir -p /tmp/opencode-cache
 
-exec bwrap \
-  --unshare-all \
-  --share-net \
-  --new-session \
-  \
-  --ro-bind /usr /usr \
-  --ro-bind /bin /bin \
-  --ro-bind /lib /lib \
-  --ro-bind /lib64 /lib64 \
-  \
-  --ro-bind /usr/sbin /usr/sbin \
-  --ro-bind /sbin /sbin \
-  \
-  --ro-bind /etc/resolv.conf /etc/resolv.conf \
-  --ro-bind /etc/hosts /etc/hosts \
-  --ro-bind /etc/passwd /etc/passwd \
-  --ro-bind /etc/group /etc/group \
-  \
-  --proc /proc \
-  --tmpfs /tmp \
-  --dev /dev \
-  \
-  --dir /home/dev \
-  --setenv HOME /home/dev \
-  --setenv TMPDIR /tmp \
-  --setenv XDG_CONFIG_HOME /home/dev/.config \
-  --setenv XDG_CACHE_HOME /home/dev/.cache \
-  \
-  --bind "$HOME_DIR/.config/opencode" /home/dev/.config/opencode \
-  --bind "$HOME_DIR/.npm" /home/dev/.npm \
-  --bind "/tmp/opencode-cache" /home/dev/.cache \
-  \
-  --bind "$PROJECT_DIR" /workspace \
-  --chdir /workspace \
-  \
-  --setenv PATH "/usr/local/bin:/usr/bin:/bin" \
-  \
-  --die-with-parent \
-  \
-  -- \
-  "$ORIG" "$@"
+bwrap_args=(
+  --unshare-all
+  --share-net
+
+  --ro-bind /usr /usr
+  --ro-bind /bin /bin
+  --ro-bind /lib /lib
+  --ro-bind /lib64 /lib64
+
+  --ro-bind /usr/sbin /usr/sbin
+  --ro-bind /sbin /sbin
+
+  --ro-bind /etc/resolv.conf /etc/resolv.conf
+  --ro-bind /etc/hosts /etc/hosts
+  --ro-bind /etc/passwd /etc/passwd
+  --ro-bind /etc/group /etc/group
+
+  --proc /proc
+  --tmpfs /tmp
+  --dev /dev
+
+  --dir /home/dev
+  --setenv HOME /home/dev
+  --setenv TMPDIR /tmp
+  --setenv XDG_CONFIG_HOME /home/dev/.config
+  --setenv XDG_CACHE_HOME /home/dev/.cache
+
+  --ro-bind "$HOME_DIR/.gitconfig" /home/dev/.gitconfig
+  --ro-bind "$HOME_DIR/.gitignore_global" /home/dev/.gitignore_global
+
+  --bind "$HOME_DIR/.config/opencode" /home/dev/.config/opencode
+  --bind "$HOME_DIR/.npm" /home/dev/.npm
+  --bind "/tmp/opencode-cache" /home/dev/.cache
+
+  --bind "$WORKSPACE_DIR" /workspace
+  --chdir "/workspace/${CHDIR_PATH}"
+
+  --setenv PATH "/usr/local/bin:/usr/bin:/bin"
+
+  --die-with-parent
+)
+
+exec bwrap "${bwrap_args[@]}" -- "$ORIG" "$@"
 
