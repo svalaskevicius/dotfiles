@@ -1,0 +1,81 @@
+#!/bin/sh
+
+# MODEL="Qwen3.6-35B-A3B-Claude-4.6-Opus-Reasoning-Distilled.Q4_K_M.gguf"
+# MODEL="Qwopus3.6-27B-v1-preview-Q6_K.gguf"
+MODEL="Qwen3.6-35B-A3B-UD-Q4_K_XL.gguf"
+# MODEL="Qwen3.6-35B-A3B-UD-Q5_K_S.gguf"
+# MODEL="Qwen3.6-35B-A3B-UD-Q5_K_M.gguf"
+#
+# MODEL="gemma-4-26B-A4B-it-UD-Q5_K_XL.gguf"
+# MODEL="Qwen3-Coder-30B-A3B-Instruct-UD-Q4_K_XL.gguf"
+# MODEL="Qwen3-Coder-30B-A3B-Instruct-Q5_K_M.gguf"
+# MODEL="Nemotron-3-Nano-30B-A3B-Q5_K_S.gguf"
+# MODEL="Qwen3-53B-A3B-2507-THINKING-TOTAL-RECALL-v2-MASTER-CODER.i1-IQ3_M.gguf"
+# MODEL="Qwen3-Coder-30B-A3B-Instruct-IQ4_NL.gguf"
+# MODEL="Qwen3-Coder-30B-A3B-Instruct-Q4_K_M.gguf"
+# MODEL="IQuest-Coder-V1-40B-Instruct.q4_k_m.gguf"
+# MODEL="IQuest-Coder-V1-40B-Instruct.IQ4_XS.gguf"
+DATA=/home/sarunas/tmp/vllm
+
+
+export ROCR_VISIBLE_DEVICES=0
+
+# llama-bench \
+llama-server \
+ --alias cog \
+ --jinja \
+ --keep 4096 \
+ --port 8000 --host 0.0.0.0 \
+ --n-gpu-layers 999 \
+ --temp 0.55 --top-p 0.92 --repeat_penalty 1.14 --presence-penalty 0 \
+ --mirostat 2 --mirostat-ent 1.5 --mirostat-lr 0.1 \
+ --cache-reuse 512 \
+ -fa on \
+ -m "$DATA/$MODEL" \
+ --no-mmap --mlock \
+ -b 4096 \
+ -ub 1024 \
+ -c 262144 \
+ -tb 24 \
+ -np 1 \
+ --cache-type-k q4_0 \
+ --cache-type-v q4_0 \
+ --kv-codec turboquant \
+ --kv-tq-runtime vulkan \
+ -cram 32768 \
+ --swa-full \
+ --reasoning on \
+ --chat-template-kwargs '{"preserve_thinking": true}'
+
+ # --chat-template-file "$DATA/qwen3.5-chat-template.custom1.jinja" \
+ # -c 65536 \
+ # -c 131072 \
+ # -c 262144 \
+ # --cache-type-k turbo4 \
+ # --cache-type-v turbo3 \
+ # --cache-type-k q4_0 \
+ # --cache-type-v q4_0 \
+ # --cache-type-k f16 \
+ # --cache-type-v f16 \
+ # --cache-type-k q8_0 \
+ # --cache-type-v q8_0 \
+ # --chat-template-file "$DATA/qwen3.5-chat-template.custom1.jinja" \
+
+# llama-server \
+#  -m "$DATA/$MODEL" \
+#  --alias cog \
+#  --jinja \
+#  -c 65536 \
+#  --port 8000 --host 0.0.0.0 --n-gpu-layers 999 \
+#  --temp 0.6 --top-k 20 --min-p 0.0 --top-p 0.95 --repeat_penalty 1.00 --presence-penalty 0.0 \
+#  --cache-type-k q8_0 \
+#  --cache-type-v q8_0 \
+#  --chat-template-file "$DATA/qwen3.5-chat-template.custom1.jinja"
+
+ # -n 32768
+ # -c 65536 \
+ # -c 262144 \
+ # --temp 0.7 --top-k 40 --top-p 0.82 \
+
+ # --chat-template-file "$DATA/qwen3-chat-template-1.jinja" \
+ # --jinja -c 16384 \
