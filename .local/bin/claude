@@ -3,10 +3,15 @@
 set -euo pipefail
 
 CURRENT="$(readlink -f "$0")"
-ORIG="$(which -a opencode | grep -v "$CURRENT" | head -n1)"
+if [[ "$1" == "--bash" ]]; then
+    ORIG="bash"
+    shift
+else
+    ORIG="$(which -a claude | grep -v "$CURRENT" | head -n1)"
+fi
 
 if test -z "${ORIG:-}"; then
-  echo "No opencode found (wrapper at $CURRENT)" >&2
+  echo "No claude found (wrapper at $CURRENT)" >&2
   exit 1
 fi
 
@@ -29,8 +34,8 @@ fi
 
 HOME_DIR="$HOME"
 
-mkdir -p /tmp/opencode-cache
-mkdir -p "$HOME_DIR/.cache/codebase-memory-mcp"
+mkdir -p "$HOME_DIR/.claude"
+mkdir -p "$HOME_DIR/.claude/codebase-memory-mcp"
 
 bwrap_args=(
   --unshare-all
@@ -62,20 +67,21 @@ bwrap_args=(
   --ro-bind "$HOME_DIR/.gitconfig" /home/dev/.gitconfig
   --ro-bind "$HOME_DIR/.gitignore_global" /home/dev/.gitignore_global
 
-  --bind "$HOME_DIR/.config/opencode" /home/dev/.config/opencode
-  --bind "$HOME_DIR/.cache/opencode" /home/dev/.cache/opencode
+  --bind "$HOME_DIR/.claude" /home/dev/.claude
+  --bind "$HOME_DIR/.claude.json" /home/dev/.claude.json
+  --bind "$HOME_DIR/.cache/claude-cli-nodejs" /home/dev/.cache/claude-cli-nodejs
+
   --bind "$HOME_DIR/.cache/uv" /home/dev/.cache/uv
   --bind "$HOME_DIR/.npm" /home/dev/.npm
-  --bind "$HOME_DIR/.cache/codebase-memory-mcp" /home/dev/.cache/codebase-memory-mcp
+  --bind "$HOME_DIR/.claude/codebase-memory-mcp" /home/dev/.cache/codebase-memory-mcp
 
+  --ro-bind /opt/claude-code /opt/claude-code
   --ro-bind /home/sarunas/src/semantic-edit-mcp/target/release/semantic-edit-mcp /opt/semantic-mcp/semantic-edit-mcp
 
   --bind "$WORKSPACE_DIR" /workspace
   --chdir "/workspace/${CHDIR_PATH}"
 
   --setenv PATH "/usr/local/bin:/usr/bin:/bin:/workspace/${CHDIR_PATH}/node_modules/.bin"
-  # --setenv PATH "/usr/local/bin:/usr/bin:/bin:/workspace/${CHDIR_PATH}/node_modules/.bin"
-  --setenv OPENCODE_EXPERIMENTAL_LSP_TOOL 1
   --setenv OPENSPEC_TELEMETRY 0
 
   --die-with-parent
