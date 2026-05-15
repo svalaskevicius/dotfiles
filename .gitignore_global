@@ -29,3 +29,6 @@ project/metals.sbt
 .scala-build
 .envrc
 /opencode.json
+*.egg-info/
+__pycache__/
+.ebuilder.state.json
