@@ -3,7 +3,7 @@ return {
     "andymass/vim-matchup",
     dependencies = {
       {
-        "nvim-treesitter/nvim-treesitter",
+        "svalaskevicius/nvim-treesitter",
         opts = {
           matchup = {
             enable = true, -- mandatory, false will disable the whole extension

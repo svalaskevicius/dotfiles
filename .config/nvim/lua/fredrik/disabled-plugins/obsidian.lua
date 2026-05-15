@@ -13,7 +13,7 @@ return {
 
     -- optional
     "nvim-telescope/telescope.nvim",
-    "nvim-treesitter/nvim-treesitter",
+    "svalaskevicius/nvim-treesitter",
 
     {
       "saghen/blink.cmp",

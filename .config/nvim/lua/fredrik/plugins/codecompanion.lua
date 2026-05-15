@@ -168,7 +168,7 @@ return {
     dependencies = {
       "nvim-lua/plenary.nvim",
       {
-        "nvim-treesitter/nvim-treesitter",
+        "svalaskevicius/nvim-treesitter",
         opts = {
           ensure_installed = { codecompanion = "markdown" },
         },

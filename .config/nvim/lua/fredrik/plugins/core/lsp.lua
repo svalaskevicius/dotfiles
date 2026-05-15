@@ -95,10 +95,13 @@ local function register_lspattach_autocmd()
       if client then
         -- set up codelens
         if client:supports_method("textDocument/codeLens", args.buf) then
-          vim.lsp.codelens.refresh()
+          -- vim.lsp.codelens.refresh()
+          vim.lsp.codelens.enable(true, {bufnr = args.buf })
           vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
             buffer = args.buf,
-            callback = vim.lsp.codelens.refresh,
+            callback = function(b)
+              vim.lsp.codelens.enable(true, { bufnr = b.buf } )
+            end,
           })
         end
 

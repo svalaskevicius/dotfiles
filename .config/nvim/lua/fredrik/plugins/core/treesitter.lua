@@ -13,7 +13,7 @@ end
 
 return {
   {
-    "nvim-treesitter/nvim-treesitter",
+    "svalaskevicius/nvim-treesitter",
     lazy = true,
     event = "BufRead",
     build = ":TSUpdate",
@@ -41,7 +41,7 @@ return {
     "nvim-treesitter/nvim-treesitter-context",
     event = "BufRead",
     dependencies = {
-      "nvim-treesitter/nvim-treesitter",
+      "svalaskevicius/nvim-treesitter",
       event = "BufRead",
     },
     opts = {

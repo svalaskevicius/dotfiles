@@ -282,7 +282,7 @@ return {
   {
     "zgs225/gomodifytags.nvim",
     dependencies = {
-      "nvim-treesitter/nvim-treesitter",
+      "svalaskevicius/nvim-treesitter",
       {
         "mason-org/mason.nvim",
         opts = function(_, opts)
@@ -305,7 +305,7 @@ return {
     dependencies = { -- optional packages
       "ray-x/guihua.lua",
       "virtual-lsp-config",
-      "nvim-treesitter/nvim-treesitter",
+      "svalaskevicius/nvim-treesitter",
     },
     config = function()
       require("go").setup({
@@ -381,7 +381,7 @@ return {
     dev = true, -- see lazy.lua for local path details
     dependencies = {
       { "folke/snacks.nvim" },
-      "nvim-treesitter/nvim-treesitter",
+      "svalaskevicius/nvim-treesitter",
     },
     build = "go install github.com/lotusirous/gostdsym/stdsym@latest",
     opts = {

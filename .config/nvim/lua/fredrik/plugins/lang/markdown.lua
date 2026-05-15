@@ -78,7 +78,7 @@ return {
   --   lazy = true,
   --   ft = { "markdown" },
   --   dependencies = {
-  --     "nvim-treesitter/nvim-treesitter",
+  --     "svalaskevicius/nvim-treesitter",
   --     "echasnovski/mini.icons",
   --     {
   --       "saghen/blink.cmp",
