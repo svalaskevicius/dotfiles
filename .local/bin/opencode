@@ -3,7 +3,12 @@
 set -euo pipefail
 
 CURRENT="$(readlink -f "$0")"
-ORIG="$(which -a opencode | grep -v "$CURRENT" | head -n1)"
+if [[ "${1:-}" == "--bash" ]]; then
+    ORIG="/usr/bin/bash"
+    shift
+else
+    ORIG="$(which -a opencode | grep -v "$CURRENT" | head -n1)"
+fi
 
 if test -z "${ORIG:-}"; then
   echo "No opencode found (wrapper at $CURRENT)" >&2
@@ -27,10 +32,7 @@ else
   CHDIR_PATH="."
 fi
 
-HOME_DIR="$HOME"
-
-mkdir -p /tmp/opencode-cache
-mkdir -p "$HOME_DIR/.cache/codebase-memory-mcp"
+mkdir -p "$HOME/.cache/codebase-memory-mcp"
 
 bwrap_args=(
   --unshare-all
@@ -48,35 +50,44 @@ bwrap_args=(
   --ro-bind /etc/hosts /etc/hosts
   --ro-bind /etc/passwd /etc/passwd
   --ro-bind /etc/group /etc/group
+  --ro-bind /etc/ssl /etc/ssl
+  --ro-bind /etc/ca-certificates /etc/ca-certificates
+  --ro-bind /etc/java21-openjdk /etc/java21-openjdk
 
   --proc /proc
   --tmpfs /tmp
   --dev /dev
 
-  --dir /home/dev
-  --setenv HOME /home/dev
+  --dir "$HOME"
+  --setenv HOME "$HOME"
   --setenv TMPDIR /tmp
-  --setenv XDG_CONFIG_HOME /home/dev/.config
-  --setenv XDG_CACHE_HOME /home/dev/.cache
+  --setenv XDG_CONFIG_HOME "$HOME/.config"
+  --setenv XDG_CACHE_HOME "$HOME/.cache"
 
-  --ro-bind "$HOME_DIR/.gitconfig" /home/dev/.gitconfig
-  --ro-bind "$HOME_DIR/.gitignore_global" /home/dev/.gitignore_global
+  --ro-bind "$HOME/.gitconfig" "$HOME/.gitconfig"
+  --ro-bind "$HOME/.gitignore_global" "$HOME/.gitignore_global"
+  --ro-bind "$HOME/dev/.gitemail" "$HOME/dev/.gitemail" 
 
-  --bind "$HOME_DIR/.config/opencode" /home/dev/.config/opencode
-  --bind "$HOME_DIR/.cache/opencode" /home/dev/.cache/opencode
-  --bind "$HOME_DIR/.cache/uv" /home/dev/.cache/uv
-  --bind "$HOME_DIR/.npm" /home/dev/.npm
-  --bind "$HOME_DIR/.cache/codebase-memory-mcp" /home/dev/.cache/codebase-memory-mcp
 
-  --ro-bind /home/sarunas/src/semantic-edit-mcp/target/release/semantic-edit-mcp /opt/semantic-mcp/semantic-edit-mcp
+  --bind "$HOME/.config/opencode" "$HOME/.config/opencode"
+  --bind "$HOME/.cache/opencode" "$HOME/.cache/opencode"
+  --bind "$HOME/.cache/uv" "$HOME/.cache/uv"
+  --bind "$HOME/.npm" "$HOME/.npm"
+  --bind "$HOME/.ivy2" "$HOME/.ivy2"
+  --bind "$HOME/.m2" "$HOME/.m2"
+  --bind "$HOME/.cache/codebase-memory-mcp" "$HOME/.cache/codebase-memory-mcp"
 
-  --bind "$WORKSPACE_DIR" /workspace
-  --chdir "/workspace/${CHDIR_PATH}"
+  --ro-bind "$HOME/src/semantic-edit-mcp/target/release/semantic-edit-mcp" /opt/semantic-mcp/semantic-edit-mcp
 
-  --setenv PATH "/usr/local/bin:/usr/bin:/bin:/workspace/${CHDIR_PATH}/node_modules/.bin"
-  # --setenv PATH "/usr/local/bin:/usr/bin:/bin:/workspace/${CHDIR_PATH}/node_modules/.bin"
-  --setenv OPENCODE_EXPERIMENTAL_LSP_TOOL 1
+  --bind "$WORKSPACE_DIR" "$WORKSPACE_DIR"
+  --chdir "$WORKSPACE_DIR/${CHDIR_PATH}"
+
+  --setenv PATH "$WORKSPACE_DIR/${CHDIR_PATH}/node_modules/.bin:$HOME/.local/bin:$HOME/.local/share/coursier/bin:/usr/local/bin:/usr/bin:/bin"
   --setenv OPENSPEC_TELEMETRY 0
+  --unsetenv SSH_AUTH_SOCK
+  --unsetenv SSH_AGENT_PID
+
+  --setenv OPENCODE_EXPERIMENTAL_LSP_TOOL 1
 
   --die-with-parent
 )

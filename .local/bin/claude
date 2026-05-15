@@ -3,11 +3,14 @@
 set -euo pipefail
 
 CURRENT="$(readlink -f "$0")"
-if [[ "$1" == "--bash" ]]; then
-    ORIG="bash"
+if [[ "${1:-}" == "--bash" ]]; then
+    ORIG="/usr/bin/bash"
     shift
 else
-    ORIG="$(which -a claude | grep -v "$CURRENT" | head -n1)"
+    ORIG="$(readlink "$HOME/.claude/.local/bin/claude" || echo "")"
+    if test -z "$ORIG" ; then
+        ORIG="$(which -a claude | grep -v "$CURRENT" | head -n1)"
+    fi
 fi
 
 if test -z "${ORIG:-}"; then
@@ -32,10 +35,10 @@ else
   CHDIR_PATH="."
 fi
 
-HOME_DIR="$HOME"
-
-mkdir -p "$HOME_DIR/.claude"
-mkdir -p "$HOME_DIR/.claude/codebase-memory-mcp"
+mkdir -p "$HOME/.claude"
+mkdir -p "$HOME/.claude/.ssh"
+mkdir -p "$HOME/.claude/.local/bin"
+mkdir -p "$HOME/.claude/codebase-memory-mcp"
 
 bwrap_args=(
   --unshare-all
@@ -53,36 +56,46 @@ bwrap_args=(
   --ro-bind /etc/hosts /etc/hosts
   --ro-bind /etc/passwd /etc/passwd
   --ro-bind /etc/group /etc/group
+  --ro-bind /etc/ssl /etc/ssl
+  --ro-bind /etc/ca-certificates /etc/ca-certificates
+  --ro-bind /etc/java21-openjdk /etc/java21-openjdk
 
   --proc /proc
   --tmpfs /tmp
   --dev /dev
 
-  --dir /home/dev
-  --setenv HOME /home/dev
+  --dir "$HOME"
+  --setenv HOME "$HOME"
   --setenv TMPDIR /tmp
-  --setenv XDG_CONFIG_HOME /home/dev/.config
-  --setenv XDG_CACHE_HOME /home/dev/.cache
+  --setenv XDG_CONFIG_HOME "$HOME/.config"
+  --setenv XDG_CACHE_HOME "$HOME/.cache"
 
-  --ro-bind "$HOME_DIR/.gitconfig" /home/dev/.gitconfig
-  --ro-bind "$HOME_DIR/.gitignore_global" /home/dev/.gitignore_global
+  --ro-bind "$HOME/.gitconfig" "$HOME/.gitconfig"
+  --ro-bind "$HOME/.gitignore_global" "$HOME/.gitignore_global"
+  --ro-bind "$HOME/dev/.gitemail" "$HOME/dev/.gitemail" 
 
-  --bind "$HOME_DIR/.claude" /home/dev/.claude
-  --bind "$HOME_DIR/.claude.json" /home/dev/.claude.json
-  --bind "$HOME_DIR/.cache/claude-cli-nodejs" /home/dev/.cache/claude-cli-nodejs
+  --bind "$HOME/.claude" "$HOME/.claude"
+  --bind "$HOME/.claude.json" "$HOME/.claude.json"
+  --bind "$HOME/.claude/.ssh" "$HOME/.ssh"
+  --bind "$HOME/.claude/codebase-memory-mcp" "$HOME/.cache/codebase-memory-mcp"
+  --bind "$HOME/.claude/.local" "$HOME/.local"
+  --bind "$HOME/.cache/claude-cli-nodejs" "$HOME/.cache/claude-cli-nodejs"
 
-  --bind "$HOME_DIR/.cache/uv" /home/dev/.cache/uv
-  --bind "$HOME_DIR/.npm" /home/dev/.npm
-  --bind "$HOME_DIR/.claude/codebase-memory-mcp" /home/dev/.cache/codebase-memory-mcp
+  --bind "$HOME/.cache/uv" "$HOME/.cache/uv"
+  --bind "$HOME/.npm" "$HOME/.npm"
+  --bind "$HOME/.ivy2" "$HOME/.ivy2"
+  --bind "$HOME/.m2" "$HOME/.m2"
 
   --ro-bind /opt/claude-code /opt/claude-code
   --ro-bind /home/sarunas/src/semantic-edit-mcp/target/release/semantic-edit-mcp /opt/semantic-mcp/semantic-edit-mcp
 
-  --bind "$WORKSPACE_DIR" /workspace
-  --chdir "/workspace/${CHDIR_PATH}"
+  --bind "$WORKSPACE_DIR" "$WORKSPACE_DIR"
+  --chdir "$WORKSPACE_DIR/${CHDIR_PATH}"
 
-  --setenv PATH "/usr/local/bin:/usr/bin:/bin:/workspace/${CHDIR_PATH}/node_modules/.bin"
+  --setenv PATH "$WORKSPACE_DIR/${CHDIR_PATH}/node_modules/.bin:$HOME/.local/bin:$HOME/.local/share/coursier/bin:/usr/local/bin:/usr/bin:/bin"
   --setenv OPENSPEC_TELEMETRY 0
+  --unsetenv SSH_AUTH_SOCK
+  --unsetenv SSH_AGENT_PID
 
   --die-with-parent
 )
