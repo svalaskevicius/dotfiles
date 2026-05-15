@@ -2,6 +2,7 @@
 
 set -euo pipefail
 
+SYSTEM_OVERLAY="$HOME/.local/state/opencode/system-overlay"
 CURRENT="$(readlink -f "$0")"
 if [[ "${1:-}" == "--bash" ]]; then
     ORIG="/usr/bin/bash"
@@ -32,7 +33,14 @@ else
   CHDIR_PATH="."
 fi
 
-mkdir -p "$HOME/.cache/codebase-memory-mcp"
+
+
+mkdir -p "$SYSTEM_OVERLAY/.ssh"
+mkdir -p "$SYSTEM_OVERLAY/.local"
+mkdir -p "$SYSTEM_OVERLAY/.cache"
+mkdir -p "$SYSTEM_OVERLAY/.npm"
+mkdir -p "$SYSTEM_OVERLAY/.ivy2"
+mkdir -p "$SYSTEM_OVERLAY/.m2"
 
 bwrap_args=(
   --unshare-all
@@ -70,14 +78,12 @@ bwrap_args=(
 
 
   --bind "$HOME/.config/opencode" "$HOME/.config/opencode"
-  --bind "$HOME/.cache/opencode" "$HOME/.cache/opencode"
-  --bind "$HOME/.cache/uv" "$HOME/.cache/uv"
-  --bind "$HOME/.npm" "$HOME/.npm"
-  --bind "$HOME/.ivy2" "$HOME/.ivy2"
-  --bind "$HOME/.m2" "$HOME/.m2"
-  --bind "$HOME/.cache/codebase-memory-mcp" "$HOME/.cache/codebase-memory-mcp"
-
-  --ro-bind "$HOME/src/semantic-edit-mcp/target/release/semantic-edit-mcp" /opt/semantic-mcp/semantic-edit-mcp
+  --bind "$SYSTEM_OVERLAY/.ssh" "$HOME/.ssh"
+  --bind "$SYSTEM_OVERLAY/.local" "$HOME/.local"
+  --bind "$SYSTEM_OVERLAY/.cache" "$HOME/.cache"
+  --bind "$SYSTEM_OVERLAY/.npm" "$HOME/.npm"
+  --bind "$SYSTEM_OVERLAY/.ivy2" "$HOME/.ivy2"
+  --bind "$SYSTEM_OVERLAY/.m2" "$HOME/.m2"
 
   --bind "$WORKSPACE_DIR" "$WORKSPACE_DIR"
   --chdir "$WORKSPACE_DIR/${CHDIR_PATH}"

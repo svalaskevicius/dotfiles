@@ -2,12 +2,14 @@
 
 set -euo pipefail
 
+SYSTEM_OVERLAY="$HOME/.claude/system-overlay"
+
 CURRENT="$(readlink -f "$0")"
 if [[ "${1:-}" == "--bash" ]]; then
     ORIG="/usr/bin/bash"
     shift
 else
-    ORIG="$(readlink "$HOME/.claude/.local/bin/claude" || echo "")"
+    ORIG="$(readlink "$SYSTEM_OVERLAY/.local/bin/claude" || echo "")"
     if test -z "$ORIG" ; then
         ORIG="$(which -a claude | grep -v "$CURRENT" | head -n1)"
     fi
@@ -36,9 +38,13 @@ else
 fi
 
 mkdir -p "$HOME/.claude"
-mkdir -p "$HOME/.claude/.ssh"
-mkdir -p "$HOME/.claude/.local/bin"
-mkdir -p "$HOME/.claude/codebase-memory-mcp"
+
+mkdir -p "$SYSTEM_OVERLAY/.ssh"
+mkdir -p "$SYSTEM_OVERLAY/.local"
+mkdir -p "$SYSTEM_OVERLAY/.cache"
+mkdir -p "$SYSTEM_OVERLAY/.npm"
+mkdir -p "$SYSTEM_OVERLAY/.ivy2"
+mkdir -p "$SYSTEM_OVERLAY/.m2"
 
 bwrap_args=(
   --unshare-all
@@ -76,18 +82,12 @@ bwrap_args=(
 
   --bind "$HOME/.claude" "$HOME/.claude"
   --bind "$HOME/.claude.json" "$HOME/.claude.json"
-  --bind "$HOME/.claude/.ssh" "$HOME/.ssh"
-  --bind "$HOME/.claude/codebase-memory-mcp" "$HOME/.cache/codebase-memory-mcp"
-  --bind "$HOME/.claude/.local" "$HOME/.local"
-  --bind "$HOME/.cache/claude-cli-nodejs" "$HOME/.cache/claude-cli-nodejs"
-
-  --bind "$HOME/.cache/uv" "$HOME/.cache/uv"
-  --bind "$HOME/.npm" "$HOME/.npm"
-  --bind "$HOME/.ivy2" "$HOME/.ivy2"
-  --bind "$HOME/.m2" "$HOME/.m2"
-
-  --ro-bind /opt/claude-code /opt/claude-code
-  --ro-bind /home/sarunas/src/semantic-edit-mcp/target/release/semantic-edit-mcp /opt/semantic-mcp/semantic-edit-mcp
+  --bind "$SYSTEM_OVERLAY/.ssh" "$HOME/.ssh"
+  --bind "$SYSTEM_OVERLAY/.local" "$HOME/.local"
+  --bind "$SYSTEM_OVERLAY/.cache" "$HOME/.cache"
+  --bind "$SYSTEM_OVERLAY/.npm" "$HOME/.npm"
+  --bind "$SYSTEM_OVERLAY/.ivy2" "$HOME/.ivy2"
+  --bind "$SYSTEM_OVERLAY/.m2" "$HOME/.m2"
 
   --bind "$WORKSPACE_DIR" "$WORKSPACE_DIR"
   --chdir "$WORKSPACE_DIR/${CHDIR_PATH}"
@@ -99,6 +99,12 @@ bwrap_args=(
 
   --die-with-parent
 )
+
+if test -d /opt/claude-code ; then
+    bwrap_args+=(
+      --ro-bind /opt/claude-code /opt/claude-code
+    )
+fi
 
 # exec bwrap "${bwrap_args[@]}" -- bash -c 'source .envrc 2>/dev/null || true; exec "$0" "$@"' -- bash
 exec bwrap "${bwrap_args[@]}" -- bash -c 'source .envrc 2>/dev/null || true; exec "$0" "$@"' -- "$ORIG" "$@"
