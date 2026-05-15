@@ -39,12 +39,7 @@ fi
 
 mkdir -p "$HOME/.claude"
 
-mkdir -p "$SYSTEM_OVERLAY/.ssh"
-mkdir -p "$SYSTEM_OVERLAY/.local"
-mkdir -p "$SYSTEM_OVERLAY/.cache"
-mkdir -p "$SYSTEM_OVERLAY/.npm"
-mkdir -p "$SYSTEM_OVERLAY/.ivy2"
-mkdir -p "$SYSTEM_OVERLAY/.m2"
+mkdir -p "$SYSTEM_OVERLAY"
 
 bwrap_args=(
   --unshare-all
@@ -70,7 +65,7 @@ bwrap_args=(
   --tmpfs /tmp
   --dev /dev
 
-  --dir "$HOME"
+  --bind "$SYSTEM_OVERLAY" "$HOME"
   --setenv HOME "$HOME"
   --setenv TMPDIR /tmp
   --setenv XDG_CONFIG_HOME "$HOME/.config"
@@ -82,12 +77,9 @@ bwrap_args=(
 
   --bind "$HOME/.claude" "$HOME/.claude"
   --bind "$HOME/.claude.json" "$HOME/.claude.json"
-  --bind "$SYSTEM_OVERLAY/.ssh" "$HOME/.ssh"
-  --bind "$SYSTEM_OVERLAY/.local" "$HOME/.local"
-  --bind "$SYSTEM_OVERLAY/.cache" "$HOME/.cache"
-  --bind "$SYSTEM_OVERLAY/.npm" "$HOME/.npm"
-  --bind "$SYSTEM_OVERLAY/.ivy2" "$HOME/.ivy2"
-  --bind "$SYSTEM_OVERLAY/.m2" "$HOME/.m2"
+  # tmp hack to sort running sbt update
+  --bind "$HOME/.ivy2" "$HOME/.ivy2"
+  --bind "$HOME/.m2" "$HOME/.m2"
 
   --bind "$WORKSPACE_DIR" "$WORKSPACE_DIR"
   --chdir "$WORKSPACE_DIR/${CHDIR_PATH}"
