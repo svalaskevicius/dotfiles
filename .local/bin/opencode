@@ -70,8 +70,7 @@ bwrap_args=(
   --ro-bind "$HOME/.gitignore_global" "$HOME/.gitignore_global"
   --ro-bind "$HOME/dev/.gitemail" "$HOME/dev/.gitemail" 
 
-
-  --bind "$HOME/.config/opencode" "$HOME/.config/opencode"
+  --ro-bind "$HOME/.config/opencode" "$HOME/.config/opencode"
 
   --bind "$WORKSPACE_DIR" "$WORKSPACE_DIR"
   --chdir "$WORKSPACE_DIR/${CHDIR_PATH}"
