@@ -2,20 +2,6 @@
 
 set -euo pipefail
 
-SYSTEM_OVERLAY="$HOME/.local/state/opencode/system-overlay"
-CURRENT="$(readlink -f "$0")"
-if [[ "${1:-}" == "--bash" ]]; then
-    ORIG="/usr/bin/bash"
-    shift
-else
-    ORIG="$(which -a opencode | grep -v "$CURRENT" | head -n1)"
-fi
-
-if test -z "${ORIG:-}"; then
-  echo "No opencode found (wrapper at $CURRENT)" >&2
-  exit 1
-fi
-
 # Find git root: cwd if it has .git, walk up parents, fallback to cwd
 WORKSPACE_DIR="$PWD"
 while [ ! -d "$WORKSPACE_DIR/.git" ]; do
@@ -34,11 +20,9 @@ else
 fi
 
 
-mkdir -p "$SYSTEM_OVERLAY"
-
 bwrap_args=(
   --unshare-all
-  --share-net
+  # --share-net
 
   --ro-bind /usr /usr
   --ro-bind /bin /bin
@@ -60,40 +44,20 @@ bwrap_args=(
   --tmpfs /tmp
   --dev /dev
 
-  --bind "$SYSTEM_OVERLAY" "$HOME"
+  --dir "$HOME"
   --setenv HOME "$HOME"
   --setenv TMPDIR /tmp
-  --setenv XDG_CONFIG_HOME "$HOME/.config"
-  --setenv XDG_CACHE_HOME "$HOME/.cache"
-
-  --ro-bind "$HOME/.gitconfig" "$HOME/.gitconfig"
-  --ro-bind "$HOME/.gitignore_global" "$HOME/.gitignore_global"
-  --ro-bind "$HOME/dev/.gitemail" "$HOME/dev/.gitemail" 
-
-
-  --bind "$HOME/.config/opencode" "$HOME/.config/opencode"
 
   --bind "$WORKSPACE_DIR" "$WORKSPACE_DIR"
   --chdir "$WORKSPACE_DIR/${CHDIR_PATH}"
 
   --setenv PATH "$WORKSPACE_DIR/${CHDIR_PATH}/node_modules/.bin:$HOME/.local/bin:$HOME/.local/share/coursier/bin:/usr/local/bin:/usr/bin:/bin"
-  --setenv OPENSPEC_TELEMETRY 0
   --unsetenv SSH_AUTH_SOCK
   --unsetenv SSH_AGENT_PID
-
-  --setenv OPENCODE_EXPERIMENTAL_LSP_TOOL 1
 
   --die-with-parent
 )
 
-if test -f "$HOME/.local/bin/sandbox" ; then
-  bwrap_args+=( 
-      --ro-bind "$HOME/.local/bin/sandbox" "$HOME/.local/bin/sandbox" 
-  )
-fi
-
-# exec bwrap "${bwrap_args[@]}" -- bash -c 'source .envrc 2>/dev/null || true; exec "$0" "$@"' -- bash
-exec bwrap "${bwrap_args[@]}" -- bash -c 'source .envrc 2>/dev/null || true; exec "$0" "$@"' -- "$ORIG" "$@"
-# exec bwrap "${bwrap_args[@]}" -- "$ORIG" "$@"
-# exec bwrap "${bwrap_args[@]}" -- bash 
+# exec bwrap "${bwrap_args[@]}" -- "$@"
+exec bwrap "${bwrap_args[@]}" -- bash -c 'source .envrc 2>/dev/null || true; exec "$0" "$@"' -- "$@"
 
