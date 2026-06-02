@@ -30,6 +30,11 @@ while [ ! -d "$WORKSPACE_DIR/.git" ]; do
   fi
 done
 
+if [[ "$WORKSPACE_DIR" != "$HOME/"* ]]; then
+    echo "Error: WORKSPACE_DIR must be a subdirectory of HOME" >&2
+    exit 1
+fi
+
 # Compute relative path from git root to original cwd for --chdir
 if [[ "$PWD" == "$WORKSPACE_DIR/"* ]]; then
   CHDIR_PATH="${PWD#$WORKSPACE_DIR/}"
