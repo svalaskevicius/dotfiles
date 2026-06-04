@@ -78,7 +78,6 @@ bwrap_args=(
 
   --ro-bind "$HOME/.gitconfig" "$HOME/.gitconfig"
   --ro-bind "$HOME/.gitignore_global" "$HOME/.gitignore_global"
-  --ro-bind "$HOME/dev/.gitemail" "$HOME/dev/.gitemail" 
 
   --bind "$HOME/.claude" "$HOME/.claude"
   --bind "$HOME/.claude.json" "$HOME/.claude.json"
