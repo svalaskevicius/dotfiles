@@ -1,8 +1,10 @@
-#!/bin/sh
+#!/bin/bash
 
 # MODEL="Qwen3.6-35B-A3B-Claude-4.6-Opus-Reasoning-Distilled.Q4_K_M.gguf"
 # MODEL="Qwopus3.6-27B-v1-preview-Q6_K.gguf"
-MODEL="Qwen3.6-35B-A3B-UD-Q4_K_XL.gguf"
+# MODEL="Qwen3.6-35B-A3B-UD-Q4_K_XL.gguf"
+MODEL="Qwen3.6-35B-A3B-MTP-UD-Q4_K_XL.gguf"
+# MODEL="Qwen3.6-27B-MTP-UD-Q4_K_XL.gguf"
 # MODEL="Qwen3.6-35B-A3B-UD-Q5_K_S.gguf"
 # MODEL="Qwen3.6-35B-A3B-UD-Q5_K_M.gguf"
 #
@@ -20,33 +22,41 @@ DATA=/home/sarunas/tmp/vllm
 
 export ROCR_VISIBLE_DEVICES=0
 
-# llama-bench \
-llama-server \
- --alias cog \
- --jinja \
- --keep 4096 \
- --port 8000 --host 0.0.0.0 \
- --n-gpu-layers 999 \
- --temp 0.55 --top-p 0.92 --repeat_penalty 1.14 --presence-penalty 0 \
- --mirostat 2 --mirostat-ent 1.5 --mirostat-lr 0.1 \
- --cache-reuse 512 \
- -fa on \
- -m "$DATA/$MODEL" \
- --no-mmap --mlock \
- -b 4096 \
- -ub 1024 \
- -c 262144 \
- -tb 24 \
- -np 1 \
- --cache-type-k q4_0 \
- --cache-type-v q4_0 \
- --kv-codec turboquant \
- --kv-tq-runtime vulkan \
- -cram 32768 \
- --swa-full \
- --reasoning on \
- --chat-template-kwargs '{"preserve_thinking": true}'
+BASE_ARGS=(
+ --n-gpu-layers 999 
+ -fa on 
+ -m "$DATA/$MODEL" 
+ -b 4096 
+ -ub 1024 
+ --cache-type-k q4_0
+ --cache-type-v q4_0 
+)
 
+ARGS=("${BASE_ARGS[@]}")
+ARGS+=(
+ --alias cog 
+ --jinja 
+ --keep 4096 
+ --port 8000 --host 0.0.0.0 
+ --temp 0.55 --top-p 0.92 --repeat_penalty 1.16 --presence-penalty 0 
+ --mirostat 2 --mirostat-ent 1.5 --mirostat-lr 0.1 
+ --cache-reuse 512 
+ --no-mmap --mlock 
+ -c 262144 
+ -tb 24 
+ -np 1 
+ --spec-type draft-mtp --spec-draft-n-max 3 
+ --cache-type-k-draft q4_0
+ --cache-type-v-draft q4_0
+ --kv-unified 
+ -cram 32768 
+ --swa-full 
+ --reasoning on 
+ --chat-template-kwargs '{"preserve_thinking": true}'
+)
+
+ # --kv-codec turboquant \
+ # --kv-tq-runtime vulkan \
  # --chat-template-file "$DATA/qwen3.5-chat-template.custom1.jinja" \
  # -c 65536 \
  # -c 131072 \
@@ -61,21 +71,6 @@ llama-server \
  # --cache-type-v q8_0 \
  # --chat-template-file "$DATA/qwen3.5-chat-template.custom1.jinja" \
 
-# llama-server \
-#  -m "$DATA/$MODEL" \
-#  --alias cog \
-#  --jinja \
-#  -c 65536 \
-#  --port 8000 --host 0.0.0.0 --n-gpu-layers 999 \
-#  --temp 0.6 --top-k 20 --min-p 0.0 --top-p 0.95 --repeat_penalty 1.00 --presence-penalty 0.0 \
-#  --cache-type-k q8_0 \
-#  --cache-type-v q8_0 \
-#  --chat-template-file "$DATA/qwen3.5-chat-template.custom1.jinja"
-
- # -n 32768
- # -c 65536 \
- # -c 262144 \
- # --temp 0.7 --top-k 40 --top-p 0.82 \
-
- # --chat-template-file "$DATA/qwen3-chat-template-1.jinja" \
- # --jinja -c 16384 \
+set -x
+# llama-bench "${BASE_ARGS[@]}"
+llama-server "${ARGS[@]}"

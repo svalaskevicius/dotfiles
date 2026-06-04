@@ -1,31 +1,38 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "provider": {
-    "llama.cpp": {
-      "npm": "@ai-sdk/openai-compatible",
-      "name": "llama-server (local)",
-      "options": {
-        "baseURL": "http://127.0.0.1:8000/v1"
-      },
-      "models": {
-        "cog": {
-          "name": "cog",
-          "limit": {
-            "context": 262144,
-            "output": 131072
-          }
-        }
-      }
+  "agent": {
+    "ebuilder": {
+      "description": "Autonomous agent with auto-continuation.",
+      "mode": "primary",
+      "prompt": "You are ebuilder..."
     }
   },
-  "model": "llama.cpp/cog",
+  "command": {
+    "cancel-ralph": {
+      "__cc_source": "ralph-loop",
+      "description": "(ralph-loop) Cancel active Ralph Loop or ebuilder Loop",
+      "template": "<command-instruction>\nCancel the active Ralph Loop or ebuilder Loop. Clear the loop state and stop injecting continuations.\nOutput: Loop cancelled.\n</command-instruction>"
+    },
+    "ralph-loop": {
+      "__cc_source": "ralph-loop",
+      "argumentHint": "\"task description\" [--completion-promise=TEXT] [--max-iterations=N]",
+      "description": "(ralph-loop) Start self-referential development loop until completion",
+      "template": "<command-instruction>\nYou are now in RALPH LOOP mode. Work on the task until it is FULLY complete.\n\nRULES:\n- Work continuously until every part of the task is done\n- When FULLY complete, output: <promise>DONE</promise>\n- Do NOT output the promise until everything is verified\n- Do NOT stop early or take shortcuts\n- Output the promise ONLY ONCE when truly done\n</command-instruction>\n\n<user-task>\n$ARGUMENTS\n</user-task>"
+    },
+    "ulw-loop": {
+      "__cc_source": "ralph-loop",
+      "argumentHint": "\"task description\" [--completion-promise=TEXT] [--max-iterations=N]",
+      "description": "(ralph-loop) Start ultrawork loop - maximum intensity until completion",
+      "template": "<command-instruction>\nYou are now in ULTRAWORK LOOP mode. Work at MAXIMUM intensity until the task is FULLY complete.\n\nRULES:\n- Work continuously at maximum effort\n- Use parallel agents aggressively for exploration\n- Deep-analyze before implementing\n- When FULLY complete, output: <promise>DONE</promise>\n- Do NOT output the promise until everything is verified\n- Do NOT stop early or take shortcuts\n- Output the promise ONLY ONCE when truly done\n</command-instruction>\n\n<user-task>\n$ARGUMENTS\n</user-task>"
+    }
+  },
   "lsp": {
     "typescript": {
-      "disabled": false,
       "command": [
         "typescript-language-server",
         "--stdio"
       ],
+      "disabled": false,
       "extensions": [
         ".ts",
         ".tsx",
@@ -35,49 +42,52 @@
       ]
     }
   },
-  "permission": {
-    "edit": "allow",
-    "bash": "allow",
-    "external_directory": {
-      "*": "ask",
-      "/tmp": "allow",
-      "/tmp/*": "allow",
-      "/home/sarunas/.cache/opencode/packages/*": "allow"
-    }
-  },
   "mcp": {
     "codebase-memory-mcp": {
-      "enabled": true,
-      "type": "local",
       "command": [
         "/usr/bin/codebase-memory-mcp"
-      ]
+      ],
+      "enabled": true,
+      "type": "local"
+    },
+    "lean-ctx": {
+      "command": [
+        "/home/sarunas/.local/bin/lean-ctx"
+      ],
+      "enabled": true,
+      "environment": {
+        "LEAN_CTX_DATA_DIR": "/home/sarunas/.config/lean-ctx"
+      },
+      "type": "local"
     }
   },
-  "command": {
-    "ralph-loop": {
-      "description": "(ralph-loop) Start self-referential development loop until completion",
-      "template": "<command-instruction>\nYou are now in RALPH LOOP mode. Work on the task until it is FULLY complete.\n\nRULES:\n- Work continuously until every part of the task is done\n- When FULLY complete, output: <promise>DONE</promise>\n- Do NOT output the promise until everything is verified\n- Do NOT stop early or take shortcuts\n- Output the promise ONLY ONCE when truly done\n</command-instruction>\n\n<user-task>\n$ARGUMENTS\n</user-task>",
-      "argumentHint": "\"task description\" [--completion-promise=TEXT] [--max-iterations=N]",
-      "__cc_source": "ralph-loop"
-    },
-    "ulw-loop": {
-      "description": "(ralph-loop) Start ultrawork loop - maximum intensity until completion",
-      "template": "<command-instruction>\nYou are now in ULTRAWORK LOOP mode. Work at MAXIMUM intensity until the task is FULLY complete.\n\nRULES:\n- Work continuously at maximum effort\n- Use parallel agents aggressively for exploration\n- Deep-analyze before implementing\n- When FULLY complete, output: <promise>DONE</promise>\n- Do NOT output the promise until everything is verified\n- Do NOT stop early or take shortcuts\n- Output the promise ONLY ONCE when truly done\n</command-instruction>\n\n<user-task>\n$ARGUMENTS\n</user-task>",
-      "argumentHint": "\"task description\" [--completion-promise=TEXT] [--max-iterations=N]",
-      "__cc_source": "ralph-loop"
-    },
-    "cancel-ralph": {
-      "description": "(ralph-loop) Cancel active Ralph Loop or ebuilder Loop",
-      "template": "<command-instruction>\nCancel the active Ralph Loop or ebuilder Loop. Clear the loop state and stop injecting continuations.\nOutput: Loop cancelled.\n</command-instruction>",
-      "__cc_source": "ralph-loop"
+  "model": "llama.cpp/cog",
+  "permission": {
+    "bash": "allow",
+    "edit": "allow",
+    "external_directory": {
+      "*": "ask",
+      "/home/sarunas/.cache/opencode/packages/*": "allow",
+      "/tmp": "allow",
+      "/tmp/*": "allow"
     }
   },
-  "agent": {
-    "ebuilder": {
-      "mode": "primary",
-      "description": "Autonomous agent with auto-continuation.",
-      "prompt": "You are ebuilder..."
+  "provider": {
+    "llama.cpp": {
+      "models": {
+        "cog": {
+          "limit": {
+            "context": 262144,
+            "output": 131072
+          },
+          "name": "cog"
+        }
+      },
+      "name": "llama-server (local)",
+      "npm": "@ai-sdk/openai-compatible",
+      "options": {
+        "baseURL": "http://127.0.0.1:8000/v1"
+      }
     }
   }
 }
