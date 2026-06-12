@@ -97,6 +97,10 @@ bwrap_args=(
   --die-with-parent
 )
 
+if test -d "$HOME/.local/share/coursier" ; then
+    bwrap_args+=(--ro-bind "$HOME/.local/share/coursier" "$HOME/.local/share/coursier")
+fi
+
 # Dynamically bind .gitemail files from parent directories of WORKSPACE_DIR up to HOME
 BIND_DIR="$WORKSPACE_DIR"
 while true; do
