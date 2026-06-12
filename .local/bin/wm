@@ -1,0 +1,26 @@
+#!/bin/sh
+
+# Set environment variable to fix fullscreen adaptive sync with Xwayland
+# export WLR_DRM_NO_MODIFIERS=1
+export XDG_CURRENT_DESKTOP=sway
+export QT_QPA_PLATFORMTHEME=qt5ct
+# export WAYLAND_DEBUG=1
+# export WLR_XWAYLAND=$HOME/src/xserver/build/hw/xwayland/Xwayland 
+export WLR_DRM_DEVICES="/dev/dri/card0:/dev/dri/card1"
+
+# declare cleanup handler and run it on script termination via kill or Ctrl-C
+session_cleanup () {
+    systemctl --user stop sway-session.target
+}
+
+trap session_cleanup INT TERM
+
+systemctl --user start sway-session.target
+
+# exec $HOME/src/sway-dev/build/sway/sway > >(gzip > ~/.sway.out.gz) 2> >(gzip > ~/.sway.err.gz)
+# exec $HOME/src/sway-dev/build/sway/sway --debug > >(gzip > ~/.sway.out.gz) 2> >(gzip > ~/.sway.err.gz)
+# exec $HOME/src/sway-dev/build/sway/sway --debug > >(gzip > ~/.sway.out.gz) 2> >(gzip > ~/.sway.err.gz)
+dbus-run-session -- $HOME/src/sway-dev/build/sway/sway --debug > >(gzip > ~/.sway.out.gz) 2> >(gzip > ~/.sway.err.gz)
+
+# run cleanup handler on normal exit
+session_cleanup
