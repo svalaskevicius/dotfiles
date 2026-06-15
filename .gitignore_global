@@ -32,3 +32,4 @@ project/metals.sbt
 *.egg-info/
 __pycache__/
 .ebuilder.state.json
+.claude/settings.local.json
