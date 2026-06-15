@@ -13,7 +13,7 @@ prefix=''
 for p in $pr ; do
   mprefix="$(echo "$br" | grep -Po "^$p-([0-9]+)(?=[-_])"  )"
   if ! test -z "$mprefix" ; then
-    prefix="$mprefix: "
+    prefix="$mprefix "
   fi
 done
 
