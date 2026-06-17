@@ -65,6 +65,7 @@ bwrap_args=(
   --ro-bind /etc/ssl /etc/ssl
   --ro-bind /etc/ca-certificates /etc/ca-certificates
   --ro-bind /etc/java21-openjdk /etc/java21-openjdk
+  --ro-bind /etc/java11-openjdk /etc/java11-openjdk
 
   --proc /proc
   --tmpfs /tmp
@@ -83,6 +84,7 @@ bwrap_args=(
   --bind "$HOME/.claude.json" "$HOME/.claude.json"
   # tmp hack to sort running sbt update
   --bind "$HOME/.ivy2" "$HOME/.ivy2"
+  --bind "$HOME/.sbt" "$HOME/.sbt"
   --bind "$HOME/.m2" "$HOME/.m2"
   --ro-bind "$HOME/.local/bin/git" "$HOME/.local/bin/git" 
 
