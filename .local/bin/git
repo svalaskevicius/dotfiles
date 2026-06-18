@@ -2,8 +2,8 @@
 
 function set_git_email() {
     local p="$1"
-    while test "$p" != "$HOME" -a "$p" != "/" -a "$p" != "." -a "$p" != "" ; do
-        if test -e "$p/.gitemail" ; then
+    while test "$p" != "$HOME" -a "$p" != "/" -a "$p" != "." -a "$p" != ""; do
+        if test -e "$p/.gitemail"; then
             local email
             email=$(cat "$p/.gitemail")
             export GIT_AUTHOR_EMAIL="$email"
@@ -16,24 +16,31 @@ function set_git_email() {
 
 CURRENT="$(readlink -f "$0")"
 ORIG="$(which -a git | grep -v "$CURRENT" | head -n1)"
-if test -z "$ORIG" ; then
-  echo "No git found in the system (this is from wrapper at $CURRENT)" >&2
-  exit 1
+if test -z "$ORIG"; then
+    echo "No git found in the system (this is from wrapper at $CURRENT)" >&2
+    exit 1
 else
-  top=$("$ORIG" rev-parse --show-toplevel 2>/dev/null)
-  set_git_email "$top"
+    top=$("$ORIG" rev-parse --show-toplevel 2>/dev/null)
+    set_git_email "$top"
 
+    ARGS=()
+    is_status=false
 
-  # Replace bare --porcelain with --porcelain=v2
-  ARGS=()
-  for arg in "$@"; do
-    if [ "$arg" = "--porcelain" ]; then
-      ARGS+=("--porcelain=v2")
-    else
-      ARGS+=("$arg")
+    if [ "$1" = "status" ]; then
+        is_status=true
     fi
-  done
 
-  exec "$ORIG" "${ARGS[@]}"
+    for arg in "$@"; do
+        if [ "$arg" = "--porcelain" ]; then
+            if $is_status; then
+                ARGS+=("-s")
+            else
+                ARGS+=("--porcelain=v2")
+            fi
+        else
+            ARGS+=("$arg")
+        fi
+    done
+
+    exec "$ORIG" "${ARGS[@]}"
 fi
-
