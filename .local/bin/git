@@ -23,6 +23,17 @@ else
   top=$("$ORIG" rev-parse --show-toplevel 2>/dev/null)
   set_git_email "$top"
 
-  exec "$ORIG" "$@"
+
+  # Replace bare --porcelain with --porcelain=v2
+  ARGS=()
+  for arg in "$@"; do
+    if [ "$arg" = "--porcelain" ]; then
+      ARGS+=("--porcelain=v2")
+    else
+      ARGS+=("$arg")
+    fi
+  done
+
+  exec "$ORIG" "${ARGS[@]}"
 fi
 

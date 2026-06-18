@@ -70,7 +70,7 @@ bwrap_args=(
   --ro-bind "$HOME/.gitignore_global" "$HOME/.gitignore_global"
   --ro-bind "$HOME/dev/.gitemail" "$HOME/dev/.gitemail" 
 
-  --ro-bind "$HOME/.config/opencode" "$HOME/.config/opencode"
+  --bind "$HOME/.config/opencode" "$HOME/.config/opencode"
 
   --bind "$WORKSPACE_DIR" "$WORKSPACE_DIR"
   --chdir "$WORKSPACE_DIR/${CHDIR_PATH}"
@@ -85,11 +85,11 @@ bwrap_args=(
   --die-with-parent
 )
 
-if test -f "$HOME/.local/bin/sandbox" ; then
-  bwrap_args+=( 
-      --ro-bind "$HOME/.local/bin/sandbox" "$HOME/.local/bin/sandbox" 
-  )
-fi
+for m in "$HOME/.local/bin/git" "$HOME/.local/bin/sandbox" "$HOME/.local/share/coursier" ; do
+  if test -e "$m"; then
+    bwrap_args+=( --ro-bind "$m" "$m" )
+  fi
+done
 
 # exec bwrap "${bwrap_args[@]}" -- bash -c 'source .envrc 2>/dev/null || true; exec "$0" "$@"' -- bash
 exec bwrap "${bwrap_args[@]}" -- bash -c 'source .envrc 2>/dev/null || true; exec "$0" "$@"' -- "$ORIG" "$@"

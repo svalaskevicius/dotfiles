@@ -8,38 +8,22 @@
     }
   },
   "command": {
-    "cancel-ralph": {
-      "__cc_source": "ralph-loop",
-      "description": "(ralph-loop) Cancel active Ralph Loop or ebuilder Loop",
-      "template": "<command-instruction>\nCancel the active Ralph Loop or ebuilder Loop. Clear the loop state and stop injecting continuations.\nOutput: Loop cancelled.\n</command-instruction>"
-    },
     "ralph-loop": {
-      "__cc_source": "ralph-loop",
-      "argumentHint": "\"task description\" [--completion-promise=TEXT] [--max-iterations=N]",
       "description": "(ralph-loop) Start self-referential development loop until completion",
-      "template": "<command-instruction>\nYou are now in RALPH LOOP mode. Work on the task until it is FULLY complete.\n\nRULES:\n- Work continuously until every part of the task is done\n- When FULLY complete, output: <promise>DONE</promise>\n- Do NOT output the promise until everything is verified\n- Do NOT stop early or take shortcuts\n- Output the promise ONLY ONCE when truly done\n</command-instruction>\n\n<user-task>\n$ARGUMENTS\n</user-task>"
+      "template": "<command-instruction>\nYou are now in RALPH LOOP mode. Work on the task until it is FULLY complete.\n\nRULES:\n- Work continuously until every part of the task is done\n- When FULLY complete, output: <promise>DONE</promise>\n- Do NOT output the promise until everything is verified\n- Do NOT stop early or take shortcuts\n- Output the promise ONLY ONCE when truly done\n</command-instruction>\n\n<user-task>\n$ARGUMENTS\n</user-task>",
+      "argumentHint": "\"task description\" [--completion-promise=TEXT] [--max-iterations=N]",
+      "__cc_source": "ralph-loop"
     },
     "ulw-loop": {
-      "__cc_source": "ralph-loop",
-      "argumentHint": "\"task description\" [--completion-promise=TEXT] [--max-iterations=N]",
       "description": "(ralph-loop) Start ultrawork loop - maximum intensity until completion",
-      "template": "<command-instruction>\nYou are now in ULTRAWORK LOOP mode. Work at MAXIMUM intensity until the task is FULLY complete.\n\nRULES:\n- Work continuously at maximum effort\n- Use parallel agents aggressively for exploration\n- Deep-analyze before implementing\n- When FULLY complete, output: <promise>DONE</promise>\n- Do NOT output the promise until everything is verified\n- Do NOT stop early or take shortcuts\n- Output the promise ONLY ONCE when truly done\n</command-instruction>\n\n<user-task>\n$ARGUMENTS\n</user-task>"
-    }
-  },
-  "lsp": {
-    "typescript": {
-      "command": [
-        "typescript-language-server",
-        "--stdio"
-      ],
-      "disabled": false,
-      "extensions": [
-        ".ts",
-        ".tsx",
-        ".js",
-        ".jsx",
-        ".mjs"
-      ]
+      "template": "<command-instruction>\nYou are now in ULTRAWORK LOOP mode. Work at MAXIMUM intensity until the task is FULLY complete.\n\nRULES:\n- Work continuously at maximum effort\n- Use parallel agents aggressively for exploration\n- Deep-analyze before implementing\n- When FULLY complete, output: <promise>DONE</promise>\n- Do NOT output the promise until everything is verified\n- Do NOT stop early or take shortcuts\n- Output the promise ONLY ONCE when truly done\n</command-instruction>\n\n<user-task>\n$ARGUMENTS\n</user-task>",
+      "argumentHint": "\"task description\" [--completion-promise=TEXT] [--max-iterations=N]",
+      "__cc_source": "ralph-loop"
+    },
+    "cancel-ralph": {
+      "description": "(ralph-loop) Cancel active Ralph Loop or ebuilder Loop",
+      "template": "<command-instruction>\nCancel the active Ralph Loop or ebuilder Loop. Clear the loop state and stop injecting continuations.\nOutput: Loop cancelled.\n</command-instruction>",
+      "__cc_source": "ralph-loop"
     }
   },
   "mcp": {
@@ -59,6 +43,15 @@
         "LEAN_CTX_DATA_DIR": "/home/sarunas/.config/lean-ctx"
       },
       "type": "local"
+    },
+    "background-job": {
+      "command": [
+        "uvx",
+        "mcp-background-job"
+      ],
+      "enabled": true,
+      "environment": {},
+      "type": "local"
     }
   },
   "model": "llama.cpp/cog",
@@ -68,6 +61,7 @@
     "external_directory": {
       "*": "ask",
       "/home/sarunas/.cache/opencode/packages/*": "allow",
+      "/home/sarunas/.local/share/rtk/*": "allow",
       "/tmp": "allow",
       "/tmp/*": "allow"
     }
