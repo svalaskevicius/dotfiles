@@ -42,7 +42,7 @@ return {
         },
       },
 
-      image = { enabled = true },
+      image = { enabled = false },
 
       indent = {
         enabled = true,
@@ -59,7 +59,7 @@ return {
       },
 
       lazygit = {
-        enabled = true,
+        enabled = false,
         -- automatically configure lazygit to use the current colorscheme
         -- and integrate edit with the current neovim instance
         configure = true,
