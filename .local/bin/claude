@@ -86,8 +86,8 @@ bwrap_args=(
   --bind "$HOME/.ivy2" "$HOME/.ivy2"
   --bind "$HOME/.sbt" "$HOME/.sbt"
   --bind "$HOME/.m2" "$HOME/.m2"
-  --bind "$HOME/.cache/coursier/" "$HOME/.cache/coursier/"
-  --bind "$HOME/.cache/bloop/" "$HOME/.cache/bloop/"
+  --bind "$HOME/.cache/coursier" "$HOME/.cache/coursier"
+  --bind "$HOME/.cache/bloop" "$HOME/.cache/bloop"
   --ro-bind "$HOME/.local/bin/git" "$HOME/.local/bin/git" 
 
   --bind "$WORKSPACE_DIR" "$WORKSPACE_DIR"

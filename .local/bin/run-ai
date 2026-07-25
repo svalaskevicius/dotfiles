@@ -3,7 +3,14 @@
 # MODEL="Qwen3.6-35B-A3B-Claude-4.6-Opus-Reasoning-Distilled.Q4_K_M.gguf"
 # MODEL="Qwopus3.6-27B-v1-preview-Q6_K.gguf"
 # MODEL="Qwen3.6-35B-A3B-UD-Q4_K_XL.gguf"
-MODEL="Qwen3.6-35B-A3B-MTP-UD-Q4_K_XL.gguf"
+#
+
+
+MODEL="Qwen3.6-35B-A3B-MTP-UD-Q4_K_XL.gguf" # this was good
+# MODEL="Qwopus3.6-35B-A3B-v1-APEX-MTP-I-Quality.gguf" # looping much
+
+
+
 # MODEL="Qwen3.6-27B-MTP-UD-Q4_K_XL.gguf"
 # MODEL="Qwen3.6-35B-A3B-UD-Q5_K_S.gguf"
 # MODEL="Qwen3.6-35B-A3B-UD-Q5_K_M.gguf"
@@ -38,7 +45,7 @@ ARGS+=(
  --jinja 
  --keep 4096 
  --port 8000 --host 0.0.0.0 
- --temp 0.55 --top-p 0.92 --repeat_penalty 1.16 --presence-penalty 0 
+ --temp 0.56 --top-p 0.92 --repeat_penalty 1.16 --presence-penalty 0 
  --mirostat 2 --mirostat-ent 1.5 --mirostat-lr 0.1 
  --cache-reuse 512 
  --no-mmap --mlock 
