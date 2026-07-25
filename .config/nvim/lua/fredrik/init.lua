@@ -22,7 +22,8 @@ require("fredrik.config.autocmds")
 -- setup up plugin manager, load plugin configs
 require("fredrik.config.lazy")
 
-vim.cmd("colorscheme retrobox")
+vim.cmd("colorscheme deus")
+-- vim.cmd("colorscheme retrobox")
 
 local variable_colors = { "#9CD8F7", "#F5FA1D", "#F97C65", "#35D27F", "#EB75D6", "#E5D180", "#8997F5", "#D49DA5",
   "#7FEC35",

@@ -255,7 +255,10 @@ end
 
 function M.setup_blink_cmp_keymaps()
   -- https://cmp.saghen.dev/configuration/keymap
-  local fbGen = require('blink.cmp.keymap.fallback')
+  local ok, fbGen = pcall(require, 'blink.cmp.keymap.fallback')
+  if not ok then
+    return {}
+  end
   local tabFallback = fbGen.wrap('i', '<Tab>')
   local sTabFallback = fbGen.wrap('i', '<S-Tab>')
 
@@ -291,6 +294,7 @@ function M.setup_blink_cmp_keymaps()
       end,
     },
 
+    ["<Right>"] = { "accept", "fallback" },
     ["<Up>"] = { "select_prev", "fallback" },
     ["<Down>"] = { "select_next", "fallback" },
     ["<C-p>"] = { "select_prev", "fallback_to_mappings" },
@@ -306,7 +310,39 @@ function M.setup_blink_cmp_keymaps()
 end
 
 function M.setup_blink_cmdline_keymaps()
+  local ok, fbGen = pcall(require, 'blink.cmp.keymap.fallback')
+  if not ok then
+    return {}
+  end
+  local tabFallback = fbGen.wrap('i', '<Tab>')
+  local sTabFallback = fbGen.wrap('i', '<S-Tab>')
   return {
+    ["<Tab>"] = {
+      function(cmp)
+        if cmp.is_visible() then
+          cmp.select_next({ auto_insert = true })
+        else
+          local f = tabFallback(false)
+          if f ~= nil then
+            vim.api.nvim_feedkeys(f, 'n', false)
+          end
+        end
+      end,
+    },
+    ["<S-Tab>"] = {
+      function(cmp)
+        if cmp.is_visible() then
+          cmp.select_prev({ auto_insert = true })
+        else
+          local f = sTabFallback(false)
+          if f ~= nil then
+            vim.api.nvim_feedkeys(f, 'n', false)
+          end
+        end
+      end,
+    },
+    ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
+    ["<Right>"] = { "accept", "fallback" },
     ["<Up>"] = { "select_prev", "fallback" },
     ["<Down>"] = { "select_next", "fallback" },
   }
