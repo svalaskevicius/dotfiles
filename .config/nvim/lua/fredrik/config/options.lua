@@ -54,8 +54,11 @@ vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
 -- text wrap
-vim.opt.wrap = false
+vim.opt.wrap = true
 vim.opt.linebreak = true -- Wrap lines at convenient points
+vim.opt.showbreak = " ↪"
+vim.opt.breakindent = true
+vim.opt.breakindentopt = "shift:2,sbr"
 
 -- completion
 vim.opt.completeopt = "menuone,longest,fuzzy"

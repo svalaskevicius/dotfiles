@@ -56,6 +56,8 @@ return {
         markdownlint = {
           args = {
             "--config", vim.fn.expand("~/.markdownlint.json"),
+            '--disable', 'MD022',
+            '--disable', 'MD032',
             "--stdin",
           },
         },
