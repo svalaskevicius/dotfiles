@@ -4,7 +4,7 @@ return {
     lazy = true,
     dependencies = { "nvim-lua/plenary.nvim" },
     init = function()
-      vim.g["metals_server_version"] = "1.6.7"
+      vim.g["metals_server_version"] = "1.6.8"
     end,
     opts = function()
       local metals_config = require("metals").bare_config()
