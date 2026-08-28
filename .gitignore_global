@@ -33,3 +33,4 @@ project/metals.sbt
 __pycache__/
 .ebuilder.state.json
 .claude/settings.local.json
+.gim.prefix
