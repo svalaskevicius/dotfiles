@@ -1,92 +1,29 @@
 #!/bin/bash
 
-# MODEL="Qwen3.6-35B-A3B-MTP-UD-Q4_K_XL.gguf" # this was good
-# MODEL="Ornith-1.0-35B-UD-Q4_K_XL.gguf"
-MODEL="Ornith-1.0-35B-UD-Q4_K_XL-MTP.gguf"
-# MODEL="ornith-1.0-35b-MTP-Q4_K_M.gguf"
-# MODEL="Qwen3.6-35B-A3B-UD-Q4_K_XL.gguf"
+# llama.cpp model registry - optimized for AMD 7900 XTX (24GB VRAM)
+# Usage: run-ai [model-id]
 
-# MODEL="Qwen3.6-35B-A3B-Claude-4.6-Opus-Reasoning-Distilled.Q4_K_M.gguf"
-# MODEL="Qwopus3.6-27B-v1-preview-Q6_K.gguf"
-#
-
-
-# MODEL="Qwopus3.6-35B-A3B-v1-APEX-MTP-I-Quality.gguf" # looping much
-
-
-
-# MODEL="Qwen3.6-27B-MTP-UD-Q4_K_XL.gguf"
-# MODEL="Qwen3.6-35B-A3B-UD-Q5_K_S.gguf"
-# MODEL="Qwen3.6-35B-A3B-UD-Q5_K_M.gguf"
-#
-# MODEL="gemma-4-26B-A4B-it-UD-Q5_K_XL.gguf"
-# MODEL="Qwen3-Coder-30B-A3B-Instruct-UD-Q4_K_XL.gguf"
-# MODEL="Qwen3-Coder-30B-A3B-Instruct-Q5_K_M.gguf"
-# MODEL="Nemotron-3-Nano-30B-A3B-Q5_K_S.gguf"
-# MODEL="Qwen3-53B-A3B-2507-THINKING-TOTAL-RECALL-v2-MASTER-CODER.i1-IQ3_M.gguf"
-# MODEL="Qwen3-Coder-30B-A3B-Instruct-IQ4_NL.gguf"
-# MODEL="Qwen3-Coder-30B-A3B-Instruct-Q4_K_M.gguf"
-# MODEL="IQuest-Coder-V1-40B-Instruct.q4_k_m.gguf"
-# MODEL="IQuest-Coder-V1-40B-Instruct.IQ4_XS.gguf"
-DATA=/home/sarunas/tmp/vllm
-
+DATA=/home/sarunas/ai-models/
+PRESET="$DATA/models.ini"
 
 export ROCR_VISIBLE_DEVICES=0
 
-BASE_ARGS=(
- # --n-cpu-moe 3
- --n-gpu-layers 999 
- -fa on 
- -m "$DATA/$MODEL" 
- -b 4096 
- -ub 1024 
- --cache-type-k q4_0
- --cache-type-v q4_0 
+
+# Build base command using llama.cpp's native registry support
+ARGS=(
+ "--models-dir" "$DATA"
+ "--models-preset" "$PRESET"
+  # Common overrides applied on top of registry presets
+  --jinja
+  --keep 4096
+  --port 8471 --host 0.0.0.0
 )
 
-ARGS=("${BASE_ARGS[@]}")
-ARGS+=(
- --alias cog 
- --jinja 
- --keep 4096 
- --port 8471 --host 0.0.0.0 
- --temp 0.56 --top-p 0.92 --repeat_penalty 1.16 --presence-penalty 0 
- --mirostat 2 --mirostat-ent 1.5 --mirostat-lr 0.1 
- --cache-reuse 512 
- --load-mode mlock
- -c 262144 
- -tb 24 
- -np 1 
- --spec-type draft-mtp --spec-draft-n-max 4 
- # --spec-type draft-dspark --spec-draft-n-max 3
- # --spec-draft-model "$DATA/Qwen3.6-35B-A3B-DSPARK-Q4_K_M.gguf"
- #
- --cache-type-k-draft q4_0
- --cache-type-v-draft q4_0
- --kv-unified 
- -cram 32768 
- # --swa-full 
- --reasoning on 
- --reasoning-preserve
- --chat-template-kwargs '{"preserve_thinking": true}'
-)
-
- # --kv-codec turboquant \
- # --kv-tq-runtime vulkan \
- # --chat-template-file "$DATA/qwen3.5-chat-template.custom1.jinja" \
- # -c 65536 \
- # -c 131072 \
- # -c 262144 \
- # --cache-type-k turbo4 \
- # --cache-type-v turbo3 \
- # --cache-type-k q4_0 \
- # --cache-type-v q4_0 \
- # --cache-type-k f16 \
- # --cache-type-v f16 \
- # --cache-type-k q8_0 \
- # --cache-type-v q8_0 \
- # --chat-template-file "$DATA/qwen3.5-chat-template.custom1.jinja" \
+# Pass through any additional args after the model ID
+shift 2>/dev/null || true
+if [ $# -gt 0 ]; then
+  ARGS+=("$@")
+fi
 
 set -x
-# llama-bench "${BASE_ARGS[@]}"
 llama-server "${ARGS[@]}"

@@ -91,7 +91,7 @@ end
 local local_openai_fn = function()
   local base = require("codecompanion.adapters").extend("openai_compatible", {
     env = {
-      url = "http://127.0.0.1:8000",
+      url = "http://127.0.0.1:8471",
       api_key = "TERM",
       chat_url = "/v1/chat/completions",
     },

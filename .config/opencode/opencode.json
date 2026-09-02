@@ -80,7 +80,7 @@
       "name": "llama-server (local)",
       "npm": "@ai-sdk/openai-compatible",
       "options": {
-        "baseURL": "http://127.0.0.1:8000/v1"
+        "baseURL": "http://127.0.0.1:8471/v1"
       }
     }
   }
