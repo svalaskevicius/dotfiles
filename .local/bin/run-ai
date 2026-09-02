@@ -1,12 +1,16 @@
 #!/bin/bash
 
+# MODEL="Qwen3.6-35B-A3B-MTP-UD-Q4_K_XL.gguf" # this was good
+# MODEL="Ornith-1.0-35B-UD-Q4_K_XL.gguf"
+MODEL="Ornith-1.0-35B-UD-Q4_K_XL-MTP.gguf"
+# MODEL="ornith-1.0-35b-MTP-Q4_K_M.gguf"
+# MODEL="Qwen3.6-35B-A3B-UD-Q4_K_XL.gguf"
+
 # MODEL="Qwen3.6-35B-A3B-Claude-4.6-Opus-Reasoning-Distilled.Q4_K_M.gguf"
 # MODEL="Qwopus3.6-27B-v1-preview-Q6_K.gguf"
-# MODEL="Qwen3.6-35B-A3B-UD-Q4_K_XL.gguf"
 #
 
 
-MODEL="Qwen3.6-35B-A3B-MTP-UD-Q4_K_XL.gguf" # this was good
 # MODEL="Qwopus3.6-35B-A3B-v1-APEX-MTP-I-Quality.gguf" # looping much
 
 
@@ -30,6 +34,7 @@ DATA=/home/sarunas/tmp/vllm
 export ROCR_VISIBLE_DEVICES=0
 
 BASE_ARGS=(
+ # --n-cpu-moe 3
  --n-gpu-layers 999 
  -fa on 
  -m "$DATA/$MODEL" 
@@ -44,21 +49,25 @@ ARGS+=(
  --alias cog 
  --jinja 
  --keep 4096 
- --port 8000 --host 0.0.0.0 
+ --port 8471 --host 0.0.0.0 
  --temp 0.56 --top-p 0.92 --repeat_penalty 1.16 --presence-penalty 0 
  --mirostat 2 --mirostat-ent 1.5 --mirostat-lr 0.1 
  --cache-reuse 512 
- --no-mmap --mlock 
+ --load-mode mlock
  -c 262144 
  -tb 24 
  -np 1 
- --spec-type draft-mtp --spec-draft-n-max 3 
+ --spec-type draft-mtp --spec-draft-n-max 4 
+ # --spec-type draft-dspark --spec-draft-n-max 3
+ # --spec-draft-model "$DATA/Qwen3.6-35B-A3B-DSPARK-Q4_K_M.gguf"
+ #
  --cache-type-k-draft q4_0
  --cache-type-v-draft q4_0
  --kv-unified 
  -cram 32768 
- --swa-full 
+ # --swa-full 
  --reasoning on 
+ --reasoning-preserve
  --chat-template-kwargs '{"preserve_thinking": true}'
 )
 
