@@ -1,3 +1,0 @@
-#!/bin/sh
-
-QT_QPA_PLATFORM=wayland LD_LIBRARY_PATH=/opt/zoom/cef:/opt/zoom/Qt/lib /opt/zoom/zoom
