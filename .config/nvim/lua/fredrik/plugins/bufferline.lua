@@ -1,3 +1,67 @@
+local tab_buffers = {}
+
+local function current_tab()
+  return vim.api.nvim_get_current_tabpage()
+end
+
+local function add_buffer(bufnr, tab)
+  if vim.api.nvim_buf_is_valid(bufnr) then
+    tab_buffers[tab] = tab_buffers[tab] or {}
+    tab_buffers[tab][bufnr] = true
+  end
+end
+
+local function cleanup_tab(tab)
+  local buffers = tab_buffers[tab]
+
+  if not buffers then
+    return
+  end
+
+  for bufnr in pairs(buffers) do
+    if not vim.api.nvim_buf_is_valid(bufnr) then
+      buffers[bufnr] = nil
+    end
+  end
+end
+
+-- Autocmds
+vim.api.nvim_create_autocmd("BufEnter", {
+  callback = function(args)
+    add_buffer(args.buf, current_tab())
+  end,
+})
+
+vim.api.nvim_create_autocmd("BufDelete", {
+  callback = function(args)
+    for _, buffers in pairs(tab_buffers) do
+      buffers[args.buf] = nil
+    end
+  end,
+})
+
+vim.api.nvim_create_autocmd("TabNew", {
+  callback = function()
+    local tab = current_tab()
+
+    vim.schedule(function()
+      if not vim.api.nvim_tabpage_is_valid(tab) then
+        return
+      end
+
+      for _, win in ipairs(vim.api.nvim_tabpage_list_wins(tab)) do
+        add_buffer(vim.api.nvim_win_get_buf(win), tab)
+      end
+    end)
+  end,
+})
+
+vim.api.nvim_create_autocmd("TabClosed", {
+  callback = function(args)
+    tab_buffers[tonumber(args.file)] = nil
+  end,
+})
+
 return {
 
   {
@@ -17,20 +81,15 @@ return {
           return "(" .. count .. ")"
         end,
         -- NOTE: this will be called a lot so don't do any heavy processing here
-        custom_filter = function(buf_number)
-          -- filter out filetypes you don't want to see
-          if vim.bo[buf_number].filetype ~= "qf" then
-            return true
+        custom_filter = function(bufnr)
+          if vim.bo[bufnr].filetype == "qf" then
+            return false
           end
-          -- -- filter out by buffer name
-          -- if vim.fn.bufname(buf_number) ~= "<buffer-name-I-dont-want>" then
-          --   return true
-          -- end
-          -- -- filter out based on arbitrary rules
-          -- -- e.g. filter out vim wiki buffer from tabline in your work repo
-          -- if vim.fn.getcwd() == "<work-repo>" and vim.bo[buf_number].filetype ~= "wiki" then
-          --   return true
-          -- end
+
+          local tab = current_tab()
+          cleanup_tab(tab)
+
+          return tab_buffers[tab] and tab_buffers[tab][bufnr] == true
         end,
         offsets = { { filetype = "NvimTree", text = "File Explorer", text_align = "left" } },
         show_buffer_icons = true, -- disable filetype icons for buffers
