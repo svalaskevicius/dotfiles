@@ -29,7 +29,6 @@ bwrap_args=(
   --ro-bind /lib /lib
   --ro-bind /lib64 /lib64
 
-  --ro-bind /usr/sbin /usr/sbin
   --ro-bind /sbin /sbin
 
   --ro-bind /etc/resolv.conf /etc/resolv.conf

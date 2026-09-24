@@ -34,22 +34,24 @@
       "enabled": true,
       "type": "local"
     },
-    "lean-ctx": {
-      "command": [
-        "/home/sarunas/.local/bin/lean-ctx"
-      ],
-      "enabled": true,
-      "environment": {
-        "LEAN_CTX_DATA_DIR": "/home/sarunas/.config/lean-ctx"
-      },
-      "type": "local"
-    },
     "background-job": {
       "command": [
         "uvx",
         "mcp-background-job"
       ],
       "enabled": true,
+      "environment": {},
+      "type": "local"
+    },
+    "djinnvim": {
+      "command": [
+        "uvx",
+        "--from",
+        "git+https://github.com/svalaskevicius/djinnvim",
+        "djinnvim",
+        "mcp"
+      ],
+      "enabled": false,
       "environment": {},
       "type": "local"
     }
@@ -74,7 +76,17 @@
             "context": 262144,
             "output": 131072
           },
-          "name": "cog"
+          "name": "cog",
+          "attachment": true,
+          "modalities": {
+            "input": [
+              "text",
+              "image"
+            ],
+            "output": [
+              "text"
+            ]
+          }
         }
       },
       "name": "llama-server (local)",
