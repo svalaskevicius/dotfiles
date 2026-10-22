@@ -19,6 +19,37 @@ else
   CHDIR_PATH="."
 fi
 
+SHARE_NET=0
+ADD_HOME=0
+ROCM=0
+while [ $# -gt 0 ] ; do
+    case "$1" in
+        "--with-net") 
+            SHARE_NET=1 
+            shift
+            ;;
+        "--home") 
+            ADD_HOME=1 
+            shift
+            ;;
+        "--rocm") 
+            ROCM=1 
+            shift
+            ;;
+        *) break
+    esac
+done
+
+TMP="/tmp/sandbox-$(pwd | md5sum - | cut -d' ' -f1)"
+
+# function clean_on_exit() {
+#     rm -rf "$TMP"
+# }
+# 
+# trap clean_on_exit EXIT
+
+mkdir -p "$TMP"
+
 
 bwrap_args=(
   --unshare-all
@@ -40,9 +71,30 @@ bwrap_args=(
   --ro-bind /etc/java21-openjdk /etc/java21-openjdk
 
   --proc /proc
-  --tmpfs /tmp
+  --bind "$TMP" /tmp
   --dev /dev
+)
 
+if [ "$SHARE_NET" = "1" ] ; then
+    bwrap_args+=( --share-net )
+fi
+
+if [ "$ADD_HOME" = "1" ] ; then
+    HOME_DIR="$WORKSPACE_DIR/.sandbox-home"
+    mkdir -p "$HOME_DIR"
+    bwrap_args+=( --bind "$HOME_DIR" "$HOME" )
+fi
+
+if [ "$ROCM" = "1" ] ; then
+    bwrap_args+=(
+        --ro-bind /opt/rocm /opt/rocm
+        --dev-bind /dev/kfd /dev/kfd
+        --dev-bind /dev/dri /dev/dri
+        --ro-bind /sys /sys
+    )
+fi
+
+bwrap_args+=(
   --dir "$HOME"
   --setenv HOME "$HOME"
   --setenv TMPDIR /tmp
@@ -54,8 +106,12 @@ bwrap_args=(
   --unsetenv SSH_AUTH_SOCK
   --unsetenv SSH_AGENT_PID
 
+  --bind "$XDG_RUNTIME_DIR" "$XDG_RUNTIME_DIR"
+
   --die-with-parent
 )
+
+
 
 # exec bwrap "${bwrap_args[@]}" -- "$@"
 exec bwrap "${bwrap_args[@]}" -- bash -c 'source .envrc 2>/dev/null || true; exec "$0" "$@"' -- "$@"
