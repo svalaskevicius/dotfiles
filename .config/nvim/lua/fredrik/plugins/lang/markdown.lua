@@ -68,9 +68,13 @@ return {
   },
 
   {
-    "iamcco/markdown-preview.nvim",
+    "svalaskevicius/markdown-preview.nvim",
     lazy = true,
     ft = { "markdown" },
+    build = "cd app && yarn install",
+    init = function()
+      vim.g.mkdp_filetypes = { "markdown" }
+    end,
     -- build = function()
     --   vim.fn["mkdp#util#install"]()
     -- end,
