@@ -20,9 +20,9 @@ if test -z "${ORIG:-}"; then
   exit 1
 fi
 
-# Find git root: cwd if it has .git, walk up parents, fallback to cwd
+# Find git root: cwd if it has .git, walk up parents, fallback to cwd.
 WORKSPACE_DIR="$PWD"
-while [ ! -d "$WORKSPACE_DIR/.git" ]; do
+while [ ! -e "$WORKSPACE_DIR/.git" ]; do
   WORKSPACE_DIR="$(dirname "$WORKSPACE_DIR")"
   if [ "$WORKSPACE_DIR" = "/" ]; then
     WORKSPACE_DIR="$PWD"
@@ -33,6 +33,28 @@ done
 if [[ "$WORKSPACE_DIR" != "$HOME/"* ]]; then
     echo "Error: WORKSPACE_DIR must be a subdirectory of HOME" >&2
     exit 1
+fi
+
+# In a linked worktree, .git is a file ("gitdir: <main>/.git/worktrees/<name>")
+# and the repo's objects/refs live in the main repo's .git, outside
+# WORKSPACE_DIR. Bind just that common git dir (not the main checkout) so git
+# works, including commits, inside the sandbox.
+GIT_COMMON_DIR=""
+if [ -f "$WORKSPACE_DIR/.git" ]; then
+  WT_GITDIR="$(sed -n 's/^gitdir: //p' "$WORKSPACE_DIR/.git")"
+  if [ -n "$WT_GITDIR" ]; then
+    [[ "$WT_GITDIR" == /* ]] || WT_GITDIR="$WORKSPACE_DIR/$WT_GITDIR"
+    WT_GITDIR="$(readlink -f "$WT_GITDIR")"
+    if [ -f "$WT_GITDIR/commondir" ]; then
+      GIT_COMMON_DIR="$(readlink -f "$WT_GITDIR/$(cat "$WT_GITDIR/commondir")")"
+    else
+      GIT_COMMON_DIR="$WT_GITDIR"
+    fi
+  fi
+  if [ -z "$GIT_COMMON_DIR" ] || [ ! -d "$GIT_COMMON_DIR" ]; then
+    echo "Warning: worktree's git dir '${GIT_COMMON_DIR:-?}' not found, git won't work in the sandbox" >&2
+    GIT_COMMON_DIR=""
+  fi
 fi
 
 # Compute relative path from git root to original cwd for --chdir
@@ -89,6 +111,8 @@ bwrap_args=(
   --bind "$HOME/.cache/bloop" "$HOME/.cache/bloop"
   --ro-bind "$HOME/.local/bin/git" "$HOME/.local/bin/git" 
 
+  --bind "$HOME/.crit" "$HOME/.crit"
+
   --bind "$WORKSPACE_DIR" "$WORKSPACE_DIR"
   --chdir "$WORKSPACE_DIR/${CHDIR_PATH}"
 
@@ -96,9 +120,14 @@ bwrap_args=(
   --setenv OPENSPEC_TELEMETRY 0
   --unsetenv SSH_AUTH_SOCK
   --unsetenv SSH_AGENT_PID
+  --setenv CLAUDE_CODE_DISABLE_BG_SHELL_PRESSURE_REAP 1
 
   --die-with-parent
 )
+
+if [ -n "$GIT_COMMON_DIR" ] && [[ "$GIT_COMMON_DIR" != "$WORKSPACE_DIR/"* ]]; then
+  bwrap_args+=( --bind "$GIT_COMMON_DIR" "$GIT_COMMON_DIR" )
+fi
 
 for m in "$HOME/.local/bin/git" "$HOME/.local/bin/sandbox" "$HOME/.local/share/coursier" ; do
   if test -e "$m"; then
