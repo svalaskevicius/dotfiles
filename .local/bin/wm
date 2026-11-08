@@ -17,10 +17,8 @@ trap session_cleanup INT TERM
 
 systemctl --user start sway-session.target
 
-# exec $HOME/src/sway-dev/build/sway/sway > >(gzip > ~/.sway.out.gz) 2> >(gzip > ~/.sway.err.gz)
-# exec $HOME/src/sway-dev/build/sway/sway --debug > >(gzip > ~/.sway.out.gz) 2> >(gzip > ~/.sway.err.gz)
-# exec $HOME/src/sway-dev/build/sway/sway --debug > >(gzip > ~/.sway.out.gz) 2> >(gzip > ~/.sway.err.gz)
-dbus-run-session -- $HOME/src/sway-dev/build/sway/sway --debug > >(gzip > ~/.sway.out.gz) 2> >(gzip > ~/.sway.err.gz)
+# dbus-run-session -- $HOME/src/sway-dev/build/sway/sway --debug > >(gzip > ~/.sway.out.gz) 2> >(gzip > ~/.sway.err.gz)
+dbus-run-session -- $HOME/src/sway/build/sway/sway --debug > >(gzip > ~/.sway.out.gz) 2> >(gzip > ~/.sway.err.gz)
 
 # run cleanup handler on normal exit
 session_cleanup

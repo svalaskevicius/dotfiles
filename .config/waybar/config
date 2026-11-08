@@ -33,7 +33,7 @@
             "8": "8",
             "9": "9",
             "0": "0",
-            "urgent": "",
+            "urgent": ""
             // "focused": "",
             // "default": ""
         }
@@ -59,7 +59,7 @@
     "sway/language": {
         "format": "<big> </big> {}",
         "max-length": 5,
-        "min-length": 5,
+        "min-length": 5
     },
     "idle_inhibitor": {
         "format": "{icon}",
@@ -76,14 +76,12 @@
     "clock": {
         "format": "  {:%H:%M    %e %b}",
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><big>{calendar}</big></tt>",
-        "today-format": "<b>{}</b>",
+        "today-format": "<b>{}</b>"
         // "on-click": "gnome-calendar"
     },
     "cpu": {
         "interval": "1",
         "format": "  {max_frequency}GHz <span color=\"darkgray\">| {usage}%</span>",
-        "max-length": 13,
-        "min-length": 13,
         "on-click": "kitty -e htop --sort-key PERCENT_CPU",
         "tooltip": false,
         "max-length": 15,
@@ -93,7 +91,7 @@
         "interval": 5,
         "format": "  {}%",
         "max-length": 7,
-        "min-length": 7
+        "min-length": 5
     },
     "temperature": {
         //"thermal-zone": 1,
@@ -121,20 +119,18 @@
         "scroll-step": 3, // %, can be a float
         "format": "{icon} {volume}% {format_source}",
         "format-bluetooth": "{volume}% {icon} {format_source}",
-        "format-bluetooth-muted": " {icon} {format_source}",
-        "format-muted": " {format_source}",
-        //"format-source": "{volume}% ",
-        //"format-source-muted": "",
+        "format-bluetooth-muted": "🔇 {icon} {format_source}",
+        "format-muted": "🔇 {format_source}",
         "format-source": "",
-        "format-source-muted": "",
+        "format-source-muted": " ",
         "format-icons": {
-            "headphone": "",
-            "hands-free": "",
-            "headset": "",
-            "phone": "",
-            "portable": "",
+            "headphone": " ",
+            "hands-free": " ",
+            "headset": " ",
+            "phone": " ",
+            "portable": " ",
             "car": "",
-            "default": ["", "", ""]
+            "default": [" ", " ", " "]
         },
         "on-click": "pavucontrol",
         "on-click-right": "pactl set-source-mute @DEFAULT_SOURCE@ toggle"

@@ -21,6 +21,7 @@ fi
 
 SHARE_NET=0
 ADD_HOME=0
+ADD_TMP=0
 ROCM=0
 while [ $# -gt 0 ] ; do
     case "$1" in
@@ -28,28 +29,43 @@ while [ $# -gt 0 ] ; do
             SHARE_NET=1 
             shift
             ;;
-        "--home") 
-            ADD_HOME=1 
+        "--tmp") 
             shift
+            ADD_TMP=1 
+            case "$1" in
+                "--"*)
+                    TMP_DIR="$WORKSPACE_DIR/.sandbox-tmp"
+                    ;;
+                *)
+                    TMP_DIR="$1"
+                    shift
+                    ;;
+            esac
+            ;;
+        "--home") 
+            shift
+            ADD_HOME=1 
+            case "$1" in
+                "--"*)
+                    HOME_DIR="$WORKSPACE_DIR/.sandbox-home"
+                    ;;
+                *)
+                    HOME_DIR="$1"
+                    shift
+                    ;;
+            esac
             ;;
         "--rocm") 
             ROCM=1 
             shift
             ;;
+        "--")
+            shift
+            break
+            ;;
         *) break
     esac
 done
-
-TMP="/tmp/sandbox-$(pwd | md5sum - | cut -d' ' -f1)"
-
-# function clean_on_exit() {
-#     rm -rf "$TMP"
-# }
-# 
-# trap clean_on_exit EXIT
-
-mkdir -p "$TMP"
-
 
 bwrap_args=(
   --unshare-all
@@ -71,7 +87,6 @@ bwrap_args=(
   --ro-bind /etc/java21-openjdk /etc/java21-openjdk
 
   --proc /proc
-  --bind "$TMP" /tmp
   --dev /dev
 )
 
@@ -80,9 +95,12 @@ if [ "$SHARE_NET" = "1" ] ; then
 fi
 
 if [ "$ADD_HOME" = "1" ] ; then
-    HOME_DIR="$WORKSPACE_DIR/.sandbox-home"
     mkdir -p "$HOME_DIR"
     bwrap_args+=( --bind "$HOME_DIR" "$HOME" )
+fi
+if [ "$ADD_TMP" = "1" ] ; then
+    mkdir -p "$TMP_DIR"
+    bwrap_args+=( --bind "$TMP_DIR" /tmp )
 fi
 
 if [ "$ROCM" = "1" ] ; then
