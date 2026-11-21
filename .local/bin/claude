@@ -110,6 +110,7 @@ bwrap_args=(
   --bind "$HOME/.cache/coursier" "$HOME/.cache/coursier"
   --bind "$HOME/.cache/bloop" "$HOME/.cache/bloop"
   --ro-bind "$HOME/.local/bin/git" "$HOME/.local/bin/git" 
+  --bind "$HOME/.config/gh" "$HOME/.config/gh"
 
   --bind "$HOME/.crit" "$HOME/.crit"
 

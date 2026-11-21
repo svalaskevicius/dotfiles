@@ -3,14 +3,42 @@
 set -euo pipefail
 
 # Find git root: cwd if it has .git, walk up parents, fallback to cwd
+# Find git root: cwd if it has .git, walk up parents, fallback to cwd.
 WORKSPACE_DIR="$PWD"
-while [ ! -d "$WORKSPACE_DIR/.git" ]; do
+while [ ! -e "$WORKSPACE_DIR/.git" ]; do
   WORKSPACE_DIR="$(dirname "$WORKSPACE_DIR")"
   if [ "$WORKSPACE_DIR" = "/" ]; then
     WORKSPACE_DIR="$PWD"
     break
   fi
 done
+
+if [[ "$WORKSPACE_DIR" != "$HOME/"* ]]; then
+    echo "Error: WORKSPACE_DIR must be a subdirectory of HOME" >&2
+    exit 1
+fi
+
+# In a linked worktree, .git is a file ("gitdir: <main>/.git/worktrees/<name>")
+# and the repo's objects/refs live in the main repo's .git, outside
+# WORKSPACE_DIR. Bind just that common git dir (not the main checkout) so git
+# works, including commits, inside the sandbox.
+GIT_COMMON_DIR=""
+if [ -f "$WORKSPACE_DIR/.git" ]; then
+  WT_GITDIR="$(sed -n 's/^gitdir: //p' "$WORKSPACE_DIR/.git")"
+  if [ -n "$WT_GITDIR" ]; then
+    [[ "$WT_GITDIR" == /* ]] || WT_GITDIR="$WORKSPACE_DIR/$WT_GITDIR"
+    WT_GITDIR="$(readlink -f "$WT_GITDIR")"
+    if [ -f "$WT_GITDIR/commondir" ]; then
+      GIT_COMMON_DIR="$(readlink -f "$WT_GITDIR/$(cat "$WT_GITDIR/commondir")")"
+    else
+      GIT_COMMON_DIR="$WT_GITDIR"
+    fi
+  fi
+  if [ -z "$GIT_COMMON_DIR" ] || [ ! -d "$GIT_COMMON_DIR" ]; then
+    echo "Warning: worktree's git dir '${GIT_COMMON_DIR:-?}' not found, git won't work in the sandbox" >&2
+    GIT_COMMON_DIR=""
+  fi
+fi
 
 # Compute relative path from git root to original cwd for --chdir
 if [[ "$PWD" == "$WORKSPACE_DIR/"* ]]; then
@@ -22,6 +50,7 @@ fi
 SHARE_NET=0
 ADD_HOME=0
 ADD_TMP=0
+ADD_CRIT=0
 ROCM=0
 while [ $# -gt 0 ] ; do
     case "$1" in
@@ -59,6 +88,10 @@ while [ $# -gt 0 ] ; do
             ROCM=1 
             shift
             ;;
+        "--crit") 
+            ADD_CRIT=1 
+            shift
+            ;;
         "--")
             shift
             break
@@ -69,7 +102,6 @@ done
 
 bwrap_args=(
   --unshare-all
-  # --share-net
 
   --ro-bind /usr /usr
   --ro-bind /bin /bin
@@ -93,14 +125,21 @@ bwrap_args=(
 if [ "$SHARE_NET" = "1" ] ; then
     bwrap_args+=( --share-net )
 fi
-
 if [ "$ADD_HOME" = "1" ] ; then
     mkdir -p "$HOME_DIR"
-    bwrap_args+=( --bind "$HOME_DIR" "$HOME" )
+    bwrap_args+=( 
+        --bind "$HOME_DIR" "$HOME" 
+        --ro-bind "$HOME/.gitconfig" "$HOME/.gitconfig"
+        --ro-bind "$HOME/.gitignore_global" "$HOME/.gitignore_global"
+    )
 fi
 if [ "$ADD_TMP" = "1" ] ; then
     mkdir -p "$TMP_DIR"
     bwrap_args+=( --bind "$TMP_DIR" /tmp )
+fi
+if [ "$ADD_CRIT" = "1" ] ; then
+    mkdir -p "$HOME/.crit"
+    bwrap_args+=( --bind "$HOME/.crit" "$HOME/.crit" )
 fi
 
 if [ "$ROCM" = "1" ] ; then
@@ -117,6 +156,7 @@ bwrap_args+=(
   --setenv HOME "$HOME"
   --setenv TMPDIR /tmp
 
+  --bind "$HOME/.crit" "$HOME/.crit"
   --bind "$WORKSPACE_DIR" "$WORKSPACE_DIR"
   --chdir "$WORKSPACE_DIR/${CHDIR_PATH}"
 
@@ -129,6 +169,9 @@ bwrap_args+=(
   --die-with-parent
 )
 
+if [ -n "$GIT_COMMON_DIR" ] && [[ "$GIT_COMMON_DIR" != "$WORKSPACE_DIR/"* ]]; then
+  bwrap_args+=( --bind "$GIT_COMMON_DIR" "$GIT_COMMON_DIR" )
+fi
 
 
 # exec bwrap "${bwrap_args[@]}" -- "$@"
