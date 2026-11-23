@@ -2,7 +2,6 @@
 
 set -euo pipefail
 
-# Find git root: cwd if it has .git, walk up parents, fallback to cwd
 # Find git root: cwd if it has .git, walk up parents, fallback to cwd.
 WORKSPACE_DIR="$PWD"
 while [ ! -e "$WORKSPACE_DIR/.git" ]; do
@@ -47,16 +46,96 @@ else
   CHDIR_PATH="."
 fi
 
+# Resolve one --mount argument, "SRC" or "SRC:TARGET", into a bind pair.
+# The target defaults to the source, so a directory mounted without a target
+# appears inside at the same path it has outside. Sources may be relative and
+# are resolved against the caller's cwd. Results: MOUNT_SRC, MOUNT_TARGET.
+resolve_mount() {
+  local spec="$1" src target
+  src="${spec%%:*}"
+  if [ "$spec" = "$src" ]; then
+    target="$src"
+  else
+    target="${spec#*:}"
+  fi
+  [[ "$src" == /* ]] || src="$PWD/$src"
+  # -m, not -f: a missing source must reach the check below, where it is
+  # reported. `readlink -f` exits non-zero on a missing path, and set -e
+  # would kill the script before the message.
+  src="$(readlink -m "$src")"
+  if [ ! -d "$src" ]; then
+    echo "Error: --mount source '$src' is not a directory" >&2
+    exit 1
+  fi
+  if [[ "$target" != /* ]]; then
+    echo "Error: --mount target '$target' must be an absolute path" >&2
+    exit 1
+  fi
+  MOUNT_SRC="$src"
+  MOUNT_TARGET="$target"
+}
+
+usage() {
+  cat <<'EOF'
+sandbox - run a command in a bubblewrap sandbox
+
+Usage: sandbox [OPTIONS] [--] COMMAND [ARGS...]
+
+Starts in the git root (walked up from the cwd, which must be under $HOME).
+The workspace is writable at its own path; the system directories are read
+only; $HOME is an empty directory; the network is isolated. .envrc from the
+git root is sourced before COMMAND runs.
+
+OPTIONS
+  --with-net            Share the host network. Default: no network at all.
+  --mount SRC[:TARGET]  Bind-mount a directory read-write at TARGET inside the
+                        sandbox. TARGET defaults to SRC, i.e. the same path.
+                        Repeatable. SRC may be a relative path.
+  --tmp [DIR]           Writable /tmp backed by DIR. Default DIR: ROOT/.sandbox-tmp
+  --home [DIR]          Writable $HOME mirror backed by DIR, plus the host
+                        .gitconfig and .gitignore_global. Default DIR: ROOT/.sandbox-home
+  --rocm                Expose /opt/rocm, /dev/kfd and /dev/dri for GPU work.
+  --crit                Share ~/.crit read-write for Crit review sessions.
+  -h, --help            Show this help and exit.
+
+EXAMPLES
+  sandbox -- pytest tests/            # offline, project venv, writable worktree
+  sandbox --tmp -- pytest tests/      # the same, with a writable /tmp
+  sandbox --with-net -- pip install -r requirements.txt
+  sandbox --mount /data/edgar -- ls /data/edgar
+  sandbox --mount ./ui/dist:/srv/static -- ls /srv/static
+
+See also: ./test.sh (the project gate), /skill:running-the-ui
+EOF
+}
+
 SHARE_NET=0
 ADD_HOME=0
 ADD_TMP=0
 ADD_CRIT=0
 ROCM=0
+MOUNTS=()
 while [ $# -gt 0 ] ; do
     case "$1" in
         "--with-net") 
             SHARE_NET=1 
             shift
+            ;;
+        "--mount")
+            shift
+            case "${1:-}" in
+                ""|"--"*)
+                    echo "Error: --mount needs SRC[:TARGET], e.g. --mount /data:/opt/data" >&2
+                    exit 1
+                    ;;
+            esac
+            resolve_mount "$1"
+            shift
+            MOUNTS+=( --bind "$MOUNT_SRC" "$MOUNT_TARGET" )
+            ;;
+        "-h"|"--help")
+            usage
+            exit 0
             ;;
         "--tmp") 
             shift
@@ -100,8 +179,14 @@ while [ $# -gt 0 ] ; do
     esac
 done
 
+if [ $# -eq 0 ] ; then
+    usage >&2
+    exit 1
+fi
+
 bwrap_args=(
   --unshare-all
+  --clearenv
 
   --ro-bind /usr /usr
   --ro-bind /bin /bin
@@ -136,6 +221,8 @@ fi
 if [ "$ADD_TMP" = "1" ] ; then
     mkdir -p "$TMP_DIR"
     bwrap_args+=( --bind "$TMP_DIR" /tmp )
+else
+    bwrap_args+=( --size 536870912 --tmpfs /tmp )
 fi
 if [ "$ADD_CRIT" = "1" ] ; then
     mkdir -p "$HOME/.crit"
@@ -156,7 +243,6 @@ bwrap_args+=(
   --setenv HOME "$HOME"
   --setenv TMPDIR /tmp
 
-  --bind "$HOME/.crit" "$HOME/.crit"
   --bind "$WORKSPACE_DIR" "$WORKSPACE_DIR"
   --chdir "$WORKSPACE_DIR/${CHDIR_PATH}"
 
@@ -164,15 +250,20 @@ bwrap_args+=(
   --unsetenv SSH_AUTH_SOCK
   --unsetenv SSH_AGENT_PID
 
-  --bind "$XDG_RUNTIME_DIR" "$XDG_RUNTIME_DIR"
-
   --die-with-parent
 )
+
+if [ -n "${XDG_RUNTIME_DIR:-}" ] && [ -e "$XDG_RUNTIME_DIR" ] ; then
+    bwrap_args+=( --bind "$XDG_RUNTIME_DIR" "$XDG_RUNTIME_DIR" )
+fi
+
+# --mount binds are appended last so an explicit target inside the workspace
+# overlays the workspace bind rather than being hidden by it.
+bwrap_args+=( "${MOUNTS[@]}" )
 
 if [ -n "$GIT_COMMON_DIR" ] && [[ "$GIT_COMMON_DIR" != "$WORKSPACE_DIR/"* ]]; then
   bwrap_args+=( --bind "$GIT_COMMON_DIR" "$GIT_COMMON_DIR" )
 fi
-
 
 # exec bwrap "${bwrap_args[@]}" -- "$@"
 exec bwrap "${bwrap_args[@]}" -- bash -c 'source .envrc 2>/dev/null || true; exec "$0" "$@"' -- "$@"
